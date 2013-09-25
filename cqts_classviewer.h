@@ -2,8 +2,9 @@
 #define CQTS_CLASSVIEWER_H
 
 #include <QWidget>
+#include <QGroupBox>
 
-class CQTs_ClassViewer : public QWidget
+class CQTs_ClassViewer : public QGroupBox
 {
     Q_OBJECT
 public:
