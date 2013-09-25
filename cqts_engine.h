@@ -17,7 +17,8 @@ public:
 class CQTs_Class
 {
 public:
-    CQTs_Class();
+    CQTs_Class(QString classLink);
+
 private:
     QString Name;
     int lmax;//20,10,5,3 so he can understand if is baseclass or not//may be made compatible with d20System in general
