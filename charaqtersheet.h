@@ -2,6 +2,7 @@
 #define CHARAQTERSHEET_H
 
 #include <QMainWindow>
+#include <QMenuBar>
 
 class CharaQTersheet : public QMainWindow
 {
@@ -10,6 +11,7 @@ class CharaQTersheet : public QMainWindow
 public:
     CharaQTersheet(QWidget *parent = 0);
     ~CharaQTersheet();
+//private:
 };
 
 #endif // CHARAQTERSHEET_H
