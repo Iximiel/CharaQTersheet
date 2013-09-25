@@ -13,6 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        charaqtersheet.cpp
+        charaqtersheet.cpp \
+    cqts_classviewer.cpp \
+    cqts_engine.cpp
 
-HEADERS  += charaqtersheet.h
+HEADERS  += charaqtersheet.h \
+    cqts_classviewer.h \
+    cqts_engine.h
