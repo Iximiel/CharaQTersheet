@@ -52,9 +52,7 @@ CQTs_Class::CQTs_Class(QString classLink){
 
 QString CQTs_Class::className(){return Name;}
 
-int CQTs_Class::classBAB(){
-    return 0;
-}
+int CQTs_Class::classBAB(){return BAB;}
 
 bool CQTs_Class::STFort(){return fort;}
 
