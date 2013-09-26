@@ -1,5 +1,4 @@
 #include "cqts_classviewer.h"
-#include "cqts_engine.h"
 #include <QLabel>
 #include <QGridLayout>
 
@@ -8,7 +7,7 @@ CQTs_ClassViewer::CQTs_ClassViewer(QWidget *parent) :
 {
     QGridLayout *grid = new QGridLayout();
 
-    QLabel *Tlab = new QLabel(tr("Class:"));
+    QLabel *Tlab = new QLabel(tr("Name:"));
     grid->addWidget(Tlab,0,0);
 
     Tlab = new QLabel(tr("Base Attack bonus:"));
@@ -25,16 +24,6 @@ CQTs_ClassViewer::CQTs_ClassViewer(QWidget *parent) :
     grid2->addWidget(Tlab,2,0);
     SavesBox->setLayout(grid2);
 
-    ComboSel = new QComboBox();
-    grid->addWidget(ComboSel,0,1);
-
-    connect(ComboSel,SIGNAL(currentIndexChanged(QString)),this,SLOT(selected(QString)));
-
-    ComboSel->addItems(extensionFind("*.ClC"));
     setLayout(grid);
 }
 
-void CQTs_ClassViewer::selected(QString id){
-
-    new CQTs_Class(id.remove(".ClC"));
-}
