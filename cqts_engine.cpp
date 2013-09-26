@@ -50,6 +50,18 @@ CQTs_Class::CQTs_Class(QString classLink){
 
 }
 
+QString CQTs_Class::className(){return Name;}
+
+int CQTs_Class::classBAB(){
+    return 0;
+}
+
+bool CQTs_Class::STFort(){return fort;}
+
+bool CQTs_Class::STRef(){return ref;}
+
+bool CQTs_Class::STWill(){return will;}
+
 /*****utilities*****/
 
 QStringList extensionFind(QString ext,QString dir){
