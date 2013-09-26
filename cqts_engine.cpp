@@ -34,16 +34,15 @@ CQTs_Class::CQTs_Class(QString classLink){
 
 /*****utilities*****/
 
-QStringList extensionFind(QString ext){
+QStringList extensionFind(QString ext,QString dir){
     //protocol to get list of files, may export it
-    QDir currentDir;
-    qDebug() << currentDir.dirName();
+    QDir currentDir(dir);
 
-    QStringList files;// = new QStringList();
-    files = currentDir.entryList(QStringList(ext),QDir::Files | QDir::NoSymLinks);
-    int total =files.length();
-    for (int i = 0; i < total; ++i) {
-        qDebug() << files [i];
-    }
-    return files;
+    QStringList filelist;
+    filelist = currentDir.entryList(QStringList(ext),QDir::Files | QDir::NoSymLinks);
+    return filelist;
+}
+
+QStringList extensionFind(QString ext){
+    return extensionFind(ext,"./");
 }
