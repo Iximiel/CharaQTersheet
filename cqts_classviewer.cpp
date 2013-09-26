@@ -28,7 +28,7 @@ void CQTs_ClassViewer::initialize(){
     grid->addWidget(Tlab,0,0);
     grid->addWidget(LabName,0,1);
 
-    Tlab = new QLabel(tr("Base Attack bonus:"));
+    Tlab = new QLabel(tr("Base Attack Bonus:"));
     grid->addWidget(Tlab,1,0);
     grid->addWidget(LabBAB,1,1);
 
