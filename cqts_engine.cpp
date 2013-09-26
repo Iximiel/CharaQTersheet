@@ -35,11 +35,10 @@ CQTs_Class::CQTs_Class(QString classLink){
         in >> lmax;
         in >> data;
     }
-    fort = (data & F)/F;
-    ref = (data & R)/R;
-    will = (data & W)/W;
-    fort = (data & F)/F;
-    BAB = (data & bab);
+    fort = (data & F)/F;//good? 0/1
+    ref = (data & R)/R;//good? 0/1
+    will = (data & W)/W;//good ?0/1
+    BAB = (data & bab);// good 10, poor 01, average 11, i know it's not intuitive
     qDebug()<<Name;
     qDebug()<<lmax;
     qDebug()<<data;

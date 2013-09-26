@@ -7,10 +7,17 @@ CQTs_ClassViewer::CQTs_ClassViewer(QWidget *parent) :
     initialize();
 }
 
-CQTs_ClassViewer::CQTs_ClassViewer(CQTs_Class selected, QWidget *parent) :
+CQTs_ClassViewer::CQTs_ClassViewer(CQTs_Class *selected, QWidget *parent) :
     QGroupBox(tr("Class Viewer"),parent)
 {
     initialize();
+    QString bonus[3]={tr("Good"),tr("Poor"),tr("Average");
+
+    LabName ->setText();
+    LabBAB ->setText();
+    LabFort ->setText();
+    LabRef ->setText();
+    LabWill ->setText();
 }
 
 void CQTs_ClassViewer::initialize(){
