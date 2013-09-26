@@ -11,13 +11,13 @@ CQTs_ClassViewer::CQTs_ClassViewer(CQTs_Class *selected, QWidget *parent) :
     QGroupBox(tr("Class Viewer"),parent)
 {
     initialize();
-    QString bonus[3]={tr("Good"),tr("Poor"),tr("Average");
+    QString bonus[3]={tr("Good"),tr("Poor"),tr("Average")};
 
-    LabName ->setText();
-    LabBAB ->setText();
-    LabFort ->setText();
-    LabRef ->setText();
-    LabWill ->setText();
+    LabName ->setText(selected->className());
+    LabBAB ->setText(bonus[selected->classBAB()]);
+    LabFort ->setText(bonus[selected->STFort()]);
+    LabRef ->setText(bonus[selected->STRef()]);
+    LabWill ->setText(bonus[selected->STWill()]);
 }
 
 void CQTs_ClassViewer::initialize(){

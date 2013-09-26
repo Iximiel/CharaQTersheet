@@ -15,7 +15,8 @@ CQTs_engine::CQTs_engine()
 /*ClassFile structure:
  *Class Name
  *lv max
- *datanumber
+ *datanumber 16*fort+8*ref+4*will+bab
+ *bab= 1(01) poor, 2(10) good ,3(11) average
  *endofile
  */
 
