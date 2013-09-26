@@ -11,13 +11,7 @@ CQTs_ClassViewer::CQTs_ClassViewer(CQTs_Class *selected, QWidget *parent) :
     QGroupBox(tr("Class Viewer"),parent)
 {
     initialize();
-    QString bonus[3]={tr("Good"),tr("Poor"),tr("Average")};
-
-    LabName ->setText(selected->className());
-    LabBAB ->setText(bonus[selected->classBAB()-1]);
-    LabFort ->setText(bonus[!selected->STFort()]);
-    LabRef ->setText(bonus[!selected->STRef()]);
-    LabWill ->setText(bonus[!selected->STWill()]);
+    setLabs(selected);
 }
 
 void CQTs_ClassViewer::initialize(){
@@ -46,11 +40,22 @@ void CQTs_ClassViewer::initialize(){
     grid2->addWidget(LabFort,0,1);
     Tlab = new QLabel(tr("Reflexes"));
     grid2->addWidget(Tlab,1,0);
-    grid2->addWidget(LabRef,0,1);
+    grid2->addWidget(LabRef,1,1);
     Tlab = new QLabel(tr("Will:"));
     grid2->addWidget(Tlab,2,0);
-    grid2->addWidget(LabWill,0,1);
+    grid2->addWidget(LabWill,2,1);
     SavesBox->setLayout(grid2);
 
     setLayout(grid);
+}
+
+
+void CQTs_ClassViewer::setLabs(CQTs_Class *selected){
+    QString bonus[3]={tr("Good"),tr("Poor"),tr("Average")};
+
+    LabName ->setText(selected->className());
+    LabBAB ->setText(bonus[selected->classBAB()-1]);
+    LabFort ->setText(bonus[!selected->STFort()]);
+    LabRef ->setText(bonus[!selected->STRef()]);
+    LabWill ->setText(bonus[!selected->STWill()]);
 }

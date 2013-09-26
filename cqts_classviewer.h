@@ -18,6 +18,8 @@ private:
     void initialize();
 signals:
 
+public slots:
+    void setLabs(CQTs_Class *selected);
 };
 
 #endif // CQTS_CLASSVIEWER_H
