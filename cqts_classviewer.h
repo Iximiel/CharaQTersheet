@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QGroupBox>
+#include <QLabel>
 #include "cqts_engine.h"
 
 
@@ -13,7 +14,8 @@ public:
     explicit CQTs_ClassViewer(QWidget *parent = 0);
     explicit CQTs_ClassViewer(CQTs_Class selected,QWidget *parent = 0);
 private:
-
+    QLabel *LabName,*LabBAB,*LabFort,*LabRef,*LabWill;
+    void initialize();
 signals:
 
 };
