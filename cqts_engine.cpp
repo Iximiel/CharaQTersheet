@@ -1,6 +1,11 @@
 #include "cqts_engine.h"
 #include <QFile>
+#include <QDir>
+
+#include <QStringList>
 #include <QTextStream>
+
+#include <QDebug>
 
 CQTs_engine::CQTs_engine()
 {
@@ -29,15 +34,16 @@ CQTs_Class::CQTs_Class(QString classLink){
 
 /*****utilities*****/
 
-QStringList* extensionFind(QString ext){
+QStringList extensionFind(QString ext){
     //protocol to get list of files, may export it
     QDir currentDir;
     qDebug() << currentDir.dirName();
 
-    QStringList* files = new QStringList();
-    &files = currentDir.entryList(QStringList(ext),QDir::Files | QDir::NoSymLinks);
+    QStringList files;// = new QStringList();
+    files = currentDir.entryList(QStringList(ext),QDir::Files | QDir::NoSymLinks);
     int total =files.length();
     for (int i = 0; i < total; ++i) {
         qDebug() << files [i];
     }
+    return files;
 }

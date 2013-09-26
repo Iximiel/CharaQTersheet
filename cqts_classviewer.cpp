@@ -1,10 +1,8 @@
 #include "cqts_classviewer.h"
+#include "cqts_engine.h"
 #include <QLabel>
 #include <QComboBox>
 #include <QGridLayout>
-#include <QDir>
-#include <QStringList>
-#include <QDebug>
 
 CQTs_ClassViewer::CQTs_ClassViewer(QWidget *parent) :
     QGroupBox(tr("Class Viewer"),parent)
@@ -29,17 +27,8 @@ CQTs_ClassViewer::CQTs_ClassViewer(QWidget *parent) :
     SavesBox->setLayout(grid2);
 
     QComboBox *ComboSel = new QComboBox();
-
     grid->addWidget(ComboSel,0,1);
-    //protocol to get list of files, may export it
-    QDir currentDir;
-    qDebug() << currentDir.dirName();
 
-    QStringList files;
-    files = currentDir.entryList(QStringList("*.ClC"),QDir::Files | QDir::NoSymLinks);
-    int total =files.length();
-    for (int i = 0; i < total; ++i) {
-        qDebug() << files [i];
-    }
+    ComboSel->addItems(extensionFind("*.ClC"));
     setLayout(grid);
 }
