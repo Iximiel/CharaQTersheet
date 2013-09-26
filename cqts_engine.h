@@ -32,6 +32,6 @@ private:
 #define UTILITIES
 #include <QStringList>
 
-QStringList extensionFind(QString ext, QString dir="./");
+QStringList extensionFind(QString ext, QString dir);
 QStringList extensionFind(QString ext);
 #endif //UTILITIES

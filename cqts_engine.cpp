@@ -35,11 +35,10 @@ CQTs_Class::CQTs_Class(QString classLink){
 /*****utilities*****/
 
 QStringList extensionFind(QString ext,QString dir){
-    //protocol to get list of files, may export it
-    QDir currentDir(dir);
+    QDir workDir(dir);
 
     QStringList filelist;
-    filelist = currentDir.entryList(QStringList(ext),QDir::Files | QDir::NoSymLinks);
+    filelist = workDir.entryList(QStringList(ext),QDir::Files | QDir::NoSymLinks);
     return filelist;
 }
 

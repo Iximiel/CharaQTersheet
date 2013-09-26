@@ -1,8 +1,8 @@
 #include "cqts_classviewer.h"
 #include "cqts_engine.h"
 #include <QLabel>
-#include <QComboBox>
 #include <QGridLayout>
+#include<iostream>
 
 CQTs_ClassViewer::CQTs_ClassViewer(QWidget *parent) :
     QGroupBox(tr("Class Viewer"),parent)
@@ -26,9 +26,15 @@ CQTs_ClassViewer::CQTs_ClassViewer(QWidget *parent) :
     grid2->addWidget(Tlab,2,0);
     SavesBox->setLayout(grid2);
 
-    QComboBox *ComboSel = new QComboBox();
+    ComboSel = new QComboBox();
     grid->addWidget(ComboSel,0,1);
+
+    connect(ComboSel,SIGNAL(currentIndexChanged(int)),this,SLOT(selected(int)));
 
     ComboSel->addItems(extensionFind("*.ClC"));
     setLayout(grid);
+}
+
+void CQTs_ClassViewer::selected(int id){
+std::cout << id<<std::endl;
 }
