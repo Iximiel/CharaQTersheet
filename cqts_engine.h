@@ -27,3 +27,11 @@ private:
 };
 
 #endif //CQTS_CLASS
+
+#ifndef UTILITIES
+#define UTILITIES
+#include <QStringList>
+
+QStringList* extensionFind(QString ext);
+
+#endif //UTILITIES
