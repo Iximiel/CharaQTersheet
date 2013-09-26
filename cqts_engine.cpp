@@ -30,7 +30,6 @@ CQTs_Class::CQTs_Class(QString classLink){
     //add an alert!
        }
        else{
-        int data;
         QTextStream in(&file);
         Name= in.readLine();
         in >> lmax;
@@ -40,7 +39,14 @@ CQTs_Class::CQTs_Class(QString classLink){
     ref = (data & R)/R;
     will = (data & W)/W;
     fort = (data & F)/F;
-    bab = (data & bab)/bab;
+    BAB = (data & bab);
+    qDebug()<<Name;
+    qDebug()<<lmax;
+    qDebug()<<data;
+    qDebug()<<BAB;
+    qDebug()<<fort;
+    qDebug()<<ref;
+    qDebug()<<will;
 
 }
 

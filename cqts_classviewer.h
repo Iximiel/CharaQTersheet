@@ -16,7 +16,7 @@ private:
 signals:
 
 public slots:
-    void selected(int id);
+    void selected(QString id);
 
 };
 
