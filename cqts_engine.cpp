@@ -21,14 +21,20 @@ CQTs_engine::CQTs_engine()
 
 CQTs_Class::CQTs_Class(QString classLink){
     QFile file(classLink+".ClC");
-        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-            return;
-
+    int data;//data-sink for bab and ST
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        Name="error";
+        data=0;
+        lmax=-1;
+    //add an alert!
+       }
+       else{
+        int data;
         QTextStream in(&file);
-
-            Name= in.readLine();
-            in >> lmax;
-            in >> data;
+        Name= in.readLine();
+        in >> lmax;
+        in >> data;
+    }
 
 }
 
