@@ -20,9 +20,9 @@ public:
     CQTs_Class(QString classLink);
     QString className();
     int classBAB();
-    bool TSFort();
-    bool TSRef();
-    bool TSWill();
+    bool STFort();
+    bool STRef();
+    bool STWill();
 private:
     QString Name;
     int lmax;//20,10,5,3 so he can understand if is baseclass or not//may be made compatible with d20System in general
