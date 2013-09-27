@@ -10,6 +10,22 @@
 CQTs_engine::CQTs_engine()
 {
 }
+/*****character handler*****/
+/*CharacterFile structure:
+ *Name
+ *Surname
+ *age
+ *lv
+ *bab
+ *hp
+ *fort \t ref \t will
+ *endoffile
+ */
+CQTs_Character::CQTs_Character(QString filename){
+    filename.remove(".chc");
+    QFile file(filename+".ClC");
+
+}
 
 /*****class handler*****/
 /*ClassFile structure:
@@ -17,7 +33,7 @@ CQTs_engine::CQTs_engine()
  *lv max
  *datanumber 16*fort+8*ref+4*will+bab
  *bab= 1(01) poor, 2(10) good ,3(11) average
- *endofile
+ *endoffile
  */
 
 CQTs_Class::CQTs_Class(QString classLink){
