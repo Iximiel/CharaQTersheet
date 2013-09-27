@@ -1,7 +1,10 @@
 //the engine is the "globalresorcepack" of my prog
 #ifndef CQTS_ENGINE_H
 #define CQTS_ENGINE_H
-
+/*as now thi is a placeholder,
+ *maybe it will evolve in a sort of global
+ *constant that will make communication between segments of the program
+ */
 class CQTs_engine
 {
 public:
@@ -9,6 +12,28 @@ public:
 };
 
 #endif // CQTS_ENGINE_H
+
+#ifndef CQTS_CHAR
+#define CQTS_CHAR
+#include <QString>
+
+struct charBio{
+    QString Name, Surname;
+    int age;
+};
+
+class CQTs_Character
+{
+public:
+    CQTs_Character(QString filename);
+
+private:
+    charBio bio;
+    int HP,LV;
+
+};
+
+#endif //CQTS_CHAR
 
 #ifndef CQTS_CLASS
 #define CQTS_CLASS

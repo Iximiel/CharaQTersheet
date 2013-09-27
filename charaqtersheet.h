@@ -14,6 +14,10 @@ public:
     CharaQTersheet(QWidget *parent = 0);
     ~CharaQTersheet();
     void addDockClass(Qt::DockWidgetArea area);
+    void addDockBio(Qt::DockWidgetArea area);
+    void addDockAbilities(Qt::DockWidgetArea area);
+    void addDockSaves(Qt::DockWidgetArea area);
+    void addDockSkills(Qt::DockWidgetArea area);
 //private:
 };
 

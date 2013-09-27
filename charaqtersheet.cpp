@@ -13,7 +13,11 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     menuFiles ->addSeparator();
     menuFiles ->addAction(tr("&Exit"));
 
-    addDockClass(Qt::LeftDockWidgetArea);
+    //addDockClass(Qt::LeftDockWidgetArea);
+    addDockBio(Qt::LeftDockWidgetArea);
+    addDockAbilities(Qt::LeftDockWidgetArea);
+    addDockSaves(Qt::RightDockWidgetArea);
+    addDockSkills(Qt::RightDockWidgetArea);
 }
 
 CharaQTersheet::~CharaQTersheet()
@@ -22,9 +26,33 @@ CharaQTersheet::~CharaQTersheet()
 }
 
 void CharaQTersheet::addDockClass(Qt::DockWidgetArea area){
-    QDockWidget *dockClass = new QDockWidget;
+    QDockWidget *dockClass = new QDockWidget("Classviewer");
     dockClass->setWidget(new ClassViewer(dockClass));
     addDockWidget(area,dockClass);
+}
+
+void CharaQTersheet::addDockBio(Qt::DockWidgetArea area){
+    QDockWidget *dockBio = new QDockWidget("Bio");
+    //dockClass->setWidget();
+    addDockWidget(area,dockBio);
+}
+
+void CharaQTersheet::addDockAbilities(Qt::DockWidgetArea area){
+    QDockWidget *dockAbilities = new QDockWidget(tr("Abilities"));
+    //dockClass->setWidget();
+    addDockWidget(area,dockAbilities);
+}
+
+void CharaQTersheet::addDockSaves(Qt::DockWidgetArea area){
+    QDockWidget *dockSaves = new QDockWidget(tr("Saves"));
+    //dockClass->setWidget();
+    addDockWidget(area,dockSaves);
+}
+
+void CharaQTersheet::addDockSkills(Qt::DockWidgetArea area){
+    QDockWidget *dockSkills = new QDockWidget(tr("Skills"));
+    //dockClass->setWidget();
+    addDockWidget(area,dockSkills);
 }
 
 ClassViewer::ClassViewer(QWidget *parent)
