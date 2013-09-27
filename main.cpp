@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
     //CQTs_ClassViewer w(&prova);
     //ClassViewer w;
     w.show();
+    CQTs_Character prova("character");
 
     return a.exec();
 }

@@ -16,15 +16,33 @@ CQTs_engine::CQTs_engine()
  *Surname
  *age
  *lv
- *bab
  *hp
+ *bab
  *fort \t ref \t will
  *endoffile
  */
 CQTs_Character::CQTs_Character(QString filename){
     filename.remove(".chc");
-    QFile file(filename+".ClC");
-
+    QFile file(filename+".chc");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        bio.Name=bio.Surname="error";
+        bio.age=HP=LV=BAB=STf=STr=STw=0;
+    //add an alert!
+       }
+       else{
+        QTextStream in(&file);
+        bio.Name= in.readLine();
+        bio.Surname= in.readLine();
+        in >> bio.age;
+        in >> LV >> HP >> BAB >> STf >> STr >> STw;
+    }
+    qDebug()<<bio.Name;
+    qDebug()<<bio.Surname;
+    qDebug()<<bio.age;
+    qDebug()<<LV;
+    qDebug()<<HP;
+    qDebug()<<BAB;
+    qDebug()<< STf <<"\t" << STr <<"\t"<< STw;
 }
 
 /*****class handler*****/

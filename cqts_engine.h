@@ -29,8 +29,7 @@ public:
 
 private:
     charBio bio;
-    int HP,LV;
-
+    int LV,HP,BAB,STf,STr,STw;
 };
 
 #endif //CQTS_CHAR
