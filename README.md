@@ -3,4 +3,6 @@ CharaQTersheet
 
 I'm setting up a small character sheet for dnd 3.5, using qt5.0+
 
-I think i finished to work on a class viewer tool that shoiuld be useful in future development. to make it work copy the files in the directory "FtCitWD" in the work directory.
+v 0.1 I finished to work on a class viewer tool that shoiuld be useful in future development. to make it work copy the files in the directory "FtCitWD" in the work directory.
+
+Now i'm working on the core of the program: the character sheet in v 0.02 we should see some bio, skillpoints and abilities, without the use of classes, just as the paper sheet, in v 0.03 i will add a small equipment addon and a feat one too, but just as list of things.
