@@ -51,11 +51,11 @@ void CQTs_ClassViewer::initialize(){
 
 
 void CQTs_ClassViewer::setLabs(CQTs_Class *selected){
-    QString bonus[3]={tr("Good"),tr("Poor"),tr("Average")};
+    QString bonus[4]={tr("error"),tr("Poor"),tr("Good"),tr("Average")};
 
     LabName ->setText(selected->className());
-    LabBAB ->setText(bonus[selected->classBAB()-1]);
-    LabFort ->setText(bonus[!selected->STFort()]);
-    LabRef ->setText(bonus[!selected->STRef()]);
-    LabWill ->setText(bonus[!selected->STWill()]);
+    LabBAB ->setText(bonus[selected->classBAB()]);
+    LabFort ->setText(bonus[1+selected->STFort()]);
+    LabRef ->setText(bonus[1+selected->STRef()]);
+    LabWill ->setText(bonus[1+selected->STWill()]);
 }

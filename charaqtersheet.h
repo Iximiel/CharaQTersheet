@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include <QMenuBar>
 #include <QComboBox>
-#include <QDockWidget>
 #include "cqts_classviewer.h"
 
 class CharaQTersheet : public QMainWindow
@@ -17,11 +16,11 @@ public:
 //private:
 };
 
-class ClassViewer : public QDockWidget
+class ClassViewer : public QWidget
 {
    Q_OBJECT
 public:
-    ClassViewer(QWidget *parent = 0);
+    explicit ClassViewer(QWidget *parent = 0);
     ~ClassViewer();
 private:
     CQTs_ClassViewer *viewer;

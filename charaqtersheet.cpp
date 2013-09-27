@@ -1,5 +1,7 @@
 #include "charaqtersheet.h"
 #include <QGridLayout>
+#include <QDockWidget>
+
 CharaQTersheet::CharaQTersheet(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -10,7 +12,9 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     menuFiles ->addAction(tr("&Open"));
     menuFiles ->addSeparator();
     menuFiles ->addAction(tr("&Exit"));
-
+    QDockWidget *dockClass = new QDockWidget;
+    dockClass->setWidget(new ClassViewer(dockClass));
+    addDockWidget(Qt::LeftDockWidgetArea,dockClass);
 }
 
 CharaQTersheet::~CharaQTersheet()
@@ -20,16 +24,21 @@ CharaQTersheet::~CharaQTersheet()
 
 
 ClassViewer::ClassViewer(QWidget *parent)
-    : QDockWidget(parent)
+    : QWidget(parent)
 {
     QStringList listclass = extensionFind("*.ClC");
-    QGridLayout *grid = new QGridLayout(this);
+    QGridLayout *grid = new QGridLayout();
     comboClass = new QComboBox();
     comboClass->addItems(listclass);
     QLabel *TLab = new QLabel(tr("Search:"));
     grid->addWidget(TLab,0,0);
     grid->addWidget(comboClass,0,1);
+    viewer = new CQTs_ClassViewer();
+    grid->addWidget(viewer,1,0,2,2);
     setLayout(grid);
+
+    //connections
+    connect(comboClass,SIGNAL(currentTextChanged(QString)),this,SLOT(selClass(QString)));
 }
 
 ClassViewer::~ClassViewer()
@@ -38,5 +47,6 @@ ClassViewer::~ClassViewer()
 }
 
 void ClassViewer::selClass(QString selected){
-
+    CQTs_Class *classSel = new CQTs_Class(selected);
+    viewer->setLabs(classSel);
 }

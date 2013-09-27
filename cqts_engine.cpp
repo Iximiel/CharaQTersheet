@@ -21,6 +21,7 @@ CQTs_engine::CQTs_engine()
  */
 
 CQTs_Class::CQTs_Class(QString classLink){
+    classLink.remove(".ClC");
     QFile file(classLink+".ClC");//temporary
     int data;//data-sink for bab and ST
     int F=16, R=8, W=4, bab=3;//mask for ST&BAB

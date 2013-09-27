@@ -5,10 +5,10 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    //CharaQTersheet w;
+    CharaQTersheet w;
     //CQTs_Class prova("mnc");
     //CQTs_ClassViewer w(&prova);
-    ClassViewer w;
+    //ClassViewer w;
     w.show();
 
     return a.exec();
