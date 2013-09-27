@@ -13,6 +13,7 @@ class CharaQTersheet : public QMainWindow
 public:
     CharaQTersheet(QWidget *parent = 0);
     ~CharaQTersheet();
+    void addDockClass(Qt::DockWidgetArea area);
 //private:
 };
 

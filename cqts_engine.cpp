@@ -41,14 +41,14 @@ CQTs_Class::CQTs_Class(QString classLink){
     ref = (data & R)/R;//good? 0/1
     will = (data & W)/W;//good ?0/1
     BAB = (data & bab);// good 10, poor 01, average 11, i know it's not intuitive
-    qDebug()<<Name;
+    /*qDebug()<<Name;
     qDebug()<<lmax;
     qDebug()<<data;
     qDebug()<<BAB;
     qDebug()<<fort;
     qDebug()<<ref;
     qDebug()<<will;
-
+*/
 }
 
 QString CQTs_Class::className(){return Name;}

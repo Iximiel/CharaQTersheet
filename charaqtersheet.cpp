@@ -12,9 +12,8 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     menuFiles ->addAction(tr("&Open"));
     menuFiles ->addSeparator();
     menuFiles ->addAction(tr("&Exit"));
-    QDockWidget *dockClass = new QDockWidget;
-    dockClass->setWidget(new ClassViewer(dockClass));
-    addDockWidget(Qt::LeftDockWidgetArea,dockClass);
+
+    addDockClass(Qt::LeftDockWidgetArea);
 }
 
 CharaQTersheet::~CharaQTersheet()
@@ -22,6 +21,11 @@ CharaQTersheet::~CharaQTersheet()
 
 }
 
+void CharaQTersheet::addDockClass(Qt::DockWidgetArea area){
+    QDockWidget *dockClass = new QDockWidget;
+    dockClass->setWidget(new ClassViewer(dockClass));
+    addDockWidget(area,dockClass);
+}
 
 ClassViewer::ClassViewer(QWidget *parent)
     : QWidget(parent)
