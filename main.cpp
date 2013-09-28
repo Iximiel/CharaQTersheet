@@ -1,5 +1,5 @@
 #include "charaqtersheet.h"
-#include "cqts_classviewer.h"
+#include "cqts_viewers.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QMenuBar>
 #include <QComboBox>
-#include "cqts_classviewer.h"
+#include "cqts_viewers.h"
 
 class CharaQTersheet : public QMainWindow
 {

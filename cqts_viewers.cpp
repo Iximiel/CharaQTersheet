@@ -1,4 +1,4 @@
-#include "cqts_classviewer.h"
+#include "cqts_viewers.h"
 #include <QGridLayout>
 
 CQTs_ClassViewer::CQTs_ClassViewer(QWidget *parent) :
