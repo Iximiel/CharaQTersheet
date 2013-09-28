@@ -13,7 +13,7 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     menuFiles ->addSeparator();
     menuFiles ->addAction(tr("&Exit"));
 
-    //addDockClass(Qt::LeftDockWidgetArea);
+    addDockClass(Qt::LeftDockWidgetArea);
     addDockBio(Qt::LeftDockWidgetArea);
     addDockAbilities(Qt::LeftDockWidgetArea);
     addDockSaves(Qt::RightDockWidgetArea);
