@@ -7,8 +7,6 @@ CQTs_Viewer::CQTs_Viewer(QString title, QWidget *parent) :
     initialize();
 }
 
-void CQTs_Viewer::initialize(){}
-
 CQTs_ClassViewer::CQTs_ClassViewer(QWidget *parent) :
     CQTs_Viewer(tr("Class Viewer"),parent)
 {

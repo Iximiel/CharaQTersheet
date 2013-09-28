@@ -13,7 +13,7 @@ class CQTs_Viewer : public QGroupBox
 public:
     explicit CQTs_Viewer(QString title="", QWidget *parent = 0);
 private:
-    virtual void initialize();
+    virtual void initialize(){}
 };
 
 class CQTs_ClassViewer : public CQTs_Viewer
