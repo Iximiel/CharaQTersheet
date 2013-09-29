@@ -33,25 +33,25 @@ void CharaQTersheet::addDockClass(Qt::DockWidgetArea area){
 
 void CharaQTersheet::addDockBio(Qt::DockWidgetArea area){
     QDockWidget *dockBio = new QDockWidget("Bio");
-    //dockClass->setWidget();
+    dockBio->setWidget(new CQTs_ChBioViewer(dockBio));
     addDockWidget(area,dockBio);
 }
 
 void CharaQTersheet::addDockAbilities(Qt::DockWidgetArea area){
     QDockWidget *dockAbilities = new QDockWidget(tr("Abilities"));
-    //dockClass->setWidget();
+    //dockAbilities->setWidget();
     addDockWidget(area,dockAbilities);
 }
 
 void CharaQTersheet::addDockSaves(Qt::DockWidgetArea area){
     QDockWidget *dockSaves = new QDockWidget(tr("Saves"));
-    //dockClass->setWidget();
+    //dockSaves->setWidget();
     addDockWidget(area,dockSaves);
 }
 
 void CharaQTersheet::addDockSkills(Qt::DockWidgetArea area){
     QDockWidget *dockSkills = new QDockWidget(tr("Skills"));
-    //dockClass->setWidget();
+    //dockSkills->setWidget();
     addDockWidget(area,dockSkills);
 }
 
