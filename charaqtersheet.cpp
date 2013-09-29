@@ -34,34 +34,46 @@ void CharaQTersheet::addDockClass(){
     if (dockClass==NULL){
         dockClass = new QDockWidget("Classviewer");
         dockClass->setWidget(new ClassViewer(dockClass));
-        addDockWidget(Qt::LeftDockWidgetArea,dockClass);
+        addDockWidget(Qt::RightDockWidgetArea,dockClass);
+        dockClass->setFloating(true);
     }else
         dockClass->show();
-
 }
 
 void CharaQTersheet::addDockBio(){
-    dockBio = new QDockWidget("Bio");
-    dockBio->setWidget(new CQTs_ChBioViewer(dockBio));
-    addDockWidget(Qt::LeftDockWidgetArea,dockBio);
+    if(dockBio==NULL){
+        dockBio = new QDockWidget("Bio");
+        dockBio->setWidget(new CQTs_ChBioViewer(dockBio));
+        addDockWidget(Qt::LeftDockWidgetArea,dockBio);
+    }else
+        dockBio->show();
 }
 
 void CharaQTersheet::addDockAbilities(){
-    dockAbilities = new QDockWidget(tr("Abilities"));
-    //dockAbilities->setWidget();
-    addDockWidget(Qt::LeftDockWidgetArea,dockAbilities);
+    if(dockAbilities==NULL){
+        dockAbilities = new QDockWidget(tr("Abilities"));
+        //dockAbilities->setWidget();
+        addDockWidget(Qt::LeftDockWidgetArea,dockAbilities);
+    }else
+        dockAbilities->show();
 }
 
 void CharaQTersheet::addDockSaves(){
-    dockSaves = new QDockWidget(tr("Saves"));
-    //dockSaves->setWidget();
-    addDockWidget(Qt::RightDockWidgetArea,dockSaves);
+    if(dockSaves==NULL){
+        dockSaves = new QDockWidget(tr("Saves"));
+        //dockSaves->setWidget();
+        addDockWidget(Qt::RightDockWidgetArea,dockSaves);
+    }else
+        dockSaves->show();
 }
 
 void CharaQTersheet::addDockSkills(){
-    dockSkills = new QDockWidget(tr("Skills"));
-    //dockSkills->setWidget();
-    addDockWidget(Qt::RightDockWidgetArea,dockSkills);
+    if(dockSkills==NULL){
+        dockSkills = new QDockWidget(tr("Skills"));
+        //dockSkills->setWidget();
+        addDockWidget(Qt::RightDockWidgetArea,dockSkills);
+    }else
+        dockSkills->show();
 }
 
 

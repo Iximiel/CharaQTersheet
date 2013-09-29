@@ -36,6 +36,7 @@ CQTs_Character::CQTs_Character(QString filename){
         in >> bio.age;
         in >> LV >> HP >> BAB >> STf >> STr >> STw;
     }
+    /*
     qDebug()<<bio.Name;
     qDebug()<<bio.Surname;
     qDebug()<<bio.age;
@@ -43,6 +44,7 @@ CQTs_Character::CQTs_Character(QString filename){
     qDebug()<<HP;
     qDebug()<<BAB;
     qDebug()<< STf <<"\t" << STr <<"\t"<< STw;
+    */
 }
 
 QString CQTs_Character::getName(){return bio.Name;}
