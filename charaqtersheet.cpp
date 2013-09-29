@@ -1,6 +1,7 @@
 #include "charaqtersheet.h"
 #include <QGridLayout>
 #include <QDockWidget>
+#include <QFileDialog>
 
 CharaQTersheet::CharaQTersheet(QWidget *parent)
     : QMainWindow(parent)
@@ -23,6 +24,7 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     addDockAbilities();
     addDockSaves();
     addDockSkills();
+    loadChar();
 }
 
 CharaQTersheet::~CharaQTersheet()
@@ -76,6 +78,10 @@ void CharaQTersheet::addDockSkills(){
         dockSkills->show();
 }
 
+void CharaQTersheet::loadChar(){
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Character File"), QString(),
+                tr("Character Files (*.chc *CHC);;All Files (*.*)"));
+}
 
 /*Classviewer*/
 ClassViewer::ClassViewer(QWidget *parent)

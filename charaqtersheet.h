@@ -19,6 +19,7 @@ public slots:
     void addDockAbilities();
     void addDockSaves();
     void addDockSkills();
+    void loadChar();
 private:
     QDockWidget *dockSkills, *dockSaves, *dockAbilities, *dockBio, *dockClass;
 };
