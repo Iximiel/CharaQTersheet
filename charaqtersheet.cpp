@@ -5,6 +5,8 @@
 CharaQTersheet::CharaQTersheet(QWidget *parent)
     : QMainWindow(parent)
 {
+    //initializing pointer as NULL
+    dockSkills=dockSaves=dockAbilities=dockBio=dockClass=NULL;
     //NOTE: the menubar IS a placeholder, for now
     QMenuBar *mainMenu = menuBar(); //an addres for symplify my life
     QMenu *menuFiles = mainMenu->addMenu(tr("&File"));
@@ -12,12 +14,15 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     menuFiles ->addAction(tr("&Open"));
     menuFiles ->addSeparator();
     menuFiles ->addAction(tr("&Exit"));
+    QMenu *menuTools = mainMenu->addMenu(tr("&Tools"));
+    QAction *tAct = menuTools ->addAction(tr("&Classviewer"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(addDockClass()));
 
-    addDockClass(Qt::LeftDockWidgetArea);
-    addDockBio(Qt::LeftDockWidgetArea);
-    addDockAbilities(Qt::LeftDockWidgetArea);
-    addDockSaves(Qt::RightDockWidgetArea);
-    addDockSkills(Qt::RightDockWidgetArea);
+    //addDockClass(Qt::LeftDockWidgetArea);
+    addDockBio();
+    addDockAbilities();
+    addDockSaves();
+    addDockSkills();
 }
 
 CharaQTersheet::~CharaQTersheet()
@@ -25,36 +30,42 @@ CharaQTersheet::~CharaQTersheet()
 
 }
 
-void CharaQTersheet::addDockClass(Qt::DockWidgetArea area){
-    QDockWidget *dockClass = new QDockWidget("Classviewer");
-    dockClass->setWidget(new ClassViewer(dockClass));
-    addDockWidget(area,dockClass);
+void CharaQTersheet::addDockClass(){
+    if (dockClass==NULL){
+        dockClass = new QDockWidget("Classviewer");
+        dockClass->setWidget(new ClassViewer(dockClass));
+        addDockWidget(Qt::LeftDockWidgetArea,dockClass);
+    }else
+        dockClass->show();
+
 }
 
-void CharaQTersheet::addDockBio(Qt::DockWidgetArea area){
-    QDockWidget *dockBio = new QDockWidget("Bio");
+void CharaQTersheet::addDockBio(){
+    dockBio = new QDockWidget("Bio");
     dockBio->setWidget(new CQTs_ChBioViewer(dockBio));
-    addDockWidget(area,dockBio);
+    addDockWidget(Qt::LeftDockWidgetArea,dockBio);
 }
 
-void CharaQTersheet::addDockAbilities(Qt::DockWidgetArea area){
-    QDockWidget *dockAbilities = new QDockWidget(tr("Abilities"));
+void CharaQTersheet::addDockAbilities(){
+    dockAbilities = new QDockWidget(tr("Abilities"));
     //dockAbilities->setWidget();
-    addDockWidget(area,dockAbilities);
+    addDockWidget(Qt::LeftDockWidgetArea,dockAbilities);
 }
 
-void CharaQTersheet::addDockSaves(Qt::DockWidgetArea area){
-    QDockWidget *dockSaves = new QDockWidget(tr("Saves"));
+void CharaQTersheet::addDockSaves(){
+    dockSaves = new QDockWidget(tr("Saves"));
     //dockSaves->setWidget();
-    addDockWidget(area,dockSaves);
+    addDockWidget(Qt::RightDockWidgetArea,dockSaves);
 }
 
-void CharaQTersheet::addDockSkills(Qt::DockWidgetArea area){
-    QDockWidget *dockSkills = new QDockWidget(tr("Skills"));
+void CharaQTersheet::addDockSkills(){
+    dockSkills = new QDockWidget(tr("Skills"));
     //dockSkills->setWidget();
-    addDockWidget(area,dockSkills);
+    addDockWidget(Qt::RightDockWidgetArea,dockSkills);
 }
 
+
+/*Classviewer*/
 ClassViewer::ClassViewer(QWidget *parent)
     : QWidget(parent)
 {

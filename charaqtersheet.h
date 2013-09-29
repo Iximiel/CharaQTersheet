@@ -13,12 +13,14 @@ class CharaQTersheet : public QMainWindow
 public:
     CharaQTersheet(QWidget *parent = 0);
     ~CharaQTersheet();
-    void addDockClass(Qt::DockWidgetArea area);
-    void addDockBio(Qt::DockWidgetArea area);
-    void addDockAbilities(Qt::DockWidgetArea area);
-    void addDockSaves(Qt::DockWidgetArea area);
-    void addDockSkills(Qt::DockWidgetArea area);
-//private:
+public slots:
+    void addDockClass();
+    void addDockBio();
+    void addDockAbilities();
+    void addDockSaves();
+    void addDockSkills();
+private:
+    QDockWidget *dockSkills, *dockSaves, *dockAbilities, *dockBio, *dockClass;
 };
 
 class ClassViewer : public QWidget
