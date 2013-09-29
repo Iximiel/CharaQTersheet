@@ -27,14 +27,14 @@ class CQTs_ChBioViewer : public QGroupBox
     Q_OBJECT
 public:
     explicit CQTs_ChBioViewer(QWidget *parent = 0);
-    explicit CQTs_ChBioViewer(CQTs_Class *selected, QWidget *parent = 0);
+    explicit CQTs_ChBioViewer(CQTs_Character *selected, QWidget *parent = 0);
 private:
     QLabel *LabName,*LabSurname,*LabAge;
     void initialize();
 signals:
 
 public slots:
-   // void setLabs(CQTs_Class *selected);
+   void setLabs(CQTs_Character *selected);
 };
 
 #endif // CQTS_VIEWERS_H

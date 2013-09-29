@@ -26,6 +26,15 @@ class CQTs_Character
 {
 public:
     CQTs_Character(QString filename);
+    QString getName();
+    QString getSurname();
+    int getAge();
+    int getLV();
+    int getHP();
+    int getBAB();
+    int getFortitude();
+    int getReflex();
+    int getWill();
 
 private:
     charBio bio;

@@ -45,6 +45,16 @@ CQTs_Character::CQTs_Character(QString filename){
     qDebug()<< STf <<"\t" << STr <<"\t"<< STw;
 }
 
+QString CQTs_Character::getName(){return bio.Name;}
+QString CQTs_Character::getSurname(){return bio.Surname;}
+int CQTs_Character::getAge(){return bio.age;}
+int CQTs_Character::getLV(){return LV;}
+int CQTs_Character::getHP(){return HP;}
+int CQTs_Character::getBAB(){return BAB;}
+int CQTs_Character::getFortitude(){return STf;}
+int CQTs_Character::getReflex(){return STr;}
+int CQTs_Character::getWill(){return STw;}
+
 /*****class handler*****/
 /*ClassFile structure:
  *Class Name

@@ -1,6 +1,6 @@
 #include "cqts_viewers.h"
 #include <QGridLayout>
-
+/*ClassViewer*/
 CQTs_ClassViewer::CQTs_ClassViewer(QWidget *parent) :
     QGroupBox(tr("Class Viewer"),parent)
 {
@@ -58,4 +58,48 @@ void CQTs_ClassViewer::setLabs(CQTs_Class *selected){
     LabFort ->setText(bonus[1+selected->STFort()]);
     LabRef ->setText(bonus[1+selected->STRef()]);
     LabWill ->setText(bonus[1+selected->STWill()]);
+}
+/*BioViewer*/
+
+CQTs_ChBioViewer::CQTs_ChBioViewer(QWidget *parent) :
+    QGroupBox(tr("Bio"),parent)
+{
+    initialize();
+}
+
+CQTs_ChBioViewer::CQTs_ChBioViewer(CQTs_Character *selected, QWidget *parent) :
+    QGroupBox(tr("Bio"),parent)
+{
+    initialize();
+    setLabs(selected);
+}
+
+void CQTs_ChBioViewer::initialize(){
+
+    LabName = new QLabel();
+    LabSurname = new QLabel();
+    LabAge = new QLabel();
+
+    QGridLayout *grid = new QGridLayout();
+
+    QLabel *Tlab = new QLabel(tr("Name:"));
+    grid->addWidget(Tlab,0,0);
+    grid->addWidget(LabName,0,1);
+
+    Tlab = new QLabel(tr("Surname:"));
+    grid->addWidget(Tlab,1,0);
+    grid->addWidget(LabSurname,1,1);
+
+    Tlab = new QLabel(tr("Age:"));
+    grid->addWidget(Tlab,2,0);
+    grid->addWidget(LabAge,2,1);
+
+    setLayout(grid);
+}
+
+
+void CQTs_ChBioViewer::setLabs(CQTs_Character *selected){
+    LabName->setText(selected->getName());
+    LabSurname->setText(selected->getSurname());
+    LabAge->setNum(selected->getAge());
 }
