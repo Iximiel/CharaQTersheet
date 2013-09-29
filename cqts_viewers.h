@@ -7,16 +7,7 @@
 #include <QString>
 #include "cqts_engine.h"
 
-class CQTs_Viewer : public QGroupBox
-{
-    Q_OBJECT
-public:
-    explicit CQTs_Viewer(QString title="", QWidget *parent = 0);
-private:
-    virtual void initialize(){}
-};
-
-class CQTs_ClassViewer : public CQTs_Viewer
+class CQTs_ClassViewer : public QGroupBox
 {
     Q_OBJECT
 public:

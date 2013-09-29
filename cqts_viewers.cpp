@@ -1,21 +1,16 @@
 #include "cqts_viewers.h"
 #include <QGridLayout>
 
-CQTs_Viewer::CQTs_Viewer(QString title, QWidget *parent) :
-    QGroupBox(title,parent)
+CQTs_ClassViewer::CQTs_ClassViewer(QWidget *parent) :
+    QGroupBox(tr("Class Viewer"),parent)
 {
     initialize();
 }
 
-CQTs_ClassViewer::CQTs_ClassViewer(QWidget *parent) :
-    CQTs_Viewer(tr("Class Viewer"),parent)
-{
-
-}
-
 CQTs_ClassViewer::CQTs_ClassViewer(CQTs_Class *selected, QWidget *parent) :
-    CQTs_Viewer(tr("Class Viewer"),parent)
+    QGroupBox(tr("Class Viewer"),parent)
 {
+    initialize();
     setLabs(selected);
 }
 
