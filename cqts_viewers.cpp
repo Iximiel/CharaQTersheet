@@ -122,37 +122,49 @@ CQTs_ChAbilitiesViewer::CQTs_ChAbilitiesViewer(CQTs_Character *selected, QWidget
 
 void CQTs_ChAbilitiesViewer::initialize(){
 
-    LabName = new QLabel* [6];
-    LabValue = new QLabel* [6];
-    LabMod = new QLabel* [6];
-    LabTValue = new QLabel* [6];
-    LabTMod = new QLabel* [6];
+    LabName =   new QLabel* [6];
+    LabValue =  new QLabel* [12];
+    LabMod =    new QLabel* [12];
 
     QString names[6]={tr("Strength"),tr("Dexterity"),tr("Constitution"),tr("Intelligence"),tr("Wisdom"),tr("Charisma")};
 
     QGridLayout *grid = new QGridLayout();
-
+    grid->addWidget(new QLabel(tr("Temporary")),0,3,1,2);
     for (int i = 0; i < 6; ++i) {
-        grid->addWidget(LabName[i] = new QLabel(names[i]),i,0);
+        grid->addWidget(LabName[i] = new QLabel(names[i]),i+1,0);
 
-        grid->addWidget(LabValue[i] = new QLabel(),i,1);
-        LabValue[i]->setFrameStyle(QFrame::StyledPanel);
+        grid->addWidget(LabValue[i] = new QLabel("10"),i+1,1);
+        LabValue[i]->setFrameStyle(QFrame::Panel|QFrame::Raised);
 
-        grid->addWidget(LabMod[i] = new QLabel(),i,2);
-        LabMod[i]->setFrameStyle(QFrame::StyledPanel);
+        grid->addWidget(LabMod[i] = new QLabel("+0"),i+1,2);
+        LabMod[i]->setFrameStyle(QFrame::Panel|QFrame::Sunken);
 
-        grid->addWidget(LabTValue[i] = new QLabel(),i,3);
-        LabTValue[i]->setFrameStyle(QFrame::StyledPanel);
+        grid->addWidget(LabValue[i+6] = new QLabel("10"),i+1,3);
+        LabValue[i+6]->setFrameStyle(QFrame::WinPanel|QFrame::Raised);
 
-        grid->addWidget(LabTMod[i] = new QLabel(),i,4);
-        LabTMod[i]->setFrameStyle(QFrame::StyledPanel);
+        grid->addWidget(LabMod[i+6] = new QLabel("+0"),i+1,4);
+        LabMod[i+6]->setFrameStyle(QFrame::WinPanel|QFrame::Sunken);
     }
 
 
     setLayout(grid);
 }
 
+void CQTs_ChAbilitiesViewer::setLab(int sel, int val, bool temporary){
+    LabValue[sel+6*temporary]->setNum(val);
+    QString temp;
+    val= (val-10)/2.;
+    temp.number(val);
+    if(val>0)
+        temp.prepend("+");
+
+    LabMod[sel+temporary*6]->setText(temp);
+}
 
 void CQTs_ChAbilitiesViewer::setLabs(CQTs_Character *selected){
-
+    for (int i = 0; i < 6; ++i){
+        int val = selected->getAbility( i);
+        setLab(i,val,false);
+        setLab(i,val,true);
+    }
 }

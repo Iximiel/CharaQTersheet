@@ -60,6 +60,8 @@ int CQTs_Character::getBAB(){return BAB;}
 int CQTs_Character::getFortitude(){return STf;}
 int CQTs_Character::getReflex(){return STr;}
 int CQTs_Character::getWill(){return STw;}
+int CQTs_Character::getAbility(CQT_Abilities sel){return Abilities[sel];}
+int CQTs_Character::getAbility(int sel){return Abilities[sel];}
 
 /*****class handler*****/
 /*ClassFile structure:

@@ -36,6 +36,8 @@ public:
     int getFortitude();
     int getReflex();
     int getWill();
+    int getAbility(CQT_Abilities sel);
+    int getAbility(int sel);
 
 private:
     charBio bio;

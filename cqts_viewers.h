@@ -44,12 +44,13 @@ public:
     explicit CQTs_ChAbilitiesViewer(QWidget *parent = 0);
     explicit CQTs_ChAbilitiesViewer(CQTs_Character *selected, QWidget *parent = 0);
 private:
-    QLabel **LabName, **LabValue, **LabMod, **LabTValue ,**LabTMod;
+    QLabel **LabName, **LabValue, **LabMod;
     void initialize();
 signals:
 
 public slots:
    void setLabs(CQTs_Character *selected);
+   void setLab(int sel, int val, bool temporary = false);
 };
 
 #endif // CQTS_VIEWERS_H
