@@ -77,7 +77,8 @@ void CharaQTersheet::addDockBio(){
 void CharaQTersheet::addDockAbilities(){
     if(dockAbilities==NULL){
         dockAbilities = new QDockWidget(tr("Abilities"));
-        dockAbilities->setWidget(new CQTs_ChAbilitiesViewer());
+        viewerAbilities = new CQTs_ChAbilitiesViewer();
+        dockAbilities->setWidget(viewerAbilities);
         addDockWidget(Qt::LeftDockWidgetArea,dockAbilities);
     }else
         dockAbilities->show();
@@ -104,7 +105,10 @@ void CharaQTersheet::addDockSkills(){
 void CharaQTersheet::loadChar(){
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Character File"), QString(),
                 tr("Character Files (*.chc *CHC);;All Files (*.*)"));
-    viewerBio->setLabs(new CQTs_Character(fileName));
+    character = new CQTs_Character(fileName);
+    viewerBio->setLabs(character);
+    viewerAbilities->setLabs(character);
+
 }
 
 void CharaQTersheet::saveChar(){

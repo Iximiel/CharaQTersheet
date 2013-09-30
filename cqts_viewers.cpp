@@ -152,13 +152,12 @@ void CQTs_ChAbilitiesViewer::initialize(){
 
 void CQTs_ChAbilitiesViewer::setLab(int sel, int val, bool temporary){
     LabValue[sel+6*temporary]->setNum(val);
-    QString temp;
-    val= (val-10)/2.;
-    temp.number(val);
-    if(val>0)
-        temp.prepend("+");
 
-    LabMod[sel+temporary*6]->setText(temp);
+    val= (val-10)/2.;
+    if(val>0)
+        LabMod[sel+temporary*6]->setText("+"+QString::number(val));
+    else
+        LabMod[sel+temporary*6]->setNum(val);
 }
 
 void CQTs_ChAbilitiesViewer::setLabs(CQTs_Character *selected){

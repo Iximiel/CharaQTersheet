@@ -22,8 +22,10 @@ public slots:
     void loadChar();
     void saveChar();
 private:
+    CQTs_Character *character;
     QDockWidget *dockSkills, *dockSaves, *dockAbilities, *dockBio, *dockClass;
     CQTs_ChBioViewer *viewerBio;
+    CQTs_ChAbilitiesViewer *viewerAbilities;
 };
 
 class ClassViewer : public QWidget
