@@ -77,7 +77,7 @@ void CharaQTersheet::addDockBio(){
 void CharaQTersheet::addDockAbilities(){
     if(dockAbilities==NULL){
         dockAbilities = new QDockWidget(tr("Abilities"));
-        //dockAbilities->setWidget();
+        dockAbilities->setWidget(new CQTs_ChAbilitiesViewer());
         addDockWidget(Qt::LeftDockWidgetArea,dockAbilities);
     }else
         dockAbilities->show();

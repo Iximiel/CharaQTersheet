@@ -103,3 +103,44 @@ void CQTs_ChBioViewer::setLabs(CQTs_Character *selected){
     LabSurname->setText(selected->getSurname());
     LabAge->setNum(selected->getAge());
 }
+
+/*AbilitiesViewer*/
+
+CQTs_ChAbilitiesViewer::CQTs_ChAbilitiesViewer(QWidget *parent) :
+    QGroupBox(tr("Bio"),parent)
+{
+    initialize();
+}
+
+CQTs_ChAbilitiesViewer::CQTs_ChAbilitiesViewer(CQTs_Character *selected, QWidget *parent) :
+    QGroupBox(tr("Bio"),parent)
+{
+    initialize();
+    setLabs(selected);
+}
+
+void CQTs_ChAbilitiesViewer::initialize(){
+
+    LabName = new QLabel*;
+    LabValue = new QLabel*;
+    LabMod = new QLabel*;
+    LabTValue = new QLabel*;
+    LabTMod = new QLabel*;
+
+    QString names[6]={tr("Strength"),tr("Dexterity"),tr("Constitution"),tr("Intelligence"),tr("Wisdom"),tr("Charisma")};
+
+    QGridLayout *grid = new QGridLayout();
+
+    for (int i = 0; i < 6; ++i) {
+        grid->addWidget(LabName[i] = new QLabel(names[i]));
+
+    }
+
+
+    setLayout(grid);
+}
+
+
+void CQTs_ChAbilitiesViewer::setLabs(CQTs_Character *selected){
+
+}

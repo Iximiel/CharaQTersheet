@@ -37,4 +37,19 @@ public slots:
    void setLabs(CQTs_Character *selected);
 };
 
+class CQTs_ChAbilitiesViewer : public QGroupBox
+{
+    Q_OBJECT
+public:
+    explicit CQTs_ChAbilitiesViewer(QWidget *parent = 0);
+    explicit CQTs_ChAbilitiesViewer(CQTs_Character *selected, QWidget *parent = 0);
+private:
+    QLabel **LabName, **LabValue, **LabMod, **LabTValue ,**LabTMod;
+    void initialize();
+signals:
+
+public slots:
+   void setLabs(CQTs_Character *selected);
+};
+
 #endif // CQTS_VIEWERS_H
