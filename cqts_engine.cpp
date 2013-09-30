@@ -16,6 +16,7 @@ CQTs_engine::CQTs_engine()
  *Surname
  *age
  *lv
+ *str \t dex \t con \t int \t wis \t cha
  *hp
  *bab
  *fort \t ref \t will
@@ -34,7 +35,10 @@ CQTs_Character::CQTs_Character(QString filename){
         bio.Name= in.readLine();
         bio.Surname= in.readLine();
         in >> bio.age;
-        in >> LV >> HP >> BAB >> STf >> STr >> STw;
+        in >> LV ;
+        for(int i=0;i<6;i++)
+            in >> Abilities [i];
+        in >> HP >> BAB >> STf >> STr >> STw;
     }
     /*
     qDebug()<<bio.Name;

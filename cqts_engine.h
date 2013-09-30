@@ -24,6 +24,7 @@ struct charBio{
 
 class CQTs_Character
 {
+    enum CQT_Abilities{STR,DEX,CON,INT,WIS,CHA};
 public:
     CQTs_Character(QString filename);
     QString getName();
@@ -39,6 +40,7 @@ public:
 private:
     charBio bio;
     int LV,HP,BAB,STf,STr,STw;
+    int Abilities[6];
 };
 
 #endif //CQTS_CHAR
