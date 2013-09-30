@@ -2,21 +2,44 @@
 #include <QGridLayout>
 #include <QDockWidget>
 #include <QFileDialog>
+#include <QMessageBox>
 
 CharaQTersheet::CharaQTersheet(QWidget *parent)
     : QMainWindow(parent)
 {
     //initializing pointer as NULL
     dockSkills=dockSaves=dockAbilities=dockBio=dockClass=NULL;
-    //NOTE: the menubar IS a placeholder, for now
+
+    QAction *tAct;
     QMenuBar *mainMenu = menuBar(); //an addres for symplify my life
     QMenu *menuFiles = mainMenu->addMenu(tr("&File"));
-    menuFiles ->addAction(tr("&Save"));
-    menuFiles ->addAction(tr("&Open"));
+    tAct = menuFiles ->addAction(tr("&Save"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(saveChar()));
+    tAct = menuFiles ->addAction(tr("&Open"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(loadChar()));
+
     menuFiles ->addSeparator();
-    menuFiles ->addAction(tr("&Exit"));
+
+    tAct = menuFiles ->addAction(tr("&Exit"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(close()));
     QMenu *menuTools = mainMenu->addMenu(tr("&Tools"));
-    QAction *tAct = menuTools ->addAction(tr("&Classviewer"));
+
+
+    tAct = menuTools ->addAction(tr("&Abilities"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(addDockAbilities()));
+    tAct = menuTools ->addAction(tr("&Saves"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(addDockSaves()));
+    tAct = menuTools ->addAction(tr("&Skills"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(addDockSkills()));
+
+    menuTools->addSeparator();
+
+    tAct = menuTools ->addAction(tr("&Bio"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(addDockBio()));
+
+    menuTools->addSeparator();
+
+    tAct = menuTools ->addAction(tr("&Classviewer"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(addDockClass()));
 
     //addDockClass(Qt::LeftDockWidgetArea);
@@ -24,7 +47,6 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     addDockAbilities();
     addDockSaves();
     addDockSkills();
-    loadChar();
 }
 
 CharaQTersheet::~CharaQTersheet()
@@ -45,7 +67,8 @@ void CharaQTersheet::addDockClass(){
 void CharaQTersheet::addDockBio(){
     if(dockBio==NULL){
         dockBio = new QDockWidget("Bio");
-        dockBio->setWidget(new CQTs_ChBioViewer(dockBio));
+        viewerBio = new CQTs_ChBioViewer(dockBio);
+        dockBio->setWidget(viewerBio);
         addDockWidget(Qt::LeftDockWidgetArea,dockBio);
     }else
         dockBio->show();
@@ -81,6 +104,11 @@ void CharaQTersheet::addDockSkills(){
 void CharaQTersheet::loadChar(){
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Character File"), QString(),
                 tr("Character Files (*.chc *CHC);;All Files (*.*)"));
+    viewerBio->setLabs(new CQTs_Character(fileName));
+}
+
+void CharaQTersheet::saveChar(){
+    QMessageBox::information(0, QString("Information"), QString("Save funcion is useless, for now"), QMessageBox::Ok);
 }
 
 /*Classviewer*/
