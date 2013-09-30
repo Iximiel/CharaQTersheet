@@ -1,5 +1,6 @@
 #include "cqts_viewers.h"
 #include <QGridLayout>
+
 /*ClassViewer*/
 CQTs_ClassViewer::CQTs_ClassViewer(QWidget *parent) :
     QGroupBox(tr("Class Viewer"),parent)
@@ -107,13 +108,13 @@ void CQTs_ChBioViewer::setLabs(CQTs_Character *selected){
 /*AbilitiesViewer*/
 
 CQTs_ChAbilitiesViewer::CQTs_ChAbilitiesViewer(QWidget *parent) :
-    QGroupBox(tr("Bio"),parent)
+    QGroupBox(tr("Abilities"),parent)
 {
     initialize();
 }
 
 CQTs_ChAbilitiesViewer::CQTs_ChAbilitiesViewer(CQTs_Character *selected, QWidget *parent) :
-    QGroupBox(tr("Bio"),parent)
+    QGroupBox(tr("Abilities"),parent)
 {
     initialize();
     setLabs(selected);
@@ -121,19 +122,30 @@ CQTs_ChAbilitiesViewer::CQTs_ChAbilitiesViewer(CQTs_Character *selected, QWidget
 
 void CQTs_ChAbilitiesViewer::initialize(){
 
-    LabName = new QLabel*;
-    LabValue = new QLabel*;
-    LabMod = new QLabel*;
-    LabTValue = new QLabel*;
-    LabTMod = new QLabel*;
+    LabName = new QLabel* [6];
+    LabValue = new QLabel* [6];
+    LabMod = new QLabel* [6];
+    LabTValue = new QLabel* [6];
+    LabTMod = new QLabel* [6];
 
     QString names[6]={tr("Strength"),tr("Dexterity"),tr("Constitution"),tr("Intelligence"),tr("Wisdom"),tr("Charisma")};
 
     QGridLayout *grid = new QGridLayout();
 
     for (int i = 0; i < 6; ++i) {
-        grid->addWidget(LabName[i] = new QLabel(names[i]));
+        grid->addWidget(LabName[i] = new QLabel(names[i]),i,0);
 
+        grid->addWidget(LabValue[i] = new QLabel(),i,1);
+        LabValue[i]->setFrameStyle(QFrame::StyledPanel);
+
+        grid->addWidget(LabMod[i] = new QLabel(),i,2);
+        LabMod[i]->setFrameStyle(QFrame::StyledPanel);
+
+        grid->addWidget(LabTValue[i] = new QLabel(),i,3);
+        LabTValue[i]->setFrameStyle(QFrame::StyledPanel);
+
+        grid->addWidget(LabTMod[i] = new QLabel(),i,4);
+        LabTMod[i]->setFrameStyle(QFrame::StyledPanel);
     }
 
 
