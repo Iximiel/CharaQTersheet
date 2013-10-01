@@ -199,6 +199,15 @@ void CQTs_ChSkillsViewer::initialize(){
             QLabel *tLab = new QLabel(temp);
             LabName.push_back(tLab);
             grid->addWidget(tLab,i,0);
+            grid->addWidget(tLab= new QLabel("0"),i,1);
+            tLab->setFrameStyle(QFrame::Panel|QFrame::Raised);
+            grid->addWidget(tLab= new QLabel("="),i,2);
+            grid->addWidget(tLab= new QLabel("0"),i,3);
+            grid->addWidget(tLab= new QLabel("+"),i,4);
+            grid->addWidget(tLab= new QLabel("0"),i,5);
+            grid->addWidget(tLab= new QLabel("+"),i,6);
+            grid->addWidget(tLab= new QLabel("0"),i,7);
+
         }
     }
 
