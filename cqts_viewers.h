@@ -5,6 +5,7 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QString>
+#include <QVector>
 #include "cqts_engine.h"
 
 class CQTs_ClassViewer : public QGroupBox
@@ -51,6 +52,22 @@ signals:
 public slots:
    void setLabs(CQTs_Character *selected);
    void setLab(int sel, int val, bool temporary = false);
+};
+
+class CQTs_ChSkillsViewer : public QGroupBox
+{
+    Q_OBJECT
+public:
+    explicit CQTs_ChSkillsViewer(QWidget *parent = 0);
+    //explicit CQTs_ChSkillsViewer(CQTs_Character *selected, QWidget *parent = 0);
+private:
+    QVector<QLabel*> LabName;//, LabValue, LabMod;
+    void initialize();
+signals:
+
+public slots:
+   //void setLabs(CQTs_Character *selected);
+   //void setLab(int sel, int val, bool temporary = false);
 };
 
 #endif // CQTS_VIEWERS_H

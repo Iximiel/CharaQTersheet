@@ -96,7 +96,8 @@ void CharaQTersheet::addDockSaves(){
 void CharaQTersheet::addDockSkills(){
     if(dockSkills==NULL){
         dockSkills = new QDockWidget(tr("Skills"));
-        //dockSkills->setWidget();
+        CQTs_ChSkillsViewer *viewerSkills = new CQTs_ChSkillsViewer();
+        dockSkills->setWidget(viewerSkills);
         addDockWidget(Qt::RightDockWidgetArea,dockSkills);
     }else
         dockSkills->show();

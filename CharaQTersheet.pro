@@ -20,3 +20,6 @@ SOURCES += main.cpp\
 HEADERS  += charaqtersheet.h \
     cqts_engine.h \
     cqts_viewers.h
+
+OTHER_FILES += \
+    FtCitWD/Skills.txt

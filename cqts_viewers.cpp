@@ -1,5 +1,7 @@
 #include "cqts_viewers.h"
 #include <QGridLayout>
+#include <QFile>
+#include <QTextStream>
 
 /*ClassViewer*/
 CQTs_ClassViewer::CQTs_ClassViewer(QWidget *parent) :
@@ -166,4 +168,39 @@ void CQTs_ChAbilitiesViewer::setLabs(CQTs_Character *selected){
         setLab(i,val,false);
         setLab(i,val,true);
     }
+}
+
+/*SkillsViewer*/
+
+CQTs_ChSkillsViewer::CQTs_ChSkillsViewer(QWidget *parent) :
+    QGroupBox(tr("Skills"),parent)
+{
+    initialize();
+}
+
+//CQTs_ChSkillsViewer::CQTs_ChSkillsViewer(CQTs_Character *selected, QWidget *parent) :
+//    QGroupBox(tr("Skills"),parent)
+//{
+//    initialize();
+//    setLabs(selected);
+//}
+
+void CQTs_ChSkillsViewer::initialize(){
+    QFile file("Skills.txt");
+    QGridLayout *grid = new QGridLayout();
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+
+    //add an alert!
+       }
+       else{
+        QTextStream in(&file);
+        for (int i=0;!in.atEnd();i++){
+            QString temp=in.readLine();
+            QLabel *tLab = new QLabel(temp);
+            LabName.push_back(tLab);
+            grid->addWidget(tLab,i,0);
+        }
+    }
+
+    setLayout(grid);
 }
