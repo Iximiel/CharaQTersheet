@@ -1,0 +1,13 @@
+Decipher Script
+Disable Device
+Handle Animal
+Knowledge
+Open Lock
+Psicraft
+Profession
+Sleight of Hand
+Speak Language
+Spellcraft
+Tumble
+Use Magic Device
+Use Psionic Device

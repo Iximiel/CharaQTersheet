@@ -1,0 +1,43 @@
+#Strenght
+Climb
+Jump
+Swim
+#Dexterity
+Balance
+Escape Artist
+Hide
+Move Silently
+Open Lock
+Ride
+Sleight of Hand
+Tumble
+Use Rope
+#Constitution
+Concentration
+#Intelligence
+Appraise
+Craft
+Decipher Script
+Disable Device
+Forgery
+Knowledge
+Search
+Spellcraft
+#Wisdom
+Autohypnosis
+Control Shape
+Heal
+Listen
+Profession
+Sense Motive
+Spot
+Survival
+#Charisma
+Bluff
+Diplomacy
+Disguise
+Gather Information
+Handle Animal
+Intimidate
+Perform
+Use Magic Device

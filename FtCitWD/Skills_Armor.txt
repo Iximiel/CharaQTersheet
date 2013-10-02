@@ -1,0 +1,9 @@
+Balance
+Climb
+Escape Artist
+Hide
+Jump
+Move Silently
+Sleight of Hand
+Swim
+Tumble
