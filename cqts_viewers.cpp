@@ -198,17 +198,52 @@ void CQTs_ChSkillsViewer::initialize(){
             QString temp=in.readLine();
             QLabel *tLab = new QLabel(temp);
             LabName.push_back(tLab);
-            grid->addWidget(tLab,i,0);
-            grid->addWidget(tLab= new QLabel("0"),i,1);
+            grid->addWidget(tLab,i+1,0);
+            grid->addWidget(tLab= new QLabel("0"),1+i,1);
             tLab->setFrameStyle(QFrame::Panel|QFrame::Raised);
-            grid->addWidget(tLab= new QLabel("="),i,2);
-            grid->addWidget(tLab= new QLabel("0"),i,3);
-            grid->addWidget(tLab= new QLabel("+"),i,4);
-            grid->addWidget(tLab= new QLabel("0"),i,5);
-            grid->addWidget(tLab= new QLabel("+"),i,6);
-            grid->addWidget(tLab= new QLabel("0"),i,7);
+            grid->addWidget(tLab= new QLabel("="),i+1,2);
+            grid->addWidget(tLab= new QLabel("0"),i+1,3);
+            grid->addWidget(tLab= new QLabel("+"),i+1,4);
+            grid->addWidget(tLab= new QLabel("0"),i+1,5);
+            grid->addWidget(tLab= new QLabel("+"),i+1,6);
+            grid->addWidget(tLab= new QLabel("0"),i+1,7);
 
         }
+    }
+
+    setLayout(grid);
+}
+
+/*SaveThrowViewer*/
+
+CQTs_ChSTViewer::CQTs_ChSTViewer(QWidget *parent) :
+    QGroupBox(tr("Saves"),parent)
+{
+    initialize();
+}
+
+//CQTs_ChSTViewer::CQTs_ChSTViewer(CQTs_Character *selected, QWidget *parent) :
+//    QGroupBox(tr("Skills"),parent)
+//{
+//    initialize();
+//    setLabs(selected);
+//}
+
+void CQTs_ChSTViewer::initialize(){
+
+    LabName =   new QLabel* [3];
+    LabValue =  new QLabel* [3];
+    LabMod =    new QLabel* [3];
+    QLabel *tLab;
+
+    QGridLayout *grid = new QGridLayout();
+
+    QString Names[3]={tr("Fortitude"),tr("Reflexes"),tr("Will")};
+    for(int i=0;i<3;i++){
+        grid->addWidget(LabName[i]= new QLabel(Names[i]),i+1,0);
+        grid->addWidget(LabName[i]= new QLabel("0"),i+1,1);
+        grid->addWidget(tLab= new QLabel("="),i+1,2);
+        grid->addWidget(LabName[i]= new QLabel("0"),i+1,3);
     }
 
     setLayout(grid);

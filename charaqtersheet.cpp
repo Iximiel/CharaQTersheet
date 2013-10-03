@@ -87,7 +87,8 @@ void CharaQTersheet::addDockAbilities(){
 void CharaQTersheet::addDockSaves(){
     if(dockSaves==NULL){
         dockSaves = new QDockWidget(tr("Saves"));
-        //dockSaves->setWidget();
+        CQTs_ChSTViewer *viewerST = new CQTs_ChSTViewer();
+        dockSaves->setWidget(viewerST);
         addDockWidget(Qt::RightDockWidgetArea,dockSaves);
     }else
         dockSaves->show();
