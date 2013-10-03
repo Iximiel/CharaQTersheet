@@ -24,9 +24,9 @@ struct charBio{
 
 class CQTs_Character
 {
-    enum CQT_Abilities{STR,DEX,CON,INT,WIS,CHA};
 public:
     CQTs_Character(QString filename);
+    enum CQT_Abilities{STR,DEX,CON,INT,WIS,CHA};
     QString getName();
     QString getSurname();
     int getAge();
@@ -36,8 +36,11 @@ public:
     int getFortitude();
     int getReflex();
     int getWill();
+    int getST(int i);
     int getAbility(CQT_Abilities sel);
     int getAbility(int sel);
+    int getAbilityMod(int sel);
+
 
 private:
     charBio bio;

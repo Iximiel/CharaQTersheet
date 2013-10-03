@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QString>
 #include <QVector>
+#include <QSpinBox>
 #include "cqts_engine.h"
 
 class CQTs_ClassViewer : public QGroupBox
@@ -79,12 +80,13 @@ public:
     explicit CQTs_ChSTViewer(QWidget *parent = 0);
     //explicit CQTs_ChSTViewer(CQTs_Character *selected, QWidget *parent = 0);
 private:
-    QLabel** LabName, **LabValue, **LabMod;
+    QLabel** LabName, **LabValue,  **LabAb,**LabMod;
+    QSpinBox **SpinVarious;
     void initialize();
 signals:
 
 public slots:
-   //void setLabs(CQTs_Character *selected);
+   void setLabs(CQTs_Character *selected);
    //void setLab(int sel, int val, bool temporary = false);
 };
 

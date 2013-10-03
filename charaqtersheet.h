@@ -26,6 +26,8 @@ private:
     QDockWidget *dockSkills, *dockSaves, *dockAbilities, *dockBio, *dockClass;
     CQTs_ChBioViewer *viewerBio;
     CQTs_ChAbilitiesViewer *viewerAbilities;
+    CQTs_ChSTViewer *viewerST;
+    //CQTs_ChSkillsViewer *viewerSkills = new CQTs_ChSkillsViewer();
 };
 
 class ClassViewer : public QWidget

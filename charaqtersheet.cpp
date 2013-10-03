@@ -87,7 +87,7 @@ void CharaQTersheet::addDockAbilities(){
 void CharaQTersheet::addDockSaves(){
     if(dockSaves==NULL){
         dockSaves = new QDockWidget(tr("Saves"));
-        CQTs_ChSTViewer *viewerST = new CQTs_ChSTViewer();
+        viewerST = new CQTs_ChSTViewer();
         dockSaves->setWidget(viewerST);
         addDockWidget(Qt::RightDockWidgetArea,dockSaves);
     }else
@@ -110,7 +110,8 @@ void CharaQTersheet::loadChar(){
     character = new CQTs_Character(fileName);
     viewerBio->setLabs(character);
     viewerAbilities->setLabs(character);
-
+    viewerST->setLabs(character);
+    //viewerSkills->setLabs(character);
 }
 
 void CharaQTersheet::saveChar(){

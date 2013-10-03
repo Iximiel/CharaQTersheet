@@ -231,20 +231,43 @@ CQTs_ChSTViewer::CQTs_ChSTViewer(QWidget *parent) :
 
 void CQTs_ChSTViewer::initialize(){
 
-    LabName =   new QLabel* [3];
+    LabName  =   new QLabel* [3];
     LabValue =  new QLabel* [3];
+    LabAb   =  new QLabel* [3];
     LabMod =    new QLabel* [3];
+    SpinVarious = new QSpinBox* [3];
     QLabel *tLab;
 
     QGridLayout *grid = new QGridLayout();
 
-    QString Names[3]={tr("Fortitude"),tr("Reflexes"),tr("Will")};
+    QString Names[3]={tr("Fortitude"),tr("Reflex"),tr("Will")};
     for(int i=0;i<3;i++){
-        grid->addWidget(LabName[i]= new QLabel(Names[i]),i+1,0);
-        grid->addWidget(LabName[i]= new QLabel("0"),i+1,1);
-        grid->addWidget(tLab= new QLabel("="),i+1,2);
-        grid->addWidget(LabName[i]= new QLabel("0"),i+1,3);
+        int j=0;
+        grid->addWidget(LabName[i]= new QLabel(Names[i]),i+1,j++);
+        grid->addWidget(LabValue[i]= new QLabel("0"),i+1,j++);
+        grid->addWidget(tLab= new QLabel("="),i+1,j++);
+        grid->addWidget(LabAb[i]= new QLabel("0"),i+1,j++);
+        grid->addWidget(tLab= new QLabel("+"),i+1,j++);
+        grid->addWidget(LabMod[i]= new QLabel("0"),i+1,j++);
+        grid->addWidget(tLab= new QLabel("+"),i+1,j++);
+        grid->addWidget(tLab= new QLabel("0"),i+1,j++);
+        grid->addWidget(tLab= new QLabel("+"),i+1,j++);
+        grid->addWidget(SpinVarious[i] = new QSpinBox(),i+1,j++);
+        SpinVarious[i]->setRange(0,99);
+        //SpinVarious[i]->
     }
 
     setLayout(grid);
+}
+
+void CQTs_ChSTViewer::setLabs(CQTs_Character *selected){
+    CQTs_Character::CQT_Abilities statmap[3]={CQTs_Character::CON,CQTs_Character::DEX,CQTs_Character::WIS};
+    for (int i = 0; i < 3; ++i){
+        int ab=selected->getAbilityMod(statmap[i]);
+        int mod=selected->getST(i);
+        int val=ab+mod;
+        LabMod[i]->setNum(mod);
+        LabAb[i]->setNum(ab);
+        LabValue[i]->setNum(val);
+    }
 }
