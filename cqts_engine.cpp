@@ -51,6 +51,26 @@ CQTs_Character::CQTs_Character(QString filename){
     */
 }
 
+void CQTs_Character::saveToFile(QString filename){
+    filename.remove(".chc");
+    QFile file(filename+".chc");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        //add an alert!
+    }
+    else{
+        QTextStream out(&file);
+        out << bio.Name << '\n';
+        out << bio.Surname << '\n';
+        out << bio.age << '\n';
+        out << LV << '\n';
+        out << Abilities [0];
+        for(int i=1;i<6;i++)
+        out << Abilities [i] << '\t';
+        out <<'\n';
+        out << HP <<'\n' << BAB <<'\n' << STf <<'\n' << STr  <<'\n' << STw  <<'\n';
+    }
+}
+
 QString CQTs_Character::getName(){return bio.Name;}
 QString CQTs_Character::getSurname(){return bio.Surname;}
 int CQTs_Character::getAge(){return bio.age;}
