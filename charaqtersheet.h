@@ -16,6 +16,7 @@ public:
 public slots:
     void addDockClass();
     void addDockBio();
+    void addDockBAB();
     void addDockAbilities();
     void addDockSaves();
     void addDockSkills();
@@ -23,7 +24,7 @@ public slots:
     void saveChar();
 private:
     CQTs_Character *character;
-    QDockWidget *dockSkills, *dockSaves, *dockAbilities, *dockBio, *dockClass;
+    QDockWidget *dockSkills, *dockSaves, *dockAbilities, *dockBio, *dockBAB, *dockClass;
     CQTs_ChBioViewer *viewerBio;
     CQTs_ChAbilitiesViewer *viewerAbilities;
     CQTs_ChSTViewer *viewerST;

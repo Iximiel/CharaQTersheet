@@ -90,4 +90,21 @@ public slots:
    //void setLab(int sel, int val, bool temporary = false);
 };
 
+class CQTs_ChBABViever :public QGroupBox
+{
+    Q_OBJECT
+public:
+    explicit CQTs_ChBABViever (QWidget *parent = 0);
+    //explicit CQTs_ChBABViever(CQTs_Character *selected, QWidget *parent = 0);
+private:
+    QLabel** LabName, **LabValue,  **LabAb,**LabMod;
+    QSpinBox **SpinVarious;
+    void initialize();
+signals:
+
+public slots:
+   void setLabs(CQTs_Character *selected);
+   //void setLab(int sel, int val, bool temporary = false);
+};
+
 #endif // CQTS_VIEWERS_H

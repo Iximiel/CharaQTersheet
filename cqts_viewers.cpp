@@ -271,3 +271,62 @@ void CQTs_ChSTViewer::setLabs(CQTs_Character *selected){
         LabValue[i]->setNum(val);
     }
 }
+
+/*CQTs_ChBABViever*/
+
+CQTs_ChBABViever::CQTs_ChBABViever(QWidget *parent) :
+QGroupBox(tr("BAB"),parent)
+{
+initialize();
+}
+/*
+CQTs_ChBABViever::CQTs_ChBABViever(CQTs_Character *selected, QWidget *parent) :
+QGroupBox(tr("Attacks"),parent)
+{
+initialize();
+setLabs(selected);
+}*/
+
+void CQTs_ChBABViever::initialize(){
+
+    LabName  =   new QLabel* [3];
+    LabValue =  new QLabel* [3];
+    LabAb   =  new QLabel* [3];
+    LabMod =    new QLabel* [3];
+    SpinVarious = new QSpinBox* [3];
+    QLabel *tLab;
+
+    QGridLayout *grid = new QGridLayout();
+
+    QString Names[3]={tr("Melee"),tr("Ranged"),tr("Grapple")};
+    for(int i=0;i<3;i++){
+        int j=0;
+        grid->addWidget(LabName[i]= new QLabel(Names[i]),i+1,j++);
+        grid->addWidget(LabValue[i]= new QLabel("0"),i+1,j++);
+        grid->addWidget(tLab= new QLabel("="),i+1,j++);
+        grid->addWidget(LabAb[i]= new QLabel("0"),i+1,j++);
+        grid->addWidget(tLab= new QLabel("+"),i+1,j++);
+        grid->addWidget(LabMod[i]= new QLabel("0"),i+1,j++);
+        grid->addWidget(tLab= new QLabel("+"),i+1,j++);
+        grid->addWidget(tLab= new QLabel("0"),i+1,j++);
+        grid->addWidget(tLab= new QLabel("+"),i+1,j++);
+        grid->addWidget(SpinVarious[i] = new QSpinBox(),i+1,j++);
+        SpinVarious[i]->setRange(0,99);
+        //SpinVarious[i]->
+    }
+
+    setLayout(grid);
+}
+
+
+void CQTs_ChBABViever::setLabs(CQTs_Character *selected){
+    CQTs_Character::CQT_Abilities statmap[3]={CQTs_Character::CON,CQTs_Character::DEX,CQTs_Character::WIS};
+    for (int i = 0; i < 3; ++i){
+        int ab=selected->getAbilityMod(statmap[i]);
+        int mod=selected->getST(i);
+        int val=ab+mod;
+        LabMod[i]->setNum(mod);
+        LabAb[i]->setNum(ab);
+        LabValue[i]->setNum(val);
+    }
+}

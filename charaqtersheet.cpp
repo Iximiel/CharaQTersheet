@@ -8,7 +8,7 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     : QMainWindow(parent)
 {
     //initializing pointer as NULL
-    dockSkills=dockSaves=dockAbilities=dockBio=dockClass=NULL;
+    dockSkills=dockSaves=dockAbilities=dockBio=dockBAB=dockClass=NULL;
 
     QAction *tAct;
     QMenuBar *mainMenu = menuBar(); //an addres for symplify my life
@@ -46,6 +46,7 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     addDockBio();
     addDockAbilities();
     addDockSaves();
+    addDockBAB();
     addDockSkills();
 }
 
@@ -69,7 +70,7 @@ void CharaQTersheet::addDockBio(){
         dockBio = new QDockWidget("Bio");
         viewerBio = new CQTs_ChBioViewer(dockBio);
         dockBio->setWidget(viewerBio);
-        addDockWidget(Qt::LeftDockWidgetArea,dockBio);
+        addDockWidget(Qt::TopDockWidgetArea,dockBio);
     }else
         dockBio->show();
 }
@@ -84,12 +85,23 @@ void CharaQTersheet::addDockAbilities(){
         dockAbilities->show();
 }
 
+void CharaQTersheet::addDockBAB(){
+    if(dockBAB==NULL){
+        dockBAB = new QDockWidget("BAB");
+        CQTs_ChBABViever *viewerBAB = new CQTs_ChBABViever(dockBAB);
+        dockBAB->setWidget(viewerBAB);
+        addDockWidget(Qt::LeftDockWidgetArea,dockBAB);
+    }else
+        dockBAB->show();
+}
+
+
 void CharaQTersheet::addDockSaves(){
     if(dockSaves==NULL){
         dockSaves = new QDockWidget(tr("Saves"));
         viewerST = new CQTs_ChSTViewer();
         dockSaves->setWidget(viewerST);
-        addDockWidget(Qt::RightDockWidgetArea,dockSaves);
+        addDockWidget(Qt::LeftDockWidgetArea,dockSaves);
     }else
         dockSaves->show();
 }

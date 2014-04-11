@@ -67,7 +67,7 @@ public:
 private:
     QString Name;
     int lmax;//20,10,5,3 so he can understand if is baseclass or not//may be made compatible with d20System in general
-    int BAB;//tell me core stats: binary: xxxxx FRWAB FRW 0/1 each (good or bad) BAB:00 01 10
+    int BAB;//tell me core stats: binary: xxxxx FRWAB FRW 1/0 each (good or bad) BAB:00 01 10
     bool fort, ref, will;
     //next: adding class skills and privileges
 };
