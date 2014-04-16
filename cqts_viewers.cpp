@@ -2,7 +2,7 @@
 #include <QGridLayout>
 #include <QFile>
 #include <QTextStream>
-
+#include <QXmlStreamReader>
 /*ClassViewer*/
 CQTs_ClassViewer::CQTs_ClassViewer(QWidget *parent) :
     QGroupBox(tr("Class Viewer"),parent)
@@ -186,31 +186,43 @@ CQTs_ChSkillsViewer::CQTs_ChSkillsViewer(QWidget *parent) :
 //}
 
 void CQTs_ChSkillsViewer::initialize(){
-    QFile file("Skills.txt");
+    QFile file("Skills_Eng.txt");
     QGridLayout *grid = new QGridLayout();
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
 
-    //add an alert!
-       }
-       else{
-        QTextStream in(&file);
-        for (int i=0;!in.atEnd();i++){
-            QString temp=in.readLine();
-            QLabel *tLab = new QLabel(temp);
-            LabName.push_back(tLab);
-            grid->addWidget(tLab,i+1,0);
-            grid->addWidget(tLab= new QLabel("0"),1+i,1);
-            tLab->setFrameStyle(QFrame::Panel|QFrame::Raised);
-            grid->addWidget(tLab= new QLabel("="),i+1,2);
-            grid->addWidget(tLab= new QLabel("0"),i+1,3);
-            grid->addWidget(tLab= new QLabel("+"),i+1,4);
-            grid->addWidget(tLab= new QLabel("0"),i+1,5);
-            grid->addWidget(tLab= new QLabel("+"),i+1,6);
-            grid->addWidget(tLab= new QLabel("0"),i+1,7);
-
+        //add an alert!
+    }
+    else{
+        QXmlStreamReader xml(&file);
+        xml.readNext();
+         if(xml.name()!="skills")
+             xml.readNext();
+        for(int i=0;!xml.atEnd();){
+            int numb=xml.readNext();
+            //qDebug()<< QString::number(xml.lineNumber())<<QString::number(xml.columnNumber());
+            //qDebug()<<xml.lineNumber();
+            if(numb == 4){
+                QString temp=xml.name().toString();
+                QLabel *tLab = new QLabel(temp);
+                LabName.push_back(tLab);
+                grid->addWidget(tLab,i+1,0);
+                grid->addWidget(tLab= new QLabel("0"),1+i,1);
+                tLab->setFrameStyle(QFrame::Panel|QFrame::Raised);
+                grid->addWidget(tLab= new QLabel("="),i+1,2);
+                grid->addWidget(tLab= new QLabel("0"),i+1,3);
+                grid->addWidget(tLab= new QLabel("+"),i+1,4);
+                grid->addWidget(tLab= new QLabel("0"),i+1,5);
+                grid->addWidget(tLab= new QLabel("+"),i+1,6);
+                grid->addWidget(tLab= new QLabel("0"),i+1,7);
+                xml.readNext();
+                //qDebug()<<nome<<xml.text();
+                i++;
+            }
+            if (xml.hasError()) {
+                // do error handling
+            }
         }
     }
-
     setLayout(grid);
 }
 

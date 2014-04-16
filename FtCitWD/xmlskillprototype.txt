@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<skills>
+    <skill>
+        <code>app</code>
+        <attribute>INT</attribute>
+        <armor>0</armor><!moltiplica per!>
+        <synergy><synergy>//sarebbe from
+        <untrained>1</untrained>
+    </skill>
+</skills>
