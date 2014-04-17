@@ -202,7 +202,8 @@ void CQTs_ChSkillsViewer::initialize(){
             //qDebug()<< QString::number(xml.lineNumber())<<QString::number(xml.columnNumber());
             //qDebug()<<xml.lineNumber();
             if(numb == 4){
-                QString temp=xml.name().toString();
+                xml.readNext();
+                QString temp=xml.text().toString();
                 QLabel *tLab = new QLabel(temp);
                 LabName.push_back(tLab);
                 grid->addWidget(tLab,i+1,0);
@@ -214,7 +215,6 @@ void CQTs_ChSkillsViewer::initialize(){
                 grid->addWidget(tLab= new QLabel("0"),i+1,5);
                 grid->addWidget(tLab= new QLabel("+"),i+1,6);
                 grid->addWidget(tLab= new QLabel("0"),i+1,7);
-                xml.readNext();
                 //qDebug()<<nome<<xml.text();
                 i++;
             }

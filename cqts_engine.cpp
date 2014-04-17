@@ -4,11 +4,46 @@
 
 #include <QStringList>
 #include <QTextStream>
-
+#include <QXmlStreamReader>
 #include <QDebug>
 
-CQTs_engine::CQTs_engine()
-{
+CQTs_skill::CQTs_skill(){
+    Name  = "";
+}
+
+CQTs_skill::CQTs_skill(QString name){
+    Name  = name;
+}
+
+QString CQTs_skill::myName(){
+    return Name;
+}
+
+
+CQTs_engine::CQTs_engine(){
+    QFile file("Skills_Eng.txt");//first load the language file
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        //add an alert!
+    }
+    else{
+        QXmlStreamReader xml(&file);
+        xml.readNext();
+        while(xml.name()!="skills")
+             xml.readNext();
+        while(!xml.atEnd()){
+            if(xml.readNext() == 4){
+                QString code=xml.name().toString();
+                xml.readNext();
+                QString name = xml.text().toString();
+                skilladdress.push_back(code);
+                Skills.insert(code,name);
+            }
+            if (xml.hasError()) {
+                // do error handling
+            }
+        }
+        file.close();
+    }
 }
 /*****character handler*****/
 /*CharacterFile structure:

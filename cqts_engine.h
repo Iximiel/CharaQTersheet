@@ -1,14 +1,30 @@
 //the engine is the "globalresorcepack" of my prog
 #ifndef CQTS_ENGINE_H
 #define CQTS_ENGINE_H
-/*as now thi is a placeholder,
+#include <QString>
+#include <QMap>
+/*as now this is a placeholder,
  *maybe it will evolve in a sort of global
  *constant that will make communication between segments of the program
  */
+class CQTs_skill
+{
+public:
+    CQTs_skill();
+    CQTs_skill(QString name);
+    QString myName();
+private:
+    QString Name;
+    //int ranks;
+};
+
 class CQTs_engine
 {
 public:
     CQTs_engine();
+private:
+    QList<QString> skilladdress;
+    QMap<QString,CQTs_skill> Skills;
 };
 
 #endif // CQTS_ENGINE_H
