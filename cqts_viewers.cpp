@@ -178,51 +178,55 @@ CQTs_ChSkillsViewer::CQTs_ChSkillsViewer(QWidget *parent) :
     initialize();
 }
 
-//CQTs_ChSkillsViewer::CQTs_ChSkillsViewer(CQTs_Character *selected, QWidget *parent) :
-//    QGroupBox(tr("Skills"),parent)
-//{
-//    initialize();
-//    setLabs(selected);
-//}
+/*CQTs_ChSkillsViewer::CQTs_ChSkillsViewer(CQTs_Character *selected, QWidget *parent) :
+    QGroupBox(tr("Skills"),parent)
+{
+    initialize();
+    setLabs(selected);
+}*/
 
 void CQTs_ChSkillsViewer::initialize(){
-    QFile file("Skills_Eng.txt");
+    //could be better if claimed from a conf option
     QGridLayout *grid = new QGridLayout();
+    QFile file("Skills_Eng.xml");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-
+       // qDebug()<<"errore";
         //add an alert!
     }
     else{
         QXmlStreamReader xml(&file);
-        xml.readNext();
-         if(xml.name()!="skills")
-             xml.readNext();
-        for(int i=0;!xml.atEnd();){
-            int numb=xml.readNext();
-            //qDebug()<< QString::number(xml.lineNumber())<<QString::number(xml.columnNumber());
-            //qDebug()<<xml.lineNumber();
-            if(numb == 4){
-                xml.readNext();
-                QString temp=xml.text().toString();
-                QLabel *tLab = new QLabel(temp);
-                LabName.push_back(tLab);
-                grid->addWidget(tLab,i+1,0);
-                grid->addWidget(tLab= new QLabel("0"),1+i,1);
-                tLab->setFrameStyle(QFrame::Panel|QFrame::Raised);
-                grid->addWidget(tLab= new QLabel("="),i+1,2);
-                grid->addWidget(tLab= new QLabel("0"),i+1,3);
-                grid->addWidget(tLab= new QLabel("+"),i+1,4);
-                grid->addWidget(tLab= new QLabel("0"),i+1,5);
-                grid->addWidget(tLab= new QLabel("+"),i+1,6);
-                grid->addWidget(tLab= new QLabel("0"),i+1,7);
-                //qDebug()<<nome<<xml.text();
-                i++;
+       for(int i=0;!xml.atEnd();){
+            if(xml.name()=="skill"&&xml.isStartElement())
+            {
+                while(!(xml.name()=="skill"&&xml.isEndElement())){
+                    xml.readNext();
+                    if(xml.name()=="name"&&xml.isStartElement()){
+                        while(!xml.readNext()==6);
+                        QString temp=xml.text().toString();
+                        QLabel *tLab = new QLabel(temp);
+                        LabName.push_back(tLab);
+                        grid->addWidget(tLab,i+1,0);
+                        grid->addWidget(tLab= new QLabel("0"),1+i,1);
+                        tLab->setFrameStyle(QFrame::Panel|QFrame::Raised);
+                        grid->addWidget(tLab= new QLabel("="),i+1,2);
+                        grid->addWidget(tLab= new QLabel("0"),i+1,3);
+                        grid->addWidget(tLab= new QLabel("+"),i+1,4);
+                        grid->addWidget(tLab= new QLabel("0"),i+1,5);
+                        grid->addWidget(tLab= new QLabel("+"),i+1,6);
+                        grid->addWidget(tLab= new QLabel("0"),i+1,7);
+                        //qDebug()<<nome<<xml.text();
+                        i++;
+
+                    }
+                }
             }
             if (xml.hasError()) {
                 // do error handling
             }
+            xml.readNext();
         }
     }
+
     setLayout(grid);
 }
 

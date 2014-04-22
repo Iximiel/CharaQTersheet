@@ -27,5 +27,6 @@ OTHER_FILES += \
     FtCitWD/Skills_trained.txt \
     FtCitWD/Skills_Armor.txt \
     FtCitWD/SkillCodes.txt \
-    FtCitWD/Skills_Eng.txt \
-    FtCitWD/xmlskillprototype.txt
+    FtCitWD/xmlskillprototype.txt \
+    FtCitWD/config.xml \
+    FtCitWD/Skills_Eng.xml

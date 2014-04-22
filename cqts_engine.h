@@ -2,6 +2,7 @@
 #ifndef CQTS_ENGINE_H
 #define CQTS_ENGINE_H
 #include <QString>
+#include <QStringList>
 #include <QMap>
 /*as now this is a placeholder,
  *maybe it will evolve in a sort of global
@@ -15,7 +16,10 @@ public:
     QString myName();
 private:
     QString Name;
-    //int ranks;
+    /*
+    QStringList synergies;
+    int armor,trainedOnly;
+    */
 };
 
 class CQTs_engine
@@ -23,7 +27,7 @@ class CQTs_engine
 public:
     CQTs_engine();
 private:
-    QList<QString> skilladdress;
+    QStringList skilladdress;
     QMap<QString,CQTs_skill> Skills;
 };
 
