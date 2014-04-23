@@ -59,10 +59,11 @@ class CQTs_ChSkillsViewer : public QGroupBox
 {
     Q_OBJECT
 public:
-    explicit CQTs_ChSkillsViewer(QWidget *parent = 0);
+    explicit CQTs_ChSkillsViewer(CQTs_engine *engine, QWidget *parent = 0);
     //explicit CQTs_ChSkillsViewer(CQTs_Character *selected, QWidget *parent = 0);
 private:
     QVector<QLabel*> LabName;//, LabValue, LabMod;
+    CQTs_engine *eng;//pointer to the engine
     void initialize();
 signals:
 

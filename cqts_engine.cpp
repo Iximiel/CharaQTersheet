@@ -11,42 +11,141 @@ CQTs_skill::CQTs_skill(){
     Name  = "";
 }
 
-CQTs_skill::CQTs_skill(QString name){
-    Name  = name;
+CQTs_skill::CQTs_skill(QString code, bool train):
+QString(code)
+{
+    Name  = "";
+    trainedOnly = train;
 }
 
 QString CQTs_skill::myName(){
     return Name;
 }
 
+CQTs_skill CQTs_skill::finder (QString code){
+    CQTs_skill toreturn(code,0);
+    return toreturn;
+}
+
+void CQTs_skill::setmyName(QString name){
+    Name  = name;
+}
+
 bool CQTs_skill::needsTrain(){ return trainedOnly;}
 
+bool CQTs_skill::operator <(CQTs_skill b){
+    return Name<b.Name;
+}
 
+//engine!
 CQTs_engine::CQTs_engine(){
-    QFile file("Skills_Eng.txt");//first load the language file
+    loadSkills();
+    loadSkillNames();
+}
+
+void CQTs_engine::loadSkills(){
+    QFile file("Skills_data.txt");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        // qDebug()<<"errore lettura";
         //add an alert!
     }
     else{
         QXmlStreamReader xml(&file);
-        xml.readNext();
-        while(xml.name()!="skills")
-             xml.readNext();
         while(!xml.atEnd()){
-            if(xml.readNext() == 4){
-                QString code=xml.name().toString();
-                xml.readNext();
-                QString name = xml.text().toString();
-                skilladdress.push_back(code);
-                Skills.insert(code,name);
+
+            if(xml.name()=="skill"&&xml.isStartElement())
+            {
+                QString code;
+                //int arm, abl;
+                bool train;
+                //QStringList Synergies, cyrcSinergies;
+                while(!(xml.name()=="skill"&&xml.isEndElement())){
+                    xml.readNext();
+                    if(xml.name()=="code"&&xml.isStartElement()){//get the code
+                        while(!xml.readNext()==6);
+
+                        code = (xml.text().toString());
+                    }/*
+                    if(xml.name()=="ability"&&xml.isStartElement()){//get the ability related
+                        while(!xml.readNext()==6);
+
+                        skillAddress[id]->set_Ability(xml.text().toInt());
+                    }/
+                    if(xml.name()=="armor"&&xml.isStartElement()){//get armor penality
+                        while(!xml.readNext()==6);
+
+                        skillAddress[id]->set_Armor(xml.text().toInt());
+                    }*/
+                    if(xml.name()=="onlytrained"&&xml.isStartElement()){//get trained only
+                        while(!xml.readNext()==6);
+
+                        train =xml.text().toInt();
+                    }/*
+                    if(xml.name()=="synergy"&&xml.isStartElement()){//get synergies
+                        while(!xml.readNext()==6);
+
+                        skillAddress[id]->set_Synergies(codes.indexOf(xml.text().toString()));
+                    }
+                    if(xml.name()=="circumstantial"&&xml.isStartElement()){//get cyrcumstantial synergies
+                        while(!xml.readNext()==6);
+
+                        skillAddress[id]->set_CyrcSynergies(codes.indexOf(xml.text().toString()));
+                    }*/
+                }
+            CQTs_skill tSkill(code,train);
+            Skills.append(tSkill);
             }
             if (xml.hasError()) {
                 // do error handling
             }
+            xml.readNext();
         }
-        file.close();
+    }
+    file.close();
+}
+
+void CQTs_engine::loadSkillNames(){
+
+    QFile file("Skills_Eng.xml");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+       // qDebug()<<"errore";
+        //add an alert!
+    }
+    else{
+        QXmlStreamReader xml(&file);
+        while(!xml.atEnd()){
+            if(xml.name()=="skill"&&xml.isStartElement())
+            {
+                QString code,name;
+                while(!(xml.name()=="skill"&&xml.isEndElement())){
+                    xml.readNext();
+                    if(xml.name()=="code"&&xml.isStartElement()){//taking code
+                        while(!xml.readNext()==6);
+                        code = xml.text().toString();
+                    }
+                    if(xml.name()=="name"&&xml.isStartElement()){//taking names
+                        while(!xml.readNext()==6);
+                        name=xml.text().toString();
+                    }
+                }
+                int id = Skills.indexOf((CQTs_skill::finder(code)));
+                if(id!=-1)
+                   {
+                   Skills[id] .setmyName(name);
+                   qDebug() << id<<code<<name;
+                }
+            }
+            if (xml.hasError()) {
+                // do error handling
+            }
+            xml.readNext();
+        }
     }
 }
+
+int CQTs_engine::skillNum(){return Skills.size();}
+CQTs_skill CQTs_engine::skillData(int i){return Skills[i];}
+
 /*****character handler*****/
 /*CharacterFile structure:
  *Name

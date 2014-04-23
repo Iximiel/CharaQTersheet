@@ -5,6 +5,7 @@
 #include <QMenuBar>
 #include <QComboBox>
 #include "cqts_viewers.h"
+#include "cqts_engine.h"
 
 class CharaQTersheet : public QMainWindow
 {
@@ -23,6 +24,7 @@ public slots:
     void loadChar();
     void saveChar();
 private:
+    CQTs_engine *engine;
     CQTs_Character *character;
     QDockWidget *dockSkills, *dockSaves, *dockAbilities, *dockBio, *dockBAB, *dockClass;
     CQTs_ChBioViewer *viewerBio;

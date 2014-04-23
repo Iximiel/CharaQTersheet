@@ -7,6 +7,8 @@
 CharaQTersheet::CharaQTersheet(QWidget *parent)
     : QMainWindow(parent)
 {
+    //loading the engine:
+    engine = new CQTs_engine();
     //initializing pointer as NULL
     dockSkills=dockSaves=dockAbilities=dockBio=dockBAB=dockClass=NULL;
 
@@ -109,7 +111,7 @@ void CharaQTersheet::addDockSaves(){
 void CharaQTersheet::addDockSkills(){
     if(dockSkills==NULL){
         dockSkills = new QDockWidget(tr("Skills"));
-        CQTs_ChSkillsViewer *viewerSkills = new CQTs_ChSkillsViewer();
+        CQTs_ChSkillsViewer *viewerSkills = new CQTs_ChSkillsViewer(engine);
         dockSkills->setWidget(viewerSkills);
         addDockWidget(Qt::RightDockWidgetArea,dockSkills);
     }else

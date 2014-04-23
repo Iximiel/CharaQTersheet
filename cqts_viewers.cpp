@@ -113,6 +113,7 @@ CQTs_ChAbilitiesViewer::CQTs_ChAbilitiesViewer(QWidget *parent) :
     QGroupBox(tr("Abilities"),parent)
 {
     initialize();
+    setMaximumHeight(100);
 }
 
 CQTs_ChAbilitiesViewer::CQTs_ChAbilitiesViewer(CQTs_Character *selected, QWidget *parent) :
@@ -172,9 +173,10 @@ void CQTs_ChAbilitiesViewer::setLabs(CQTs_Character *selected){
 
 /*SkillsViewer*/
 
-CQTs_ChSkillsViewer::CQTs_ChSkillsViewer(QWidget *parent) :
+CQTs_ChSkillsViewer::CQTs_ChSkillsViewer(CQTs_engine* engine, QWidget *parent) :
     QGroupBox(tr("Skills"),parent)
 {
+    eng = engine;
     initialize();
 }
 
@@ -189,22 +191,11 @@ CQTs_ChSkillsViewer::CQTs_ChSkillsViewer(QWidget *parent) :
 void CQTs_ChSkillsViewer::initialize(){
     //could be better if claimed from a conf option
     QGridLayout *grid = new QGridLayout();
-    QFile file("Skills_Eng.xml");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-       // qDebug()<<"errore";
-        //add an alert!
-    }
-    else{
-        QXmlStreamReader xml(&file);
-       for(int i=0;!xml.atEnd();){
-            if(xml.name()=="skill"&&xml.isStartElement())
-            {
-                while(!(xml.name()=="skill"&&xml.isEndElement())){
-                    xml.readNext();
-                    if(xml.name()=="name"&&xml.isStartElement()){
-                        while(!xml.readNext()==6);
-                        QString temp=xml.text().toString();
-                        QLabel *tLab = new QLabel(temp);
+    for (int i = 0; i < eng->skillNum(); ++i) {
+
+
+
+                        QLabel *tLab = new QLabel(eng->skillData(i).myName());
                         LabName.push_back(tLab);
                         grid->addWidget(tLab,i+1,0);
                         grid->addWidget(tLab= new QLabel("0"),1+i,1);
@@ -216,17 +207,11 @@ void CQTs_ChSkillsViewer::initialize(){
                         grid->addWidget(tLab= new QLabel("+"),i+1,6);
                         grid->addWidget(tLab= new QLabel("0"),i+1,7);
                         //qDebug()<<nome<<xml.text();
-                        i++;
+
 
                     }
-                }
-            }
-            if (xml.hasError()) {
-                // do error handling
-            }
-            xml.readNext();
-        }
-    }
+
+
 
     setLayout(grid);
 }

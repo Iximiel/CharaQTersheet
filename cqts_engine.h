@@ -8,14 +8,16 @@
  *maybe it will evolve in a sort of global
  *constant that will make communication between segments of the program
  */
-class CQTs_skill
+class CQTs_skill : public QString//in a qlist this could be find using the code, and next ordered by using myname
 {
 public:
     CQTs_skill();
-    CQTs_skill(QString name);
+    CQTs_skill(QString code, bool train);
+    static CQTs_skill finder (QString code);
+    void setmyName(QString);
     QString myName();
     bool needsTrain();
-
+    bool operator <(CQTs_skill b);
 private:
     QString Name;
 //    QStringList synergies;
@@ -27,9 +29,12 @@ class CQTs_engine
 {
 public:
     CQTs_engine();
+    int skillNum();
+    CQTs_skill skillData(int i);
 private:
-    QStringList skilladdress;
-    QMap<QString,CQTs_skill> Skills;
+    void loadSkills();
+    void loadSkillNames();
+    QList<CQTs_skill> Skills;
 };
 
 #endif // CQTS_ENGINE_H

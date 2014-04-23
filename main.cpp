@@ -13,6 +13,5 @@ int main(int argc, char *argv[])
     //ClassViewer w;
     w.show();
     CQTs_Character prova("character");
-    CQTs_engine *prova2 = new CQTs_engine();
     return a.exec();
 }
