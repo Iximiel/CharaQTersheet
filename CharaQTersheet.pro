@@ -22,11 +22,7 @@ HEADERS  += charaqtersheet.h \
     cqts_viewers.h
 
 OTHER_FILES += \
-    FtCitWD/Skills.txt \
-    FtCitWD/Skills_Ablility.txt \
-    FtCitWD/Skills_trained.txt \
-    FtCitWD/Skills_Armor.txt \
-    FtCitWD/SkillCodes.txt \
-    FtCitWD/xmlskillprototype.txt \
-    FtCitWD/config.xml \
-    FtCitWD/Skills_Eng.xml
+    Otherfiles/Skills.txt \
+    xml/config.xml \
+    xml/Skills_Eng.xml \
+    xml/Skills_data.xml
