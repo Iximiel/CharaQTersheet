@@ -113,7 +113,7 @@ CQTs_ChAbilitiesViewer::CQTs_ChAbilitiesViewer(QWidget *parent) :
     QGroupBox(tr("Abilities"),parent)
 {
     initialize();
-    setMaximumHeight(100);
+    setMaximumHeight(200);
 }
 
 CQTs_ChAbilitiesViewer::CQTs_ChAbilitiesViewer(CQTs_Character *selected, QWidget *parent) :
@@ -195,21 +195,21 @@ void CQTs_ChSkillsViewer::initialize(){
 
 
 
-                        QLabel *tLab = new QLabel(eng->skillData(i).myName());
-                        LabName.push_back(tLab);
-                        grid->addWidget(tLab,i+1,0);
-                        grid->addWidget(tLab= new QLabel("0"),1+i,1);
-                        tLab->setFrameStyle(QFrame::Panel|QFrame::Raised);
-                        grid->addWidget(tLab= new QLabel("="),i+1,2);
-                        grid->addWidget(tLab= new QLabel("0"),i+1,3);
-                        grid->addWidget(tLab= new QLabel("+"),i+1,4);
-                        grid->addWidget(tLab= new QLabel("0"),i+1,5);
-                        grid->addWidget(tLab= new QLabel("+"),i+1,6);
-                        grid->addWidget(tLab= new QLabel("0"),i+1,7);
-                        //qDebug()<<nome<<xml.text();
+        QLabel *tLab = new QLabel(eng->skillData(i).myName());
+        LabName.push_back(tLab);
+        grid->addWidget(tLab,i+1,0);
+        grid->addWidget(tLab= new QLabel("0"),1+i,1);
+        tLab->setFrameStyle(QFrame::Panel|QFrame::Raised);
+        grid->addWidget(tLab= new QLabel("="),i+1,2);
+        grid->addWidget(tLab= new QLabel("0"),i+1,3);
+        grid->addWidget(tLab= new QLabel("+"),i+1,4);
+        grid->addWidget(tLab= new QLabel("0"),i+1,5);
+        grid->addWidget(tLab= new QLabel("+"),i+1,6);
+        grid->addWidget(tLab= new QLabel("0"),i+1,7);
+        //qDebug()<<nome<<xml.text();
 
 
-                    }
+    }
 
 
 
@@ -222,6 +222,7 @@ CQTs_ChSTViewer::CQTs_ChSTViewer(QWidget *parent) :
     QGroupBox(tr("Saves"),parent)
 {
     initialize();
+    setMaximumHeight(100);
 }
 
 //CQTs_ChSTViewer::CQTs_ChSTViewer(CQTs_Character *selected, QWidget *parent) :
@@ -277,9 +278,10 @@ void CQTs_ChSTViewer::setLabs(CQTs_Character *selected){
 /*CQTs_ChBABViever*/
 
 CQTs_ChBABViever::CQTs_ChBABViever(QWidget *parent) :
-QGroupBox(tr("BAB"),parent)
+    QGroupBox(tr("BAB"),parent)
 {
-initialize();
+    initialize();
+    setMaximumHeight(100);
 }
 /*
 CQTs_ChBABViever::CQTs_ChBABViever(CQTs_Character *selected, QWidget *parent) :
