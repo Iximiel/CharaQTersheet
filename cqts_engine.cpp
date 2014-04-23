@@ -132,7 +132,6 @@ void CQTs_engine::loadSkillNames(){
                 if(id!=-1)
                    {
                    Skills[id] .setmyName(name);
-                   qDebug() << id<<code<<name;
                 }
             }
             if (xml.hasError()) {

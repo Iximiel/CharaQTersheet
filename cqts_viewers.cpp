@@ -3,6 +3,8 @@
 #include <QFile>
 #include <QTextStream>
 #include <QXmlStreamReader>
+#include <QPushButton>
+
 /*ClassViewer*/
 CQTs_ClassViewer::CQTs_ClassViewer(QWidget *parent) :
     QGroupBox(tr("Class Viewer"),parent)
@@ -189,32 +191,49 @@ CQTs_ChSkillsViewer::CQTs_ChSkillsViewer(CQTs_engine* engine, QWidget *parent) :
 */
 
 void CQTs_ChSkillsViewer::initialize(){
-    //could be better if claimed from a conf option
+    int rows=2;// number of rows before the skill list
     QGridLayout *grid = new QGridLayout();
+    train = new QPushButton(tr("Show only trained"));
+    train->setCheckable(true);
+    connect(train,SIGNAL(pressed()),this,SLOT(showOnlyTrained()));
+    grid->addWidget(train,0,0,1,3);
     for (int i = 0; i < eng->skillNum(); ++i) {
-
-
-
         QLabel *tLab = new QLabel(eng->skillData(i).myName());
         LabName.push_back(tLab);
-        grid->addWidget(tLab,i+1,0);
-        grid->addWidget(tLab= new QLabel("0"),1+i,1);
+        grid->addWidget(tLab,i+rows,0);
+        grid->addWidget(tLab= new QLabel("0"),i+rows,1);
         tLab->setFrameStyle(QFrame::Panel|QFrame::Raised);
-        grid->addWidget(tLab= new QLabel("="),i+1,2);
-        grid->addWidget(tLab= new QLabel("0"),i+1,3);
-        grid->addWidget(tLab= new QLabel("+"),i+1,4);
-        grid->addWidget(tLab= new QLabel("0"),i+1,5);
-        grid->addWidget(tLab= new QLabel("+"),i+1,6);
-        grid->addWidget(tLab= new QLabel("0"),i+1,7);
+        grid->addWidget(tLab= new QLabel("="),i+rows,2);
+        grid->addWidget(tLab= new QLabel("0"),i+rows,3);
+        grid->addWidget(tLab= new QLabel("+"),i+rows,4);
+        grid->addWidget(tLab= new QLabel("0"),i+rows,5);
+        grid->addWidget(tLab= new QLabel("+"),i+rows,6);
+        grid->addWidget(tLab= new QLabel("0"),i+rows,7);
         //qDebug()<<nome<<xml.text();
 
 
     }
-
-
-
     setLayout(grid);
 }
+
+void CQTs_ChSkillsViewer::showOnlyTrained(){
+    bool showingtrained = train->isChecked();
+    if(!showingtrained){
+        for (int i = 0; i < eng->skillNum(); ++i) {
+            if(eng->skillData(i).needsTrain()){
+                //if(!ranks==0)
+                LabName[i]->setHidden(true);
+            }
+        }
+        train->setText(tr("Show all"));
+    }else{
+        for (int i = 0; i < eng->skillNum(); ++i) {
+            LabName[i]->show();
+            train->setText(tr("Show only trained"));
+        }
+    }
+}
+
 
 /*SaveThrowViewer*/
 

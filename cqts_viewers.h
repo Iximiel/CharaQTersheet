@@ -7,6 +7,7 @@
 #include <QString>
 #include <QVector>
 #include <QSpinBox>
+#include <QPushButton>
 #include "cqts_engine.h"
 
 class CQTs_ClassViewer : public QGroupBox
@@ -64,12 +65,14 @@ public:
 private:
     QVector<QLabel*> LabName;//, LabValue, LabMod;
     CQTs_engine *eng;//pointer to the engine
+    QPushButton *train;
     void initialize();
 signals:
 
 public slots:
    //void setLabs(CQTs_Character *selected);
    //void setLab(int sel, int val, bool temporary = false);
+    void showOnlyTrained();
 };
 
 
