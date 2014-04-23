@@ -228,6 +228,11 @@ int CQTs_Character::getAbility(CQT_Abilities sel){return Abilities[sel];}
 int CQTs_Character::getAbility(int sel){return Abilities[sel];}
 int CQTs_Character::getAbilityMod(CQT_Abilities sel){return (Abilities[sel]-10)/2.;}
 int CQTs_Character::getAbilityMod(int sel){return (Abilities[sel]-10)/2.;}
+int CQTs_Character::getRanks(QString code){
+    if (skillRanks.contains(code)) {
+        return skillRanks[code];
+    }else return 0;
+}
 
 /*****class handler*****/
 /*ClassFile structure:

@@ -25,13 +25,14 @@ private:
     bool trainedOnly;
 };
 
-class CQTs_engine
+class CQTs_engine//it holds all data related to the game, like skills, max level and conf files
 {
 public:
     CQTs_engine();
     int skillNum();
     CQTs_skill skillData(int i);
 private:
+    //QStringList confFiles;// 0 skills 1 skillnames
     void loadSkills();
     void loadSkillNames();
     QList<CQTs_skill> Skills;
@@ -42,6 +43,7 @@ private:
 #ifndef CQTS_CHAR
 #define CQTS_CHAR
 #include <QString>
+#include <QMap>
 
 struct charBio{
     QString Name, Surname;
@@ -68,12 +70,12 @@ public:
     int getAbility(int sel);
     int getAbilityMod(CQT_Abilities sel);
     int getAbilityMod(int sel);
-
-
+    int getRanks(QString code);
 private:
     charBio bio;
     int LV,HP,BAB,STf,STr,STw;
     int Abilities[6];
+    QMap<QString,int> skillRanks;
 };
 
 #endif //CQTS_CHAR
