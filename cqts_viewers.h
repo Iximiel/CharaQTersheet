@@ -63,8 +63,8 @@ public:
     explicit CQTs_ChSkillsViewer(CQTs_engine *engine, QWidget *parent = 0);
     //explicit CQTs_ChSkillsViewer(CQTs_Character *selected, QWidget *parent = 0);
 private:
-    QVector<QLabel*> LabName;//, LabValue, LabMod;
     CQTs_engine *eng;//pointer to the engine
+    QVector<QLabel*> Labels;//[i*8+j]i is row, j = 0 name, 1, value, 3 abl mod, 5 ranks, 7 mods;
     QPushButton *train;
     void initialize();
 signals:

@@ -70,6 +70,7 @@ CQTs_ChBioViewer::CQTs_ChBioViewer(QWidget *parent) :
     QGroupBox(tr("Bio"),parent)
 {
     initialize();
+    setMaximumHeight(100);
 }
 
 CQTs_ChBioViewer::CQTs_ChBioViewer(CQTs_Character *selected, QWidget *parent) :
@@ -191,44 +192,53 @@ CQTs_ChSkillsViewer::CQTs_ChSkillsViewer(CQTs_engine* engine, QWidget *parent) :
 */
 
 void CQTs_ChSkillsViewer::initialize(){
-    int rows=2;// number of rows before the skill list
+    int rows=1;// number of rows before the skill list
     QGridLayout *grid = new QGridLayout();
     train = new QPushButton(tr("Show only trained"));
     train->setCheckable(true);
-    connect(train,SIGNAL(pressed()),this,SLOT(showOnlyTrained()));
+    connect(train,SIGNAL(released()),this,SLOT(showOnlyTrained()));
     grid->addWidget(train,0,0,1,3);
     for (int i = 0; i < eng->skillNum(); ++i) {
         QLabel *tLab = new QLabel(eng->skillData(i).myName());
-        LabName.push_back(tLab);
+        Labels.push_back(tLab);//[i*8+0] name
         grid->addWidget(tLab,i+rows,0);
         grid->addWidget(tLab= new QLabel("0"),i+rows,1);
+        Labels.push_back(tLab);//[i*8+1] d20
         tLab->setFrameStyle(QFrame::Panel|QFrame::Raised);
         grid->addWidget(tLab= new QLabel("="),i+rows,2);
+        Labels.push_back(tLab);
         grid->addWidget(tLab= new QLabel("0"),i+rows,3);
+        Labels.push_back(tLab);//[i*8+3] abl mod
         grid->addWidget(tLab= new QLabel("+"),i+rows,4);
+        Labels.push_back(tLab);
         grid->addWidget(tLab= new QLabel("0"),i+rows,5);
+        Labels.push_back(tLab);//[i*8+5] ranks
         grid->addWidget(tLab= new QLabel("+"),i+rows,6);
+        Labels.push_back(tLab);
         grid->addWidget(tLab= new QLabel("0"),i+rows,7);
+        Labels.push_back(tLab);//[i*8+7] var mods
         //qDebug()<<nome<<xml.text();
-
-
     }
     setLayout(grid);
 }
 
 void CQTs_ChSkillsViewer::showOnlyTrained(){
-    bool showingtrained = train->isChecked();
-    if(!showingtrained){
+    if(train->isChecked()){
         for (int i = 0; i < eng->skillNum(); ++i) {
             if(eng->skillData(i).needsTrain()){
-                //if(!ranks==0)
-                LabName[i]->setHidden(true);
+                if((Labels[8*i+5]->text()).toInt()==0){
+                    for (int j = 0; j < 8; ++j)
+                        Labels[8*i+j]->hide();
+                }
             }
         }
         train->setText(tr("Show all"));
     }else{
         for (int i = 0; i < eng->skillNum(); ++i) {
-            LabName[i]->show();
+            if(Labels[8*i]->isHidden()){
+                for (int j = 0; j < 8; ++j)
+                    Labels[8*i+j]->show();
+            }
             train->setText(tr("Show only trained"));
         }
     }
