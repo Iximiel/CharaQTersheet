@@ -19,6 +19,8 @@ QString CQTs_skill::myName(){
     return Name;
 }
 
+bool CQTs_skill::needsTrain(){ return trainedOnly;}
+
 
 CQTs_engine::CQTs_engine(){
     QFile file("Skills_Eng.txt");//first load the language file
@@ -126,6 +128,7 @@ int CQTs_Character::getST(int i){
 }
 int CQTs_Character::getAbility(CQT_Abilities sel){return Abilities[sel];}
 int CQTs_Character::getAbility(int sel){return Abilities[sel];}
+int CQTs_Character::getAbilityMod(CQT_Abilities sel){return (Abilities[sel]-10)/2.;}
 int CQTs_Character::getAbilityMod(int sel){return (Abilities[sel]-10)/2.;}
 
 /*****class handler*****/

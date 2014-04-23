@@ -183,7 +183,8 @@ CQTs_ChSkillsViewer::CQTs_ChSkillsViewer(QWidget *parent) :
 {
     initialize();
     setLabs(selected);
-}*/
+}
+*/
 
 void CQTs_ChSkillsViewer::initialize(){
     //could be better if claimed from a conf option

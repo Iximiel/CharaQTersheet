@@ -14,12 +14,13 @@ public:
     CQTs_skill();
     CQTs_skill(QString name);
     QString myName();
+    bool needsTrain();
+
 private:
     QString Name;
-    /*
-    QStringList synergies;
-    int armor,trainedOnly;
-    */
+//    QStringList synergies;
+//    int armor;
+    bool trainedOnly;
 };
 
 class CQTs_engine
@@ -60,6 +61,7 @@ public:
     int getST(int i);
     int getAbility(CQT_Abilities sel);
     int getAbility(int sel);
+    int getAbilityMod(CQT_Abilities sel);
     int getAbilityMod(int sel);
 
 
@@ -87,7 +89,7 @@ public:
 private:
     QString Name;
     int lmax;//20,10,5,3 so he can understand if is baseclass or not//may be made compatible with d20System in general
-    int BAB;//tell me core stats: binary: xxxxx FRWAB FRW 1/0 each (good or bad) BAB:00 01 10
+    int BAB;//tell me core stats: binary: xxxxx FRWBA FRW 1/0 each (good or bad) BA(b):00 01 10
     bool fort, ref, will;
     //next: adding class skills and privileges
 };
