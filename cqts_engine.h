@@ -75,7 +75,7 @@ public:
     int getRanks(QString code);
 private:
     charBio bio;
-    int LV,HP,BAB,STf,STr,STw;
+    int LV,HP,BAB,STf,STr,STw;//Armor class will come with inventory
     int Abilities[6];
     QMap<QString,int> skillRanks;
 };

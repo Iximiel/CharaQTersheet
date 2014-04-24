@@ -8,6 +8,7 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     : QMainWindow(parent)
 {
     //loading the engine:
+    character = new CQTs_Character("testcharacter.xml");
     engine = new CQTs_engine();
     //initializing pointer as NULL
     dockSkills=dockSaves=dockAbilities=dockBio=dockBAB=dockClass=NULL;

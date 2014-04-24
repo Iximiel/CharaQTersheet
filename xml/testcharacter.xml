@@ -3,7 +3,7 @@
     <bio>
         <name>testbug</name>
         <surname>glicth</surname>
-        <age>1<age>
+        <age>1</age>
     </bio>
     <data>
         <hp>20</hp>
@@ -22,5 +22,7 @@
             <charisma>13</charisma>
         </abilities>
     </data>
-    <skills></skills>
+    <skills>
+        <skill code ="blu">5</skill>
+    </skills>
 </character>

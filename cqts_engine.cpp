@@ -5,6 +5,7 @@
 #include <QStringList>
 #include <QTextStream>
 #include <QXmlStreamReader>
+#include <QXmlStreamAttribute>
 #include <QDebug>
 
 CQTs_skill::CQTs_skill(){
@@ -158,6 +159,8 @@ CQTs_skill CQTs_engine::skillData(int i){return Skills[i];}
  *endoffile
  */
 CQTs_Character::CQTs_Character(QString filename){
+    loadFromFile(filename);
+    /*//old loader
     filename.remove(".chc");
     QFile file(filename+".chc");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
@@ -174,7 +177,7 @@ CQTs_Character::CQTs_Character(QString filename){
         for(int i=0;i<6;i++)
             in >> Abilities [i];
         in >> HP >> BAB >> STf >> STr >> STw;
-    }
+    }*/
     /*
     qDebug()<<bio.Name;
     qDebug()<<bio.Surname;
@@ -221,67 +224,78 @@ void CQTs_Character::loadFromFile(QString filename){
             if(xml.name()=="data"&&xml.isStartElement()){//get varios data, like pnp for now
                 while(!(xml.name()=="data"&&xml.isEndElement())){
                     xml.readNext();
-                   if(xml.name()=="hp"&&xml.isStartElement()){
+                    if(xml.name()=="hp"&&xml.isStartElement()){
                         while(!xml.readNext()==6);
 
-                         HP= (xml.text().toInt());
+                        HP= (xml.text().toInt());
                     }
-                   if(xml.name()=="bab"&&xml.isStartElement()){
-                       while(!xml.readNext()==6);
+                    if(xml.name()=="bab"&&xml.isStartElement()){
+                        while(!xml.readNext()==6);
 
                         BAB= (xml.text().toInt());
-                   }
+                    }
 
-                   if(xml.name()=="fort"&&xml.isStartElement()){
-                       while(!xml.readNext()==6);
+                    if(xml.name()=="fort"&&xml.isStartElement()){
+                        while(!xml.readNext()==6);
 
                         STf= (xml.text().toInt());
-                   }
-                   if(xml.name()=="ref"&&xml.isStartElement()){
-                       while(!xml.readNext()==6);
+                    }
+                    if(xml.name()=="ref"&&xml.isStartElement()){
+                        while(!xml.readNext()==6);
 
-                       STr = (xml.text().toInt());
-                   }
-                   if(xml.name()=="will"&&xml.isStartElement()){
-                       while(!xml.readNext()==6);
+                        STr = (xml.text().toInt());
+                    }
+                    if(xml.name()=="will"&&xml.isStartElement()){
+                        while(!xml.readNext()==6);
 
                         STw= (xml.text().toInt());
-                   }
-                   if(xml.name()=="strength"&&xml.isStartElement()){
-                       while(!xml.readNext()==6);
+                    }
+                    if(xml.name()=="strength"&&xml.isStartElement()){
+                        while(!xml.readNext()==6);
 
                         Abilities[STR]= (xml.text().toInt());
-                   }
-                   if(xml.name()=="dexterity"&&xml.isStartElement()){
-                       while(!xml.readNext()==6);
+                    }
+                    if(xml.name()=="dexterity"&&xml.isStartElement()){
+                        while(!xml.readNext()==6);
 
                         Abilities[DEX]= (xml.text().toInt());
-                   }
-                   if(xml.name()=="constitution"&&xml.isStartElement()){
-                       while(!xml.readNext()==6);
+                    }
+                    if(xml.name()=="constitution"&&xml.isStartElement()){
+                        while(!xml.readNext()==6);
 
                         Abilities[CON]= (xml.text().toInt());
-                   }
-                   if(xml.name()=="intelligence"&&xml.isStartElement()){
-                       while(!xml.readNext()==6);
+                    }
+                    if(xml.name()=="intelligence"&&xml.isStartElement()){
+                        while(!xml.readNext()==6);
 
                         Abilities[INT]= (xml.text().toInt());
-                   }
-                   if(xml.name()=="wisdom"&&xml.isStartElement()){
-                       while(!xml.readNext()==6);
+                    }
+                    if(xml.name()=="wisdom"&&xml.isStartElement()){
+                        while(!xml.readNext()==6);
 
                         Abilities[WIS]= (xml.text().toInt());
-                   }
-                   if(xml.name()=="charisma"&&xml.isStartElement()){
-                       while(!xml.readNext()==6);
+                    }
+                    if(xml.name()=="charisma"&&xml.isStartElement()){
+                        while(!xml.readNext()==6);
 
                         Abilities[CHA]= (xml.text().toInt());
-                   }
+                    }
 
                 }
             }
 
-            if(xml.name()=="skills"&&xml.isStartElement()){}
+            if(xml.name()=="skills"&&xml.isStartElement()){//get the ranks in skills
+                while(!(xml.name()=="skills"&&xml.isEndElement())){//get the bio info
+                    if(xml.name()=="skill"&&xml.isStartElement()){//get the name
+                        QString code = xml.attributes().value("code").toString();
+                        while(!xml.readNext()==6);
+                        qDebug() << code;
+                        int ranks = (xml.text().toInt());
+                        skillRanks.insert(code,ranks);
+                    }
+                    xml.readNext();
+                }
+            }
 
             //if(xml.name()=="feats"&&xml.isStartElement()){}
 
