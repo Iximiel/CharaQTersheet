@@ -25,4 +25,5 @@ OTHER_FILES += \
     Otherfiles/Skills.txt \
     xml/config.xml \
     xml/Skills_Eng.xml \
-    xml/Skills_data.xml
+    xml/Skills_data.xml \
+    xml/testcharater.xml

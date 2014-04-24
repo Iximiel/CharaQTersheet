@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<character>
+    <bio>
+        <name>testbug</name>
+        <surname>glicth</surname>
+        <age>1<age>
+    </bio>
+    <data>
+        <hp>20</hp>
+        <bab>3</bab>
+        <saves>
+            <fort>4</fort>
+            <ref>4</ref>
+            <will>2</will>
+        </saves>
+        <abilities>
+            <strength>18</strength>
+            <dexterity>18</dexterity>
+            <constitution>16</constitution>
+            <intelligence>16</intelligence>
+            <wisdom>13</wisdom>
+            <charisma>13</charisma>
+        </abilities>
+    </data>
+    <skills></skills>
+</character>

@@ -55,6 +55,8 @@ class CQTs_Character
 public:
     CQTs_Character(QString filename);
     void saveToFile (QString filename);
+    void loadFromFile (QString filename);
+
     enum CQT_Abilities{STR,DEX,CON,INT,WIS,CHA};
     QString getName();
     QString getSurname();

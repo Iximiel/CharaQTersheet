@@ -12,7 +12,7 @@ CQTs_skill::CQTs_skill(){
 }
 
 CQTs_skill::CQTs_skill(QString code, bool train):
-QString(code)
+    QString(code)
 {
     Name  = "";
     trainedOnly = train;
@@ -92,8 +92,8 @@ void CQTs_engine::loadSkills(){
                         skillAddress[id]->set_CyrcSynergies(codes.indexOf(xml.text().toString()));
                     }*/
                 }
-            CQTs_skill tSkill(code,train);
-            Skills.append(tSkill);
+                CQTs_skill tSkill(code,train);
+                Skills.append(tSkill);
             }
             if (xml.hasError()) {
                 // do error handling
@@ -108,7 +108,7 @@ void CQTs_engine::loadSkillNames(){
 
     QFile file("Skills_Eng.xml");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-       // qDebug()<<"errore";
+        // qDebug()<<"errore";
         //add an alert!
     }
     else{
@@ -130,8 +130,8 @@ void CQTs_engine::loadSkillNames(){
                 }
                 int id = Skills.indexOf((CQTs_skill::finder(code)));
                 if(id!=-1)
-                   {
-                   Skills[id] .setmyName(name);
+                {
+                    Skills[id] .setmyName(name);
                 }
             }
             if (xml.hasError()) {
@@ -163,9 +163,9 @@ CQTs_Character::CQTs_Character(QString filename){
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         bio.Name=bio.Surname="error";
         bio.age=HP=LV=BAB=STf=STr=STw=0;
-    //add an alert!
-       }
-       else{
+        //add an alert!
+    }
+    else{
         QTextStream in(&file);
         bio.Name= in.readLine();
         bio.Surname= in.readLine();
@@ -186,6 +186,115 @@ CQTs_Character::CQTs_Character(QString filename){
     */
 }
 
+void CQTs_Character::loadFromFile(QString filename){
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        bio.Name=bio.Surname="error";
+        bio.age=HP=LV=BAB=STf=STr=STw=0;
+        //add an alert!
+    }else{
+        QXmlStreamReader xml(&file);
+        while(!(xml.name()=="character"&&xml.isStartElement()))
+            xml.readNext();
+
+        while(!(xml.name()=="character"&&xml.isEndElement())){//i want this to work like a paper sheet, i will adda chronology after that
+            if(xml.name()=="bio"&&xml.isStartElement()){
+                while(!(xml.name()=="bio"&&xml.isEndElement())){//get the bio info
+                    xml.readNext();
+                    if(xml.name()=="name"&&xml.isStartElement()){//get the name
+                        while(!xml.readNext()==6);
+
+                        bio.Name = (xml.text().toString());
+                    }
+                    if(xml.name()=="surname"&&xml.isStartElement()){//get the surname
+                        while(!xml.readNext()==6);
+
+                        bio.Surname = (xml.text().toString());
+                    }
+                    if(xml.name()=="age"&&xml.isStartElement()){//get the age
+                        while(!xml.readNext()==6);
+
+                        bio.age = (xml.text().toInt());
+                    }
+                }
+            }
+            if(xml.name()=="data"&&xml.isStartElement()){//get varios data, like pnp for now
+                while(!(xml.name()=="data"&&xml.isEndElement())){
+                    xml.readNext();
+                   if(xml.name()=="hp"&&xml.isStartElement()){
+                        while(!xml.readNext()==6);
+
+                         HP= (xml.text().toInt());
+                    }
+                   if(xml.name()=="bab"&&xml.isStartElement()){
+                       while(!xml.readNext()==6);
+
+                        BAB= (xml.text().toInt());
+                   }
+
+                   if(xml.name()=="fort"&&xml.isStartElement()){
+                       while(!xml.readNext()==6);
+
+                        STf= (xml.text().toInt());
+                   }
+                   if(xml.name()=="ref"&&xml.isStartElement()){
+                       while(!xml.readNext()==6);
+
+                       STr = (xml.text().toInt());
+                   }
+                   if(xml.name()=="will"&&xml.isStartElement()){
+                       while(!xml.readNext()==6);
+
+                        STw= (xml.text().toInt());
+                   }
+                   if(xml.name()=="strength"&&xml.isStartElement()){
+                       while(!xml.readNext()==6);
+
+                        Abilities[STR]= (xml.text().toInt());
+                   }
+                   if(xml.name()=="dexterity"&&xml.isStartElement()){
+                       while(!xml.readNext()==6);
+
+                        Abilities[DEX]= (xml.text().toInt());
+                   }
+                   if(xml.name()=="constitution"&&xml.isStartElement()){
+                       while(!xml.readNext()==6);
+
+                        Abilities[CON]= (xml.text().toInt());
+                   }
+                   if(xml.name()=="intelligence"&&xml.isStartElement()){
+                       while(!xml.readNext()==6);
+
+                        Abilities[INT]= (xml.text().toInt());
+                   }
+                   if(xml.name()=="wisdom"&&xml.isStartElement()){
+                       while(!xml.readNext()==6);
+
+                        Abilities[WIS]= (xml.text().toInt());
+                   }
+                   if(xml.name()=="charisma"&&xml.isStartElement()){
+                       while(!xml.readNext()==6);
+
+                        Abilities[CHA]= (xml.text().toInt());
+                   }
+
+                }
+            }
+
+            if(xml.name()=="skills"&&xml.isStartElement()){}
+
+            //if(xml.name()=="feats"&&xml.isStartElement()){}
+
+            if (xml.hasError()) {
+                // do error handling
+            }
+            xml.readNext();
+        }
+        file.close();
+    }
+}
+
+
 void CQTs_Character::saveToFile(QString filename){
     filename.remove(".chc");
     QFile file(filename+".chc");
@@ -200,7 +309,7 @@ void CQTs_Character::saveToFile(QString filename){
         out << LV << '\n';
         out << Abilities [0];
         for(int i=1;i<6;i++)
-        out << Abilities [i] << '\t';
+            out << Abilities [i] << '\t';
         out <<'\n';
         out << HP <<'\n' << BAB <<'\n' << STf <<'\n' << STr  <<'\n' << STw  <<'\n';
     }
@@ -216,20 +325,28 @@ int CQTs_Character::getFortitude(){return STf;}
 int CQTs_Character::getReflex(){return STr;}
 int CQTs_Character::getWill(){return STw;}
 int CQTs_Character::getST(int i){
-    if(i==0)
+    switch (i) {
+    case 0:
         return STf;
-    if(i==1)
+        break;
+    case 1:
         return STr;
-    if(i==2)
+        break;
+    case 2:
         return STw;
-    return 0;//to make compiler calm
+        break;
+    default:
+        return 0;
+        break;
+    }
 }
+
 int CQTs_Character::getAbility(CQT_Abilities sel){return Abilities[sel];}
 int CQTs_Character::getAbility(int sel){return Abilities[sel];}
 int CQTs_Character::getAbilityMod(CQT_Abilities sel){return (Abilities[sel]-10)/2.;}
 int CQTs_Character::getAbilityMod(int sel){return (Abilities[sel]-10)/2.;}
 int CQTs_Character::getRanks(QString code){
-    if (skillRanks.contains(code)) {
+    if(skillRanks.contains(code)){
         return skillRanks[code];
     }else return 0;
 }
@@ -252,9 +369,9 @@ CQTs_Class::CQTs_Class(QString classLink){
         Name="error";
         data=0;
         lmax=-1;
-    //add an alert!
-       }
-       else{
+        //add an alert!
+    }
+    else{
         QTextStream in(&file);
         Name= in.readLine();
         in >> lmax;
