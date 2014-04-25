@@ -45,7 +45,7 @@ CQTs_engine::CQTs_engine(){
 }
 
 void CQTs_engine::loadSkills(){
-    QFile file("Skills_data.txt");
+    QFile file("Skills_data.xml");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         // qDebug()<<"errore lettura";
         //add an alert!

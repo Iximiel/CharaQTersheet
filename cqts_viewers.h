@@ -2,7 +2,6 @@
 #define CQTS_VIEWERS_H
 
 #include <QWidget>
-#include <QGroupBox>
 #include <QLabel>
 #include <QString>
 #include <QVector>
@@ -10,7 +9,7 @@
 #include <QPushButton>
 #include "cqts_engine.h"
 
-class CQTs_ClassViewer : public QGroupBox
+class CQTs_ClassViewer : public QWidget
 {
     Q_OBJECT
 public:
@@ -25,7 +24,7 @@ public slots:
     void setLabs(CQTs_Class *selected);
 };
 
-class CQTs_ChBioViewer : public QGroupBox
+class CQTs_ChBioViewer : public QWidget
 {
     Q_OBJECT
 public:
@@ -40,7 +39,7 @@ public slots:
    void setLabs(CQTs_Character *selected);
 };
 
-class CQTs_ChAbilitiesViewer : public QGroupBox
+class CQTs_ChAbilitiesViewer : public QWidget
 {
     Q_OBJECT
 public:
@@ -56,7 +55,7 @@ public slots:
    void setLab(int sel, int val, bool temporary = false);
 };
 
-class CQTs_ChSkillsViewer : public QGroupBox
+class CQTs_ChSkillsViewer : public QWidget
 {
     Q_OBJECT
 public:
@@ -77,7 +76,7 @@ public slots:
 
 
 
-class CQTs_ChSTViewer : public QGroupBox
+class CQTs_ChSTViewer : public QWidget
 {
     Q_OBJECT
 public:
@@ -94,7 +93,7 @@ public slots:
    //void setLab(int sel, int val, bool temporary = false);
 };
 
-class CQTs_ChBABViever :public QGroupBox
+class CQTs_ChBABViever :public QWidget
 {
     Q_OBJECT
 public:

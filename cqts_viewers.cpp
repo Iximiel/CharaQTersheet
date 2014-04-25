@@ -4,16 +4,18 @@
 #include <QTextStream>
 #include <QXmlStreamReader>
 #include <QPushButton>
+#include <QScrollArea>
+#include <QDebug>
 
 /*ClassViewer*/
 CQTs_ClassViewer::CQTs_ClassViewer(QWidget *parent) :
-    QGroupBox(tr("Class Viewer"),parent)
+    QWidget(parent)
 {
     initialize();
 }
 
 CQTs_ClassViewer::CQTs_ClassViewer(CQTs_Class *selected, QWidget *parent) :
-    QGroupBox(tr("Class Viewer"),parent)
+    QWidget(parent)
 {
     initialize();
     setLabs(selected);
@@ -67,14 +69,14 @@ void CQTs_ClassViewer::setLabs(CQTs_Class *selected){
 /*BioViewer*/
 
 CQTs_ChBioViewer::CQTs_ChBioViewer(QWidget *parent) :
-    QGroupBox(tr("Bio"),parent)
+    QWidget(parent)
 {
     initialize();
     setMaximumHeight(100);
 }
 
 CQTs_ChBioViewer::CQTs_ChBioViewer(CQTs_Character *selected, QWidget *parent) :
-    QGroupBox(tr("Bio"),parent)
+    QWidget(parent)
 {
     initialize();
     setLabs(selected);
@@ -113,14 +115,14 @@ void CQTs_ChBioViewer::setLabs(CQTs_Character *selected){
 /*AbilitiesViewer*/
 
 CQTs_ChAbilitiesViewer::CQTs_ChAbilitiesViewer(QWidget *parent) :
-    QGroupBox(tr("Abilities"),parent)
+    QWidget(parent)
 {
     initialize();
     setMaximumHeight(200);
 }
 
 CQTs_ChAbilitiesViewer::CQTs_ChAbilitiesViewer(CQTs_Character *selected, QWidget *parent) :
-    QGroupBox(tr("Abilities"),parent)
+    QWidget(parent)
 {
     initialize();
     setLabs(selected);
@@ -177,7 +179,7 @@ void CQTs_ChAbilitiesViewer::setLabs(CQTs_Character *selected){
 /*SkillsViewer*/
 
 CQTs_ChSkillsViewer::CQTs_ChSkillsViewer(CQTs_engine* engine, QWidget *parent) :
-    QGroupBox(tr("Skills"),parent)
+    QWidget(parent)
 {
     eng = engine;
     initialize();
@@ -192,14 +194,27 @@ CQTs_ChSkillsViewer::CQTs_ChSkillsViewer(CQTs_engine* engine, QWidget *parent) :
 */
 
 void CQTs_ChSkillsViewer::initialize(){
-    int rows=1;// number of rows before the skill list
-    QGridLayout *grid = new QGridLayout();
     train = new QPushButton(tr("Show only trained"));
     train->setCheckable(true);
     connect(train,SIGNAL(released()),this,SLOT(showOnlyTrained()));
-    grid->addWidget(train,0,0,1,3);
+   // grid->addWidget(train,0,0,1,3);
+    QVBoxLayout *vl  = new QVBoxLayout();
+    vl->addWidget(train);
+    QWidget *container = new QWidget();
+
+    QScrollArea *scroll = new QScrollArea();
+
+    scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    int rows=0;// number of rows before the skill list
+    QGridLayout *grid = new QGridLayout();
+
+
+
+
     for (int i = 0; i < eng->skillNum(); ++i) {
         QLabel *tLab = new QLabel(eng->skillData(i).myName());
+
+        //qDebug()<<"nome"<<tLab->text();
         Labels.push_back(tLab);//[i*8+0] name
         grid->addWidget(tLab,i+rows,0);
         grid->addWidget(tLab= new QLabel("0"),i+rows,1);
@@ -217,9 +232,13 @@ void CQTs_ChSkillsViewer::initialize(){
         Labels.push_back(tLab);
         grid->addWidget(tLab= new QLabel("0"),i+rows,7);
         Labels.push_back(tLab);//[i*8+7] var mods
-        //qDebug()<<nome<<xml.text();
     }
-    setLayout(grid);
+    container->setLayout(grid);
+    scroll->setWidget(container);
+    scroll->setWidgetResizable(true);
+    scroll->setMinimumWidth(300);
+    vl->addWidget(scroll);
+    setLayout(vl);
 }
 
 void CQTs_ChSkillsViewer::showOnlyTrained(){
@@ -248,14 +267,14 @@ void CQTs_ChSkillsViewer::showOnlyTrained(){
 /*SaveThrowViewer*/
 
 CQTs_ChSTViewer::CQTs_ChSTViewer(QWidget *parent) :
-    QGroupBox(tr("Saves"),parent)
+    QWidget(parent)
 {
     initialize();
     setMaximumHeight(100);
 }
 
 //CQTs_ChSTViewer::CQTs_ChSTViewer(CQTs_Character *selected, QWidget *parent) :
-//    QGroupBox(tr("Skills"),parent)
+//    QWidget(parent)
 //{
 //    initialize();
 //    setLabs(selected);
@@ -307,14 +326,14 @@ void CQTs_ChSTViewer::setLabs(CQTs_Character *selected){
 /*CQTs_ChBABViever*/
 
 CQTs_ChBABViever::CQTs_ChBABViever(QWidget *parent) :
-    QGroupBox(tr("BAB"),parent)
+    QWidget(parent)
 {
     initialize();
     setMaximumHeight(100);
 }
 /*
 CQTs_ChBABViever::CQTs_ChBABViever(CQTs_Character *selected, QWidget *parent) :
-QGroupBox(tr("Attacks"),parent)
+QWidget(parent)
 {
 initialize();
 setLabs(selected);
