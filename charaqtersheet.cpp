@@ -54,7 +54,7 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
 
 CharaQTersheet::~CharaQTersheet()
 {
-
+    delete engine;
 }
 
 void CharaQTersheet::addDockClass(){

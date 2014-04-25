@@ -14,12 +14,12 @@
             <will>2</will>
         </saves>
         <abilities>
-            <strength>18</strength>
-            <dexterity>18</dexterity>
-            <constitution>16</constitution>
-            <intelligence>16</intelligence>
-            <wisdom>13</wisdom>
-            <charisma>13</charisma>
+            <ability which ="strength">18</ability>
+            <ability which ="dexterity">18</ability>
+            <ability which ="constitution">16</ability>
+            <ability which ="intelligence">16</ability>
+            <ability which ="wisdom">13</ability>
+            <ability which ="charisma">13</ability>
         </abilities>
     </data>
     <skills>

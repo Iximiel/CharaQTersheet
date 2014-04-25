@@ -32,7 +32,12 @@ void CQTs_skill::setmyName(QString name){
     Name  = name;
 }
 
+void CQTs_skill::setAbility(int abl){
+    ability = abl;
+}
+
 bool CQTs_skill::needsTrain(){ return trainedOnly;}
+int CQTs_skill::myAbility(){return ability;}
 
 bool CQTs_skill::operator <(CQTs_skill b){
     return Name<b.Name;
@@ -57,7 +62,7 @@ void CQTs_engine::loadSkills(){
             if(xml.name()=="skill"&&xml.isStartElement())
             {
                 QString code;
-                //int arm, abl;
+                int abl;//, arm;
                 bool train;
                 //QStringList Synergies, cyrcSinergies;
                 while(!(xml.name()=="skill"&&xml.isEndElement())){
@@ -66,16 +71,16 @@ void CQTs_engine::loadSkills(){
                         while(!xml.readNext()==6);
 
                         code = (xml.text().toString());
-                    }/*
+                    }
                     if(xml.name()=="ability"&&xml.isStartElement()){//get the ability related
                         while(!xml.readNext()==6);
 
-                        skillAddress[id]->set_Ability(xml.text().toInt());
-                    }/
+                        abl = xml.text().toInt();
+                    }/*
                     if(xml.name()=="armor"&&xml.isStartElement()){//get armor penality
                         while(!xml.readNext()==6);
 
-                        skillAddress[id]->set_Armor(xml.text().toInt());
+                        arm = xml.text().toInt();
                     }*/
                     if(xml.name()=="onlytrained"&&xml.isStartElement()){//get trained only
                         while(!xml.readNext()==6);
@@ -94,6 +99,8 @@ void CQTs_engine::loadSkills(){
                     }*/
                 }
                 CQTs_skill tSkill(code,train);
+                tSkill.setAbility(abl);
+                //tSkill.setArmor(arm);
                 Skills.append(tSkill);
             }
             if (xml.hasError()) {
@@ -159,6 +166,8 @@ CQTs_skill CQTs_engine::skillData(int i){return Skills[i];}
  *endoffile
  */
 CQTs_Character::CQTs_Character(QString filename){
+    LV=HP=BAB=STf=STr=STw=0;
+    for (int i = 0; i < 6;Abilities[i++]=0 );
     loadFromFile(filename);
     /*//old loader
     filename.remove(".chc");
@@ -250,6 +259,33 @@ void CQTs_Character::loadFromFile(QString filename){
 
                         STw= (xml.text().toInt());
                     }
+
+                    if(xml.name()=="abilities"&&xml.isStartElement()){
+                        while(!(xml.name()=="abilities"&&xml.isEndElement())){
+                            if(xml.name()=="ability"&&xml.isStartElement()){
+                                QString code = xml.attributes().value("which").toString();
+                                while(!xml.readNext()==6);
+                                //qDebug() << code;
+                                if(code == "strength"){
+                                    Abilities[STR]= (xml.text().toInt());
+                                }else if(code == "dexterity"){
+                                    Abilities[DEX]= (xml.text().toInt());
+                                }else if(code == "constitution"){
+                                    Abilities[CON]= (xml.text().toInt());
+                                }else if(code == "intelligence"){
+                                    Abilities[INT]= (xml.text().toInt());
+                                }else if(code == "wisdom"){
+                                    Abilities[WIS]= (xml.text().toInt());
+                                }else if(code == "charisma"){
+                                    Abilities[CHA]= (xml.text().toInt());
+                                }
+
+
+                            }
+                            xml.readNext();
+                        }
+                    }
+                    /*
                     if(xml.name()=="strength"&&xml.isStartElement()){
                         while(!xml.readNext()==6);
 
@@ -279,7 +315,7 @@ void CQTs_Character::loadFromFile(QString filename){
                         while(!xml.readNext()==6);
 
                         Abilities[CHA]= (xml.text().toInt());
-                    }
+                    }*/
 
                 }
             }
@@ -289,7 +325,7 @@ void CQTs_Character::loadFromFile(QString filename){
                     if(xml.name()=="skill"&&xml.isStartElement()){//get the name
                         QString code = xml.attributes().value("code").toString();
                         while(!xml.readNext()==6);
-                        qDebug() << code;
+                        //qDebug() << code;
                         int ranks = (xml.text().toInt());
                         skillRanks.insert(code,ranks);
                     }
@@ -307,6 +343,7 @@ void CQTs_Character::loadFromFile(QString filename){
         file.close();
     }
 }
+
 
 
 void CQTs_Character::saveToFile(QString filename){

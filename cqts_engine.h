@@ -15,13 +15,15 @@ public:
     CQTs_skill(QString code, bool train);
     static CQTs_skill finder (QString code);
     void setmyName(QString);
+    void setAbility(int);
     QString myName();
+    int myAbility();
     bool needsTrain();
     bool operator <(CQTs_skill b);
 private:
     QString Name;
 //    QStringList synergies;
-//    int armor;
+    int ability;//armor;
     bool trainedOnly;
 };
 
