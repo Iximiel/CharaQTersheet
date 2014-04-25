@@ -30,7 +30,7 @@ private:
     CQTs_ChBioViewer *viewerBio;
     CQTs_ChAbilitiesViewer *viewerAbilities;
     CQTs_ChSTViewer *viewerST;
-    //CQTs_ChSkillsViewer *viewerSkills = new CQTs_ChSkillsViewer();
+    CQTs_ChSkillsViewer *viewerSkills;
 };
 
 class ClassViewer : public QWidget

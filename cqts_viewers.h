@@ -69,7 +69,7 @@ private:
 signals:
 
 public slots:
-   //void setLabs(CQTs_Character *selected);
+    void setLabs(CQTs_Character *selected);
    //void setLab(int sel, int val, bool temporary = false);
     void showOnlyTrained();
 };

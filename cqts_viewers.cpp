@@ -5,6 +5,7 @@
 #include <QXmlStreamReader>
 #include <QPushButton>
 #include <QScrollArea>
+#include <QGroupBox>
 #include <QDebug>
 
 /*ClassViewer*/
@@ -263,6 +264,12 @@ void CQTs_ChSkillsViewer::showOnlyTrained(){
     }
 }
 
+void CQTs_ChSkillsViewer::setLabs(CQTs_Character *selected){
+    for (int i = 0; i < eng->skillNum(); ++i) {
+    Labels[i*8+5]->setNum(selected->getRanks(eng->skillData(i)));
+    //selected->getAbilityMod(eng->skillData(i).);
+    }
+}
 
 /*SaveThrowViewer*/
 

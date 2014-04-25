@@ -111,7 +111,7 @@ void CharaQTersheet::addDockSaves(){
 void CharaQTersheet::addDockSkills(){
     if(dockSkills==NULL){
         dockSkills = new QDockWidget(tr("Skills"));
-        CQTs_ChSkillsViewer *viewerSkills = new CQTs_ChSkillsViewer(engine);
+        viewerSkills = new CQTs_ChSkillsViewer(engine);
         dockSkills->setWidget(viewerSkills);
         addDockWidget(Qt::RightDockWidgetArea,dockSkills);
     }else
@@ -125,7 +125,7 @@ void CharaQTersheet::loadChar(){
     viewerBio->setLabs(character);
     viewerAbilities->setLabs(character);
     viewerST->setLabs(character);
-    //viewerSkills->setLabs(character);
+    viewerSkills->setLabs(character);
 }
 
 void CharaQTersheet::saveChar(){
