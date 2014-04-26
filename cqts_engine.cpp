@@ -169,33 +169,6 @@ CQTs_Character::CQTs_Character(QString filename){
     LV=HP=BAB=STf=STr=STw=0;
     for (int i = 0; i < 6;Abilities[i++]=0 );
     loadFromFile(filename);
-    /*//old loader
-    filename.remove(".chc");
-    QFile file(filename+".chc");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        bio.Name=bio.Surname="error";
-        bio.age=HP=LV=BAB=STf=STr=STw=0;
-        //add an alert!
-    }
-    else{
-        QTextStream in(&file);
-        bio.Name= in.readLine();
-        bio.Surname= in.readLine();
-        in >> bio.age;
-        in >> LV ;
-        for(int i=0;i<6;i++)
-            in >> Abilities [i];
-        in >> HP >> BAB >> STf >> STr >> STw;
-    }*/
-    /*
-    qDebug()<<bio.Name;
-    qDebug()<<bio.Surname;
-    qDebug()<<bio.age;
-    qDebug()<<LV;
-    qDebug()<<HP;
-    qDebug()<<BAB;
-    qDebug()<< STf <<"\t" << STr <<"\t"<< STw;
-    */
 }
 
 void CQTs_Character::loadFromFile(QString filename){
@@ -347,22 +320,50 @@ void CQTs_Character::loadFromFile(QString filename){
 
 
 void CQTs_Character::saveToFile(QString filename){
-    filename.remove(".chc");
-    QFile file(filename+".chc");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+    QFile file(filename);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)){
+        qDebug()<<"errore salvataggio";
         //add an alert!
-    }
-    else{
-        QTextStream out(&file);
-        out << bio.Name << '\n';
-        out << bio.Surname << '\n';
-        out << bio.age << '\n';
-        out << LV << '\n';
-        out << Abilities [0];
-        for(int i=1;i<6;i++)
-            out << Abilities [i] << '\t';
-        out <<'\n';
-        out << HP <<'\n' << BAB <<'\n' << STf <<'\n' << STr  <<'\n' << STw  <<'\n';
+    }else{
+        QXmlStreamWriter xml(&file);
+        xml.setAutoFormatting(true);
+        xml.setAutoFormattingIndent(2);
+        xml.writeStartDocument("0.03");
+        xml.writeStartElement("character");
+        xml.writeStartElement("bio");
+        xml.writeTextElement("name",bio.Name);
+        xml.writeTextElement("surname",bio.Surname);
+        xml.writeTextElement("age",QString::number(bio.age));
+        xml.writeEndElement();//bio
+        xml.writeStartElement("data");
+        xml.writeTextElement("hp",QString::number(HP));
+        xml.writeTextElement("bab",QString::number(BAB));
+        xml.writeStartElement("saves");
+        xml.writeTextElement("fort",QString::number(STf));
+        xml.writeTextElement("ref",QString::number(STr));
+        xml.writeTextElement("will",QString::number(STw));
+        xml.writeEndElement();//saves
+        xml.writeStartElement("abilities");
+        QString names[6]={"strength","dexterity","constitution","intelligence","wisdom","charisma"};
+        for (int i = 0; i < 6; ++i) {
+            xml.writeStartElement("ability");
+            xml.writeAttribute("which",names[i]);
+            xml.writeCharacters(QString::number(Abilities[i]));
+            xml.writeEndElement();//ability
+        }
+        xml.writeEndElement();//abilities
+        xml.writeStartElement("skills");
+        for (int i = 0; i < skillRanks.size(); ++i) {
+            xml.writeStartElement("skill");
+            QString code = skillRanks.keys().at(i);
+            xml.writeAttribute("code",code);
+            xml.writeCharacters(QString::number(skillRanks[code]));
+            xml.writeEndElement();//skill
+        }
+        xml.writeEndElement();//skills
+        xml.writeEndElement();//data
+        xml.writeEndElement();//character
+        xml.writeEndDocument();
     }
 }
 
