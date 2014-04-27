@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         charaqtersheet.cpp \
     cqts_engine.cpp \
-    cqts_viewers.cpp
+    cqts_viewers.cpp \
+    cqts_editors.cpp
 
 HEADERS  += charaqtersheet.h \
     cqts_engine.h \
-    cqts_viewers.h
+    cqts_viewers.h \
+    cqts_editors.h
 
 OTHER_FILES += \
     Otherfiles/Skills.txt \

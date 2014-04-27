@@ -165,9 +165,17 @@ CQTs_skill CQTs_engine::skillData(int i){return Skills[i];}
  *fort \t ref \t will
  *endoffile
  */
-CQTs_Character::CQTs_Character(QString filename){
-    LV=HP=BAB=STf=STr=STw=0;
+
+CQTs_Character::CQTs_Character(){
+    bio.age=LV=HP=BAB=STf=STr=STw=0;
     for (int i = 0; i < 6;Abilities[i++]=0 );
+    bio.Surname=bio.Name="";
+}
+
+CQTs_Character::CQTs_Character(QString filename){
+    bio.age=LV=HP=BAB=STf=STr=STw=0;
+    for (int i = 0; i < 6;Abilities[i++]=0 );
+    bio.Surname=bio.Name="";
     loadFromFile(filename);
 }
 
@@ -188,17 +196,14 @@ void CQTs_Character::loadFromFile(QString filename){
                     xml.readNext();
                     if(xml.name()=="name"&&xml.isStartElement()){//get the name
                         while(!xml.readNext()==6);
-
                         bio.Name = (xml.text().toString());
                     }
                     if(xml.name()=="surname"&&xml.isStartElement()){//get the surname
                         while(!xml.readNext()==6);
-
                         bio.Surname = (xml.text().toString());
                     }
                     if(xml.name()=="age"&&xml.isStartElement()){//get the age
                         while(!xml.readNext()==6);
-
                         bio.age = (xml.text().toInt());
                     }
                 }
@@ -208,31 +213,24 @@ void CQTs_Character::loadFromFile(QString filename){
                     xml.readNext();
                     if(xml.name()=="hp"&&xml.isStartElement()){
                         while(!xml.readNext()==6);
-
                         HP= (xml.text().toInt());
                     }
                     if(xml.name()=="bab"&&xml.isStartElement()){
                         while(!xml.readNext()==6);
-
                         BAB= (xml.text().toInt());
                     }
-
                     if(xml.name()=="fort"&&xml.isStartElement()){
                         while(!xml.readNext()==6);
-
                         STf= (xml.text().toInt());
                     }
                     if(xml.name()=="ref"&&xml.isStartElement()){
                         while(!xml.readNext()==6);
-
                         STr = (xml.text().toInt());
                     }
                     if(xml.name()=="will"&&xml.isStartElement()){
                         while(!xml.readNext()==6);
-
                         STw= (xml.text().toInt());
                     }
-
                     if(xml.name()=="abilities"&&xml.isStartElement()){
                         while(!(xml.name()=="abilities"&&xml.isEndElement())){
                             if(xml.name()=="ability"&&xml.isStartElement()){
@@ -252,47 +250,12 @@ void CQTs_Character::loadFromFile(QString filename){
                                 }else if(code == "charisma"){
                                     Abilities[CHA]= (xml.text().toInt());
                                 }
-
-
                             }
                             xml.readNext();
                         }
                     }
-                    /*
-                    if(xml.name()=="strength"&&xml.isStartElement()){
-                        while(!xml.readNext()==6);
-
-                        Abilities[STR]= (xml.text().toInt());
-                    }
-                    if(xml.name()=="dexterity"&&xml.isStartElement()){
-                        while(!xml.readNext()==6);
-
-                        Abilities[DEX]= (xml.text().toInt());
-                    }
-                    if(xml.name()=="constitution"&&xml.isStartElement()){
-                        while(!xml.readNext()==6);
-
-                        Abilities[CON]= (xml.text().toInt());
-                    }
-                    if(xml.name()=="intelligence"&&xml.isStartElement()){
-                        while(!xml.readNext()==6);
-
-                        Abilities[INT]= (xml.text().toInt());
-                    }
-                    if(xml.name()=="wisdom"&&xml.isStartElement()){
-                        while(!xml.readNext()==6);
-
-                        Abilities[WIS]= (xml.text().toInt());
-                    }
-                    if(xml.name()=="charisma"&&xml.isStartElement()){
-                        while(!xml.readNext()==6);
-
-                        Abilities[CHA]= (xml.text().toInt());
-                    }*/
-
                 }
             }
-
             if(xml.name()=="skills"&&xml.isStartElement()){//get the ranks in skills
                 while(!(xml.name()=="skills"&&xml.isEndElement())){//get the bio info
                     if(xml.name()=="skill"&&xml.isStartElement()){//get the name
@@ -305,9 +268,7 @@ void CQTs_Character::loadFromFile(QString filename){
                     xml.readNext();
                 }
             }
-
             //if(xml.name()=="feats"&&xml.isStartElement()){}
-
             if (xml.hasError()) {
                 // do error handling
             }

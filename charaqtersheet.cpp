@@ -1,4 +1,5 @@
 #include "charaqtersheet.h"
+#include "cqts_editors.h"
 #include <QGridLayout>
 #include <QDockWidget>
 #include <QFileDialog>
@@ -11,6 +12,7 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     engine = new CQTs_engine();
     //initializing pointer as NULL
     dockSkills=dockSaves=dockAbilities=dockBio=dockBAB=dockClass=NULL;
+    character = NULL;
 
     QAction *tAct;
     QMenuBar *mainMenu = menuBar(); //an addres for symplify my life
@@ -43,6 +45,18 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
 
     tAct = menuTools ->addAction(tr("&Classviewer"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(addDockClass()));
+
+    QMenu *menuEdits = mainMenu->addMenu(tr("&Edit"));
+    tAct = menuEdits ->addAction(tr("&BAB"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(editBAB()));
+    tAct = menuEdits ->addAction(tr("&Saves"));
+    //connect(tAct,SIGNAL(triggered()),this,SLOT());
+    tAct = menuEdits ->addAction(tr("&Abilities"));
+    //connect(tAct,SIGNAL(triggered()),this,SLOT());
+    tAct = menuEdits ->addAction(tr("&Bio"));
+    //connect(tAct,SIGNAL(triggered()),this,SLOT());
+    tAct = menuEdits ->addAction(tr("&Skills"));
+    //connect(tAct,SIGNAL(triggered()),this,SLOT());
 
     //addDockClass(Qt::LeftDockWidgetArea);
     addDockBio();
@@ -131,6 +145,22 @@ void CharaQTersheet::loadChar(){
 void CharaQTersheet::saveChar(){
     QMessageBox::information(0, QString("Information"), QString("Save funcion is useless, for now"), QMessageBox::Ok);
 }
+
+void CharaQTersheet::editBAB(){
+    BABeditor *BaB = new BABeditor();
+    BaB->show();
+}
+
+void CharaQTersheet::updateBAB(int newBAB){}
+void CharaQTersheet::editBio(){}
+void CharaQTersheet::updateBio(charBio newBio){}
+void CharaQTersheet::editSkills(){}
+void CharaQTersheet::updateSkills(){}
+void CharaQTersheet::editSaves(){}
+void CharaQTersheet::updateSaves(int fort, int ref, int will){}
+void CharaQTersheet::editAbilities(){}
+void CharaQTersheet::updateAbilities(int abls[6]){}
+
 
 /*Classviewer*/
 ClassViewer::ClassViewer(QWidget *parent)

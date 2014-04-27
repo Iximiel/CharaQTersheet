@@ -55,6 +55,7 @@ struct charBio{
 class CQTs_Character
 {
 public:
+    CQTs_Character();
     CQTs_Character(QString filename);
     void saveToFile (QString filename);
     void loadFromFile (QString filename);
