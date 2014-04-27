@@ -136,6 +136,17 @@ void CharaQTersheet::addDockSkills(){
 }
 
 void CharaQTersheet::loadChar(){
+    int ret = QMessageBox::Yes;
+    if(character!=NULL){
+        QMessageBox msgBox;
+        msgBox.setText(tr("A character is in active."));
+        msgBox.setInformativeText(tr("Do you want to load another one(existig modifies will be discarded)?"));
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::No);
+        ret = msgBox.exec();
+    }
+    switch (ret) {
+    case QMessageBox::Yes:
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Character File"), QString(),
                                                     tr("Character Files (*.chc *.CHC *.xml);;All Files (*.*)"));
     character = new CQTs_Character(fileName);
@@ -143,6 +154,8 @@ void CharaQTersheet::loadChar(){
     viewerAbilities->setLabs(character);
     viewerST->setLabs(character);
     viewerSkills->setLabs(character);
+        break;
+    }
 }
 
 void CharaQTersheet::saveChar(){
