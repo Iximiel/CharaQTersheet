@@ -15,6 +15,7 @@ public:
     CharaQTersheet(QWidget *parent = 0);
     ~CharaQTersheet();
 public slots:
+    void newCharacter();
     //docks
     void addDockClass();
     void addDockBio();
@@ -35,7 +36,7 @@ public slots:
     void updateBAB(int newBAB);
     void updateBio(charBio newBio);
     void updateSkills();
-    void updateSaves(int fort, int ref, int will);
+    void updateSaves(int* STs);
     void updateAbilities(int abls[6]);
 private:
     CQTs_engine *engine;

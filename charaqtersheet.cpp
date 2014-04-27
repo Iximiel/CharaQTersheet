@@ -53,13 +53,13 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     tAct = menuEdits ->addAction(tr("&BAB"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(editBAB()));
     tAct = menuEdits ->addAction(tr("&Saves"));
-    //connect(tAct,SIGNAL(triggered()),this,SLOT());
+    connect(tAct,SIGNAL(triggered()),this,SLOT(editSaves()));
     tAct = menuEdits ->addAction(tr("&Abilities"));
-    //connect(tAct,SIGNAL(triggered()),this,SLOT());
+    connect(tAct,SIGNAL(triggered()),this,SLOT(editAbilities()));
     tAct = menuEdits ->addAction(tr("&Bio"));
-    //connect(tAct,SIGNAL(triggered()),this,SLOT());
+    connect(tAct,SIGNAL(triggered()),this,SLOT(editBio()));
     tAct = menuEdits ->addAction(tr("&Skills"));
-    //connect(tAct,SIGNAL(triggered()),this,SLOT());
+    connect(tAct,SIGNAL(triggered()),this,SLOT(editSkills()));
 
     //addDockClass(Qt::LeftDockWidgetArea);
     addDockBio();
@@ -137,7 +137,7 @@ void CharaQTersheet::addDockSkills(){
 
 void CharaQTersheet::loadChar(){
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Character File"), QString(),
-                tr("Character Files (*.chc *.CHC *.xml);;All Files (*.*)"));
+                                                    tr("Character Files (*.chc *.CHC *.xml);;All Files (*.*)"));
     character = new CQTs_Character(fileName);
     viewerBio->setLabs(character);
     viewerAbilities->setLabs(character);
@@ -149,19 +149,48 @@ void CharaQTersheet::saveChar(){
     QMessageBox::information(0, QString("Information"), QString("Save funcion is useless, for now"), QMessageBox::Ok);
 }
 
+void CharaQTersheet::newCharacter(){
+    character = new CQTs_Character();
+    //will add a big window with a character creator
+}
+
 void CharaQTersheet::editBAB(){
+    if(character==NULL)
+        newCharacter();
+
     cqts_BABeditor *BaB = new cqts_BABeditor(character->getBAB());
     connect(BaB,SIGNAL(newBAB(int)),this,SLOT(updateBAB(int)));
     BaB->show();
 }
-
 void CharaQTersheet::updateBAB(int newBAB){qDebug()<< newBAB;}
-void CharaQTersheet::editBio(){}
+
+void CharaQTersheet::editBio(){
+    if(character==NULL)
+        newCharacter();}
 void CharaQTersheet::updateBio(charBio newBio){}
-void CharaQTersheet::editSkills(){}
+
+void CharaQTersheet::editSkills(){
+    if(character==NULL)
+        newCharacter();
+}
 void CharaQTersheet::updateSkills(){}
-void CharaQTersheet::editSaves(){}
-void CharaQTersheet::updateSaves(int fort, int ref, int will){}
+
+void CharaQTersheet::editSaves(){
+    if(character==NULL)
+        newCharacter();
+    int sts[3];
+    for (int i = 0; i < 3; ++i)
+        sts[i]= character->getST(i);
+
+    cqts_STeditor *STs = new cqts_STeditor(sts);
+    connect(STs,SIGNAL(newSTs(int*)),this,SLOT(updateSaves(int*)));
+    STs->show();
+}
+void CharaQTersheet::updateSaves(int* STs){
+    for (int i = 0; i < 3; ++i)
+        qDebug()<< STs[i];
+}
+
 void CharaQTersheet::editAbilities(){}
 void CharaQTersheet::updateAbilities(int abls[6]){}
 
