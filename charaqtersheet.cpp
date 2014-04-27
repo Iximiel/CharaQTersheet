@@ -199,8 +199,14 @@ void CharaQTersheet::updateSaves(int* STs){
         qDebug()<< STs[i];
 }
 
-void CharaQTersheet::editAbilities(){}
-void CharaQTersheet::updateAbilities(int abls[6]){}
+void CharaQTersheet::editAbilities(){
+    if(character==NULL)
+        newCharacter();
+    cqts_AbilitiesEditor *Abl = new cqts_AbilitiesEditor(character->getAbilities());
+    connect(Abl,SIGNAL(newAbl(int*)),this,SLOT(updateAbilities(int*)));
+    Abl->show();
+}
+void CharaQTersheet::updateAbilities(int* abls){}
 
 
 /*Classviewer*/

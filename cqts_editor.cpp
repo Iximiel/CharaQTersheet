@@ -107,3 +107,40 @@ void cqts_Bioeditor::update(){
 
     emit newBio(bio);
 }
+
+//Abilities
+cqts_AbilitiesEditor::cqts_AbilitiesEditor(int oldAbl[6],QWidget *parent):
+    QWidget(parent)
+{
+    QFormLayout *grid = new QFormLayout(this);
+
+    newSpinAbl = new QSpinBox* [6];
+    QString Names[6]={tr("Strength"),tr("Dexterity"),tr("Constitution"),tr("Intelligence"),tr("Wisdom"),tr("Charisma")};
+    for (int i = 0; i < 6; ++i) {
+        newSpinAbl[i] = new QSpinBox();
+        newSpinAbl[i]->setValue(oldAbl[i]);
+        grid->addRow(Names[i],newSpinAbl[i]);
+    }
+
+    saveBTT = new QPushButton("&Save");
+    undoBTT = new QPushButton("&Undo");
+    QHBoxLayout *tLay= new QHBoxLayout();
+    tLay->addWidget(undoBTT);
+    tLay->addWidget(saveBTT);
+    connect(undoBTT,SIGNAL(clicked()),this,SLOT(close()));
+    connect(saveBTT,SIGNAL(clicked()),this,SLOT(update()));
+    grid->addRow(tLay);
+    setLayout(grid);
+}
+
+cqts_AbilitiesEditor::~cqts_AbilitiesEditor(){
+
+}
+
+void cqts_AbilitiesEditor::update(){
+    int abl[6];
+    for (int i = 0; i < 6; ++i)
+        abl[i] = newSpinAbl[i]->value();
+
+    emit newAbl(abl);
+}

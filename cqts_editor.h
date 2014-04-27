@@ -53,4 +53,19 @@ private:
     QLineEdit *newSpinName, *newSpinSurname;
 };
 
+class cqts_AbilitiesEditor : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit cqts_AbilitiesEditor(int oldAbl[6], QWidget *parent = 0);
+    ~cqts_AbilitiesEditor();
+signals:
+    void newAbl(int* Abl);
+private slots:
+    void update();
+private:
+    QPushButton *saveBTT, *undoBTT;
+    QSpinBox **newSpinAbl;
+};
+
 #endif // CQTS_EDITOR_H

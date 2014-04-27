@@ -37,7 +37,7 @@ public slots:
     void updateBio(charBio newBio);
     void updateSkills();
     void updateSaves(int* STs);
-    void updateAbilities(int abls[6]);
+    void updateAbilities(int *abls);
 private:
     CQTs_engine *engine;
     CQTs_Character *character;

@@ -76,6 +76,7 @@ public:
     int getAbility(int sel);
     int getAbilityMod(CQT_Abilities sel);
     int getAbilityMod(int sel);
+    int* getAbilities();
     int getRanks(QString code);
 private:
     charBio bio;
