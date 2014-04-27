@@ -1,9 +1,12 @@
 #include "charaqtersheet.h"
-#include "cqts_editors.h"
+#include "cqts_editor.h"
 #include <QGridLayout>
 #include <QDockWidget>
 #include <QFileDialog>
 #include <QMessageBox>
+
+
+#include <QDebug>
 
 CharaQTersheet::CharaQTersheet(QWidget *parent)
     : QMainWindow(parent)
@@ -147,11 +150,12 @@ void CharaQTersheet::saveChar(){
 }
 
 void CharaQTersheet::editBAB(){
-    BABeditor *BaB = new BABeditor();
+    cqts_BABeditor *BaB = new cqts_BABeditor(character->getBAB());
+    connect(BaB,SIGNAL(newBAB(int)),this,SLOT(updateBAB(int)));
     BaB->show();
 }
 
-void CharaQTersheet::updateBAB(int newBAB){}
+void CharaQTersheet::updateBAB(int newBAB){qDebug()<< newBAB;}
 void CharaQTersheet::editBio(){}
 void CharaQTersheet::updateBio(charBio newBio){}
 void CharaQTersheet::editSkills(){}
