@@ -41,10 +41,10 @@ class cqts_Bioeditor : public QWidget
 {
     Q_OBJECT
 public:
-    explicit cqts_Bioeditor(int oldSTs[3], QWidget *parent = 0);
+    explicit cqts_Bioeditor(charBio old, QWidget *parent = 0);
     ~cqts_Bioeditor();
 signals:
-    void newSTs(int* ST);
+    void newBio(charBio nbio);
 private slots:
     void update();
 private:

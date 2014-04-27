@@ -64,6 +64,7 @@ public:
     QString getName();
     QString getSurname();
     int getAge();
+    charBio getBio();
     int getLV();
     int getHP();
     int getBAB();

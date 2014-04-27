@@ -331,6 +331,7 @@ void CQTs_Character::saveToFile(QString filename){
 QString CQTs_Character::getName(){return bio.Name;}
 QString CQTs_Character::getSurname(){return bio.Surname;}
 int CQTs_Character::getAge(){return bio.age;}
+charBio CQTs_Character::getBio(){return bio;}
 int CQTs_Character::getLV(){return LV;}
 int CQTs_Character::getHP(){return HP;}
 int CQTs_Character::getBAB(){return BAB;}

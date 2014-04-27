@@ -68,17 +68,20 @@ void cqts_STeditor::update(){
 }
 
 //Bio
-cqts_Bioeditor::cqts_Bioeditor(int oldSTs[3],QWidget *parent):
+cqts_Bioeditor::cqts_Bioeditor(charBio old,QWidget *parent):
     QWidget(parent)
 {
     QFormLayout *grid = new QFormLayout(this);
 
     newSpinName = new QLineEdit();
     grid->addRow(tr("Name:"),newSpinName);
+    newSpinName->setText(old.Name);
     newSpinSurname = new QLineEdit();
     grid->addRow(tr("Surname:"),newSpinSurname);
+    newSpinSurname->setText(old.Surname);
     newSpinAge = new QSpinBox();
     grid->addRow(tr("Age:"),newSpinAge);
+    newSpinAge->setValue(old.age);
 
 
     saveBTT = new QPushButton("&Save");
@@ -97,9 +100,10 @@ cqts_Bioeditor::~cqts_Bioeditor(){
 }
 
 void cqts_Bioeditor::update(){
-    int ST[3];
-    for (int i = 0; i < 3; ++i)
-        ST[i] = newSpinST[i]->value();
+    charBio bio;
+    bio.Name = newSpinName->text();
+    bio.Surname = newSpinSurname->text();
+    bio.age = newSpinAge->value();
 
-    emit newSTs(ST);
+    emit newBio(bio);
 }

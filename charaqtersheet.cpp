@@ -166,8 +166,16 @@ void CharaQTersheet::updateBAB(int newBAB){qDebug()<< newBAB;}
 
 void CharaQTersheet::editBio(){
     if(character==NULL)
-        newCharacter();}
-void CharaQTersheet::updateBio(charBio newBio){}
+        newCharacter();
+    cqts_Bioeditor *Bio = new cqts_Bioeditor(character->getBio());
+    connect(Bio,SIGNAL(newBio(charBio)),this,SLOT(updateBio(charBio)));
+    Bio->show();
+}
+void CharaQTersheet::updateBio(charBio newBio){
+    qDebug()<<newBio.Name;
+    qDebug()<< newBio.Surname;
+    qDebug()<<newBio.age;
+}
 
 void CharaQTersheet::editSkills(){
     if(character==NULL)
