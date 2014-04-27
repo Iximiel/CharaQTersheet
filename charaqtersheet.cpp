@@ -159,7 +159,9 @@ void CharaQTersheet::loadChar(){
 }
 
 void CharaQTersheet::saveChar(){
-    QMessageBox::information(0, QString("Information"), QString("Save funcion is useless, for now"), QMessageBox::Ok);
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save Character File"), QString(),
+                                                    tr("Character Files (*.chc *.CHC *.xml);;All Files (*.*)"));
+    character->saveToFile(fileName);
 }
 
 void CharaQTersheet::newCharacter(){

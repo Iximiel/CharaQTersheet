@@ -52,8 +52,7 @@ struct charBio{
     int age;
 };
 
-class CQTs_Character
-{
+class CQTs_Character{
 public:
     CQTs_Character();
     CQTs_Character(QString filename);
@@ -78,11 +77,13 @@ public:
     int getAbilityMod(int sel);
     int* getAbilities();
     int getRanks(QString code);
+
 private:
     charBio bio;
     int LV,HP,BAB,STf,STr,STw;//Armor class will come with inventory
     int Abilities[6];
     QMap<QString,int> skillRanks;
+
 };
 
 #endif //CQTS_CHAR

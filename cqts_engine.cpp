@@ -166,13 +166,15 @@ CQTs_skill CQTs_engine::skillData(int i){return Skills[i];}
  *endoffile
  */
 
-CQTs_Character::CQTs_Character(){
+CQTs_Character::CQTs_Character()
+{
     bio.age=LV=HP=BAB=STf=STr=STw=0;
     for (int i = 0; i < 6;Abilities[i++]=10 );
     bio.Surname=bio.Name="";
 }
 
-CQTs_Character::CQTs_Character(QString filename){
+CQTs_Character::CQTs_Character(QString filename)
+{
     bio.age=LV=HP=BAB=STf=STr=STw=0;
     for (int i = 0; i < 6;Abilities[i++]=10 );
     bio.Surname=bio.Name="";
@@ -183,7 +185,7 @@ void CQTs_Character::loadFromFile(QString filename){
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         bio.Name=bio.Surname="error";
-        emit fileNotLoaded();
+
         //add an alert!
     }else{
         QXmlStreamReader xml(&file);
