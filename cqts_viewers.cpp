@@ -198,7 +198,7 @@ void CQTs_ChSkillsViewer::initialize(){
     train = new QPushButton(tr("Show only trained"));
     train->setCheckable(true);
     connect(train,SIGNAL(released()),this,SLOT(showOnlyTrained()));
-   // grid->addWidget(train,0,0,1,3);
+    // grid->addWidget(train,0,0,1,3);
     QVBoxLayout *vl  = new QVBoxLayout();
     vl->addWidget(train);
     QWidget *container = new QWidget();
@@ -266,8 +266,8 @@ void CQTs_ChSkillsViewer::showOnlyTrained(){
 
 void CQTs_ChSkillsViewer::setLabs(CQTs_Character *selected){
     for (int i = 0; i < eng->skillNum(); ++i) {
-    Labels[i*8+5]->setNum(selected->getRanks(eng->skillData(i)));
-    Labels[i*8+3]->setNum(selected->getAbilityMod(eng->skillData(i).myAbility()));
+        Labels[i*8+5]->setNum(selected->getRanks(eng->skillData(i)));
+        Labels[i*8+3]->setNum(selected->getAbilityMod(eng->skillData(i).myAbility()));
     }
 }
 

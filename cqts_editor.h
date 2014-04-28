@@ -68,4 +68,20 @@ private:
     QSpinBox **newSpinAbl;
 };
 
+class cqts_SkillsEditor : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit cqts_SkillsEditor(CQTs_Character *selected, CQTs_engine *engine, QWidget *parent = 0);
+    ~cqts_SkillsEditor();
+signals:
+    void newSkills(QMap<QString,int> newskills);
+private slots:
+    void update();
+private:
+    CQTs_engine *eng;
+    QPushButton *saveBTT, *undoBTT;
+    QSpinBox **newSpinSkills;
+};
+
 #endif // CQTS_EDITOR_H

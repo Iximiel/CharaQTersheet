@@ -195,6 +195,9 @@ void CharaQTersheet::updateBio(charBio newBio){
 void CharaQTersheet::editSkills(){
     if(character==NULL)
         newCharacter();
+    cqts_SkillsEditor *Skills = new cqts_SkillsEditor(character,engine);
+    //connect(Skills,SIGNAL(newSTs(int*)),this,SLOT(updateSaves(int*)));
+    Skills->show();
 }
 void CharaQTersheet::updateSkills(){}
 

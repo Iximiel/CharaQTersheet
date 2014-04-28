@@ -1,5 +1,7 @@
 #include "cqts_editor.h"
 
+#include <QScrollArea>
+
 #include <QFormLayout>
 #include <QLayout>
 //BAB
@@ -143,4 +145,53 @@ void cqts_AbilitiesEditor::update(){
         abl[i] = newSpinAbl[i]->value();
 
     emit newAbl(abl);
+}
+
+//Skills
+
+cqts_SkillsEditor::cqts_SkillsEditor(CQTs_Character *selected, CQTs_engine *engine, QWidget *parent):
+    QWidget(parent)
+{
+    eng = engine;
+    QWidget* toscroll =  new QWidget();
+    QScrollArea *Scroll = new QScrollArea;
+    QFormLayout *grid = new QFormLayout();
+
+    newSpinSkills = new QSpinBox* [eng->skillNum()];
+    for (int i = 0; i < eng->skillNum(); ++i) {
+        newSpinSkills[i] = new QSpinBox();
+        newSpinSkills[i]->setValue(selected->getRanks(eng->skillData(i)));
+        grid->addRow(eng->skillData(i).myName(),newSpinSkills[i]);
+    }
+
+    toscroll->setLayout(grid);
+    Scroll->setWidget(toscroll);
+    Scroll->setWidgetResizable(true);
+    Scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    Scroll->setMinimumWidth(200);
+
+    QVBoxLayout *VLay= new QVBoxLayout();
+    VLay->addWidget(Scroll);
+    saveBTT = new QPushButton("&Save");
+    undoBTT = new QPushButton("&Undo");
+    QHBoxLayout *tLay= new QHBoxLayout();
+    tLay->addWidget(undoBTT);
+    tLay->addWidget(saveBTT);
+    VLay->addLayout(tLay);
+    setLayout(VLay);
+
+    connect(undoBTT,SIGNAL(clicked()),this,SLOT(close()));
+    connect(saveBTT,SIGNAL(clicked()),this,SLOT(update()));
+}
+
+cqts_SkillsEditor::~cqts_SkillsEditor(){
+
+}
+
+void cqts_SkillsEditor::update(){
+    /*int abl[6];
+    for (int i = 0; i < 6; ++i)
+        abl[i] = newSpinAbl[i]->value();
+
+    /emit newAbl(abl);*/
 }
