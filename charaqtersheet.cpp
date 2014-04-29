@@ -196,10 +196,18 @@ void CharaQTersheet::editSkills(){
     if(character==NULL)
         newCharacter();
     cqts_SkillsEditor *Skills = new cqts_SkillsEditor(character,engine);
-    //connect(Skills,SIGNAL(newSTs(int*)),this,SLOT(updateSaves(int*)));
+    connect(Skills,SIGNAL(newSkills(QMap<QString,int>)),this,SLOT(updateSkills(QMap<QString,int>)));
     Skills->show();
 }
-void CharaQTersheet::updateSkills(){}
+void CharaQTersheet::updateSkills(QMap<QString,int> newskills){
+    for (int i = 0; i < engine->skillNum(); ++i) {
+        QString code = engine->skillData(i);
+        if(newskills.contains(code)){
+            qDebug()<< code<< newskills[code];
+
+        }
+    }
+}
 
 void CharaQTersheet::editSaves(){
     if(character==NULL)

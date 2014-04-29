@@ -189,9 +189,13 @@ cqts_SkillsEditor::~cqts_SkillsEditor(){
 }
 
 void cqts_SkillsEditor::update(){
-    /*int abl[6];
-    for (int i = 0; i < 6; ++i)
-        abl[i] = newSpinAbl[i]->value();
-
-    /emit newAbl(abl);*/
+    QMap<QString,int> skills;
+    for (int i = 0; i < eng->skillNum(); ++i) {
+        int val = newSpinSkills[i]->value();
+        if(val!=0){
+            QString code = eng->skillData(i);
+            skills.insert(code,val);
+        }
+    }
+    emit newSkills(skills);
 }

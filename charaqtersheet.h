@@ -35,7 +35,7 @@ public slots:
 
     void updateBAB(int newBAB);
     void updateBio(charBio newBio);
-    void updateSkills();
+    void updateSkills(QMap<QString, int> newskills);
     void updateSaves(int* STs);
     void updateAbilities(int *abls);
 private:
