@@ -368,6 +368,30 @@ int CQTs_Character::getRanks(QString code){
     }else return 0;
 }
 
+void CQTs_Character::setName(QString newName){bio.Name = newName;}
+void CQTs_Character::setSurname(QString newSurname){bio.Name = newSurname;}
+void CQTs_Character::setAge(int newAge){bio.Name = newAge;}
+void CQTs_Character::setBio(charBio newBio){bio =newBio;}
+void CQTs_Character::setLV(int newLV){LV = newLV;}
+void CQTs_Character::setHP(int newHP){HP = newHP;}
+void CQTs_Character::setBAB(int newBAB){BAB = newBAB;}
+void CQTs_Character::setFortitude(int newSTf){STf = newSTf;}
+void CQTs_Character::setReflex(int newSTr){STr = newSTr;}
+void CQTs_Character::setWill(int newSTw){STw = newSTw;}
+void CQTs_Character::setST(int newSTf,int newSTr,int newSTw){
+    STf = newSTf;
+    STr = newSTr;
+    STw = newSTw;
+}
+void CQTs_Character::setAbility(CQT_Abilities sel, int newAbility){Abilities[sel] = newAbility;}
+void CQTs_Character::setAbility(int sel, int newAbility){Abilities[sel] = newAbility;}
+void CQTs_Character::setAbilities(int newAbilities[6]){for (int i = 0; i < 6;Abilities[i] = newAbilities[i++]);}
+void CQTs_Character::setRanks(QString code, int newRanks){skillRanks[code] = newRanks;}
+void CQTs_Character::setRanks(QMap<QString,int> newSkillRanks){
+    skillRanks.clear();
+    skillRanks = newSkillRanks();
+}
+
 /*****class handler*****/
 /*ClassFile structure:
  *Class Name
