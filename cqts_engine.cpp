@@ -385,11 +385,14 @@ void CQTs_Character::setST(int newSTf,int newSTr,int newSTw){
 }
 void CQTs_Character::setAbility(CQT_Abilities sel, int newAbility){Abilities[sel] = newAbility;}
 void CQTs_Character::setAbility(int sel, int newAbility){Abilities[sel] = newAbility;}
-void CQTs_Character::setAbilities(int newAbilities[6]){for (int i = 0; i < 6;Abilities[i] = newAbilities[i++]);}
+void CQTs_Character::setAbilities(int newAbilities[6]){
+    for (int i = 0; i < 6;i++)
+        Abilities[i] = newAbilities[i++];
+}
 void CQTs_Character::setRanks(QString code, int newRanks){skillRanks[code] = newRanks;}
 void CQTs_Character::setRanks(QMap<QString,int> newSkillRanks){
     skillRanks.clear();
-    skillRanks = newSkillRanks();
+    skillRanks = newSkillRanks;
 }
 
 /*****class handler*****/

@@ -84,7 +84,7 @@ public:
     void setBio(charBio newBio);
     void setLV(int newLV);
     void setHP(int newHP);
-    void setBAB(int BAB);
+    void setBAB(int newBAB);
     void setFortitude(int newSTf);
     void setReflex(int newSTr);
     void setWill(int newSTw);
