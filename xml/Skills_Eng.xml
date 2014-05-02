@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skills>
+  <skill>
+    <code>app</code>
+    <name>Appraise</name>
+  </skill>
+  <skill>
+    <code>bal</code>
+    <name>Balance</name>
+  </skill>
+  <skill>
+    <code>blu</code>
+    <name>Bluff</name>
+  </skill>
+  <skill>
+    <code>cli</code>
+    <name>Climb</name>
+  </skill>
+  <skill>
+    <code>con</code>
+    <name>Concentration</name>
+  </skill>
+  <skill>
+    <code>crf</code>
+    <name>Craft</name>
+  </skill>
+  <skill>
+    <code>desc</code>
+    <name>Decipher Script</name>
+  </skill>
+  <skill>
+    <code>dip</code>
+    <name>Diplomacy</name>
+  </skill>
+  <skill>
+    <code>dide</code>
+    <name>Disable Device</name>
+  </skill>
+  <skill>
+    <code>dis</code>
+    <name>Disguise</name>
+  </skill>
+  <skill>
+    <code>esar</code>
+    <name>Escape Artist</name>
+  </skill>
+  <skill>
+    <code>for</code>
+    <name>Forgery</name>
+  </skill>
+  <skill>
+    <code>gain</code>
+    <name>Gather Information</name>
+  </skill>
+  <skill>
+    <code>haan</code>
+    <name>Handle Animal</name>
+  </skill>
+  <skill>
+    <code>hea</code>
+    <name>Heal</name>
+  </skill>
+  <skill>
+    <code>hid</code>
+    <name>Hide</name>
+  </skill>
+  <skill>
+    <code>intm</code>
+    <name>Intimidate</name>
+  </skill>
+  <skill>
+    <code>jmp</code>
+    <name>Jump</name>
+  </skill>
+  <skill>
+    <code>knl</code>
+    <name>Knowledge</name>
+  </skill>
+  <skill>
+    <code>lis</code>
+    <name>Listen</name>
+  </skill>
+  <skill>
+    <code>mosi</code>
+    <name>Move Silently</name>
+  </skill>
+  <skill>
+    <code>oplo</code>
+    <name>Open Lock</name>
+  </skill>
+  <skill>
+    <code>per</code>
+    <name>Perform</name>
+  </skill>
+  <skill>
+    <code>pro</code>
+    <name>Profession</name>
+  </skill>
+  <skill>
+    <code>rid</code>
+    <name>Ride</name>
+  </skill>
+  <skill>
+    <code>sea</code>
+    <name>Search</name>
+  </skill>
+  <skill>
+    <code>semo</code>
+    <name>Sense Motive</name>
+  </skill>
+  <skill>
+    <code>sle</code>
+    <name>Sleight Of Hand</name>
+  </skill>
+  <skill>
+    <code>spla</code>
+    <name>Speak Language</name>
+  </skill>
+  <skill>
+    <code>spe</code>
+    <name>Spellcraft</name>
+  </skill>
+  <skill>
+    <code>spo</code>
+    <name>Spot</name>
+  </skill>
+  <skill>
+    <code>sur</code>
+    <name>Survival</name>
+  </skill>
+  <skill>
+    <code>swi</code>
+    <name>Swim</name>
+  </skill>
+  <skill>
+    <code>tum</code>
+    <name>Tumble</name>
+  </skill>
+  <skill>
+    <code>umd</code>
+    <name>Use Magic Device</name>
+  </skill>
+  <skill>
+    <code>uro</code>
+    <name>Use Rope</name>
+  </skill>
+</skills>

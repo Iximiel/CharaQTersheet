@@ -1,14 +1,21 @@
 #include "charaqtersheet.h"
+#include "cqts_editor.h"
 #include <QGridLayout>
 #include <QDockWidget>
 #include <QFileDialog>
 #include <QMessageBox>
 
+
+#include <QDebug>
+
 CharaQTersheet::CharaQTersheet(QWidget *parent)
     : QMainWindow(parent)
 {
+    //loading the engine:
+    engine = new CQTs_engine();
     //initializing pointer as NULL
     dockSkills=dockSaves=dockAbilities=dockBio=dockBAB=dockClass=NULL;
+    character = NULL;
 
     QAction *tAct;
     QMenuBar *mainMenu = menuBar(); //an addres for symplify my life
@@ -42,6 +49,18 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     tAct = menuTools ->addAction(tr("&Classviewer"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(addDockClass()));
 
+    QMenu *menuEdits = mainMenu->addMenu(tr("&Edit"));
+    tAct = menuEdits ->addAction(tr("&BAB"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(editBAB()));
+    tAct = menuEdits ->addAction(tr("&Saves"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(editSaves()));
+    tAct = menuEdits ->addAction(tr("&Abilities"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(editAbilities()));
+    tAct = menuEdits ->addAction(tr("&Bio"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(editBio()));
+    tAct = menuEdits ->addAction(tr("&Skills"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(editSkills()));
+
     //addDockClass(Qt::LeftDockWidgetArea);
     addDockBio();
     addDockAbilities();
@@ -52,7 +71,7 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
 
 CharaQTersheet::~CharaQTersheet()
 {
-
+    delete engine;
 }
 
 void CharaQTersheet::addDockClass(){
@@ -88,7 +107,7 @@ void CharaQTersheet::addDockAbilities(){
 void CharaQTersheet::addDockBAB(){
     if(dockBAB==NULL){
         dockBAB = new QDockWidget("BAB");
-        CQTs_ChBABViever *viewerBAB = new CQTs_ChBABViever(dockBAB);
+        viewerBAB = new CQTs_ChBABViever(dockBAB);
         dockBAB->setWidget(viewerBAB);
         addDockWidget(Qt::LeftDockWidgetArea,dockBAB);
     }else
@@ -109,7 +128,7 @@ void CharaQTersheet::addDockSaves(){
 void CharaQTersheet::addDockSkills(){
     if(dockSkills==NULL){
         dockSkills = new QDockWidget(tr("Skills"));
-        CQTs_ChSkillsViewer *viewerSkills = new CQTs_ChSkillsViewer();
+        viewerSkills = new CQTs_ChSkillsViewer(engine);
         dockSkills->setWidget(viewerSkills);
         addDockWidget(Qt::RightDockWidgetArea,dockSkills);
     }else
@@ -117,18 +136,108 @@ void CharaQTersheet::addDockSkills(){
 }
 
 void CharaQTersheet::loadChar(){
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Character File"), QString(),
-                tr("Character Files (*.chc *CHC);;All Files (*.*)"));
-    character = new CQTs_Character(fileName);
-    viewerBio->setLabs(character);
-    viewerAbilities->setLabs(character);
-    viewerST->setLabs(character);
-    //viewerSkills->setLabs(character);
+    int ret = QMessageBox::Yes;
+    if(character!=NULL){
+        QMessageBox msgBox;
+        msgBox.setText(tr("A character is in active."));
+        msgBox.setInformativeText(tr("Do you want to load another one(existig modifies will be discarded)?"));
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::No);
+        ret = msgBox.exec();
+    }
+    switch (ret) {
+    case QMessageBox::Yes:
+        QString fileName = QFileDialog::getOpenFileName(this, tr("Open Character File"), QString(),
+                                                        tr("Character Files (*.chc *.CHC *.xml);;All Files (*.*)"));
+        character = new CQTs_Character(fileName);
+        viewerBio->setLabs(character);
+        viewerAbilities->setLabs(character);
+        viewerST->setLabs(character);
+        viewerSkills->setLabs(character);
+        viewerBAB->setLabs(character);
+        break;
+    }
 }
 
 void CharaQTersheet::saveChar(){
-    QMessageBox::information(0, QString("Information"), QString("Save funcion is useless, for now"), QMessageBox::Ok);
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save Character File"), QString(),
+                                                    tr("Character Files (*.chc *.CHC *.xml);;All Files (*.*)"));
+    character->saveToFile(fileName);
 }
+
+void CharaQTersheet::newCharacter(){
+    character = new CQTs_Character();
+    //will add a big window with a character creator
+}
+
+void CharaQTersheet::editBAB(){
+    if(character==NULL)
+        newCharacter();
+
+    cqts_BABeditor *BaB = new cqts_BABeditor(character->getBAB());
+    connect(BaB,SIGNAL(newBAB(int)),this,SLOT(updateBAB(int)));
+    BaB->show();
+}
+void CharaQTersheet::updateBAB(int newBAB){
+    character->setBAB(newBAB);
+    viewerBAB->setLabs(character);
+}
+
+void CharaQTersheet::editBio(){
+    if(character==NULL)
+        newCharacter();
+    cqts_Bioeditor *Bio = new cqts_Bioeditor(character->getBio());
+    connect(Bio,SIGNAL(newBio(charBio)),this,SLOT(updateBio(charBio)));
+    Bio->show();
+}
+void CharaQTersheet::updateBio(charBio newBio){
+    character->setBio(newBio);
+    viewerBio->setLabs(character);
+}
+
+void CharaQTersheet::editSkills(){
+    if(character==NULL)
+        newCharacter();
+    cqts_SkillsEditor *Skills = new cqts_SkillsEditor(character,engine);
+    connect(Skills,SIGNAL(newSkills(QMap<QString,int>)),this,SLOT(updateSkills(QMap<QString,int>)));
+    Skills->show();
+}
+void CharaQTersheet::updateSkills(QMap<QString,int> newskills){
+    character->setRanks(newskills);
+    viewerSkills->setLabs(character);
+}
+
+void CharaQTersheet::editSaves(){
+    if(character==NULL)
+        newCharacter();
+    int sts[3];
+    for (int i = 0; i < 3; ++i)
+        sts[i]= character->getST(i);
+
+    cqts_STeditor *STs = new cqts_STeditor(sts);
+    connect(STs,SIGNAL(newSTs(int*)),this,SLOT(updateSaves(int*)));
+    STs->show();
+}
+void CharaQTersheet::updateSaves(int* STs){
+    character->setST(STs[0],STs[1],STs[2]);
+    viewerST->setLabs(character);
+}
+
+void CharaQTersheet::editAbilities(){
+    if(character==NULL)
+        newCharacter();
+    cqts_AbilitiesEditor *Abl = new cqts_AbilitiesEditor(character->getAbilities());
+    connect(Abl,SIGNAL(newAbl(int*)),this,SLOT(updateAbilities(int*)));
+    Abl->show();
+}
+void CharaQTersheet::updateAbilities(int* abls){
+    character->setAbilities(abls);
+    viewerAbilities->setLabs(character);
+    viewerST->setLabs(character);
+    viewerSkills->setLabs(character);
+    viewerBAB->setLabs(character);
+}
+
 
 /*Classviewer*/
 ClassViewer::ClassViewer(QWidget *parent)

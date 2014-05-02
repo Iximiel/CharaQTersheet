@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<character>
+    <bio>
+        <name>testbug</name>
+        <surname>glicth</surname>
+        <age>1</age>
+    </bio>
+    <data>
+        <hp>20</hp>
+        <bab>3</bab>
+        <saves>
+            <fort>4</fort>
+            <ref>4</ref>
+            <will>2</will>
+        </saves>
+        <abilities>
+            <ability which ="strength">18</ability>
+            <ability which ="dexterity">18</ability>
+            <ability which ="constitution">16</ability>
+            <ability which ="intelligence">16</ability>
+            <ability which ="wisdom">13</ability>
+            <ability which ="charisma">13</ability>
+        </abilities>
+    </data>
+    <skills>
+        <skill code ="blu">5</skill>
+    </skills>
+</character>

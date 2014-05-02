@@ -5,6 +5,7 @@
 #include <QMenuBar>
 #include <QComboBox>
 #include "cqts_viewers.h"
+#include "cqts_engine.h"
 
 class CharaQTersheet : public QMainWindow
 {
@@ -14,21 +15,38 @@ public:
     CharaQTersheet(QWidget *parent = 0);
     ~CharaQTersheet();
 public slots:
+    void newCharacter();
+    //docks
     void addDockClass();
     void addDockBio();
     void addDockBAB();
     void addDockAbilities();
     void addDockSaves();
     void addDockSkills();
+    //character
     void loadChar();
     void saveChar();
+    //editor
+    void editBAB();
+    void editBio();
+    void editSkills();
+    void editSaves();
+    void editAbilities();
+
+    void updateBAB(int newBAB);
+    void updateBio(charBio newBio);
+    void updateSkills(QMap<QString, int> newskills);
+    void updateSaves(int* STs);
+    void updateAbilities(int *abls);
 private:
+    CQTs_engine *engine;
     CQTs_Character *character;
     QDockWidget *dockSkills, *dockSaves, *dockAbilities, *dockBio, *dockBAB, *dockClass;
     CQTs_ChBioViewer *viewerBio;
     CQTs_ChAbilitiesViewer *viewerAbilities;
     CQTs_ChSTViewer *viewerST;
-    //CQTs_ChSkillsViewer *viewerSkills = new CQTs_ChSkillsViewer();
+    CQTs_ChSkillsViewer *viewerSkills;
+    CQTs_ChBABViever *viewerBAB;
 };
 
 class ClassViewer : public QWidget

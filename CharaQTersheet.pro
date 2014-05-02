@@ -15,14 +15,17 @@ TEMPLATE = app
 SOURCES += main.cpp\
         charaqtersheet.cpp \
     cqts_engine.cpp \
-    cqts_viewers.cpp
+    cqts_viewers.cpp \
+    cqts_editor.cpp
 
 HEADERS  += charaqtersheet.h \
     cqts_engine.h \
-    cqts_viewers.h
+    cqts_viewers.h \
+    cqts_editor.h
 
 OTHER_FILES += \
-    FtCitWD/Skills.txt \
-    FtCitWD/Skills_Ablility.txt \
-    FtCitWD/Skills_trained.txt \
-    FtCitWD/Skills_Armor.txt
+    Otherfiles/Skills.txt \
+    xml/config.xml \
+    xml/Skills_Eng.xml \
+    xml/Skills_data.xml \
+    xml/testcharacter.xml
