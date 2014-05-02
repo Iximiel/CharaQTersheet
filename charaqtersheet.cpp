@@ -177,7 +177,9 @@ void CharaQTersheet::editBAB(){
     connect(BaB,SIGNAL(newBAB(int)),this,SLOT(updateBAB(int)));
     BaB->show();
 }
-void CharaQTersheet::updateBAB(int newBAB){qDebug()<< newBAB;}
+void CharaQTersheet::updateBAB(int newBAB){
+    character->setBAB(newBAB);
+}
 
 void CharaQTersheet::editBio(){
     if(character==NULL)
@@ -187,9 +189,7 @@ void CharaQTersheet::editBio(){
     Bio->show();
 }
 void CharaQTersheet::updateBio(charBio newBio){
-    qDebug()<<newBio.Name;
-    qDebug()<< newBio.Surname;
-    qDebug()<<newBio.age;
+    character->setBio(newBio);
 }
 
 void CharaQTersheet::editSkills(){
@@ -200,13 +200,7 @@ void CharaQTersheet::editSkills(){
     Skills->show();
 }
 void CharaQTersheet::updateSkills(QMap<QString,int> newskills){
-    for (int i = 0; i < engine->skillNum(); ++i) {
-        QString code = engine->skillData(i);
-        if(newskills.contains(code)){
-            qDebug()<< code<< newskills[code];
-
-        }
-    }
+    character->setRanks(newskills);
 }
 
 void CharaQTersheet::editSaves(){
@@ -221,8 +215,7 @@ void CharaQTersheet::editSaves(){
     STs->show();
 }
 void CharaQTersheet::updateSaves(int* STs){
-    for (int i = 0; i < 3; ++i)
-        qDebug()<< STs[i];
+    character->setST(STs[0],STs[1],STs[2]);
 }
 
 void CharaQTersheet::editAbilities(){
@@ -232,7 +225,9 @@ void CharaQTersheet::editAbilities(){
     connect(Abl,SIGNAL(newAbl(int*)),this,SLOT(updateAbilities(int*)));
     Abl->show();
 }
-void CharaQTersheet::updateAbilities(int* abls){}
+void CharaQTersheet::updateAbilities(int* abls){
+    character->setAbilities(abls);
+}
 
 
 /*Classviewer*/

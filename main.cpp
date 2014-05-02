@@ -12,6 +12,6 @@ int main(int argc, char *argv[])
     //CQTs_ClassViewer w(&prova);
     //ClassViewer w;
     w.show();
-    CQTs_Character prova("character");
+    //CQTs_Character prova("/home/iximiel/ProgettiQt/build-CharaQTersheet-Debug/testcharacter2.xml");
     return a.exec();
 }

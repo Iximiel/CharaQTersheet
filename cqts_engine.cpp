@@ -189,8 +189,9 @@ void CQTs_Character::loadFromFile(QString filename){
         //add an alert!
     }else{
         QXmlStreamReader xml(&file);
-        while(!(xml.name()=="character"&&xml.isStartElement()))
+        while(!(xml.name()=="character"&&xml.isStartElement())){
             xml.readNext();
+        }
 
         while(!(xml.name()=="character"&&xml.isEndElement())){//i want this to work like a paper sheet, i will adda chronology after that
             if(xml.name()=="bio"&&xml.isStartElement()){
@@ -291,8 +292,9 @@ void CQTs_Character::saveToFile(QString filename){
         QXmlStreamWriter xml(&file);
         xml.setAutoFormatting(true);
         xml.setAutoFormattingIndent(2);
-        xml.writeStartDocument("0.03");
+        xml.writeStartDocument();
         xml.writeStartElement("character");
+        xml.writeAttribute("version","0.03");
         xml.writeStartElement("bio");
         xml.writeTextElement("name",bio.Name);
         xml.writeTextElement("surname",bio.Surname);
@@ -315,15 +317,17 @@ void CQTs_Character::saveToFile(QString filename){
             xml.writeEndElement();//ability
         }
         xml.writeEndElement();//abilities
-        xml.writeStartElement("skills");
-        for (int i = 0; i < skillRanks.size(); ++i) {
-            xml.writeStartElement("skill");
-            QString code = skillRanks.keys().at(i);
-            xml.writeAttribute("code",code);
-            xml.writeCharacters(QString::number(skillRanks[code]));
-            xml.writeEndElement();//skill
+        if(!skillRanks.empty()){
+            xml.writeStartElement("skills");
+            for (int i = 0; i < skillRanks.size(); ++i) {
+                xml.writeStartElement("skill");
+                QString code = skillRanks.keys().at(i);
+                xml.writeAttribute("code",code);
+                xml.writeCharacters(QString::number(skillRanks[code]));
+                xml.writeEndElement();//skill
+            }
+            xml.writeEndElement();//skills
         }
-        xml.writeEndElement();//skills
         xml.writeEndElement();//data
         xml.writeEndElement();//character
         xml.writeEndDocument();
