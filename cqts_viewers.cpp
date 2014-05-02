@@ -379,10 +379,10 @@ void CQTs_ChBABViever::initialize(){
 
 
 void CQTs_ChBABViever::setLabs(CQTs_Character *selected){
-    CQTs_Character::CQT_Abilities statmap[3]={CQTs_Character::CON,CQTs_Character::DEX,CQTs_Character::WIS};
+    CQTs_Character::CQT_Abilities statmap[3]={CQTs_Character::STR,CQTs_Character::DEX,CQTs_Character::STR};
     for (int i = 0; i < 3; ++i){
         int ab=selected->getAbilityMod(statmap[i]);
-        int mod=selected->getST(i);
+        int mod=selected->getBAB();
         int val=ab+mod;
         LabMod[i]->setNum(mod);
         LabAb[i]->setNum(ab);

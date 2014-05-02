@@ -46,6 +46,7 @@ private:
     CQTs_ChAbilitiesViewer *viewerAbilities;
     CQTs_ChSTViewer *viewerST;
     CQTs_ChSkillsViewer *viewerSkills;
+    CQTs_ChBABViever *viewerBAB;
 };
 
 class ClassViewer : public QWidget

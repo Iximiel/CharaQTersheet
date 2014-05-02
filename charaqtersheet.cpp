@@ -107,7 +107,7 @@ void CharaQTersheet::addDockAbilities(){
 void CharaQTersheet::addDockBAB(){
     if(dockBAB==NULL){
         dockBAB = new QDockWidget("BAB");
-        CQTs_ChBABViever *viewerBAB = new CQTs_ChBABViever(dockBAB);
+        viewerBAB = new CQTs_ChBABViever(dockBAB);
         dockBAB->setWidget(viewerBAB);
         addDockWidget(Qt::LeftDockWidgetArea,dockBAB);
     }else
@@ -147,13 +147,14 @@ void CharaQTersheet::loadChar(){
     }
     switch (ret) {
     case QMessageBox::Yes:
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Character File"), QString(),
-                                                    tr("Character Files (*.chc *.CHC *.xml);;All Files (*.*)"));
-    character = new CQTs_Character(fileName);
-    viewerBio->setLabs(character);
-    viewerAbilities->setLabs(character);
-    viewerST->setLabs(character);
-    viewerSkills->setLabs(character);
+        QString fileName = QFileDialog::getOpenFileName(this, tr("Open Character File"), QString(),
+                                                        tr("Character Files (*.chc *.CHC *.xml);;All Files (*.*)"));
+        character = new CQTs_Character(fileName);
+        viewerBio->setLabs(character);
+        viewerAbilities->setLabs(character);
+        viewerST->setLabs(character);
+        viewerSkills->setLabs(character);
+        viewerBAB->setLabs(character);
         break;
     }
 }
@@ -179,6 +180,7 @@ void CharaQTersheet::editBAB(){
 }
 void CharaQTersheet::updateBAB(int newBAB){
     character->setBAB(newBAB);
+    viewerBAB->setLabs(character);
 }
 
 void CharaQTersheet::editBio(){
@@ -190,6 +192,7 @@ void CharaQTersheet::editBio(){
 }
 void CharaQTersheet::updateBio(charBio newBio){
     character->setBio(newBio);
+    viewerBio->setLabs(character);
 }
 
 void CharaQTersheet::editSkills(){
@@ -201,6 +204,7 @@ void CharaQTersheet::editSkills(){
 }
 void CharaQTersheet::updateSkills(QMap<QString,int> newskills){
     character->setRanks(newskills);
+    viewerSkills->setLabs(character);
 }
 
 void CharaQTersheet::editSaves(){
@@ -216,6 +220,7 @@ void CharaQTersheet::editSaves(){
 }
 void CharaQTersheet::updateSaves(int* STs){
     character->setST(STs[0],STs[1],STs[2]);
+    viewerST->setLabs(character);
 }
 
 void CharaQTersheet::editAbilities(){
@@ -227,6 +232,10 @@ void CharaQTersheet::editAbilities(){
 }
 void CharaQTersheet::updateAbilities(int* abls){
     character->setAbilities(abls);
+    viewerAbilities->setLabs(character);
+    viewerST->setLabs(character);
+    viewerSkills->setLabs(character);
+    viewerBAB->setLabs(character);
 }
 
 
