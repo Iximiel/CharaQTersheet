@@ -1,8 +1,9 @@
 #ifndef ITEMS_H
 #define ITEMS_H
-
+#include <QString>
 #include <QObject>
 struct money{
+    money();
     money(int mcu, int mag, int mau, int mpt=0);
     money(int mau);
     int cu;
@@ -15,10 +16,10 @@ struct money{
 
 class cqts_item{
 public:
-    cqts_item(QString mycode,QString myname,int myweight, money myprice);
-    cqts_item(QString mycode,QString myname,int myweight, int mcu, int mag, int mau, int mpt);
+    cqts_item(QString mycode,QString myname,double myweight, money myprice);
+    cqts_item(QString mycode,QString myname,double myweight, int mcu, int mag, int mau, int mpt = 0);
     money cost();
-    int myWeigh();
+    double myWeigh();
     QString myID();
     QString myName();
     bool operator ==(cqts_item otherItem);
@@ -26,7 +27,7 @@ public:
     bool operator <(cqts_item otherItem);//alphabetical order per name
 private:
     QString code, name;
-    int weight;//, volume;
+    double weight;//, volume;
     money price;
 };
 
