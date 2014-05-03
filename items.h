@@ -3,9 +3,10 @@
 
 #include <QObject>
 struct money{
-    money(int mcu, int mag, int mau, int mpt);
-    int cu, ag, au, pt;
-    QDataStream operator <<();
+    money(int mcu, int mag, int mau, int mpt=0);
+    money(int mau);
+    int cu;
+    friend QDataStream& operator <<(QDataStream& stream, money val);
     money operator +(money);
     money operator -(money);
     bool operator <(money);
