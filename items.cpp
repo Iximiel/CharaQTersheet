@@ -1,5 +1,5 @@
 #include "items.h"
-#include <QtCore>
+#include <QDataStream>
 
 //money
 money::money(){
