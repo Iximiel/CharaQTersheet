@@ -10,6 +10,7 @@ struct money{
     money operator +(money);
     money operator -(money);
     bool operator <(money);
+    money &operator =(money &);
 };
 
 class cqts_item{
