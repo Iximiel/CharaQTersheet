@@ -52,8 +52,7 @@ CQTs_engine::CQTs_engine(){
 void CQTs_engine::loadSkills(){
     QFile file("Skills_data.xml");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        // qDebug()<<"errore lettura";
-        //add an alert!
+        QMessageBox::information(0, QString("Information"), QString(tr("Failed to load skills data")), QMessageBox::Ok);
     }
     else{
         QXmlStreamReader xml(&file);
@@ -100,6 +99,7 @@ void CQTs_engine::loadSkills(){
                 }
                 CQTs_skill tSkill(code,train);
                 tSkill.setAbility(abl);
+                tSkill.setmyName(code);//in case skillnames are not loaded
                 //tSkill.setArmor(arm);
                 Skills.append(tSkill);
             }
@@ -116,8 +116,7 @@ void CQTs_engine::loadSkillNames(){
 
     QFile file("Skills_Eng.xml");
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        // qDebug()<<"errore";
-        //add an alert!
+       QMessageBox::information(0, QString("Information"), QString(tr("Failed to load skill names")), QMessageBox::Ok);
     }
     else{
         QXmlStreamReader xml(&file);
@@ -186,7 +185,7 @@ void CQTs_Character::loadFromFile(QString filename){
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         bio.Name=bio.Surname="error";
 
-        //add an alert!
+        QMessageBox::information(0, QString("Information"), QString(tr("Failed to load character information")), QMessageBox::Ok);
     }else{
         QXmlStreamReader xml(&file);
         while(!(xml.name()=="character"&&xml.isStartElement())){
@@ -286,8 +285,7 @@ void CQTs_Character::loadFromFile(QString filename){
 void CQTs_Character::saveToFile(QString filename){
     QFile file(filename);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)){
-        qDebug()<<"errore salvataggio";
-        //add an alert!
+        QMessageBox::information(0, QString("Information"), QString(tr("Failed to save your character")), QMessageBox::Ok);
     }else{
         QXmlStreamWriter xml(&file);
         xml.setAutoFormatting(true);
