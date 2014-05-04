@@ -2,6 +2,8 @@
 #define ITEMS_H
 #include <QString>
 #include <QObject>
+#include <QList>
+
 struct money{
     money();
     money(int mcu, int mag, int mau, int mpt=0);
@@ -26,22 +28,25 @@ public:
     bool operator ==(QString otherCode);
     bool operator <(cqts_item otherItem);//alphabetical order per name
 private:
-    QString code, name;
+    QString code, name, type;
     double weight;//, volume;
     money price;
+
 };
 
 
-class cqts_itemHandler : public QObject
+class cqts_itemsHandler : public QObject
 {
     Q_OBJECT
 public:
-    explicit cqts_itemHandler(QObject *parent = 0);
-
+    explicit cqts_itemsHandler(QString filename, QObject *parent = 0);
+    void loadFromFile(QString filename);
 signals:
 
 public slots:
 
+private:
+    QList<cqts_item> items;
 };
 
 #endif // ITEMS_H

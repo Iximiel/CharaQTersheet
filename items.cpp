@@ -1,5 +1,10 @@
 #include "items.h"
+
+#include <QMessageBox>
+#include <QFile>
 #include <QDataStream>
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
 
 //money
 money::money(){
@@ -81,11 +86,22 @@ bool cqts_item::operator ==(cqts_item otherItem){
 bool cqts_item::operator ==(QString otherCode){
     return code == otherCode;
 }
-bool cqts_item::operator <(cqts_item otherItem){
+bool cqts_item::operator <(cqts_item otherItem){//alphabetical order per name
     return name<otherItem.name;
-}//alphabetical order per name
+}
 
-cqts_itemHandler::cqts_itemHandler(QObject *parent) :
+cqts_itemsHandler::cqts_itemsHandler(QString filename, QObject *parent) :
     QObject(parent)
 {
+    loadFromFile(filename);
+}
+
+void cqts_itemsHandler::loadFromFile(QString filename){
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        QMessageBox::information(0, QString("Information"), QString(tr("Failed to load items")), QMessageBox::Ok);
+    }else{
+        QXmlStreamReader xml(&file);
+
+    }
 }

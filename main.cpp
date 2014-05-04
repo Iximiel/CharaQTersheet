@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     qDebug() << asd.value();
     qDebug() << das.value();
     qDebug() << sad.value();
-   // QApplication a(argc, argv);
+    QApplication a(argc, argv);
    // CharaQTersheet w;
     //CQTs_Class prova("mnc");
     //CQTs_ClassViewer w(&prova);
