@@ -27,31 +27,33 @@ money money::operator -(money x){
 }
 money& money::operator =(money& x){
     if(this!= &x){
-    cu = x.cu;
+        cu = x.cu;
     }
     return *this;
 }
 
-QDataStream& operator <<(QDataStream& stream, money val){
+QString money::value(){
+    QString toreturn="";
     QString gp = QObject::tr("gp"), sp = QObject::tr("sp"), cc = QObject::tr("cc");
-    int mcu, mag, mau;
-    mau = val.cu/100.;
-    mag = (val.cu-mau*100)/10.;
-    mcu = (val.cu-mau*100-mag*10);
-    if(mcu!=0){
-        if(mau!=0)
-            stream << mau << " "<< gp <<" " << mag << " " <<sp<<" ";
-        else if (mag!=0)
-            stream << mag << " " <<sp<<" ";
-        stream << mcu << " "<<cc;
-    }else if (mag!=0){
-        if(mau!=0)
-            stream << mau << " "<< gp <<" ";
-        stream << mag << " " <<sp;
+    int Mcu, Mag, Mau;
+    Mau = cu/100.;
+    Mag = (cu-Mau*100)/10.;
+    Mcu = (cu-Mau*100-Mag*10);
+    QString mau = QString::number(Mau),mag = QString::number(Mag),mcu = QString::number(Mcu);
+    if(Mcu!=0){
+        if(Mau!=0)
+            toreturn += mau + " "+ gp +" " + mag + " " + sp + " ";
+        else if (Mag!=0)
+            toreturn += mag + " " + sp + " ";
+        toreturn += mcu + " "+cc;
+    }else if (Mag!=0){
+        if(Mau!=0)
+            toreturn += mau + " " + gp + " ";
+        toreturn += mag + " " + sp;
     }else{
-        stream << mau << " "<< gp;
+        toreturn += mau + " "+ gp;
     }
-    return stream;
+    return toreturn;
 }
 
 //item
