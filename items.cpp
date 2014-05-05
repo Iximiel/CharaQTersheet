@@ -27,7 +27,7 @@ money money::operator -(money x){
     cu = cu-x.cu;
     return *this;
 }
-money& money::operator =(money& x){
+money& money::operator =(money x){
     if(this!= &x){
         cu = x.cu;
     }
@@ -35,7 +35,7 @@ money& money::operator =(money& x){
 }
 
 money& money::operator =(int x){
-        cu = x;
+    cu = x;
     return *this;
 }
 
@@ -65,14 +65,16 @@ QString money::value(){
 
 //item
 
-cqts_item::cqts_item(QString mycode,QString myname,double myweight, money myprice){
+cqts_item::cqts_item(QString mycode,QString mytype,QString myname,double myweight, money myprice){
     code = mycode;
+    type = mytype;
     name = myname;
     weight = myweight;
     price = myprice;
 }
-cqts_item::cqts_item(QString mycode,QString myname,double myweight, int mcu, int mag, int mau, int mpt){
+cqts_item::cqts_item(QString mycode,QString mytype,QString myname,double myweight, int mcu, int mag, int mau, int mpt){
     code = mycode;
+    type = mytype;
     name = myname;
     weight = myweight;
     money tprice(mcu, mag, mau, mpt);
@@ -82,6 +84,19 @@ money cqts_item::cost(){return price;}
 double cqts_item::myWeigh(){return weight;}
 QString cqts_item::myID(){return code;}
 QString cqts_item::myName(){return name;}
+
+cqts_item& cqts_item::operator = (cqts_item x){
+    if(this!= &x){
+        code = x.code;
+        name = x.name;
+        type = x.type;
+        weight = x.weight;
+        price = x.price;
+
+    }
+    return *this;
+}
+
 bool cqts_item::operator ==(cqts_item otherItem){
     return code == otherItem.code;
 }
@@ -135,11 +150,37 @@ void cqts_itemsHandler::loadFromFile(QStringList filesData){
                             while(!xml.readNext()==6);
                             prize = mult * (xml.text().toInt());
                         }
-                        if(type == "weapon"){
-
+                        /*if(type.contains("weapon")){//i will use "1hweapon", "2hweapon", "2hrngweapon", or "weaponarmor" for spiked things
+                            if(xml.name()=="weapon"&&xml.isStartElement()){
+                                //QString wptype = xml.attributes().value("wptype").toString();
+                                QString damage = xml.attributes().value("damage").toString();
+                                QString crit = xml.attributes().value("critical").toString();
+                                if(type.contains("rng"))
+                                    int range = xml.attributes().value("rangeinc").toInt();;//number of squares (translation friendly! :) )
+                            }
 
                         }
-                }
+                        if(type.contains("armor")){
+                            if(xml.name()=="armor"&&xml.isStartElement()){
+                                int AC =  xml.attributes().value("AC").toInt();
+                                int dex =  xml.attributes().value("dexmax").toInt();
+                                int arcanefail =  xml.attributes().value("arcane").toInt();
+                                int armorcheck =  xml.attributes().value("checkpenalty").toInt();
+                                bool limitspeed =  xml.attributes().value("speed").toInt();
+
+                            }
+                        }
+                        if(type.contains("shield")){
+                            if(xml.name()=="shield"&&xml.isStartElement()){
+                                int AC =  xml.attributes().value("AC").toInt();
+                                int dex =  xml.attributes().value("dexmax").toInt();
+                                int arcanefail =  xml.attributes().value("arcane").toInt();
+                                int armorcheck =  xml.attributes().value("checkpenalty").toInt();
+                            }
+                        }*/
+                    }
+                    cqts_item tItem(code,type,engname,weight,prize);
+                    items.append(tItem);
                 }
                 xml.readNext();
             }
@@ -147,6 +188,7 @@ void cqts_itemsHandler::loadFromFile(QStringList filesData){
         }
     }
 }
+
 
 void cqts_itemsHandler::loadNamesFromFiles(QStringList filesNames){
     for (int i = 0; i < filesNames.size(); ++i) {

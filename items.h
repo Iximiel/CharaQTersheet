@@ -11,19 +11,20 @@ struct money{
     money operator +(money);
     money operator -(money);
     bool operator <(money);
-    money& operator =(money &);
+    money& operator =(money);
     money& operator =(int x);
     QString value();
 };
 
 class cqts_item{
 public:
-    cqts_item(QString mycode,QString myname,double myweight, money myprice);
-    cqts_item(QString mycode,QString myname,double myweight, int mcu, int mag, int mau, int mpt = 0);
+    cqts_item(QString mycode,QString mytype ,QString myname,double myweight, money myprice);
+    cqts_item(QString mycode,QString mytype,QString myname,double myweight, int mcu, int mag, int mau, int mpt = 0);
     money cost();
     double myWeigh();
     QString myID();
     QString myName();
+    cqts_item& operator = (cqts_item);
     bool operator ==(cqts_item otherItem);
     bool operator ==(QString otherCode);
     bool operator <(cqts_item otherItem);//alphabetical order per name
