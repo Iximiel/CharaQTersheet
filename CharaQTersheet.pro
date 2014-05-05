@@ -30,4 +30,5 @@ OTHER_FILES += \
     xml/config.xml \
     xml/Skills_Eng.xml \
     xml/Skills_data.xml \
-    xml/testcharacter.xml
+    xml/testcharacter.xml \
+    xml/goods.xml

@@ -6,13 +6,13 @@
 
 struct money{
     money();
-    money(int mcu, int mag, int mau, int mpt=0);
-    money(int mau);
+    money(int mcu, int mag=0, int mau=0, int mpt=0);
     int cu;
     money operator +(money);
     money operator -(money);
     bool operator <(money);
-    money &operator =(money &);
+    money& operator =(money &);
+    money& operator =(int x);
     QString value();
 };
 

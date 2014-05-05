@@ -14,9 +14,6 @@ money::money(){
 money::money(int mcu, int mag, int mau, int mpt){
     cu = mcu+mag*10+mau*100+mpt*1000;
 }
-money::money(int mau){
-    cu = mau*100;
-}
 
 bool money::operator <(money x){
     return cu<x.cu;
@@ -34,6 +31,11 @@ money& money::operator =(money& x){
     if(this!= &x){
         cu = x.cu;
     }
+    return *this;
+}
+
+money& money::operator =(int x){
+        cu = x;
     return *this;
 }
 
@@ -99,24 +101,61 @@ cqts_itemsHandler::cqts_itemsHandler(QStringList filesData, QStringList filesNam
 
 void cqts_itemsHandler::loadFromFile(QStringList filesData){
     for (int i = 0; i < filesData.size(); ++i) {
-    QFile file(filesData[i]);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        QMessageBox::information(0, QString("Information"), (QString(tr("Failed to load items from "))+filesData[i]), QMessageBox::Ok);
-    }else{
-        QXmlStreamReader xml(&file);
+        QFile file(filesData[i]);
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+            QMessageBox::information(0, QString("Information"), (QString(tr("Failed to load items from "))+filesData[i]), QMessageBox::Ok);
+        }else{
+            QXmlStreamReader xml(&file);
+            while(!(xml.name()=="items"&&xml.isStartElement())){
+                xml.readNext();
+            }
 
-    }
+            while(!(xml.name()=="items"&&xml.isEndElement())){
+                QString code, engname, type;
+                double weight;
+                money prize;
+                if(xml.name()=="item"&&xml.isStartElement()){
+                    code = xml.attributes().value("code").toString();
+                    engname = xml.attributes().value("engname").toString();
+                    type = xml.attributes().value("type").toString();
+                    while(!(xml.name()=="item"&&xml.isEndElement())){
+                        xml.readNext();
+                        if(xml.name()=="weight"&&xml.isStartElement()){
+                            while(!xml.readNext()==6);
+                            weight= (xml.text().toDouble());
+                        }
+                        if(xml.name()=="price"&&xml.isStartElement()){
+                            QString change = xml.attributes().value("money").toString();
+                            //if is "sylver" or "copper" change the thing
+                            int mult = 100;
+                            if(change == "sylver")
+                                mult = 10;
+                            else if(change == "copper")
+                                mult = 1;
+                            while(!xml.readNext()==6);
+                            prize = mult * (xml.text().toInt());
+                        }
+                        if(type == "weapon"){
+
+
+                        }
+                }
+                }
+                xml.readNext();
+            }
+
+        }
     }
 }
 
 void cqts_itemsHandler::loadNamesFromFiles(QStringList filesNames){
     for (int i = 0; i < filesNames.size(); ++i) {
-    QFile file(filesNames[i]);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        QMessageBox::information(0, QString("Information"), (QString(tr("Failed to load item names from "))+filesNames[i]), QMessageBox::Ok);
-    }else{
-        QXmlStreamReader xml(&file);
+        QFile file(filesNames[i]);
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+            QMessageBox::information(0, QString("Information"), (QString(tr("Failed to load item names from "))+filesNames[i]), QMessageBox::Ok);
+        }else{
+            QXmlStreamReader xml(&file);
 
+        }
     }
-}
 }
