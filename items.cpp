@@ -200,10 +200,39 @@ void CQTs_itemsHandler::loadNamesFromFiles(QStringList filesNames){
         }
     }
 }
+
+int CQTs_itemsHandler::itemsNum(){return items.size();}
+QString CQTs_itemsHandler::getName(int i){return items[i].myName();}
+QString CQTs_itemsHandler::getCost(int i){return items[i].cost().value();}
+
 //viewer
+#include <QScrollArea>
+#include <QLayout>
+#include <QGridLayout>
+#include <QLabel>
 
 CQTs_ItemViewer::CQTs_ItemViewer(QWidget *parent):
     QWidget(parent)
 {
+    QScrollArea *Scroll =  new QScrollArea();
+    QLayout *tlay = new QHBoxLayout();
+    tlay->addWidget(Scroll);
+    setLayout(tlay);
+    QStringList Items, Names;
+    Items.push_back("E:/Users/Iximiel/Documents/GitHub/CharaQTersheet-MinGW/goods.xml");
+    itemsHandler = new CQTs_itemsHandler(Items,Names);
+    QWidget *toScroll = new QWidget();
+    QGridLayout *grid = new QGridLayout();
+    int row = 0;//number of row for legend
+    for (int i = 0; i < itemsHandler->itemsNum(); ++i) {
+        QLabel* tLab = new QLabel(itemsHandler->getName(i));
+        tLab->setMaximumHeight(15);
+        grid->addWidget(tLab,i+row,0);
+        tLab = new QLabel(itemsHandler->getCost(i));
+        grid->addWidget(tLab,i+row,1);
+    }
+    toScroll->setLayout(grid);
+    Scroll->setWidget(toScroll);
+    Scroll->setWidgetResizable(true);
 
 }
