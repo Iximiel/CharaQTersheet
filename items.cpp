@@ -65,14 +65,14 @@ QString money::value(){
 
 //item
 
-cqts_item::cqts_item(QString mycode,QString mytype,QString myname,double myweight, money myprice){
+CQTs_item::CQTs_item(QString mycode,QString mytype,QString myname,double myweight, money myprice){
     code = mycode;
     type = mytype;
     name = myname;
     weight = myweight;
     price = myprice;
 }
-cqts_item::cqts_item(QString mycode,QString mytype,QString myname,double myweight, int mcu, int mag, int mau, int mpt){
+CQTs_item::CQTs_item(QString mycode,QString mytype,QString myname,double myweight, int mcu, int mag, int mau, int mpt){
     code = mycode;
     type = mytype;
     name = myname;
@@ -80,12 +80,12 @@ cqts_item::cqts_item(QString mycode,QString mytype,QString myname,double myweigh
     money tprice(mcu, mag, mau, mpt);
     price = tprice;
 }
-money cqts_item::cost(){return price;}
-double cqts_item::myWeigh(){return weight;}
-QString cqts_item::myID(){return code;}
-QString cqts_item::myName(){return name;}
+money CQTs_item::cost(){return price;}
+double CQTs_item::myWeigh(){return weight;}
+QString CQTs_item::myID(){return code;}
+QString CQTs_item::myName(){return name;}
 
-cqts_item& cqts_item::operator = (cqts_item x){
+CQTs_item& CQTs_item::operator = (CQTs_item x){
     if(this!= &x){
         code = x.code;
         name = x.name;
@@ -97,24 +97,24 @@ cqts_item& cqts_item::operator = (cqts_item x){
     return *this;
 }
 
-bool cqts_item::operator ==(cqts_item otherItem){
+bool CQTs_item::operator ==(CQTs_item otherItem){
     return code == otherItem.code;
 }
-bool cqts_item::operator ==(QString otherCode){
+bool CQTs_item::operator ==(QString otherCode){
     return code == otherCode;
 }
-bool cqts_item::operator <(cqts_item otherItem){//alphabetical order per name
+bool CQTs_item::operator <(CQTs_item otherItem){//alphabetical order per name
     return name<otherItem.name;
 }
 
-cqts_itemsHandler::cqts_itemsHandler(QStringList filesData, QStringList filesNames, QObject *parent) :
+CQTs_itemsHandler::CQTs_itemsHandler(QStringList filesData, QStringList filesNames, QObject *parent) :
     QObject(parent)
 {
     loadFromFile(filesData);
-    loadNamesFromFiles(filesNames);
+    //loadNamesFromFiles(filesNames);
 }
 
-void cqts_itemsHandler::loadFromFile(QStringList filesData){
+void CQTs_itemsHandler::loadFromFile(QStringList filesData){
     for (int i = 0; i < filesData.size(); ++i) {
         QFile file(filesData[i]);
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
@@ -126,12 +126,11 @@ void cqts_itemsHandler::loadFromFile(QStringList filesData){
             }
 
             while(!(xml.name()=="items"&&xml.isEndElement())){
-                QString code, engname, type;
-                double weight;
+                QString code, type;
+                double weight=0;
                 money prize;
                 if(xml.name()=="item"&&xml.isStartElement()){
                     code = xml.attributes().value("code").toString();
-                    engname = xml.attributes().value("engname").toString();
                     type = xml.attributes().value("type").toString();
                     while(!(xml.name()=="item"&&xml.isEndElement())){
                         xml.readNext();
@@ -143,9 +142,9 @@ void cqts_itemsHandler::loadFromFile(QStringList filesData){
                             QString change = xml.attributes().value("money").toString();
                             //if is "sylver" or "copper" change the thing
                             int mult = 100;
-                            if(change == "sylver")
+                            if(change == "sp")
                                 mult = 10;
-                            else if(change == "copper")
+                            else if(change == "cp")
                                 mult = 1;
                             while(!xml.readNext()==6);
                             prize = mult * (xml.text().toInt());
@@ -179,7 +178,7 @@ void cqts_itemsHandler::loadFromFile(QStringList filesData){
                             }
                         }*/
                     }
-                    cqts_item tItem(code,type,engname,weight,prize);
+                    CQTs_item tItem(code,type,code,weight,prize);
                     items.append(tItem);
                 }
                 xml.readNext();
@@ -190,7 +189,7 @@ void cqts_itemsHandler::loadFromFile(QStringList filesData){
 }
 
 
-void cqts_itemsHandler::loadNamesFromFiles(QStringList filesNames){
+void CQTs_itemsHandler::loadNamesFromFiles(QStringList filesNames){
     for (int i = 0; i < filesNames.size(); ++i) {
         QFile file(filesNames[i]);
         if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
@@ -200,4 +199,11 @@ void cqts_itemsHandler::loadNamesFromFiles(QStringList filesNames){
 
         }
     }
+}
+//viewer
+
+CQTs_ItemViewer::CQTs_ItemViewer(QWidget *parent):
+    QWidget(parent)
+{
+
 }

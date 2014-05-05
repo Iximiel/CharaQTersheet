@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <items>
-<item code = "" engname = "" type = "">
-<price money = ""></price>
-<weight></weight>
+<item code = "Backpack" type = "good">
+<price money = "gp">2</price>
+<weight>2</weight>
+</item>
+<item code = "Barrel" type = "good">
+<price money = "gp">30</price>
+<weight>2</weight>
+</item>
+<item code = "Basket" type = "good">
+<price money = "sp">4</price>
+<weight>2</weight>
+</item>
+<item code = "Bedroll" type = "good">
+<price money = "sp">1</price>
+<weight>2</weight>
+</item>
+<item code = "Bell" type = "good">
+<price money = "gp">1</price>
+<weight>2</weight>
 </item>
 </items>

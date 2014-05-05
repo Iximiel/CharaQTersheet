@@ -16,18 +16,18 @@ struct money{
     QString value();
 };
 
-class cqts_item{
+class CQTs_item{
 public:
-    cqts_item(QString mycode,QString mytype ,QString myname,double myweight, money myprice);
-    cqts_item(QString mycode,QString mytype,QString myname,double myweight, int mcu, int mag, int mau, int mpt = 0);
+    CQTs_item(QString mycode,QString mytype ,QString myname,double myweight, money myprice);
+    CQTs_item(QString mycode,QString mytype,QString myname,double myweight, int mcu, int mag, int mau, int mpt = 0);
     money cost();
     double myWeigh();
     QString myID();
     QString myName();
-    cqts_item& operator = (cqts_item);
-    bool operator ==(cqts_item otherItem);
+    CQTs_item& operator = (CQTs_item);
+    bool operator ==(CQTs_item otherItem);
     bool operator ==(QString otherCode);
-    bool operator <(cqts_item otherItem);//alphabetical order per name
+    bool operator <(CQTs_item otherItem);//alphabetical order per name
 private:
     QString code, name, type;
     double weight;//, volume;
@@ -36,11 +36,11 @@ private:
 };
 
 
-class cqts_itemsHandler : public QObject
+class CQTs_itemsHandler : public QObject
 {
     Q_OBJECT
 public:
-    explicit cqts_itemsHandler(QStringList filesData, QStringList filesNames, QObject *parent = 0);
+    explicit CQTs_itemsHandler(QStringList filesData, QStringList filesNames, QObject *parent = 0);
     void loadFromFile(QStringList filenames);
     void loadNamesFromFiles(QStringList filenames);
 signals:
@@ -48,7 +48,23 @@ signals:
 public slots:
 
 private:
-    QList<cqts_item> items;
+    QList<CQTs_item> items;
 };
+#include <QWidget>
+class CQTs_ItemViewer : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit CQTs_ItemViewer(QWidget *parent = 0);
+private:
+    //QLabel *LabName,*LabBAB,*LabFort,*LabRef,*LabWill;
+    CQTs_itemsHandler *itemsHandler;
+    //void initialize();
+signals:
+
+public slots:
+  //  void setLabs(CQTs_Class *selected);
+};
+
 
 #endif // ITEMS_H
