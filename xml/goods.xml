@@ -1,23 +1,267 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <items>
-<item code = "Backpack" type = "good">
-<price money = "gp">2</price>
-<weight>2</weight>
-</item>
-<item code = "Barrel" type = "good">
-<price money = "gp">30</price>
-<weight>2</weight>
-</item>
-<item code = "Basket" type = "good">
-<price money = "sp">4</price>
-<weight>2</weight>
-</item>
-<item code = "Bedroll" type = "good">
-<price money = "sp">1</price>
-<weight>2</weight>
-</item>
-<item code = "Bell" type = "good">
-<price money = "gp">1</price>
-<weight>2</weight>
-</item>
+	<item code ="Backpack (empty)" type ="good">
+		<price money ="gp">2</price>
+		<weight>2</weight>
+	</item>
+	<item code ="Barrel (empty)" type ="good">
+		<price money ="gp">2</price>
+		<weight>30</weight>
+	</item>
+	<item code ="Basket (empty)" type ="good">
+		<price money ="sp">4</price>
+		<weight>1</weight>
+	</item>
+	<item code ="Bedroll" type ="good">
+		<price money ="sp">1</price>
+		<weight>5</weight>
+	</item>
+	<item code ="Bell" type ="good">
+		<price money ="gp">1</price>
+		<weight>0</weight>
+	</item>
+	<item code ="Blanket, winter" type ="good">
+		<price money ="sp">5</price>
+		<weight>3</weight>
+	</item>
+	<item code ="Block and tackle" type ="good">
+		<price money ="gp">5</price>
+		<weight>5</weight>
+	</item>
+	<item code ="Bottle, wine, glass" type ="good">
+		<price money ="gp">2</price>
+		<weight>0</weight>
+	</item>
+	<item code ="Bucket (empty)" type ="good">
+		<price money ="sp">5</price>
+		<weight>2</weight>
+	</item>
+	<item code ="Caltrops" type ="good">
+		<price money ="gp">1</price>
+		<weight>2</weight>
+	</item>
+	<item code ="Candle" type ="good">
+		<price money ="cp">1</price>
+		<weight>0</weight>
+	</item>
+	<item code ="Canvas (sq. yd.)" type ="good">
+		<price money ="sp">1</price>
+		<weight>1</weight>
+	</item>
+	<item code ="Case, map or scroll" type ="good">
+		<price money ="gp">1</price>
+		<weight>0,5</weight>
+	</item>
+	<item code ="Chain (10 ft.)" type ="good">
+		<price money ="gp">30</price>
+		<weight>2</weight>
+	</item>
+	<item code ="Chalk, 1 piece" type ="good">
+		<price money ="cp">1</price>
+		<weight>0</weight>
+	</item>
+	<item code ="Chest (empty)" type ="good">
+		<price money ="gp">2</price>
+		<weight>25</weight>
+	</item>
+	<item code ="Crowbar" type ="good">
+		<price money ="gp">2</price>
+		<weight>5</weight>
+	</item>
+	<item code ="Firewood (per day)" type ="good">
+		<price money ="cp">1</price>
+		<weight>20</weight>
+	</item>
+	<item code ="Fishhook" type ="good">
+		<price money ="sp">1</price>
+		<weight>0</weight>
+	</item>
+	<item code ="Fishing net, 25 sq. ft." type ="good">
+		<price money ="gp">4</price>
+		<weight>5</weight>
+	</item>
+	<item code ="Flask (empty)" type ="good">
+		<price money ="cp">3</price>
+		<weight>1,5</weight>
+	</item>
+	<item code ="Flint and steel" type ="good">
+		<price money ="gp">1</price>
+		<weight>0</weight>
+	</item>
+	<item code ="Grappling hook" type ="good">
+		<price money ="gp">1</price>
+		<weight>4</weight>
+	</item>
+	<item code ="Hammer" type ="good">
+		<price money ="sp">5</price>
+		<weight>2</weight>
+	</item>
+	<item code ="Ink (1 oz. vial)" type ="good">
+		<price money ="gp">8</price>
+		<weight>0</weight>
+	</item>
+	<item code ="Inkpen" type ="good">
+		<price money ="sp">1</price>
+		<weight>0</weight>
+	</item>
+	<item code ="Jug, clay" type ="good">
+		<price money ="cp">3</price>
+		<weight>9</weight>
+	</item>
+	<item code ="Ladder, 10-foot" type ="good">
+		<price money ="cp">5</price>
+		<weight>20</weight>
+	</item>
+	<item code ="Lamp, common" type ="good">
+		<price money ="sp">1</price>
+		<weight>1</weight>
+	</item>
+	<item code ="Lantern, bullseye" type ="good">
+		<price money ="gp">12</price>
+		<weight>3</weight>
+	</item>
+	<item code ="Lantern, hooded" type ="good">
+		<price money ="gp">7</price>
+		<weight>2</weight>
+	</item>
+	<item code ="Lock (very simple)" type ="good">
+		<price money ="gp">20</price>
+		<weight>1</weight>
+	</item>
+	<item code ="Lock (average)" type ="good">
+		<price money ="gp">40</price>
+		<weight>1</weight>
+	</item>
+	<item code ="Lock (good)" type ="good">
+		<price money ="gp">80</price>
+		<weight>1</weight>
+	</item>
+	<item code ="Lock (amazing)" type ="good">
+		<price money ="gp">150</price>
+		<weight>1</weight>
+	</item>
+	<item code ="Manacles" type ="good">
+		<price money ="gp">15</price>
+		<weight>2</weight>
+	</item>
+	<item code ="Manacles, masterwork" type ="good">
+		<price money ="gp">50</price>
+		<weight>2</weight>
+	</item>
+	<item code ="Mirror, small steel" type ="good">
+		<price money ="gp">10</price>
+		<weight>0,5</weight>
+	</item>
+	<item code ="Mug/Tankard, clay" type ="good">
+		<price money ="cp">2</price>
+		<weight>1</weight>
+	</item>
+	<item code ="Oil (1-pint flask)" type ="good">
+		<price money ="sp">1</price>
+		<weight>1</weight>
+	</item>
+	<item code ="Paper (sheet)" type ="good">
+		<price money ="sp">4</price>
+		<weight>0</weight>
+	</item>
+	<item code ="Parchment (sheet)" type ="good">
+		<price money ="sp">2</price>
+		<weight>0</weight>
+	</item>
+	<item code ="Pick, miner’s" type ="good">
+		<price money ="gp">3</price>
+		<weight>10</weight>
+	</item>
+	<item code ="Pitcher, clay" type ="good">
+		<price money ="cp">2</price>
+		<weight>5</weight>
+	</item>
+	<item code ="Piton" type ="good">
+		<price money ="sp">1</price>
+		<weight>0,5</weight>
+	</item>
+	<item code ="Pole, 10-foot" type ="good">
+		<price money ="sp">2</price>
+		<weight>8</weight>
+	</item>
+	<item code ="Pot, iron" type ="good">
+		<price money ="sp">5</price>
+		<weight>10</weight>
+	</item>
+	<item code ="Pouch, belt (empty)" type ="good">
+		<price money ="gp">1</price>
+		<weight>0,5</weight>
+	</item>
+	<item code ="Ram, portable" type ="good">
+		<price money ="gp">10</price>
+		<weight>20</weight>
+	</item>
+	<item code ="Rations, trail (per day)" type ="good">
+		<price money ="sp">5</price>
+		<weight>1</weight>
+	</item>
+	<item code ="Rope, hempen (50 ft.)" type ="good">
+		<price money ="gp">1</price>
+		<weight>10</weight>
+	</item>
+	<item code ="Rope, silk (50 ft.)" type ="good">
+		<price money ="gp">10</price>
+		<weight>5</weight>
+	</item>
+	<item code ="Sack (empty)" type ="good">
+		<price money ="sp">1</price>
+		<weight>0,5</weight>
+	</item>
+	<item code ="Sealing wax" type ="good">
+		<price money ="gp">1</price>
+		<weight>1</weight>
+	</item>
+	<item code ="Sewing needle" type ="good">
+		<price money ="sp">5</price>
+		<weight>0</weight>
+	</item>
+	<item code ="Signal whistle" type ="good">
+		<price money ="sp">8</price>
+		<weight>0</weight>
+	</item>
+	<item code ="Signet ring" type ="good">
+		<price money ="gp">5</price>
+		<weight>0</weight>
+	</item>
+	<item code ="Sledge" type ="good">
+		<price money ="gp">1</price>
+		<weight>10</weight>
+	</item>
+	<item code ="Soap (per lb.)" type ="good">
+		<price money ="sp">5</price>
+		<weight>1</weight>
+	</item>
+	<item code ="Spade or shovel" type ="good">
+		<price money ="gp">2</price>
+		<weight>8</weight>
+	</item>
+	<item code ="Spyglass" type ="good">
+		<price money ="gp">1</price>
+		<weight>1</weight>
+	</item>
+	<item code ="Tent" type ="good">
+		<price money ="gp">10</price>
+		<weight>20</weight>
+	</item>
+	<item code ="Torch" type ="good">
+		<price money ="cp">1</price>
+		<weight>1</weight>
+	</item>
+	<item code ="Vial, ink or potion" type ="good">
+		<price money ="gp">1</price>
+		<weight>0</weight>
+	</item>
+	<item code ="Waterskin" type ="good">
+		<price money ="gp">1</price>
+		<weight>4</weight>
+	</item>
+	<item code ="Whetstone" type ="good">
+		<price money ="cp">2</price>
+		<weight>1</weight>
+	</item>
 </items>

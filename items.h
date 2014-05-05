@@ -43,6 +43,10 @@ public:
     explicit CQTs_itemsHandler(QStringList filesData, QStringList filesNames, QObject *parent = 0);
     void loadFromFile(QStringList filenames);
     void loadNamesFromFiles(QStringList filenames);
+    int itemsNum();
+    QString getName(int i);
+    QString getCost(int i);
+    double getWeight(int i);
 signals:
 
 public slots:
