@@ -46,7 +46,10 @@ public:
     int itemsNum();
     QString getName(int i);
     QString getCost(int i);
+<<<<<<< HEAD
     double getWeight(int i);
+=======
+>>>>>>> e8d5271c51c2867058a879cc58f9cffb8457d614
 signals:
 
 public slots:

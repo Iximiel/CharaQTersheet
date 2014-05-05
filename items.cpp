@@ -210,7 +210,10 @@ void CQTs_itemsHandler::loadNamesFromFiles(QStringList filesNames){
 int CQTs_itemsHandler::itemsNum(){return items.size();}
 QString CQTs_itemsHandler::getName(int i){return items[i].myName();}
 QString CQTs_itemsHandler::getCost(int i){return items[i].cost().value();}
+<<<<<<< HEAD
 double CQTs_itemsHandler::getWeight(int i){return items[i].myWeigh();}
+=======
+>>>>>>> e8d5271c51c2867058a879cc58f9cffb8457d614
 
 //viewer
 #include <QScrollArea>
@@ -237,8 +240,11 @@ CQTs_ItemViewer::CQTs_ItemViewer(QWidget *parent):
         grid->addWidget(tLab,i+row,0);
         tLab = new QLabel(itemsHandler->getCost(i));
         grid->addWidget(tLab,i+row,1);
+<<<<<<< HEAD
         tLab = new QLabel(QString::number(itemsHandler->getWeight(i)));
         grid->addWidget(tLab,i+row,2);
+=======
+>>>>>>> e8d5271c51c2867058a879cc58f9cffb8457d614
     }
     toScroll->setLayout(grid);
     Scroll->setWidget(toScroll);
