@@ -39,8 +39,9 @@ class cqts_itemsHandler : public QObject
 {
     Q_OBJECT
 public:
-    explicit cqts_itemsHandler(QString filename, QObject *parent = 0);
-    void loadFromFile(QString filename);
+    explicit cqts_itemsHandler(QStringList filesData, QStringList filesNames, QObject *parent = 0);
+    void loadFromFile(QStringList filenames);
+    void loadNamesFromFiles(QStringList filenames);
 signals:
 
 public slots:

@@ -90,18 +90,33 @@ bool cqts_item::operator <(cqts_item otherItem){//alphabetical order per name
     return name<otherItem.name;
 }
 
-cqts_itemsHandler::cqts_itemsHandler(QString filename, QObject *parent) :
+cqts_itemsHandler::cqts_itemsHandler(QStringList filesData, QStringList filesNames, QObject *parent) :
     QObject(parent)
 {
-    loadFromFile(filename);
+    loadFromFile(filesData);
+    loadNamesFromFiles(filesNames);
 }
 
-void cqts_itemsHandler::loadFromFile(QString filename){
-    QFile file(filename);
+void cqts_itemsHandler::loadFromFile(QStringList filesData){
+    for (int i = 0; i < filesData.size(); ++i) {
+    QFile file(filesData[i]);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        QMessageBox::information(0, QString("Information"), QString(tr("Failed to load items")), QMessageBox::Ok);
+        QMessageBox::information(0, QString("Information"), (QString(tr("Failed to load items from "))+filesData[i]), QMessageBox::Ok);
     }else{
         QXmlStreamReader xml(&file);
 
     }
+    }
+}
+
+void cqts_itemsHandler::loadNamesFromFiles(QStringList filesNames){
+    for (int i = 0; i < filesNames.size(); ++i) {
+    QFile file(filesNames[i]);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        QMessageBox::information(0, QString("Information"), (QString(tr("Failed to load item names from "))+filesNames[i]), QMessageBox::Ok);
+    }else{
+        QXmlStreamReader xml(&file);
+
+    }
+}
 }
