@@ -212,6 +212,18 @@ QString CQTs_itemsHandler::getName(int i){return items[i].myName();}
 QString CQTs_itemsHandler::getCost(int i){return items[i].cost().value();}
 double CQTs_itemsHandler::getWeight(int i){return items[i].myWeigh();}
 
+//bag
+CQTs_bag::CQTs_bag(){
+
+}
+
+void CQTs_bag::put_inside(CQTs_item newItem){
+    inside.append(newItem);
+}
+
+void CQTs_bag::put_inside(QList<CQTs_item> newItems){
+    inside.append(newItems);
+}
 
 //viewer
 #include <QScrollArea>
