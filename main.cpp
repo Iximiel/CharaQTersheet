@@ -9,7 +9,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    CQTs_ItemViewer w;
+    //CQTs_ItemViewer w;
+    CQTs_bag w;
     //CharaQTersheet w;
     w.show();
     //CQTs_Character prova("/home/iximiel/ProgettiQt/build-CharaQTersheet-Debug/testcharacter2.xml");

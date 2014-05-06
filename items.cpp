@@ -5,6 +5,10 @@
 #include <QDataStream>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QScrollArea>
+#include <QLayout>
+#include <QGridLayout>
+#include <QLabel>
 
 #include <QDebug>
 //money
@@ -213,8 +217,12 @@ QString CQTs_itemsHandler::getCost(int i){return items[i].cost().value();}
 double CQTs_itemsHandler::getWeight(int i){return items[i].myWeigh();}
 
 //bag
-CQTs_bag::CQTs_bag(){
 
+CQTs_bag::CQTs_bag(QWidget *parent):
+    QTabWidget(parent)
+{
+    QWidget *tWidget = new QWidget ();
+    addTab(tWidget,"Bag");
 }
 
 void CQTs_bag::put_inside(CQTs_item newItem){
@@ -226,10 +234,6 @@ void CQTs_bag::put_inside(QList<CQTs_item> newItems){
 }
 
 //viewer
-#include <QScrollArea>
-#include <QLayout>
-#include <QGridLayout>
-#include <QLabel>
 
 CQTs_ItemViewer::CQTs_ItemViewer(QWidget *parent):
     QWidget(parent)

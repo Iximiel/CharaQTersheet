@@ -54,11 +54,12 @@ public slots:
 private:
     QList<CQTs_item> items;
 };
-
-class CQTs_bag
-{
+#include <QTabWidget>
+class CQTs_bag : public QTabWidget
+       {
+           Q_OBJECT
 public:
-    CQTs_bag();
+    CQTs_bag(QWidget *parent = 0);
     void put_inside(CQTs_item newItem);
     void put_inside(QList<CQTs_item> newItems);//adds a list of items
     //QList<CQTs_item> look_weapons();
