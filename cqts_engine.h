@@ -20,6 +20,7 @@ public:
     int myAbility();
     bool needsTrain();
     bool operator <(CQTs_skill b);
+    //void set_Synergies(QString code, QString description="");it undertand if is cyrcumstantial or not
 private:
     QString Name;
 //    QStringList synergies;

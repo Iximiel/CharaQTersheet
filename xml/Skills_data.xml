@@ -1,228 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <skills>
-  <skill>
-    <code>app</code>
-    <ability>3</ability>
-    <armor>0</armor>
-    <onlytrained>0</onlytrained>
+  <skill code="Appraise" ability="3"/>
+  <skill code="Balance" ability="1" armor="1">
+    <synergy>Tumble</synergy>
   </skill>
-  <skill>
-    <code>bal</code>
-    <ability>1</ability>
-    <armor>1</armor>
-    <onlytrained>0</onlytrained>
-    <synergy>tum</synergy>
+  <skill code="Bluff" ability="5"/>
+  <skill code="Climb" ability="0" armor="1"/>
+  <skill code="Concentration" ability="2"/>
+  <skill code="Craft" ability="3"/>
+  <skill code="Decipher Script" ability="3" onlytrained="1"/>
+  <skill code="Diplomacy" ability="5">
+    <synergy>Bluff</synergy>
+    <synergy>Sense Motive</synergy>
   </skill>
-  <skill>
-    <code>blu</code>
-    <ability>5</ability>
-    <armor>0</armor>
-    <onlytrained>0</onlytrained>
+  <skill code="Disable Device" ability="3" onlytrained="1"/>
+  <skill code="Disguise" ability="5"/>
+  <skill code="Escape Artist" ability="1" armor="1"/>
+  <skill code="Forgery" ability="3"/>
+  <skill code="Gather Information" ability="5"/>
+  <skill code="Handle Animal" ability="5" onlytrained="1"/>
+  <skill code="Heal" ability="4"/>
+  <skill code="Hide" ability="1" armor="1"/>
+  <skill code="Intimidate" ability="5">
+    <synergy>Bluff</synergy>
   </skill>
-  <skill>
-    <code>cli</code>
-    <ability>0</ability>
-    <armor>1</armor>
-    <onlytrained>0</onlytrained>
+  <skill code="Jump" ability="0" armor="1">
+    <synergy>Tumble</synergy>
   </skill>
-  <skill>
-    <code>con</code>
-    <ability>2</ability>
-    <armor>0</armor>
-    <onlytrained>0</onlytrained>
+  <skill code="Knowledge" ability="3" onlytrained="1"/>
+  <skill code="Listen" ability="4"/>
+  <skill code="Move Silently" ability="1" armor="1"/>
+  <skill code="Open Lock" ability="1" onlytrained="1"/>
+  <skill code="Perform" ability="5"/>
+  <skill code="Profession" ability="4" onlytrained="1"/>
+  <skill code="Ride" ability="1">
+    <synergy>Handle Animal</synergy>
   </skill>
-  <skill>
-    <code>crf</code>
-    <ability>3</ability>
-    <armor>0</armor>
-    <onlytrained>0</onlytrained>
+  <skill code="Search" ability="3"/>
+  <skill code="Sense Motive" ability="4"/>
+  <skill code="Sleight Of Hand" ability="1" armor="1" onlytrained="1">
+    <synergy>Bluff</synergy>
   </skill>
-  <skill>
-    <code>desc</code>
-    <ability>3</ability>
-    <armor>0</armor>
-    <onlytrained>1</onlytrained>
+  <skill code="Speak Language" ability="3" onlytrained="1"/>
+  <skill code="Spellcraft" ability="3" onlytrained="1"/>
+  <skill code="Spot" ability="4"/>
+  <skill code="Survival" ability="4"/>
+  <skill code="Swim" ability="0" armor="2"/>
+  <skill code="Tumble" ability="0" armor="1" onlytrained="1">
+    <synergy>Jump</synergy>
   </skill>
-  <skill>
-    <code>dip</code>
-    <ability>5</ability>
-    <armor>0</armor>
-    <onlytrained>0</onlytrained>
-    <synergy>blu</synergy>
-    <synergy>semo</synergy>
-  </skill>
-  <skill>
-    <code>dide</code>
-    <ability>3</ability>
-    <armor>0</armor>
-    <onlytrained>1</onlytrained>
-  </skill>
-  <skill>
-    <code>dis</code>
-    <ability>5</ability>
-    <armor>0</armor>
-    <onlytrained>0</onlytrained>
-  </skill>
-  <skill>
-    <code>esar</code>
-    <ability>1</ability>
-    <armor>1</armor>
-    <onlytrained>0</onlytrained>
-  </skill>
-  <skill>
-    <code>for</code>
-    <ability>3</ability>
-    <armor>0</armor>
-    <onlytrained>0</onlytrained>
-  </skill>
-  <skill>
-    <code>gain</code>
-    <ability>5</ability>
-    <armor>0</armor>
-    <onlytrained>0</onlytrained>
-  </skill>
-  <skill>
-    <code>haan</code>
-    <ability>5</ability>
-    <armor>0</armor>
-    <onlytrained>1</onlytrained>
-  </skill>
-  <skill>
-    <code>hea</code>
-    <ability>4</ability>
-    <armor>0</armor>
-    <onlytrained>0</onlytrained>
-  </skill>
-  <skill>
-    <code>hid</code>
-    <ability>1</ability>
-    <armor>1</armor>
-    <onlytrained>0</onlytrained>
-  </skill>
-  <skill>
-    <code>intm</code>
-    <ability>5</ability>
-    <armor>0</armor>
-    <onlytrained>0</onlytrained>
-    <synergy>blu</synergy>
-  </skill>
-  <skill>
-    <code>jmp</code>
-    <ability>0</ability>
-    <armor>1</armor>
-    <onlytrained>0</onlytrained>
-    <synergy>tum</synergy>
-  </skill>
-  <skill>
-    <code>knl</code>
-    <ability>3</ability>
-    <armor>0</armor>
-    <onlytrained>1</onlytrained>
-  </skill>
-  <skill>
-    <code>lis</code>
-    <ability>4</ability>
-    <armor>0</armor>
-    <onlytrained>0</onlytrained>
-  </skill>
-  <skill>
-    <code>mosi</code>
-    <ability>1</ability>
-    <armor>1</armor>
-    <onlytrained>0</onlytrained>
-  </skill>
-  <skill>
-    <code>oplo</code>
-    <ability>1</ability>
-    <armor>0</armor>
-    <onlytrained>1</onlytrained>
-  </skill>
-  <skill>
-    <code>per</code>
-    <ability>5</ability>
-    <armor>0</armor>
-    <onlytrained>0</onlytrained>
-  </skill>
-  <skill>
-    <code>pro</code>
-    <ability>4</ability>
-    <armor>0</armor>
-    <onlytrained>1</onlytrained>
-  </skill>
-  <skill>
-    <code>rid</code>
-    <ability>1</ability>
-    <armor>0</armor>
-    <onlytrained>0</onlytrained>
-    <synergy>haan</synergy>
-  </skill>
-  <skill>
-    <code>sea</code>
-    <ability>3</ability>
-    <armor>0</armor>
-    <onlytrained>0</onlytrained>
-  </skill>
-  <skill>
-    <code>semo</code>
-    <ability>4</ability>
-    <armor>0</armor>
-    <onlytrained>0</onlytrained>
-  </skill>
-  <skill>
-    <code>sle</code>
-    <ability>1</ability>
-    <armor>1</armor>
-    <onlytrained>1</onlytrained>
-    <synergy>blu</synergy>
-  </skill>
-  <skill>
-    <code>spla</code>
-    <ability>3</ability>
-    <armor>0</armor>
-    <onlytrained>1</onlytrained>
-  </skill>
-  <skill>
-    <code>spe</code>
-    <ability>3</ability>
-    <armor>0</armor>
-    <onlytrained>1</onlytrained>
-  </skill>
-  <skill>
-    <code>spo</code>
-    <ability>4</ability>
-    <armor>0</armor>
-    <onlytrained>0</onlytrained>
-  </skill>
-  <skill>
-    <code>sur</code>
-    <ability>4</ability>
-    <armor>0</armor>
-    <onlytrained>0</onlytrained>
-  </skill>
-  <skill>
-    <code>swi</code>
-    <ability>0</ability>
-    <armor>2</armor>
-    <onlytrained>0</onlytrained>
-  </skill>
-  <skill>
-    <code>tum</code>
-    <ability>0</ability>
-    <armor>1</armor>
-    <onlytrained>1</onlytrained>
-    <synergy>jmp</synergy>
-  </skill>
-  <skill>
-    <code>umd</code>
-    <ability>5</ability>
-    <armor>0</armor>
-    <onlytrained>1</onlytrained>
-  </skill>
-  <skill>
-    <code>uro</code>
-    <ability>1</ability>
-    <armor>0</armor>
-    <onlytrained>0</onlytrained>
-    <circumstantial>esar</circumstantial>
+  <skill code="Use Magic Device" ability="5" onlytrained="1"/>
+  <skill code="Use Rope" ability="1">
+    <synergy circumstantial="description">Escape Artist</synergy>
   </skill>
 </skills>

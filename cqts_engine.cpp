@@ -47,13 +47,14 @@ bool CQTs_skill::operator <(CQTs_skill b){
 //engine!
 CQTs_engine::CQTs_engine(){
     loadSkills();
-    loadSkillNames();
+    //loadSkillNames(); commented until i add some translations
 }
 
 void CQTs_engine::loadSkills(){
-    QFile file("Skills_data.xml");
+    QString filename = "Skills_data.xml";
+    QFile file(filename);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        QMessageBox::information(0, QString("Information"), QString(QObject::tr("Failed to load skills data")), QMessageBox::Ok);
+        QMessageBox::information(0, QString(QObject::tr("Error")), QString(QObject::tr("Failed to load skills data")), QMessageBox::Ok);
     }
     else{
         QXmlStreamReader xml(&file);
@@ -64,40 +65,22 @@ void CQTs_engine::loadSkills(){
                 QString code;
                 int abl;//, arm;
                 bool train;
-                //QStringList Synergies, cyrcSinergies;
+
+                code = xml.attributes().value("code").toString();
+                abl = xml.attributes().value("ability").toInt();
+                //arm = xml.attributes().value("armor").toInt();
+                train = xml.attributes().value("onlytrained").toInt();
+                /*
                 while(!(xml.name()=="skill"&&xml.isEndElement())){
                     xml.readNext();
-                    if(xml.name()=="code"&&xml.isStartElement()){//get the code
-                        while(!xml.readNext()==6);
-
-                        code = (xml.text().toString());
-                    }
-                    if(xml.name()=="ability"&&xml.isStartElement()){//get the ability related
-                        while(!xml.readNext()==6);
-
-                        abl = xml.text().toInt();
-                    }/*
-                    if(xml.name()=="armor"&&xml.isStartElement()){//get armor penality
-                        while(!xml.readNext()==6);
-
-                        arm = xml.text().toInt();
-                    }*/
-                    if(xml.name()=="onlytrained"&&xml.isStartElement()){//get trained only
-                        while(!xml.readNext()==6);
-
-                        train =xml.text().toInt();
-                    }/*
                     if(xml.name()=="synergy"&&xml.isStartElement()){//get synergies
+                        QString desc = xml.attributes().value("circumstantial").toString();
                         while(!xml.readNext()==6);
 
-                        skillAddress[id]->set_Synergies(codes.indexOf(xml.text().toString()));
+                        skillAddress[id]->set_Synergies(codes.indexOf(xml.text().toString()),desc);
                     }
-                    if(xml.name()=="circumstantial"&&xml.isStartElement()){//get cyrcumstantial synergies
-                        while(!xml.readNext()==6);
-
-                        skillAddress[id]->set_CyrcSynergies(codes.indexOf(xml.text().toString()));
-                    }*/
                 }
+                */
                 CQTs_skill tSkill(code,train);
                 tSkill.setAbility(abl);
                 tSkill.setmyName(code);//in case skillnames are not loaded
@@ -105,7 +88,13 @@ void CQTs_engine::loadSkills(){
                 Skills.append(tSkill);
             }
             if (xml.hasError()) {
-                // do error handling
+                QString ERROR=QObject::tr("Error in file:%4\n%1\nLine %2, column %3")
+                        .arg(xml.errorString())
+                        .arg(xml.lineNumber())
+                        .arg(xml.columnNumber())
+                        .arg(filename);
+                QMessageBox::information(0, QString(QObject::tr("Error")), ERROR, QMessageBox::Ok);
+                break;
             }
             xml.readNext();
         }
@@ -114,10 +103,10 @@ void CQTs_engine::loadSkills(){
 }
 
 void CQTs_engine::loadSkillNames(){
-
-    QFile file("Skills_Eng.xml");
+    QString filename = "Skills_Eng.xml";
+    QFile file(filename);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-       QMessageBox::information(0, QString("Information"), QString(QObject::tr("Failed to load skill names")), QMessageBox::Ok);
+        QMessageBox::information(0, QString(QObject::tr("Error")), QString(QObject::tr("Failed to load skill names")), QMessageBox::Ok);
     }
     else{
         QXmlStreamReader xml(&file);
@@ -143,7 +132,13 @@ void CQTs_engine::loadSkillNames(){
                 }
             }
             if (xml.hasError()) {
-                // do error handling
+                QString ERROR=QObject::tr("Error in file: %4\n%1\nLine %2, column %3")
+                        .arg(xml.errorString())
+                        .arg(xml.lineNumber())
+                        .arg(xml.columnNumber())
+                        .arg(filename);
+                QMessageBox::information(0, QString(QObject::tr("Error")), ERROR, QMessageBox::Ok);
+                break;
             }
             xml.readNext();
         }
@@ -186,7 +181,7 @@ void CQTs_Character::loadFromFile(QString filename){
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         bio.Name=bio.Surname="error";
 
-        QMessageBox::information(0, QString("Information"), QString(QObject::tr("Failed to load character information")), QMessageBox::Ok);
+        QMessageBox::information(0, QString(QObject::tr("Error")), QString(QObject::tr("Failed to load character information")), QMessageBox::Ok);
     }else{
         QXmlStreamReader xml(&file);
         while(!(xml.name()=="character"&&xml.isStartElement())){
@@ -286,7 +281,7 @@ void CQTs_Character::loadFromFile(QString filename){
 void CQTs_Character::saveToFile(QString filename){
     QFile file(filename);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)){
-        QMessageBox::information(0, QString("Information"), QString(QObject::tr("Failed to save your character")), QMessageBox::Ok);
+        QMessageBox::information(0, QString(QObject::tr("Error")), QString(QObject::tr("Failed to save your character")), QMessageBox::Ok);
     }else{
         QXmlStreamWriter xml(&file);
         xml.setAutoFormatting(true);
