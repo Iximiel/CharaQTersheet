@@ -19,7 +19,6 @@ public:
     QString myName();
     int myAbility();
     bool needsTrain();
-    bool operator <(CQTs_skill b);
     //void set_Synergies(QString code, QString description="");//it undertand if is cyrcumstantial or notby himself
 private:
     QString Name;
@@ -27,6 +26,7 @@ private:
     int ability;//armor;
     bool trainedOnly;
 };
+bool operator <(CQTs_skill a ,CQTs_skill b);
 
 class CQTs_engine//it holds all data related to the game, like skills, max level and conf files
 {
@@ -36,8 +36,8 @@ public:
     CQTs_skill skillData(int i);
 private:
     //QStringList confFiles;// 0 skills 1 skillnames
-    void loadSkills();
-    void loadSkillNames();
+    void loadSkills(QString filename);
+    void loadSkillNames(QString filename);
     QList<CQTs_skill> Skills;
 };
 

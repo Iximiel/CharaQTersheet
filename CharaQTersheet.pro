@@ -26,6 +26,6 @@ HEADERS  += charaqtersheet.h \
 OTHER_FILES += \
     Otherfiles/Skills.txt \
     xml/config.xml \
-    xml/Skills_Eng.xml \
     xml/Skills_data.xml \
-    xml/testcharacter.xml
+    xml/testcharacter.xml \
+    xml/Skills_Ita.xml

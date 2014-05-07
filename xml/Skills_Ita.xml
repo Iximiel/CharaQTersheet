@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skills>
+	<skill code = "Appraise" translation = "Valutare"/>
+	<skill code = "Balance" translation = "Equilibrio"/>
+	<skill code = "Bluff" translation = "Raggirare"/>
+	<skill code = "Climb" translation = "Scalare"/>
+	<skill code = "Concentration" translation = "Concentrazione"/>
+	<skill code = "Craft" translation = "Artigianato"/>
+	<skill code = "Decipher Script" translation = "Decifrare Scritture"/>
+	<skill code = "Diplomacy" translation = "Diplomazia"/>
+	<skill code = "Disable Device" translation = "Disattivare congegni"/>
+	<skill code = "Disguise" translation = "Camuffare"/>
+	<skill code = "Escape Artist" translation = "Artista  della Fuga"/>
+	<skill code = "Forgery" translation = "Falsificare"/>
+	<skill code = "Gather Information" translation = "Raccogliere Informazioni"/>
+	<skill code = "Handle Animal" translation = "Addestrare Animali"/>
+	<skill code = "Heal" translation = "Guarire"/>
+	<skill code = "Hide" translation = "Nascondersi"/>
+	<skill code = "Intimidate" translation = "Intimidire"/>
+	<skill code = "Jump" translation = "Saltare"/>
+	<skill code = "Knowledge" translation = "Conoscenze"/>
+	<skill code = "Listen" translation = "Ascoltare"/>
+	<skill code = "Move Silently" translation = "Muoversi Silenziosamente"/>
+	<skill code = "Open Lock" translation = "Scassinare Serrature"/>
+	<skill code = "Perform" translation = "Intrattenere"/>
+	<skill code = "Profession" translation = "Professione"/>
+	<skill code = "Ride" translation = "Cavalcare"/>
+	<skill code = "Search" translation = "Cercare"/>
+	<skill code = "Sense Motive" translation = "Percepire Intenzioni"/>
+	<skill code = "Sleight Of Hand" translation = "Rapidità di Mano"/>
+	<skill code = "Speak Language" translation = "Parlare Linguaggi"/>
+	<skill code = "Spellcraft" translation = "Sapienza Magica"/>
+	<skill code = "Spot" translation = "Osservare"/>
+	<skill code = "Survival" translation = "Sopravvivenza"/>
+	<skill code = "Swim" translation = "Nuotare"/>
+	<skill code = "Tumble" translation = "Acrobazia"/>
+	<skill code = "Use Magic Device" translation = "Utilizzare Oggetti Magici"/>
+	<skill code = "Use Rope" translation = "Utilizzare Corde"/>
+</skills>

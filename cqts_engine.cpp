@@ -4,6 +4,7 @@
 
 #include <QMessageBox>
 #include <QStringList>
+#include <QtAlgorithms>
 #include <QTextStream>
 #include <QXmlStreamReader>
 #include <QXmlStreamAttribute>
@@ -39,19 +40,15 @@ void CQTs_skill::setAbility(int abl){
 
 bool CQTs_skill::needsTrain(){ return trainedOnly;}
 int CQTs_skill::myAbility(){return ability;}
-
-bool CQTs_skill::operator <(CQTs_skill b){
-    return Name<b.Name;
-}
+bool operator <(CQTs_skill a ,CQTs_skill b){return a.myName()<b.myName();}
 
 //engine!
 CQTs_engine::CQTs_engine(){
-    loadSkills();
-    //loadSkillNames(); commented until i add some translations
+    loadSkills("Skills_data.xml");
+    //loadSkillNames("Skills_Ita.xml");//I will add a menu!
 }
 
-void CQTs_engine::loadSkills(){
-    QString filename = "Skills_data.xml";
+void CQTs_engine::loadSkills(QString filename){
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         QMessageBox::information(0, QString(QObject::tr("Error")), QString(QObject::tr("Failed to load skills data")), QMessageBox::Ok);
@@ -102,8 +99,7 @@ void CQTs_engine::loadSkills(){
     file.close();
 }
 
-void CQTs_engine::loadSkillNames(){
-    QString filename = "Skills_Eng.xml";
+void CQTs_engine::loadSkillNames(QString filename){
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         QMessageBox::information(0, QString(QObject::tr("Error")), QString(QObject::tr("Failed to load skill names")), QMessageBox::Ok);
@@ -114,17 +110,8 @@ void CQTs_engine::loadSkillNames(){
             if(xml.name()=="skill"&&xml.isStartElement())
             {
                 QString code,name;
-                while(!(xml.name()=="skill"&&xml.isEndElement())){
-                    xml.readNext();
-                    if(xml.name()=="code"&&xml.isStartElement()){//taking code
-                        while(!xml.readNext()==6);
-                        code = xml.text().toString();
-                    }
-                    if(xml.name()=="name"&&xml.isStartElement()){//taking names
-                        while(!xml.readNext()==6);
-                        name=xml.text().toString();
-                    }
-                }
+                code = xml.attributes().value("code").toString();
+                name = xml.attributes().value("translation").toString();
                 int id = Skills.indexOf((CQTs_skill::finder(code)));
                 if(id!=-1)
                 {
@@ -143,6 +130,7 @@ void CQTs_engine::loadSkillNames(){
             xml.readNext();
         }
     }
+    qSort(Skills);
 }
 
 int CQTs_engine::skillNum(){return Skills.size();}
