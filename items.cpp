@@ -85,10 +85,16 @@ CQTs_item::CQTs_item(QString mycode,QString mytype,QString myname,double myweigh
     money tprice(mcu, mag, mau, mpt);
     price = tprice;
 }
+
 money CQTs_item::cost(){return price;}
 double CQTs_item::myWeigh(){return weight;}
 QString CQTs_item::myID(){return code;}
 QString CQTs_item::myName(){return name;}
+
+void CQTs_item::set_cost(money newPrice){price = newPrice;}
+void CQTs_item::set_myWeigh(double newWeight){weight = newWeight;}
+void CQTs_item::set_myID(QString newCode){code = newCode;}
+void CQTs_item::set_myName(QString newName){name = newName;}
 
 CQTs_item& CQTs_item::operator = (CQTs_item x){
     if(this!= &x){
@@ -116,7 +122,7 @@ CQTs_itemsHandler::CQTs_itemsHandler(QStringList filesData, QStringList filesNam
     QObject(parent)
 {
     loadFromFile(filesData);
-    //loadNamesFromFiles(filesNames);
+    loadNamesFromFiles(filesNames);
 }
 
 void CQTs_itemsHandler::loadFromFile(QStringList filesData){
@@ -246,6 +252,10 @@ CQTs_bag::CQTs_bag(QWidget *parent):
 void CQTs_bag::put_inside(CQTs_item newItem){
     if(!(newItem =="error")){
         int from = inside.size();
+        while(inside.contains(newItem)){//"protection" from copies
+            newItem.set_myName(newItem.myName()+"*"); //the * is temporary
+            newItem.set_myID(newItem.myID()+"*");
+        }
         inside.append(newItem);
         update(from);
     }

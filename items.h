@@ -24,6 +24,11 @@ public:
     double myWeigh();
     QString myID();
     QString myName();
+    void set_cost(money newPrice);
+    void set_myWeigh(double newWeight);
+    void set_myID(QString newCode);
+    void set_myName(QString newName);
+
     CQTs_item& operator = (CQTs_item);
     bool operator ==(CQTs_item otherItem);
     bool operator ==(QString otherCode);

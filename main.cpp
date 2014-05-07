@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     CQTs_itemsHandler h(Items,Names);
     CQTs_bag w;
     w.put_inside(h.getItem(6));
-    w.put_inside(h.getItem(55));
+    w.put_inside(h.getItem(6));
     w.put_inside(h.getItem(8));
     w.put_inside(h.getItem(63));
     w.put_inside(h.getItem(6));
