@@ -4,7 +4,7 @@
 
 #include <QMessageBox>
 #include <QStringList>
-#include <QtAlgorithms>
+#include <algorithm>
 #include <QTextStream>
 #include <QXmlStreamReader>
 #include <QXmlStreamAttribute>
@@ -130,7 +130,7 @@ void CQTs_engine::loadSkillNames(QString filename){
             xml.readNext();
         }
     }
-    qSort(Skills);
+    std::sort(Skills.begin(),Skills.end());
 }
 
 int CQTs_engine::skillNum(){return Skills.size();}
