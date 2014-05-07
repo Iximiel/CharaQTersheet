@@ -5,7 +5,7 @@
 #include <QDataStream>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
-#include <QScrollArea>
+
 #include <QLayout>
 #include <QGridLayout>
 #include <QLabel>
@@ -190,10 +190,9 @@ void CQTs_itemsHandler::loadFromFile(QStringList filesData){
                 if(xml.hasError()){
                     qDebug() <<xml.errorString();
                     qDebug() << xml.lineNumber() << xml.columnNumber();
-                            break;
+                    break;
                 }
             }
-
         }
     }
 }
@@ -212,9 +211,23 @@ void CQTs_itemsHandler::loadNamesFromFiles(QStringList filesNames){
 }
 
 int CQTs_itemsHandler::itemsNum(){return items.size();}
-QString CQTs_itemsHandler::getName(int i){return items[i].myName();}
-QString CQTs_itemsHandler::getCost(int i){return items[i].cost().value();}
-double CQTs_itemsHandler::getWeight(int i){return items[i].myWeigh();}
+QString CQTs_itemsHandler::getName(int i){
+    if(i> items.size())
+        return "error";
+    return items[i].myName();}
+QString CQTs_itemsHandler::getCost(int i){
+    if(i> items.size())
+        return "-1";
+    return items[i].cost().value();}
+double CQTs_itemsHandler::getWeight(int i){
+    if(i> items.size())
+        return 0.;
+    return items[i].myWeigh();}
+CQTs_item CQTs_itemsHandler::getItem(int i){
+    if(i> items.size())
+        return CQTs_item("error");
+    return items[i];
+}
 
 //bag
 
@@ -222,17 +235,34 @@ CQTs_bag::CQTs_bag(QWidget *parent):
     QTabWidget(parent)
 {
     QWidget *tWidget = new QWidget ();
-    addTab(tWidget,"Bag");
+    ScrollMain =  new QScrollArea();
+    addTab(ScrollMain,"Bag");
+    itemgrid = new QGridLayout();
+    tWidget->setLayout(itemgrid);
+    ScrollMain->setWidget(tWidget);
+    ScrollMain->setWidgetResizable(true);
 }
 
 void CQTs_bag::put_inside(CQTs_item newItem){
-    inside.append(newItem);
+    if(!(newItem =="error")){
+        int from = inside.size();
+        inside.append(newItem);
+        update(from);
+    }
 }
 
 void CQTs_bag::put_inside(QList<CQTs_item> newItems){
+    int from = inside.size();
     inside.append(newItems);
+    update(from);
 }
 
+void CQTs_bag::update(int from){
+    for (int i = from; i < inside.size(); ++i) {
+        itemgrid->addWidget(new QLabel(inside[i].myName()),i+1,0);
+        itemgrid->addWidget(new QLabel(QString::number(inside[i].myWeigh())),i+1,1);
+    }
+}
 //viewer
 
 CQTs_ItemViewer::CQTs_ItemViewer(QWidget *parent):
