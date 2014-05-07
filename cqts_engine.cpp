@@ -46,6 +46,7 @@ bool operator <(CQTs_skill a ,CQTs_skill b){return a.myName()<b.myName();}
 CQTs_engine::CQTs_engine(){
     loadSkills("Skills_data.xml");
     //loadSkillNames("Skills_Ita.xml");//I will add a menu!
+    std::sort(Skills.begin(),Skills.end());
 }
 
 void CQTs_engine::loadSkills(QString filename){
@@ -129,8 +130,8 @@ void CQTs_engine::loadSkillNames(QString filename){
             }
             xml.readNext();
         }
+        file.close();
     }
-    std::sort(Skills.begin(),Skills.end());
 }
 
 int CQTs_engine::skillNum(){return Skills.size();}
