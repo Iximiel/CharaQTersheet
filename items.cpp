@@ -173,6 +173,7 @@ void CQTs_itemsHandler::loadFromFile(QStringList filesData){
                                 //QString wptype = xml.attributes().value("wptype").toString();
                                 QString damage = xml.attributes().value("damage").toString();
                                 QString crit = xml.attributes().value("critical").toString();
+                                QString damageType = xml.attributes().value("damagetype").toString();
                                 if(type.contains("rng"))
                                     int range = xml.attributes().value("rangeinc").toInt();;//number of squares (translation friendly! :) )
                             }
@@ -320,6 +321,7 @@ void CQTs_bag::uptateWeight(){
 #include <QTextEdit>
 #include <QSpinBox>
 #include <QComboBox>
+#include <QCheckBox>
 CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
     QTabWidget(parent)
 {
@@ -338,26 +340,40 @@ CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
     tWidget->setLayout(form);
     form->addRow("Damage:",new QLineEdit());
     form->addRow("Critical:",new QLineEdit());
+    QVBoxLayout *damageLay = new QVBoxLayout();
+    damageLay->addWidget(new QCheckBox("Bludgeoning"));
+    damageLay->addWidget(new QCheckBox("Piercing"));
+    damageLay->addWidget(new QCheckBox("Slashing"));
+    form->addRow("Damage Type:",damageLay);
     form->addRow("Range:",new QLineEdit());
     form->addRow("Rangetype:",new QComboBox());
     IDweapon = addTab(tWidget,"Weapon");
     //setTabEnabled(IDweapon,false);
-
     //Weapon
+
     tWidget = new QWidget();//Armor info
     IDarmor = addTab(tWidget,"Armor");
     form = new QFormLayout();
+    form->addRow("AC:",new QSpinBox());
+    form->addRow("Dex Max:",new QSpinBox());
+    form->addRow("Arcane failure:",new QSpinBox());
+    form->addRow("Check penality:",new QSpinBox());
+    form->addRow("Type:",new QComboBox());
     tWidget->setLayout(form);
     //setTabEnabled(IDarmor,false);
-
     //Armor
+
     tWidget = new QWidget();//Shield info
     IDshield = addTab(tWidget,"Shield");
     form = new QFormLayout();
+    form->addRow("AC:",new QSpinBox());
+    form->addRow("Dex Max(-1 if none):",new QSpinBox());
+    form->addRow("Arcane failure:",new QSpinBox());
+    form->addRow("Check penality:",new QSpinBox());
     tWidget->setLayout(form);
     //setTabEnabled(IDshield,false);
-
     //Shield
+
     QTextEdit *textDescription = new QTextEdit();//description
     addTab(textDescription,"Description");
     //Description
