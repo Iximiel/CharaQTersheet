@@ -56,7 +56,7 @@ public:
     QString getCost(int i);
     double getWeight(int i);
     CQTs_item getItem(int i);
-    //static void write_item(QXmlStreamWriter xmlstream,CQTs_item itemtoadd);
+    //static void write_item(QXmlStreamWriter& xmlstream,CQTs_item itemtoadd);
 signals:
 
 public slots:
@@ -66,7 +66,7 @@ private:
 };
 
 #include <QScrollArea>
-//#include <QTabWidget>
+#include <QTabWidget>
 #include <QLayout>
 #include <QLabel>
 #include <QWidget>
@@ -94,22 +94,18 @@ private:
     QGridLayout *itemgrid;
 };
 
-
-class CQTs_ItemViewer : public QWidget
+class CQTs_ItemEditor : public QTabWidget
 {
     Q_OBJECT
 public:
-    explicit CQTs_ItemViewer(QWidget *parent = 0);
+    explicit CQTs_ItemEditor(QWidget *parent = 0);
 private:
-    //QLabel *LabName,*LabBAB,*LabFort,*LabRef,*LabWill;
-    CQTs_itemsHandler *itemsHandler;
-    //void initialize();
+    int IDweapon, IDarmor, IDshield;
 signals:
 
 public slots:
-  //  void setLabs(CQTs_Class *selected);
-};
 
+};
 
 class CQTs_ItemViewer : public QWidget
 {

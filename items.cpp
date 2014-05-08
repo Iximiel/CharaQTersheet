@@ -314,6 +314,43 @@ void CQTs_bag::uptateWeight(){
     labTotalWeight->setNum(totalWeight());
 }
 
+//item editor
+#include <QFormLayout>
+#include <QLineEdit>
+#include <QTextEdit>
+#include <QSpinBox>
+#include <QComboBox>
+CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
+    QTabWidget(parent)
+{
+    QFormLayout *form = new QFormLayout();
+    QWidget *tWidget = new QWidget();//Basic info
+    form->addRow("Code:", new QLineEdit());
+    form->addRow("Name:", new QLineEdit());
+    form->addRow("Weight:", new QSpinBox());
+    form->addRow("Price (copper):", new QSpinBox());
+    form->addRow("Type:",new QComboBox());
+    tWidget->setLayout(form);
+    addTab(tWidget,"Basic");
+    //Basic
+    tWidget = new QWidget();//Weapon info
+    IDweapon = addTab(tWidget,"Weapon");
+    setTabEnabled(IDweapon,false);
+    //Weapon
+    tWidget = new QWidget();//Armor info
+    IDarmor = addTab(tWidget,"Armor");
+    setTabEnabled(IDarmor,false);
+    //Armor
+    tWidget = new QWidget();//Shield info
+    IDshield = addTab(tWidget,"Shield");
+    setTabEnabled(IDshield,false);
+    //Shield
+    QTextEdit *textDescription = new QTextEdit();//description
+    addTab(textDescription,"Description");
+    //Description
+
+}
+
 //viewer thinked to show ALL the items in a itemhandler
 
 CQTs_ItemViewer::CQTs_ItemViewer(QWidget *parent):
