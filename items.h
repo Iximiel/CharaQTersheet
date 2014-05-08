@@ -3,6 +3,7 @@
 #include <QString>
 #include <QObject>
 #include <QList>
+#include <QXmlStreamWriter>
 
 struct money{
     money();
@@ -18,6 +19,7 @@ struct money{
 
 class CQTs_item{
 public:
+    CQTs_item();
     CQTs_item(QString mycode,QString mytype="" ,QString myname="" ,double myweight=0, money myprice=0);
     CQTs_item(QString mycode,QString mytype,QString myname,double myweight, int mcu, int mag, int mau, int mpt = 0);
     money cost();
@@ -33,6 +35,7 @@ public:
     bool operator ==(CQTs_item otherItem);
     bool operator ==(QString otherCode);
     bool operator <(CQTs_item otherItem);//alphabetical order per name
+
 private:
     QString code, name, type;
     double weight;//, volume;
@@ -53,6 +56,7 @@ public:
     QString getCost(int i);
     double getWeight(int i);
     CQTs_item getItem(int i);
+    //static void write_item(QXmlStreamWriter xmlstream,CQTs_item itemtoadd);
 signals:
 
 public slots:
@@ -62,14 +66,19 @@ private:
 };
 
 #include <QScrollArea>
-#include <QTabWidget>
+//#include <QTabWidget>
 #include <QLayout>
-class CQTs_bag : public QTabWidget
+#include <QLabel>
+#include <QWidget>
+
+class CQTs_bag : public QWidget
 {
     Q_OBJECT
 public:
-    CQTs_bag(QWidget *parent = 0);
+    CQTs_bag(CQTs_item myID, QWidget *parent=0);
     void update(int from);
+    void uptateWeight();
+    double totalWeight();
     //QList<CQTs_item> look_weapons();
     //QList<CQTs_item> look_goods();
     //QList<CQTs_item> look_armors();
@@ -77,12 +86,31 @@ public slots:
     void put_inside(CQTs_item newItem);
     void put_inside(QList<CQTs_item> newItems);//adds a list of items
 private:
+    CQTs_item bagID;
+    //QTabWidget *tabPockets;
+    QLabel *labTotalWeight;
     QList<CQTs_item> inside;
     QScrollArea *ScrollMain;
     QGridLayout *itemgrid;
 };
 
-#include <QWidget>
+
+class CQTs_ItemViewer : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit CQTs_ItemViewer(QWidget *parent = 0);
+private:
+    //QLabel *LabName,*LabBAB,*LabFort,*LabRef,*LabWill;
+    CQTs_itemsHandler *itemsHandler;
+    //void initialize();
+signals:
+
+public slots:
+  //  void setLabs(CQTs_Class *selected);
+};
+
+
 class CQTs_ItemViewer : public QWidget
 {
     Q_OBJECT

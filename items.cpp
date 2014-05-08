@@ -8,7 +8,7 @@
 
 #include <QLayout>
 #include <QGridLayout>
-#include <QLabel>
+
 
 #include <QDebug>
 //money
@@ -69,6 +69,14 @@ QString money::value(){
 }
 
 //item
+
+CQTs_item::CQTs_item(){
+    code = "";
+    type = "";
+    name = "";
+    weight = 0;
+    price = 0;
+}
 
 CQTs_item::CQTs_item(QString mycode,QString mytype,QString myname,double myweight, money myprice){
     code = mycode;
@@ -159,8 +167,8 @@ void CQTs_itemsHandler::loadFromFile(QStringList filesData){
                                 mult = 1;
                             while(!xml.readNext()==6);
                             prize = mult * (xml.text().toInt());
-                        }
-                        /*if(type.contains("weapon")){//i will use "1hweapon", "2hweapon", "2hrngweapon", or "weaponarmor" for spiked things
+                        }//type should be like "maintypesecondarytypespecifications" likw "weapon2h" or "armorweaponmagic"
+                        /*if(type.contains("weapon")){//i will use "weapon1h", "weapon2h", "weapon2hrng", or "weaponarmor" for spiked things
                             if(xml.name()=="weapon"&&xml.isStartElement()){
                                 //QString wptype = xml.attributes().value("wptype").toString();
                                 QString damage = xml.attributes().value("damage").toString();
@@ -235,18 +243,37 @@ CQTs_item CQTs_itemsHandler::getItem(int i){
     return items[i];
 }
 
-//bag
+//bag thinked to be used by a pg
 
-CQTs_bag::CQTs_bag(QWidget *parent):
-    QTabWidget(parent)
+CQTs_bag::CQTs_bag(CQTs_item myID, QWidget *parent):
+    QWidget(parent)
 {
+    bagID = myID;
+    setWindowTitle(bagID.myName());
+
+    QVBoxLayout *mainLay = new QVBoxLayout();
+    setLayout(mainLay);
+
     QWidget *tWidget = new QWidget ();
+
     ScrollMain =  new QScrollArea();
-    addTab(ScrollMain,"Bag");
+    /*
+    tabPockets = new QTabWidget();
+    tabPockets->addTab(ScrollMain,"Bag");
+    mainLay->addWidget(tabPockets);
+    */
+    mainLay->addWidget(ScrollMain);
     itemgrid = new QGridLayout();
+    itemgrid->addWidget(new QLabel("Names"),0,0);
+    itemgrid->addWidget(new QLabel("Weights"),0,1);
     tWidget->setLayout(itemgrid);
     ScrollMain->setWidget(tWidget);
     ScrollMain->setWidgetResizable(true);
+    QLayout *tLay = new QHBoxLayout();
+
+    tLay ->addWidget(new QLabel("Weight inside:"));
+    tLay ->addWidget(labTotalWeight = new QLabel("0"));
+    mainLay->addLayout(tLay);
 }
 
 void CQTs_bag::put_inside(CQTs_item newItem){
@@ -272,8 +299,22 @@ void CQTs_bag::update(int from){
         itemgrid->addWidget(new QLabel(inside[i].myName()),i+1,0);
         itemgrid->addWidget(new QLabel(QString::number(inside[i].myWeigh())),i+1,1);
     }
+    uptateWeight();
 }
-//viewer
+
+double CQTs_bag::totalWeight(){
+    double newWeight = 0;
+    for (int i = 0; i < inside.size(); ++i) {
+        newWeight+=inside[i].myWeigh();
+    }
+    return newWeight;
+}
+
+void CQTs_bag::uptateWeight(){
+    labTotalWeight->setNum(totalWeight());
+}
+
+//viewer thinked to show ALL the items in a itemhandler
 
 CQTs_ItemViewer::CQTs_ItemViewer(QWidget *parent):
     QWidget(parent)
