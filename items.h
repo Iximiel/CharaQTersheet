@@ -94,6 +94,12 @@ private:
     QGridLayout *itemgrid;
 };
 
+#include <QLineEdit>
+#include <QTextEdit>
+#include <QSpinBox>
+#include <QComboBox>
+#include <QCheckBox>
+
 class CQTs_ItemEditor : public QTabWidget
 {
     Q_OBJECT
@@ -101,6 +107,12 @@ public:
     explicit CQTs_ItemEditor(QWidget *parent = 0);
 private:
     int IDweapon, IDarmor, IDshield;
+    QLineEdit *lineCode, *lineName, *lineWDamage, *lineWCritical;
+    QSpinBox *spinWeight,*spinPrice, *spinWRange, *spinAAC, *spinADex, *spinAArcane, *spinAPenalty;
+    QSpinBox *spinSAC, *spinSDex, *spinSArcane, *spinSPenalty;
+    QComboBox *comboType, *comboAType;
+    QCheckBox *checkWBlud, *checkWPier, *checkWSla, *checkWThrow, *checkWProj;
+    QTextEdit *textDescription;
 signals:
 
 public slots:

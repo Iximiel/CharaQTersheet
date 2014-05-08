@@ -326,27 +326,33 @@ CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
     QTabWidget(parent)
 {
     QFormLayout *form = new QFormLayout();
+    setTabPosition(QTabWidget::West);
+
     QWidget *tWidget = new QWidget();//Basic info
-    form->addRow("Code:", new QLineEdit());
-    form->addRow("Name:", new QLineEdit());
-    form->addRow("Weight:", new QSpinBox());
-    form->addRow("Price (copper):", new QSpinBox());
-    form->addRow("Type:",new QComboBox());
+    form->addRow("Code:", lineCode = new QLineEdit());
+    form->addRow("Name:", lineName = new QLineEdit());
+    form->addRow("Weight:", spinWeight = new QSpinBox());
+    form->addRow("Price (copper):", spinPrice = new QSpinBox());
+    form->addRow("Type:",comboType = new QComboBox());
     tWidget->setLayout(form);
     addTab(tWidget,"Basic");
     //Basic
+
     tWidget = new QWidget();//Weapon info
     form = new QFormLayout();
     tWidget->setLayout(form);
-    form->addRow("Damage:",new QLineEdit());
-    form->addRow("Critical:",new QLineEdit());
-    QVBoxLayout *damageLay = new QVBoxLayout();
-    damageLay->addWidget(new QCheckBox("Bludgeoning"));
-    damageLay->addWidget(new QCheckBox("Piercing"));
-    damageLay->addWidget(new QCheckBox("Slashing"));
-    form->addRow("Damage Type:",damageLay);
-    form->addRow("Range:",new QLineEdit());
-    form->addRow("Rangetype:",new QComboBox());
+    form->addRow("Damage:", lineWDamage = new QLineEdit());
+    form->addRow("Critical:", lineWCritical = new QLineEdit());
+    QVBoxLayout *tLay = new QVBoxLayout();
+    tLay->addWidget(checkWBlud = new QCheckBox("Bludgeoning"));
+    tLay->addWidget(checkWPier = new QCheckBox("Piercing"));
+    tLay->addWidget(checkWSla = new QCheckBox("Slashing"));
+    form->addRow("Damage Type:",tLay);
+    form->addRow("Range:(squares)", spinWRange = new QSpinBox());
+    tLay = new QVBoxLayout();
+    tLay->addWidget(checkWThrow = new QCheckBox("Thrown"));
+    tLay->addWidget(checkWProj = new QCheckBox("Projectile"));
+    form->addRow("Rangetype:",tLay);
     IDweapon = addTab(tWidget,"Weapon");
     //setTabEnabled(IDweapon,false);
     //Weapon
@@ -354,11 +360,14 @@ CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
     tWidget = new QWidget();//Armor info
     IDarmor = addTab(tWidget,"Armor");
     form = new QFormLayout();
-    form->addRow("AC:",new QSpinBox());
-    form->addRow("Dex Max:",new QSpinBox());
-    form->addRow("Arcane failure:",new QSpinBox());
-    form->addRow("Check penality:",new QSpinBox());
-    form->addRow("Type:",new QComboBox());
+    form->addRow("AC:",spinAAC = new QSpinBox());
+    form->addRow("Dex Max:",spinADex = new QSpinBox());
+    form->addRow("Arcane failure:",spinAArcane = new QSpinBox());
+    spinAArcane->setRange(0,100);
+    spinAArcane->setSuffix("%");
+    form->addRow("Check penality:",spinAPenalty = new QSpinBox());
+    spinAPenalty->setRange(-50,0);
+    form->addRow("Type:",comboAType = new QComboBox());
     tWidget->setLayout(form);
     //setTabEnabled(IDarmor,false);
     //Armor
@@ -366,15 +375,20 @@ CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
     tWidget = new QWidget();//Shield info
     IDshield = addTab(tWidget,"Shield");
     form = new QFormLayout();
-    form->addRow("AC:",new QSpinBox());
-    form->addRow("Dex Max(-1 if none):",new QSpinBox());
-    form->addRow("Arcane failure:",new QSpinBox());
-    form->addRow("Check penality:",new QSpinBox());
+    form->addRow("AC:",spinSAC = new QSpinBox());
+    form->addRow("Dex Max(-1 if none):",spinSDex = new QSpinBox());
+    spinSDex->setMinimum(-1);
+    spinSDex->setValue(-1);
+    form->addRow("Arcane failure:",spinSArcane = new QSpinBox());
+    spinSArcane->setRange(0,100);
+    spinSArcane->setSuffix("%");
+    form->addRow("Check penality:",spinSPenalty = new QSpinBox());
+    spinSPenalty->setRange(-50,0);
     tWidget->setLayout(form);
     //setTabEnabled(IDshield,false);
     //Shield
 
-    QTextEdit *textDescription = new QTextEdit();//description
+    textDescription = new QTextEdit();//description
     addTab(textDescription,"Description");
     //Description
 
