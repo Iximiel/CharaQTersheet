@@ -334,16 +334,29 @@ CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
     addTab(tWidget,"Basic");
     //Basic
     tWidget = new QWidget();//Weapon info
+    form = new QFormLayout();
+    tWidget->setLayout(form);
+    form->addRow("Damage:",new QLineEdit());
+    form->addRow("Critical:",new QLineEdit());
+    form->addRow("Range:",new QLineEdit());
+    form->addRow("Rangetype:",new QComboBox());
     IDweapon = addTab(tWidget,"Weapon");
-    setTabEnabled(IDweapon,false);
+    //setTabEnabled(IDweapon,false);
+
     //Weapon
     tWidget = new QWidget();//Armor info
     IDarmor = addTab(tWidget,"Armor");
-    setTabEnabled(IDarmor,false);
+    form = new QFormLayout();
+    tWidget->setLayout(form);
+    //setTabEnabled(IDarmor,false);
+
     //Armor
     tWidget = new QWidget();//Shield info
     IDshield = addTab(tWidget,"Shield");
-    setTabEnabled(IDshield,false);
+    form = new QFormLayout();
+    tWidget->setLayout(form);
+    //setTabEnabled(IDshield,false);
+
     //Shield
     QTextEdit *textDescription = new QTextEdit();//description
     addTab(textDescription,"Description");
