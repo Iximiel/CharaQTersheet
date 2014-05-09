@@ -326,33 +326,34 @@ void CQTs_bag::uptateWeight(){
 
 //item editor
 #include <QFormLayout>
-#include <QLineEdit>
-#include <QTextEdit>
-#include <QSpinBox>
-#include <QComboBox>
-#include <QCheckBox>
+
 CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
-    QTabWidget(parent)
+    QWizard(parent)
 {
     QFormLayout *form = new QFormLayout();
-    setTabPosition(QTabWidget::West);
+ //   setTabPosition(QTabWidget::West);
 
-    QWidget *tWidget = new QWidget();//Basic info
+    QWizardPage  *tWizardP = new QWizardPage ();//Basic info
     form->addRow("Code:", lineCode = new QLineEdit());
     form->addRow("Name:", lineName = new QLineEdit());
     form->addRow("Weight:", spinWeight = new QSpinBox());
     form->addRow("Price (copper):", spinPrice = new QSpinBox());
-    form->addRow("Type:",comboType = new QComboBox());
-    tWidget->setLayout(form);
-    addTab(tWidget,"Basic");
+    QVBoxLayout *tLay = new QVBoxLayout();
+    tLay->addWidget(cmdGood = new QCommandLinkButton("Good"));
+    tLay->addWidget(cmdWeapon = new QCommandLinkButton("Weapon"));
+    tLay->addWidget(cmdArmor = new QCommandLinkButton("Armor"));
+    tLay->addWidget(cmdShield = new QCommandLinkButton("Shield"));
+    form->addRow("Type:",tLay);
+    tWizardP->setLayout(form);
+    setPage(page_intro,tWizardP);
     //Basic
 
-    tWidget = new QWidget();//Weapon info
+    tWizardP = new QWizardPage ();//Weapon info
     form = new QFormLayout();
-    tWidget->setLayout(form);
+    tWizardP->setLayout(form);
     form->addRow("Damage:", lineWDamage = new QLineEdit());
     form->addRow("Critical:", lineWCritical = new QLineEdit());
-    QVBoxLayout *tLay = new QVBoxLayout();
+    tLay = new QVBoxLayout();
     tLay->addWidget(checkWBlud = new QCheckBox("Bludgeoning"));
     tLay->addWidget(checkWPier = new QCheckBox("Piercing"));
     tLay->addWidget(checkWSla = new QCheckBox("Slashing"));
@@ -362,12 +363,11 @@ CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
     tLay->addWidget(checkWThrow = new QCheckBox("Thrown"));
     tLay->addWidget(checkWProj = new QCheckBox("Projectile"));
     form->addRow("Rangetype:",tLay);
-    IDweapon = addTab(tWidget,"Weapon");
-    setTabEnabled(IDweapon,false);
+    setPage(page_weap,tWizardP);
     //Weapon
 
-    tWidget = new QWidget();//Armor info
-    IDarmor = addTab(tWidget,"Armor");
+    tWizardP = new QWizardPage ();//Armor info
+    setPage(page_arm,tWizardP);
     form = new QFormLayout();
     form->addRow("AC:",spinAAC = new QSpinBox());
     form->addRow("Dex Max:",spinADex = new QSpinBox());
@@ -377,12 +377,12 @@ CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
     form->addRow("Check penality:",spinAPenalty = new QSpinBox());
     spinAPenalty->setRange(-50,0);
     form->addRow("Type:",comboAType = new QComboBox());
-    tWidget->setLayout(form);
-    setTabEnabled(IDarmor,false);
+    tWizardP->setLayout(form);
+
     //Armor
 
-    tWidget = new QWidget();//Shield info
-    IDshield = addTab(tWidget,"Shield");
+    tWizardP = new QWizardPage ();//Shield info
+    setPage(page_shield,tWizardP);
     form = new QFormLayout();
     form->addRow("AC:",spinSAC = new QSpinBox());
     form->addRow("Dex Max(-1 if none):",spinSDex = new QSpinBox());
@@ -393,42 +393,21 @@ CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
     spinSArcane->setSuffix("%");
     form->addRow("Check penality:",spinSPenalty = new QSpinBox());
     spinSPenalty->setRange(-50,0);
-    tWidget->setLayout(form);
-    setTabEnabled(IDshield,false);
+    tWizardP->setLayout(form);
+
     //Shield
 
     textDescription = new QTextEdit();//description
-    addTab(textDescription,"Description");
+    setPage(page_desc,textDescription);
     //Description
-    comboType->addItem("Good");
-    comboType->addItem("Weapon");
-    comboType->addItem("Armor");
-    comboType->addItem("Shield");
-    connect(comboType,SIGNAL(activated(int)),this,SLOT(openTab(int)));
-
 }
 
-void CQTs_ItemEditor::openTab(int ID){
-    setTabEnabled(IDweapon,false);
-    setTabEnabled(IDarmor,false);
-    setTabEnabled(IDshield,false);
-    switch (ID) {
-    case 1:
-        setTabEnabled(IDweapon,true);
-        break;
-    case 2:
-        setTabEnabled(IDarmor,true);
-        break;
-    case 3:
-        setTabEnabled(IDshield,true);
-        break;
-    }
+void CQTs_ItemEditor::openWeapon(){
 
 }
-
-void CQTs_ItemEditor::alsoWeapon(bool yes){
-    setTabEnabled(IDweapon,yes);
-}
+void CQTs_ItemEditor::openArmor(){}
+void CQTs_ItemEditor::openShield(){}
+void CQTs_ItemEditor::openDescription(){}
 
 //viewer thinked to show ALL the items in a itemhandler
 
