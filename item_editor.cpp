@@ -1,15 +1,11 @@
 #include "item_editor.h"
 
-//item editor
 #include <QFormLayout>
 
-CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
-    QWizard(parent)
+CQTs_ItemFirstPage::CQTs_ItemFirstPage(QWidget *parent):
+    QWizardPage(parent)
 {
     QFormLayout *form = new QFormLayout();
- //   setTabPosition(QTabWidget::West);
-
-    QWizardPage  *tWizardP = new QWizardPage ();//Basic info
     form->addRow("Code:", lineCode = new QLineEdit());
     form->addRow("Name:", lineName = new QLineEdit());
     form->addRow("Weight:", spinWeight = new QSpinBox());
@@ -20,14 +16,42 @@ CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
     tLay->addWidget(cmdArmor = new QCommandLinkButton("Armor"));
     tLay->addWidget(cmdShield = new QCommandLinkButton("Shield"));
     form->addRow("Type:",tLay);
-    tWizardP->setLayout(form);
-   // tWizardP->set
-    setPage(page_intro,tWizardP);
-    //Basic
+    setLayout(form);
+    connect(cmdWeapon,SIGNAL(clicked()),this,SLOT(openWeapon()));
+    connect(cmdArmor,SIGNAL(clicked()),this,SLOT(openArmor()));
+    connect(cmdShield,SIGNAL(clicked()),this,SLOT(openShield()));
+}
 
-    tWizardP = new QWizardPage ();//Weapon info
+int CQTs_ItemFirstPage::nextId(){
+    return next;
+}
+
+void CQTs_ItemFirstPage::openWeapon(){
+    next = CQTs_ItemEditor::page_weap;
+    validatePage();
+    nextId();
+}
+void CQTs_ItemFirstPage::openArmor(){
+    next = CQTs_ItemEditor::page_arm;
+    nextId();
+}
+void CQTs_ItemFirstPage::openShield(){
+    next = CQTs_ItemEditor::page_shield;
+    nextId();
+}
+void CQTs_ItemFirstPage::openDescription(){
+    next = CQTs_ItemEditor::page_shield;
+    nextId();
+}
+
+CQTs_ItemWeapPage::CQTs_ItemWeapPage(QWidget *parent):
+    QWizardPage(parent)
+{
+    QFormLayout *form = new QFormLayout();
+    QVBoxLayout *tLay = new QVBoxLayout();
+
     form = new QFormLayout();
-    tWizardP->setLayout(form);
+    setLayout(form);
     form->addRow("Damage:", lineWDamage = new QLineEdit());
     form->addRow("Critical:", lineWCritical = new QLineEdit());
     tLay = new QVBoxLayout();
@@ -40,11 +64,12 @@ CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
     tLay->addWidget(checkWThrow = new QCheckBox("Thrown"));
     tLay->addWidget(checkWProj = new QCheckBox("Projectile"));
     form->addRow("Rangetype:",tLay);
-    setPage(page_weap,tWizardP);
-    //Weapon
+}
 
-    tWizardP = new QWizardPage ();//Armor info
-    setPage(page_arm,tWizardP);
+CQTs_ItemArmPage::CQTs_ItemArmPage(QWidget *parent):
+    QWizardPage(parent)
+{
+    QFormLayout *form = new QFormLayout();
     form = new QFormLayout();
     form->addRow("AC:",spinAAC = new QSpinBox());
     form->addRow("Dex Max:",spinADex = new QSpinBox());
@@ -54,12 +79,13 @@ CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
     form->addRow("Check penality:",spinAPenalty = new QSpinBox());
     spinAPenalty->setRange(-50,0);
     form->addRow("Type:",comboAType = new QComboBox());
-    tWizardP->setLayout(form);
+    setLayout(form);
+}
 
-    //Armor
-
-    tWizardP = new QWizardPage ();//Shield info
-    setPage(page_shield,tWizardP);
+CQTs_ItemShieldPage::CQTs_ItemShieldPage(QWidget *parent):
+    QWizardPage(parent)
+{
+    QFormLayout *form = new QFormLayout();
     form = new QFormLayout();
     form->addRow("AC:",spinSAC = new QSpinBox());
     form->addRow("Dex Max(-1 if none):",spinSDex = new QSpinBox());
@@ -70,27 +96,47 @@ CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
     spinSArcane->setSuffix("%");
     form->addRow("Check penality:",spinSPenalty = new QSpinBox());
     spinSPenalty->setRange(-50,0);
-    tWizardP->setLayout(form);
+    setLayout(form);
+}
 
+CQTs_ItemDescPage::CQTs_ItemDescPage(QWidget *parent):
+    QWizardPage(parent)
+{
+    QVBoxLayout *tLay = new QVBoxLayout();
+    tLay = new QVBoxLayout();
+    setLayout(tLay);
+    tLay->addWidget(textDescription = new QTextEdit());
+}
+
+
+
+
+CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
+    QWizard(parent)
+{
+    //Basic info
+    setPage(page_intro,new CQTs_ItemFirstPage());
+    //Basic
+
+    //Weapon info
+    setPage(page_weap,new CQTs_ItemWeapPage());
+    //Weapon
+
+    //Armor info
+    setPage(page_arm,new CQTs_ItemArmPage());
+    //Armor
+
+    //Shield info
+    setPage(page_shield,new CQTs_ItemShieldPage());
     //Shield
 
-    tWizardP = new QWizardPage ();//description
-    tLay = new QVBoxLayout();
-    tWizardP->setLayout(tLay);
-    tLay->addWidget(textDescription = new QTextEdit());
-    setPage(page_desc,tWizardP);
+    //description
+    setPage(page_desc,new CQTs_ItemDescPage());
     //Description
 
     //connections
-    connect(cmdWeapon,SIGNAL(clicked()),this,SLOT(openWeapon()));
-    connect(cmdArmor,SIGNAL(clicked()),this,SLOT(openArmor()));
-    connect(cmdShield,SIGNAL(clicked()),this,SLOT(openShield()));
-}
-
-void CQTs_ItemEditor::openWeapon(){
 
 }
-void CQTs_ItemEditor::openArmor(){}
-void CQTs_ItemEditor::openShield(){}
-void CQTs_ItemEditor::openDescription(){}
+
+
 
