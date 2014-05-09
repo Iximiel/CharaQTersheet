@@ -19,9 +19,8 @@ class CQTs_ItemFirstPage : public QWizardPage{
     Q_OBJECT
 public:
     CQTs_ItemFirstPage(QWidget *parent =0);
-    int nextId();
+    int nextId() const;
 private:
-    int next;
     QLineEdit *lineCode, *lineName;
     QSpinBox *spinWeight,*spinPrice, *spinWRange;
     QComboBox *comboType;
@@ -34,6 +33,7 @@ class CQTs_ItemWeapPage : public QWizardPage{
     Q_OBJECT
 public:
     CQTs_ItemWeapPage(QWidget *parent =0);
+    int nextId() const;
 private:
     QLineEdit *lineWDamage, *lineWCritical;
     QSpinBox *spinWRange;
@@ -45,6 +45,7 @@ class CQTs_ItemArmPage : public QWizardPage{
     Q_OBJECT
 public:
     CQTs_ItemArmPage(QWidget *parent =0);
+    int nextId() const;
 private:
     QSpinBox *spinAAC, *spinADex, *spinAArcane, *spinAPenalty;
     QComboBox *comboAType;
@@ -55,6 +56,7 @@ class CQTs_ItemShieldPage : public QWizardPage{
     Q_OBJECT
 public:
     CQTs_ItemShieldPage(QWidget *parent =0);
+    int nextId() const;
 private:
     QSpinBox *spinSAC, *spinSDex, *spinSArcane, *spinSPenalty;
     QCheckBox *checkSWeapon;

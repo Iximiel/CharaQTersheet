@@ -22,8 +22,14 @@ CQTs_ItemFirstPage::CQTs_ItemFirstPage(QWidget *parent):
     setLayout(form);
 }
 
-int CQTs_ItemFirstPage::nextId(){
-    return 0;
+int CQTs_ItemFirstPage::nextId() const{
+    if(cmdWeapon->isChecked())
+        return CQTs_ItemEditor::page_weap;
+    if(cmdArmor->isChecked())
+        return CQTs_ItemEditor::page_arm;
+    if(cmdShield->isChecked())
+        return CQTs_ItemEditor::page_shield;
+    return CQTs_ItemEditor::page_desc;
 }
 
 CQTs_ItemWeapPage::CQTs_ItemWeapPage(QWidget *parent):
@@ -48,6 +54,10 @@ CQTs_ItemWeapPage::CQTs_ItemWeapPage(QWidget *parent):
     form->addRow("Rangetype:",tLay);
 }
 
+int CQTs_ItemWeapPage::nextId() const{
+    return CQTs_ItemEditor::page_desc;
+}
+
 CQTs_ItemArmPage::CQTs_ItemArmPage(QWidget *parent):
     QWizardPage(parent)
 {
@@ -64,6 +74,9 @@ CQTs_ItemArmPage::CQTs_ItemArmPage(QWidget *parent):
     setLayout(form);
 }
 
+int CQTs_ItemArmPage::nextId() const{
+    return CQTs_ItemEditor::page_desc;
+}
 CQTs_ItemShieldPage::CQTs_ItemShieldPage(QWidget *parent):
     QWizardPage(parent)
 {
@@ -79,6 +92,10 @@ CQTs_ItemShieldPage::CQTs_ItemShieldPage(QWidget *parent):
     form->addRow("Check penality:",spinSPenalty = new QSpinBox());
     spinSPenalty->setRange(-50,0);
     setLayout(form);
+}
+
+int CQTs_ItemShieldPage::nextId() const{
+    return CQTs_ItemEditor::page_desc;
 }
 
 CQTs_ItemDescPage::CQTs_ItemDescPage(QWidget *parent):
