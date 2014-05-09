@@ -35,6 +35,8 @@ public:
     bool operator ==(CQTs_item otherItem);
     bool operator ==(QString otherCode);
     bool operator <(CQTs_item otherItem);//alphabetical order per name
+
+    //load write A SINGLE item
     //static void write_item(QXmlStreamWriter& xmlstream,CQTs_item itemtoadd);
     static CQTs_item read_Item(QXmlStreamReader &xmlstream);
 private:
@@ -111,12 +113,13 @@ private:
     QSpinBox *spinWeight,*spinPrice, *spinWRange, *spinAAC, *spinADex, *spinAArcane, *spinAPenalty;
     QSpinBox *spinSAC, *spinSDex, *spinSArcane, *spinSPenalty;
     QComboBox *comboType, *comboAType;
-    QCheckBox *checkWBlud, *checkWPier, *checkWSla, *checkWThrow, *checkWProj;
+    QCheckBox *checkWBlud, *checkWPier, *checkWSla, *checkWThrow, *checkWProj, *checkAWeapon, *checkSWeapon;
     QTextEdit *textDescription;
 signals:
-
+    void thisItem(CQTs_item);
 public slots:
-
+    void openTab(int ID);
+    void alsoWeapon(bool yes);
 };
 
 class CQTs_ItemViewer : public QWidget

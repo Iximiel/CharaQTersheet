@@ -400,7 +400,34 @@ CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
     textDescription = new QTextEdit();//description
     addTab(textDescription,"Description");
     //Description
+    comboType->addItem("Good");
+    comboType->addItem("Weapon");
+    comboType->addItem("Armor");
+    comboType->addItem("Shield");
+    connect(comboType,SIGNAL(activated(int)),this,SLOT(openTab(int)));
 
+}
+
+void CQTs_ItemEditor::openTab(int ID){
+    setTabEnabled(IDweapon,false);
+    setTabEnabled(IDarmor,false);
+    setTabEnabled(IDshield,false);
+    switch (ID) {
+    case 1:
+        setTabEnabled(IDweapon,true);
+        break;
+    case 2:
+        setTabEnabled(IDarmor,true);
+        break;
+    case 3:
+        setTabEnabled(IDshield,true);
+        break;
+    }
+
+}
+
+void CQTs_ItemEditor::alsoWeapon(bool yes){
+    setTabEnabled(IDweapon,yes);
 }
 
 //viewer thinked to show ALL the items in a itemhandler
