@@ -126,6 +126,66 @@ bool CQTs_item::operator <(CQTs_item otherItem){//alphabetical order per name
     return name<otherItem.name;
 }
 
+CQTs_item CQTs_item::read_Item(QXmlStreamReader& xmlstream){
+    QString code="", type="";
+    double weight=0;
+    money prize;
+    if(xmlstream.name()=="item"&&xmlstream.isStartElement()){
+        code = xmlstream.attributes().value("code").toString();
+        type = xmlstream.attributes().value("type").toString();
+        while(!(xmlstream.name()=="item"&&xmlstream.isEndElement())){
+            xmlstream.readNext();
+            if(xmlstream.name()=="weight"&&xmlstream.isStartElement()){
+                while(!xmlstream.readNext()==6);
+                weight= (xmlstream.text().toDouble());
+            }
+            if(xmlstream.name()=="price"&&xmlstream.isStartElement()){
+                QString change = xmlstream.attributes().value("money").toString();
+                //if is "sylver" or "copper" change the thing
+                int mult = 100;
+                if(change == "sp")
+                    mult = 10;
+                else if(change == "cp")
+                    mult = 1;
+                while(!xmlstream.readNext()==6);
+                prize = mult * (xmlstream.text().toInt());
+            }//type should be like "maintypesecondarytypespecifications" likw "weapon2h" or "armorweaponmagic"
+            /*if(type.contains("weapon")){//i will use "weapon1h", "weapon2h", "weapon2hrng", or "weaponarmor" for spiked things
+                if(xmlstream.name()=="weapon"&&xmlstream.isStartElement()){
+                    //QString wptype = xmlstream.attributes().value("wptype").toString();
+                    QString damage = xmlstream.attributes().value("damage").toString();
+                    QString crit = xmlstream.attributes().value("critical").toString();
+                    QString damageType = xmlstream.attributes().value("damagetype").toString();
+                    if(type.contains("rng"))
+                        int range = xmlstream.attributes().value("rangeinc").toInt();;//number of squares (translation friendly! :) )
+                }
+
+            }
+            if(type.contains("armor")){
+                if(xmlstream.name()=="armor"&&xmlstream.isStartElement()){
+                    int AC =  xmlstream.attributes().value("AC").toInt();
+                    int dex =  xmlstream.attributes().value("dexmax").toInt();
+                    int arcanefail =  xmlstream.attributes().value("arcane").toInt();
+                    int armorcheck =  xmlstream.attributes().value("checkpenalty").toInt();
+                    bool limitspeed =  xmlstream.attributes().value("speed").toInt();
+
+                }
+            }
+            if(type.contains("shield")){
+                if(xmlstream.name()=="shield"&&xmlstream.isStartElement()){
+                    int AC =  xmlstream.attributes().value("AC").toInt();
+                    int dex =  xmlstream.attributes().value("dexmax").toInt();
+                    int arcanefail =  xmlstream.attributes().value("arcane").toInt();
+                    int armorcheck =  xmlstream.attributes().value("checkpenalty").toInt();
+                }
+            }*/
+        }
+    }
+    return CQTs_item(code,type,code,weight,prize);
+}
+
+//Handler
+
 CQTs_itemsHandler::CQTs_itemsHandler(QStringList filesData, QStringList filesNames, QObject *parent) :
     QObject(parent)
 {
@@ -143,75 +203,24 @@ void CQTs_itemsHandler::loadFromFile(QStringList filesData){
             while(!(xml.name()=="items"&&xml.isStartElement())){
                 xml.readNext();
             }
-
             while(!(xml.name()=="items"&&xml.isEndElement())){
-                QString code, type;
-                double weight=0;
-                money prize;
-                if(xml.name()=="item"&&xml.isStartElement()){
-                    code = xml.attributes().value("code").toString();
-                    type = xml.attributes().value("type").toString();
-                    while(!(xml.name()=="item"&&xml.isEndElement())){
-                        xml.readNext();
-                        if(xml.name()=="weight"&&xml.isStartElement()){
-                            while(!xml.readNext()==6);
-                            weight= (xml.text().toDouble());
-                        }
-                        if(xml.name()=="price"&&xml.isStartElement()){
-                            QString change = xml.attributes().value("money").toString();
-                            //if is "sylver" or "copper" change the thing
-                            int mult = 100;
-                            if(change == "sp")
-                                mult = 10;
-                            else if(change == "cp")
-                                mult = 1;
-                            while(!xml.readNext()==6);
-                            prize = mult * (xml.text().toInt());
-                        }//type should be like "maintypesecondarytypespecifications" likw "weapon2h" or "armorweaponmagic"
-                        /*if(type.contains("weapon")){//i will use "weapon1h", "weapon2h", "weapon2hrng", or "weaponarmor" for spiked things
-                            if(xml.name()=="weapon"&&xml.isStartElement()){
-                                //QString wptype = xml.attributes().value("wptype").toString();
-                                QString damage = xml.attributes().value("damage").toString();
-                                QString crit = xml.attributes().value("critical").toString();
-                                QString damageType = xml.attributes().value("damagetype").toString();
-                                if(type.contains("rng"))
-                                    int range = xml.attributes().value("rangeinc").toInt();;//number of squares (translation friendly! :) )
-                            }
-
-                        }
-                        if(type.contains("armor")){
-                            if(xml.name()=="armor"&&xml.isStartElement()){
-                                int AC =  xml.attributes().value("AC").toInt();
-                                int dex =  xml.attributes().value("dexmax").toInt();
-                                int arcanefail =  xml.attributes().value("arcane").toInt();
-                                int armorcheck =  xml.attributes().value("checkpenalty").toInt();
-                                bool limitspeed =  xml.attributes().value("speed").toInt();
-
-                            }
-                        }
-                        if(type.contains("shield")){
-                            if(xml.name()=="shield"&&xml.isStartElement()){
-                                int AC =  xml.attributes().value("AC").toInt();
-                                int dex =  xml.attributes().value("dexmax").toInt();
-                                int arcanefail =  xml.attributes().value("arcane").toInt();
-                                int armorcheck =  xml.attributes().value("checkpenalty").toInt();
-                            }
-                        }*/
-                    }
-                    CQTs_item tItem(code,type,code,weight,prize);
+                CQTs_item tItem = CQTs_item::read_Item(xml);
+                if(!(tItem == ""))
                     items.append(tItem);
-                }
                 xml.readNext();
-                if(xml.hasError()){
-                    qDebug() <<xml.errorString();
-                    qDebug() << xml.lineNumber() << xml.columnNumber();
-                    break;
-                }
             }
+
+            if(xml.hasError()){
+                qDebug() <<xml.errorString();
+                qDebug() << xml.lineNumber() << xml.columnNumber();
+                break;
+            }
+            xml.readNext();
+            //
         }
+
     }
 }
-
 
 void CQTs_itemsHandler::loadNamesFromFiles(QStringList filesNames){
     for (int i = 0; i < filesNames.size(); ++i) {
@@ -354,7 +363,7 @@ CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
     tLay->addWidget(checkWProj = new QCheckBox("Projectile"));
     form->addRow("Rangetype:",tLay);
     IDweapon = addTab(tWidget,"Weapon");
-    //setTabEnabled(IDweapon,false);
+    setTabEnabled(IDweapon,false);
     //Weapon
 
     tWidget = new QWidget();//Armor info
@@ -369,7 +378,7 @@ CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
     spinAPenalty->setRange(-50,0);
     form->addRow("Type:",comboAType = new QComboBox());
     tWidget->setLayout(form);
-    //setTabEnabled(IDarmor,false);
+    setTabEnabled(IDarmor,false);
     //Armor
 
     tWidget = new QWidget();//Shield info
@@ -385,7 +394,7 @@ CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
     form->addRow("Check penality:",spinSPenalty = new QSpinBox());
     spinSPenalty->setRange(-50,0);
     tWidget->setLayout(form);
-    //setTabEnabled(IDshield,false);
+    setTabEnabled(IDshield,false);
     //Shield
 
     textDescription = new QTextEdit();//description

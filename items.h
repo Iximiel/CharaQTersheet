@@ -35,7 +35,8 @@ public:
     bool operator ==(CQTs_item otherItem);
     bool operator ==(QString otherCode);
     bool operator <(CQTs_item otherItem);//alphabetical order per name
-
+    //static void write_item(QXmlStreamWriter& xmlstream,CQTs_item itemtoadd);
+    static CQTs_item read_Item(QXmlStreamReader &xmlstream);
 private:
     QString code, name, type;
     double weight;//, volume;
@@ -56,7 +57,6 @@ public:
     QString getCost(int i);
     double getWeight(int i);
     CQTs_item getItem(int i);
-    //static void write_item(QXmlStreamWriter& xmlstream,CQTs_item itemtoadd);
 signals:
 
 public slots:
