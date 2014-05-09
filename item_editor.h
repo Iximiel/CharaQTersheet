@@ -12,7 +12,8 @@
 #include <QWizard>
 #include <QWizardPage>
 #include <QCheckBox>
-#include <QCommandLinkButton>
+#include <QRadioButton>
+#include <QGroupBox>
 
 class CQTs_ItemFirstPage : public QWizardPage{
     Q_OBJECT
@@ -24,12 +25,9 @@ private:
     QLineEdit *lineCode, *lineName;
     QSpinBox *spinWeight,*spinPrice, *spinWRange;
     QComboBox *comboType;
-    QCommandLinkButton *cmdGood, *cmdWeapon, *cmdArmor, *cmdShield;
+    QRadioButton *cmdGood, *cmdWeapon, *cmdArmor, *cmdShield;
+    QGroupBox *groupType;
 public slots:
-    void openWeapon();
-    void openArmor();
-    void openShield();
-    void openDescription();
 };
 
 class CQTs_ItemWeapPage : public QWizardPage{
@@ -81,13 +79,7 @@ public:
     enum {page_intro, page_weap, page_arm, page_shield, page_desc, page_confirm};
     //explicit CQTs_ItemEditor(CQTs_item oldItem, QWidget *parent = 0);//modify Item
 private:
-    QLineEdit *lineCode, *lineName, *lineWDamage, *lineWCritical;
-    QSpinBox *spinWeight,*spinPrice, *spinWRange, *spinAAC, *spinADex, *spinAArcane, *spinAPenalty;
-    QSpinBox *spinSAC, *spinSDex, *spinSArcane, *spinSPenalty;
-    QComboBox *comboType, *comboAType;
-    QCheckBox *checkWBlud, *checkWPier, *checkWSla, *checkWThrow, *checkWProj, *checkAWeapon, *checkSWeapon;
-    QTextEdit *textDescription;
-    QCommandLinkButton *cmdGood, *cmdWeapon, *cmdArmor, *cmdShield;
+
 signals:
     void thisItem(CQTs_item);
 };

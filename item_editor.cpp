@@ -10,38 +10,20 @@ CQTs_ItemFirstPage::CQTs_ItemFirstPage(QWidget *parent):
     form->addRow("Name:", lineName = new QLineEdit());
     form->addRow("Weight:", spinWeight = new QSpinBox());
     form->addRow("Price (copper):", spinPrice = new QSpinBox());
+    groupType = new QGroupBox();
     QVBoxLayout *tLay = new QVBoxLayout();
-    tLay->addWidget(cmdGood = new QCommandLinkButton("Good"));
-    tLay->addWidget(cmdWeapon = new QCommandLinkButton("Weapon"));
-    tLay->addWidget(cmdArmor = new QCommandLinkButton("Armor"));
-    tLay->addWidget(cmdShield = new QCommandLinkButton("Shield"));
-    form->addRow("Type:",tLay);
+    tLay->addWidget(cmdGood = new QRadioButton("Good"));
+    cmdGood->setChecked(true);
+    tLay->addWidget(cmdWeapon = new QRadioButton("Weapon"));
+    tLay->addWidget(cmdArmor = new QRadioButton("Armor"));
+    tLay->addWidget(cmdShield = new QRadioButton("Shield"));
+    groupType->setLayout(tLay);
+    form->addRow("Type:",groupType);
     setLayout(form);
-    connect(cmdWeapon,SIGNAL(clicked()),this,SLOT(openWeapon()));
-    connect(cmdArmor,SIGNAL(clicked()),this,SLOT(openArmor()));
-    connect(cmdShield,SIGNAL(clicked()),this,SLOT(openShield()));
 }
 
 int CQTs_ItemFirstPage::nextId(){
-    return next;
-}
-
-void CQTs_ItemFirstPage::openWeapon(){
-    next = CQTs_ItemEditor::page_weap;
-    validatePage();
-    nextId();
-}
-void CQTs_ItemFirstPage::openArmor(){
-    next = CQTs_ItemEditor::page_arm;
-    nextId();
-}
-void CQTs_ItemFirstPage::openShield(){
-    next = CQTs_ItemEditor::page_shield;
-    nextId();
-}
-void CQTs_ItemFirstPage::openDescription(){
-    next = CQTs_ItemEditor::page_shield;
-    nextId();
+    return 0;
 }
 
 CQTs_ItemWeapPage::CQTs_ItemWeapPage(QWidget *parent):
