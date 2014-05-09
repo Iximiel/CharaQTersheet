@@ -26,7 +26,6 @@ private:
     QComboBox *comboType;
     QRadioButton *cmdGood, *cmdWeapon, *cmdArmor, *cmdShield;
     QGroupBox *groupType;
-public slots:
 };
 
 class CQTs_ItemWeapPage : public QWizardPage{
@@ -39,6 +38,8 @@ private:
     QSpinBox *spinWRange;
     QComboBox *comboType;
     QCheckBox *checkWBlud, *checkWPier, *checkWSla, *checkWThrow, *checkWProj;
+public slots:
+    void setRanged(int range);
 };
 
 class CQTs_ItemArmPage : public QWizardPage{
