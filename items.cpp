@@ -397,9 +397,17 @@ CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
 
     //Shield
 
-    textDescription = new QTextEdit();//description
-    setPage(page_desc,textDescription);
+    tWizardP = new QWizardPage ();//description
+    tLay = new QVBoxLayout();
+    tWizardP->setLayout(tLay);
+    tLay->addWidget(textDescription = new QTextEdit());
+    setPage(page_desc,tWizardP);
     //Description
+
+    //connections
+    connect(cmdWeapon,SIGNAL(clicked()),this,SLOT(openWeapon()));
+    connect(cmdArmor,SIGNAL(clicked()),this,SLOT(openArmor()));
+    connect(cmdShield,SIGNAL(clicked()),this,SLOT(openShield()));
 }
 
 void CQTs_ItemEditor::openWeapon(){
