@@ -22,7 +22,8 @@ public:
     int nextId() const;
 private:
     QLineEdit *lineCode, *lineName;
-    QSpinBox *spinWeight,*spinPrice, *spinWRange;
+    QSpinBox *spinPrice, *spinWRange;
+    QDoubleSpinBox *spinWeight;
     QComboBox *comboType;
     QRadioButton *cmdGood, *cmdWeapon, *cmdArmor, *cmdShield;
     QGroupBox *groupType;
@@ -48,9 +49,9 @@ public:
     CQTs_ItemArmPage(QWidget *parent =0);
     int nextId() const;
 private:
-    QSpinBox *spinAAC, *spinADex, *spinAArcane, *spinAPenalty;
-    QComboBox *comboAType;
-    QCheckBox *checkAWeapon;
+    QSpinBox *spinAC, *spinDex, *spinArcane, *spinPenalty;
+    QComboBox *comboType;
+    QCheckBox *checkWeapon;
 };
 
 class CQTs_ItemShieldPage : public QWizardPage{
@@ -59,8 +60,8 @@ public:
     CQTs_ItemShieldPage(QWidget *parent =0);
     int nextId() const;
 private:
-    QSpinBox *spinSAC, *spinSDex, *spinSArcane, *spinSPenalty;
-    QCheckBox *checkSWeapon;
+    QSpinBox *spinAC, *spinDex, *spinArcane, *spinPenalty;
+    QCheckBox *checkWeapon;
 
 };
 
@@ -81,6 +82,7 @@ public:
     explicit CQTs_ItemEditor(QWidget *parent = 0);//newItem
     enum {page_intro, page_weap, page_arm, page_shield, page_desc, page_confirm};
     //explicit CQTs_ItemEditor(CQTs_item oldItem, QWidget *parent = 0);//modify Item
+    void accept();
 private:
 
 signals:

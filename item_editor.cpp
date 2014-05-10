@@ -2,6 +2,8 @@
 
 #include <QFormLayout>
 
+#include <QDebug>
+
 CQTs_ItemFirstPage::CQTs_ItemFirstPage(QWidget *parent):
     QWizardPage(parent)
 {
@@ -10,8 +12,9 @@ CQTs_ItemFirstPage::CQTs_ItemFirstPage(QWidget *parent):
     setTitle(QObject::tr("Basic information"));
     form->addRow(QObject::tr("Code:"), lineCode = new QLineEdit());
     form->addRow(QObject::tr("Name:"), lineName = new QLineEdit());
-    form->addRow(QObject::tr("Weight:"), spinWeight = new QSpinBox());
+    form->addRow(QObject::tr("Weight:"), spinWeight = new QDoubleSpinBox());
     form->addRow(QObject::tr("Price (copper):"), spinPrice = new QSpinBox());
+    spinPrice->setRange(0,999999999);
     groupType = new QGroupBox();
     QVBoxLayout *tLay = new QVBoxLayout();
     tLay->addWidget(cmdGood = new QRadioButton(QObject::tr("Good")));
@@ -92,18 +95,23 @@ CQTs_ItemArmPage::CQTs_ItemArmPage(QWidget *parent):
     QFormLayout *form = new QFormLayout();
     setTitle(QObject::tr("Armor information"));
     form = new QFormLayout();
-    form->addRow(QObject::tr("AC:"),spinAAC = new QSpinBox());
-    form->addRow(QObject::tr("Dex Max:"),spinADex = new QSpinBox());
-    form->addRow(QObject::tr("Arcane failure:"),spinAArcane = new QSpinBox());
-    spinAArcane->setRange(0,100);
-    spinAArcane->setSuffix("%");
-    form->addRow(QObject::tr("Check penality:"),spinAPenalty = new QSpinBox());
-    spinAPenalty->setRange(-50,0);
-    form->addRow(QObject::tr("Type:"),comboAType = new QComboBox());
-    comboAType->addItem(QObject::tr("Light"));
-    comboAType->addItem(QObject::tr("Medium"));
-    comboAType->addItem(QObject::tr("Heavy"));
+    form->addRow(QObject::tr("AC:"),spinAC = new QSpinBox());
+    form->addRow(QObject::tr("Dex Max:"),spinDex = new QSpinBox());
+    form->addRow(QObject::tr("Arcane failure:"),spinArcane = new QSpinBox());
+    spinArcane->setRange(0,100);
+    spinArcane->setSuffix("%");
+    form->addRow(QObject::tr("Check penality:"),spinPenalty = new QSpinBox());
+    spinPenalty->setRange(-50,0);
+    form->addRow(QObject::tr("Type:"),comboType = new QComboBox());
+    comboType->addItem(QObject::tr("Light"));
+    comboType->addItem(QObject::tr("Medium"));
+    comboType->addItem(QObject::tr("Heavy"));
     setLayout(form);
+    registerField("a.ac*",spinAC);
+    registerField("a.dex",spinDex);
+    registerField("a.arcane",spinArcane);
+    registerField("a.penalty",spinPenalty);
+    registerField("a.type",comboType);
 }
 
 int CQTs_ItemArmPage::nextId() const{
@@ -113,18 +121,20 @@ CQTs_ItemShieldPage::CQTs_ItemShieldPage(QWidget *parent):
     QWizardPage(parent)
 {
     QFormLayout *form = new QFormLayout();
-    setTitle(QObject::tr("Shield information"));
+    setTitle(QObject::tr("Armor information"));
     form = new QFormLayout();
-    form->addRow(QObject::tr("AC:"),spinSAC = new QSpinBox());
-    form->addRow(QObject::tr("Dex Max(-1 if none):"),spinSDex = new QSpinBox());
-    spinSDex->setMinimum(-1);
-    spinSDex->setValue(-1);
-    form->addRow(QObject::tr("Arcane failure:"),spinSArcane = new QSpinBox());
-    spinSArcane->setRange(0,100);
-    spinSArcane->setSuffix("%");
-    form->addRow(QObject::tr("Check penality:"),spinSPenalty = new QSpinBox());
-    spinSPenalty->setRange(-50,0);
+    form->addRow(QObject::tr("AC:"),spinAC = new QSpinBox());
+    form->addRow(QObject::tr("Dex Max:"),spinDex = new QSpinBox());
+    form->addRow(QObject::tr("Arcane failure:"),spinArcane = new QSpinBox());
+    spinArcane->setRange(0,100);
+    spinArcane->setSuffix("%");
+    form->addRow(QObject::tr("Check penality:"),spinPenalty = new QSpinBox());
+    spinPenalty->setRange(-50,0);
     setLayout(form);
+    registerField("s.ac*",spinAC);
+    registerField("s.dex",spinDex);
+    registerField("s.arcane",spinArcane);
+    registerField("s.penalty",spinPenalty);
 }
 
 int CQTs_ItemShieldPage::nextId() const{
@@ -140,6 +150,7 @@ CQTs_ItemDescPage::CQTs_ItemDescPage(QWidget *parent):
     tLay = new QVBoxLayout();
     setLayout(tLay);
     tLay->addWidget(textDescription = new QTextEdit());
+    registerField("description",textDescription);
 }
 
 
@@ -171,5 +182,14 @@ CQTs_ItemEditor::CQTs_ItemEditor(QWidget *parent):
     setStartId(page_intro);
 }
 
-
-
+void CQTs_ItemEditor::accept(){
+    QString code = field("code").toString();
+    QString name = field("name").toString();
+    double weight = field("weight").toDouble();
+    money price = field("price").toInt();
+    qDebug() << code;
+    qDebug() << name;
+    qDebug() << weight;
+    qDebug() << price.value();
+    close();
+}
