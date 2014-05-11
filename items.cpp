@@ -256,7 +256,59 @@ CQTs_item CQTs_itemsHandler::getItem(int i){
 }
 
 //bag thinked to be used by a pg
+//copied from tutorial
+int ItemListModel::rowCount(const QModelIndex &parent) const
+{
+    return itemList.count();
+}
 
+QVariant ItemListModel::data(const QModelIndex &index, int role) const
+{
+    if (!index.isValid())
+        return QVariant();
+
+    if (index.row() >= itemList.size())
+        return QVariant();
+
+    if (role == Qt::DisplayRole || role == Qt::EditRole)
+        return itemList.at(index.row());
+    else
+        return QVariant();
+}
+
+QVariant ItemListModel::headerData(int section, Qt::Orientation orientation,
+                                     int role) const
+{
+    if (role != Qt::DisplayRole)
+        return QVariant();
+
+    if (orientation == Qt::Horizontal)
+        return QString("Column %1").arg(section);
+    else
+        return QString("Row %1").arg(section);
+}
+
+Qt::ItemFlags ItemListModel::flags(const QModelIndex &index) const
+{
+    if (!index.isValid())
+        return Qt::ItemIsEnabled;
+
+    return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
+}
+
+bool ItemListModel::setData(const QModelIndex &index,
+                              const QVariant &value, int role)
+{
+    if (index.isValid() && role == Qt::EditRole) {
+
+        itemList.replace(index.row(), value.toString());
+        emit dataChanged(index, index);
+        return true;
+    }
+    return false;
+}
+
+//bag
 CQTs_bag::CQTs_bag(CQTs_item myID, QWidget *parent):
     QWidget(parent)
 {
