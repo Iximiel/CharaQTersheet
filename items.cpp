@@ -98,11 +98,13 @@ money CQTs_item::cost(){return price;}
 double CQTs_item::myWeigh(){return weight;}
 QString CQTs_item::myID(){return code;}
 QString CQTs_item::myName(){return name;}
+QString CQTs_item::myType(){return type;}
 
 void CQTs_item::set_cost(money newPrice){price = newPrice;}
 void CQTs_item::set_myWeigh(double newWeight){weight = newWeight;}
 void CQTs_item::set_myID(QString newCode){code = newCode;}
 void CQTs_item::set_myName(QString newName){name = newName;}
+void CQTs_item::set_myType(QString newType){type = newType;}
 
 CQTs_item& CQTs_item::operator = (CQTs_item x){
     if(this!= &x){

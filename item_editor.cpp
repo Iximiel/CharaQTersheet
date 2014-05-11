@@ -187,9 +187,66 @@ void CQTs_ItemEditor::accept(){
     QString name = field("name").toString();
     double weight = field("weight").toDouble();
     money price = field("price").toInt();
+    QString type = "good";
+    CQTs_item editedItem(code,"",name,weight,price);
     qDebug() << code;
     qDebug() << name;
     qDebug() << weight;
     qDebug() << price.value();
+
+    if(hasVisitedPage(page_arm)){
+        type = "armor";
+        int AC = field("a.ac*").toInt();
+        int Dex = field("a.dex").toInt();
+        int arcane = field("a.arcane").toInt();
+        int penalty = field("a.penalty").toInt();
+        QString type = field("a.type").toString();
+        qDebug() << AC;
+        qDebug() << Dex;
+        qDebug() << penalty;
+        qDebug() << arcane;
+        qDebug() << type;
+
+    }
+
+    if(hasVisitedPage(page_shield)){
+        type = "shield";
+        int AC = field("s.ac*").toInt();
+        int Dex = field("s.dex").toInt();
+        int arcane = field("s.arcane").toInt();
+        int penalty = field("s.penalty").toInt();
+        qDebug() << AC;
+        qDebug() << Dex;
+        qDebug() << penalty;
+        qDebug() << arcane;
+    }
+
+    if(hasVisitedPage(page_weap)){
+        if(type == "good")
+            type = "weapon";
+        else
+            type += "weapon";
+
+        QString damage = field("w.damage*").toString();
+        QString critical = field("w.crit*").toString();
+        bool bludgeon = field("w.blud").toBool();
+        bool piercing = field("w.pier").toBool();
+        bool slashing = field("w.slash").toBool();
+        int rangesq = field("w.range").toInt();
+        bool throwing = field("w.throw").toBool();
+        bool projectile = field("w.projectile").toBool();
+        qDebug() << damage;
+        qDebug() << critical;
+        qDebug() << bludgeon << piercing << slashing;
+        qDebug() << rangesq;
+        qDebug() << throwing << projectile;
+    }
+
+    QString desc = field("description").toString();
+    if(desc!=""){
+
+    }
+    editedItem.set_myType(type);
+    emit thisItem(editedItem);
     close();
 }
