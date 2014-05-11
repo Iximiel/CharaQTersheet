@@ -267,7 +267,7 @@ CQTs_bag::CQTs_bag(CQTs_item myID, QWidget *parent):
     setLayout(mainLay);
 
     viewItems = new QListWidget();
-    //viewItems->setMovement(QListView::Snap);
+    //viewItems->setMovement(QListView::Free);
     mainLay->addWidget(viewItems);
     QLayout *tLay = new QHBoxLayout();
 
