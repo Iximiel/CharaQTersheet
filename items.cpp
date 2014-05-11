@@ -266,21 +266,9 @@ CQTs_bag::CQTs_bag(CQTs_item myID, QWidget *parent):
     QVBoxLayout *mainLay = new QVBoxLayout();
     setLayout(mainLay);
 
-    QWidget *tWidget = new QWidget ();
-
-    ScrollMain =  new QScrollArea();
-    /*
-    tabPockets = new QTabWidget();
-    tabPockets->addTab(ScrollMain,"Bag");
-    mainLay->addWidget(tabPockets);
-    */
-    mainLay->addWidget(ScrollMain);
-    itemgrid = new QGridLayout();
-    itemgrid->addWidget(new QLabel("Names"),0,0);
-    itemgrid->addWidget(new QLabel("Weights"),0,1);
-    tWidget->setLayout(itemgrid);
-    ScrollMain->setWidget(tWidget);
-    ScrollMain->setWidgetResizable(true);
+    viewItems = new QListWidget();
+    //viewItems->setMovement(QListView::Snap);
+    mainLay->addWidget(viewItems);
     QLayout *tLay = new QHBoxLayout();
 
     tLay ->addWidget(new QLabel("Weight inside:"));
@@ -308,8 +296,7 @@ void CQTs_bag::put_inside(QList<CQTs_item> newItems){
 
 void CQTs_bag::update(int from){
     for (int i = from; i < inside.size(); ++i) {
-        itemgrid->addWidget(new QLabel(inside[i].myName()),i+1,0);
-        itemgrid->addWidget(new QLabel(QString::number(inside[i].myWeigh())),i+1,1);
+        viewItems->insertItem(i,inside[i].myName());
     }
     uptateWeight();
 }

@@ -74,6 +74,7 @@ private:
 #include <QLayout>
 #include <QLabel>
 #include <QWidget>
+ #include <QListWidget>
 
 class CQTs_bag : public QWidget
 {
@@ -94,7 +95,8 @@ private:
     //QTabWidget *tabPockets;
     QLabel *labTotalWeight;
     QList<CQTs_item> inside;
-    QScrollArea *ScrollMain;
+    //QScrollArea *ScrollMain;
+    QListWidget * viewItems;
     QGridLayout *itemgrid;
 };
 
