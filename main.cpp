@@ -12,8 +12,11 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     // CQTs_ItemViewer w;
     QStringList Items, Names;
-    //Items.push_back("E:/Users/Iximiel/Documents/GitHub/CharaQTersheet-MinGW/goods.xml");
+#ifdef __WIN32
+    Items.push_back("E:/Users/Iximiel/Documents/GitHub/CharaQTersheet-MinGW/goods.xml");
+#else
     Items.push_back("/home/iximiel/ProgettiQt/CharaQTersheet/xml/goods.xml");
+#endif
     CQTs_itemsHandler h(Items,Names);
     CQTs_bag w(h.getItem(0));
     for (int i = 1; i < 10; ++i) {

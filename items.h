@@ -22,6 +22,7 @@ public:
     CQTs_item();
     CQTs_item(QString mycode,QString mytype="" ,QString myname="" ,double myweight=0, money myprice=0);
     CQTs_item(QString mycode,QString mytype,QString myname,double myweight, int mcu, int mag, int mau, int mpt = 0);
+    CQTs_item(const CQTs_item& copyFrom);
     money cost();
     double myWeigh();
     QString myID();
@@ -75,26 +76,6 @@ private:
 #include <QLabel>
 #include <QWidget>
  #include <QListWidget>
-//
-class ItemListModel : public QAbstractListModel
-{
-    Q_OBJECT
-
-public:
-    ItemListModel(const QList<CQTs_item> &items, QObject *parent = 0)
-        : QAbstractListModel(parent), itemList(items) {}
-
-    int rowCount(const QModelIndex &parent = QModelIndex()) const;
-    QVariant data(const QModelIndex &index, int role) const;
-    QVariant headerData(int section, Qt::Orientation orientation,
-                        int role = Qt::DisplayRole) const;
-    Qt::ItemFlags flags(const QModelIndex &index) const;
-    bool setData(const QModelIndex &index, const QVariant &value,
-                      int role = Qt::EditRole);
-
-private:
-    QList<CQTs_item> itemList;
-};
 
 class CQTs_bag : public QWidget
 {
@@ -115,7 +96,6 @@ private:
     //QTabWidget *tabPockets;
     QLabel *labTotalWeight;
     QList<CQTs_item> inside;
-    //QScrollArea *ScrollMain;
     QListWidget * viewItems;
     QGridLayout *itemgrid;
 };
