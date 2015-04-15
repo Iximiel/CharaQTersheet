@@ -267,6 +267,8 @@ void CQTs_ChSkillsViewer::showOnlyTrained(){
 void CQTs_ChSkillsViewer::setLabs(CQTs_Character *selected){
     for (int i = 0; i < eng->skillNum(); ++i) {
         Labels[i*8+5]->setNum(selected->getRanks(eng->skillData(i)));
+        if( selected->getRanks(eng->skillData(i)) !=0 )
+            {qDebug() << eng->skillData(i) <<": "<< selected->getRanks(eng->skillData(i));}
         Labels[i*8+3]->setNum(selected->getAbilityMod(eng->skillData(i).myAbility()));
     }
 }

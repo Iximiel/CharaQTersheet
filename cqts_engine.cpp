@@ -44,7 +44,7 @@ bool operator <(CQTs_skill a ,CQTs_skill b){return a.myName()<b.myName();}
 
 //engine!
 CQTs_engine::CQTs_engine(){
-    loadSkills("Skills_data.xml");
+    loadSkills("Skills_data.xml");//I'm using english names as codes for the skills
     //loadSkillNames("Skills_Ita.xml");//I will add a menu!
     std::sort(Skills.begin(),Skills.end());
 }
@@ -248,7 +248,7 @@ void CQTs_Character::loadFromFile(QString filename){
                     if(xml.name()=="skill"&&xml.isStartElement()){//get the name
                         QString code = xml.attributes().value("code").toString();
                         while(!xml.readNext()==6);
-                        //qDebug() << code;
+                        //qDebug() << ;
                         int ranks = (xml.text().toInt());
                         skillRanks.insert(code,ranks);
                     }
@@ -264,8 +264,6 @@ void CQTs_Character::loadFromFile(QString filename){
         file.close();
     }
 }
-
-
 
 void CQTs_Character::saveToFile(QString filename){
     QFile file(filename);
