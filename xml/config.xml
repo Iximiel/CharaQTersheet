@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
     <skillfile>Skill_data.xml</skillfile>
-    <skillnamesfile>Skills_eng.xml</skillnamesfile>
     <ignore><!-- Tags here are ignored !-->
+    <skillnamesfile>Skills_eng.xml</skillnamesfile>  
     <skillnamesfile>Skills_ita.xml</skillnamesfile>
     </ignore>
 </config>
