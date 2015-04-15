@@ -282,7 +282,7 @@ CQTs_bag::CQTs_bag(CQTs_item myID, QWidget *parent):
 }
 
 void CQTs_bag::put_inside(CQTs_item newItem){
-    if(!(newItem =="error")){
+    if(!(newItem =="error"||newItem =="")){
         int from = inside.size();
         while(inside.contains(newItem)){//"protection" from copies
             newItem.set_myName(newItem.myName()+"*"); //the * is temporary
@@ -328,7 +328,11 @@ CQTs_ItemViewer::CQTs_ItemViewer(QWidget *parent):
     tlay->addWidget(Scroll);
     setLayout(tlay);
     QStringList Items, Names;
-    Items.push_back("E:/Users/Iximiel/Documents/GitHub/CharaQTersheet-MinGW/goods.xml");
+#ifdef __WIN32
+    Items.push_back("goods.xml");
+#else
+    Items.push_back("/home/iximiel/ProgettiQt/CharaQTersheet/xml/goods.xml");
+#endif
     itemsHandler = new CQTs_itemsHandler(Items,Names);
     QWidget *toScroll = new QWidget();
     QGridLayout *grid = new QGridLayout();

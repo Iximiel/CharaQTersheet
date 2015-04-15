@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     // CQTs_ItemViewer w;
     QStringList Items, Names;
 #ifdef __WIN32
-    Items.push_back("E:/Users/Iximiel/Documents/GitHub/CharaQTersheet-MinGW/goods.xml");
+    Items.push_back("goods.xml");
 #else
     Items.push_back("/home/iximiel/ProgettiQt/CharaQTersheet/xml/goods.xml");
 #endif
