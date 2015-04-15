@@ -82,7 +82,7 @@ class CQTs_bag : public QWidget
     Q_OBJECT
 public:
     CQTs_bag(CQTs_item myID, QWidget *parent=0);
-    void update(int from);
+    void update(int from);//update from int to itemsize
     void uptateWeight();
     double totalWeight();
     //QList<CQTs_item> look_weapons();
