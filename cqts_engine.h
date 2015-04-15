@@ -36,6 +36,7 @@ public:
     CQTs_skill skillData(int i);
 private:
     //QStringList confFiles;// 0 skills 1 skillnames
+    //void loadClasses();
     void loadSkills(QString filename);
     void loadSkillNames(QString filename);
     QList<CQTs_skill> Skills;

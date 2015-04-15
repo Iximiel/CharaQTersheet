@@ -2,10 +2,10 @@
 <classes>
     <class code ="" bab ="" fort="" ref="" will="">
         <classskills>
-            <skill code ="">
+            <skill code ="" />
         </classskills>
         <progression>
-            <level n="1">
+            <level n="1" />
         </progression>
     </class>
 </classes>
