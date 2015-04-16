@@ -15,7 +15,7 @@ public:
     static CQTS_infoHolder finder (QString code);
     void setmyName(QString);
     QString myName();
-private:
+protected:
     QString Name;
 };
 
@@ -40,14 +40,13 @@ private:
 class CQTs_Class : public CQTS_infoHolder
 {
 public:
+    CQTs_Class();
     CQTs_Class(QString code);
-    QString myName();
     int classBAB();
     bool STFort();
     bool STRef();
     bool STWill();
 private:
-    QString Name;
     int lmax;//20,10,5,3 so he can understand if is baseclass or not//may be made compatible with d20System in general
     int BAB;//tell me core stats: binary: xxxxx FRWBA FRW 1/0 each (good or bad) BA(b):00 01 10
     bool fort, ref, will;

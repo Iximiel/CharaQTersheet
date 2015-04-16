@@ -10,37 +10,48 @@
 #include <QXmlStreamAttribute>
 #include <QDebug>
 
-CQTs_skill::CQTs_skill(){
-    Name  = "";
+//infoholder
+CQTS_infoHolder::CQTS_infoHolder():
+    QString()
+{
+    Name  = QString();
 }
 
-CQTs_skill::CQTs_skill(QString code, bool train):
+CQTS_infoHolder::CQTS_infoHolder(QString code):
     QString(code)
 {
-    Name  = "";
-    trainedOnly = train;
+    Name  = QString();
 }
 
-QString CQTs_skill::myName(){
-    return Name;
-}
-
-CQTs_skill CQTs_skill::finder (QString code){
-    CQTs_skill toreturn(code,0);
+CQTS_infoHolder CQTS_infoHolder::finder (QString code){
+    CQTS_infoHolder toreturn(code);
     return toreturn;
 }
 
-void CQTs_skill::setmyName(QString name){
+QString CQTS_infoHolder::myName(){
+    return Name;
+}
+
+void CQTS_infoHolder::setmyName(QString name){
     Name  = name;
+}
+
+bool operator <(CQTS_infoHolder a , CQTS_infoHolder b){return a.myName()<b.myName();}
+
+//Skillhandler
+CQTs_skill::CQTs_skill():CQTS_infoHolder(){}
+
+CQTs_skill::CQTs_skill(QString code, bool train):
+    CQTS_infoHolder(code)
+{
+    trainedOnly = train;
 }
 
 void CQTs_skill::setAbility(int abl){
     ability = abl;
 }
-
 bool CQTs_skill::needsTrain(){ return trainedOnly;}
 int CQTs_skill::myAbility(){return ability;}
-bool operator <(CQTS_infoHolder a , CQTS_infoHolder b){return a.myName()<b.myName();}
 
 /*****class handler*****/
 /*ClassFile structure:
@@ -81,8 +92,6 @@ CQTs_Class::CQTs_Class(QString code){
     qDebug()<<will;
 */
 }
-
-QString CQTs_Class::className(){return Name;}
 
 int CQTs_Class::classBAB(){return BAB;}
 
@@ -163,7 +172,7 @@ void CQTs_engine::loadSkillNames(QString filename){
                 QString code,name;
                 code = xml.attributes().value("code").toString();
                 name = xml.attributes().value("translation").toString();
-                int id = Skills.indexOf((CQTs_skill::finder(code)));
+                int id = Skills.indexOf(CQTs_skill(code,0));//(CQTs_skill::finder(code)));
                 if(id!=-1)
                 {
                     Skills[id] .setmyName(name);
