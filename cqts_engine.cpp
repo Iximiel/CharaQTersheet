@@ -23,11 +23,6 @@ CQTS_infoHolder::CQTS_infoHolder(QString code):
     Name  = QString();
 }
 
-CQTS_infoHolder CQTS_infoHolder::finder (QString code){
-    CQTS_infoHolder toreturn(code);
-    return toreturn;
-}
-
 QString CQTS_infoHolder::myName(){
     return Name;
 }
@@ -41,6 +36,12 @@ bool operator <(CQTS_infoHolder a , CQTS_infoHolder b){return a.myName()<b.myNam
 //Skillhandler
 CQTs_skill::CQTs_skill():CQTS_infoHolder(){}
 
+CQTs_skill::CQTs_skill(QString code):
+    CQTS_infoHolder(code)
+{
+    trainedOnly = false;
+}
+
 CQTs_skill::CQTs_skill(QString code, bool train):
     CQTS_infoHolder(code)
 {
@@ -50,60 +51,56 @@ CQTs_skill::CQTs_skill(QString code, bool train):
 void CQTs_skill::setAbility(int abl){
     ability = abl;
 }
-bool CQTs_skill::needsTrain(){ return trainedOnly;}
-int CQTs_skill::myAbility(){return ability;}
+bool CQTs_skill::needsTrain()
+{ return trainedOnly;}
+
+int CQTs_skill::myAbility()
+{return ability;}
 
 /*****class handler*****/
-/*ClassFile structure:
- *Class Name
- *lv max
- *datanumber 16*fort+8*ref+4*will+bab
- *bab= 1(01) poor, 2(10) good ,3(11) average
- *endoffile
- */
-
-CQTs_Class::CQTs_Class(QString code){
-    code.remove(".ClC");
-    QFile file(code+".ClC");//temporary
-    int data;//data-sink for bab and ST
-    int F=16, R=8, W=4, bab=3;//mask for ST&BAB
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
-        Name="error";
-        data=0;
-        lmax=-1;
-        //add an alert!
+CQTs_Class::CQTs_Class():
+    CQTS_infoHolder(){
+    for (int i = 0; i < 5; ++i) {
+        info[i] = false;
     }
-    else{
-        QTextStream in(&file);
-        Name= in.readLine();
-        in >> lmax;
-        in >> data;
-    }
-    fort = (data & F)/F;//good? 0/1
-    ref = (data & R)/R;//good? 0/1
-    will = (data & W)/W;//good ?0/1
-    BAB = (data & bab);// good 10, poor 01, average 11, i know it's not intuitive
-    /*qDebug()<<Name;
-    qDebug()<<lmax;
-    qDebug()<<data;
-    qDebug()<<BAB;
-    qDebug()<<fort;
-    qDebug()<<ref;
-    qDebug()<<will;
-*/
+    lmax = 0;
 }
 
-int CQTs_Class::classBAB(){return BAB;}
+CQTs_Class::CQTs_Class(QString code):
+    CQTS_infoHolder(code)
+{
+    for (int i = 0; i < 5; ++i) {
+        info[i] = false;
+    }
+    lmax = 0;
+}
 
-bool CQTs_Class::STFort(){return fort;}
+CQTs_Class::CQTs_Class(QString code, bool data[5],int MaxLV):
+    CQTS_infoHolder(code)
+{
+    for (int i = 0; i < 5; ++i) {
+        info[i] = data[i];
+    }
+    lmax = MaxLV;
+}
 
-bool CQTs_Class::STRef(){return ref;}
+int CQTs_Class::classBAB()
+{return info[0]+2*info[1];}
 
-bool CQTs_Class::STWill(){return will;}
+bool CQTs_Class::STFort()
+{return info[fort];}
 
-//engine!
+bool CQTs_Class::STRef()
+{return info[ref];}
+
+bool CQTs_Class::STWill()
+{return info[will];}
+
+/*****engine******/
+
 CQTs_engine::CQTs_engine(){
     loadSkills("Skills_data.xml");//I'm using english names as codes for the skills
+    loadClasses("BaseClasses.xml");//I'm using english names as codes for the skills
     //loadSkillNames("Skills_Ita.xml");//I will add a menu!
     std::sort(Skills.begin(),Skills.end());
 }
@@ -172,7 +169,7 @@ void CQTs_engine::loadSkillNames(QString filename){
                 QString code,name;
                 code = xml.attributes().value("code").toString();
                 name = xml.attributes().value("translation").toString();
-                int id = Skills.indexOf(CQTs_skill(code,0));//(CQTs_skill::finder(code)));
+                int id = Skills.indexOf(CQTs_skill(code));//(CQTs_skill::finder(code)));
                 if(id!=-1)
                 {
                     Skills[id] .setmyName(name);
@@ -195,6 +192,58 @@ void CQTs_engine::loadSkillNames(QString filename){
 
 int CQTs_engine::skillNum(){return Skills.size();}
 CQTs_skill CQTs_engine::skillData(int i){return Skills[i];}
+
+int CQTs_engine::classNum(){return Classes.size();}
+CQTs_Class CQTs_engine::classData(int i){return Classes[i];}
+
+void CQTs_engine::loadClasses(QString filename){
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        QMessageBox::information(0, QString(QObject::tr("Error")), QString(QObject::tr("Failed to load classes data")), QMessageBox::Ok);
+    }
+    else{
+        QXmlStreamReader xml(&file);
+        while(!xml.atEnd()){
+
+            if(xml.name()=="class"&&xml.isStartElement())
+            {
+                QString code;
+                int bab, lmax;
+                bool bab1=false,bab2=false,f,r,w;
+
+                code = xml.attributes().value("code").toString();
+                bab = xml.attributes().value("bab").toInt();
+                if(bab>0){
+                    bab1=true;
+                    if(bab>1)
+                        bab2=true;
+                }
+                f = xml.attributes().value("fort").toInt();
+                r = xml.attributes().value("ref").toInt();
+                w = xml.attributes().value("will").toInt();
+                lmax = xml.attributes().value("lmax").toInt();
+                bool data[5] = {bab1,bab2,f,r,w};
+                CQTs_Class tClass(code,data,lmax);
+                tClass.setmyName(code);//in case classnames are not loaded
+                Classes.append(tClass);
+            }
+            if (xml.hasError()) {
+                QString ERROR=QObject::tr("Error in file:%4\n%1\nLine %2, column %3")
+                        .arg(xml.errorString())
+                        .arg(xml.lineNumber())
+                        .arg(xml.columnNumber())
+                        .arg(filename);
+                QMessageBox::information(0, QString(QObject::tr("Error")), ERROR, QMessageBox::Ok);
+                break;
+            }
+            xml.readNext();
+        }
+    }
+    file.close();
+}
+
+void CQTs_engine::loadClassNames(QString filename){}
+
 
 /*****character handler*****/
 /*CharacterFile structure:

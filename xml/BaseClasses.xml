@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classes>
-    <class code ="" bab ="" fort="" ref="" will="">
+    <class code ="Fighter" bab ="2" fort="1" ref="0" will="0" lmax="20">
         <classskills>
             <skill code ="" />
         </classskills>

@@ -12,7 +12,6 @@ class CQTS_infoHolder : public QString//in a qlist this could be find using the 
 public:
     CQTS_infoHolder();
     CQTS_infoHolder(QString code);
-    static CQTS_infoHolder finder (QString code);
     void setmyName(QString);
     QString myName();
 protected:
@@ -25,6 +24,7 @@ class CQTs_skill : public CQTS_infoHolder
 {
 public:
     CQTs_skill();
+    CQTs_skill(QString code);//search constructor
     CQTs_skill(QString code, bool train);
     void setAbility(int);
     int myAbility();
@@ -41,15 +41,16 @@ class CQTs_Class : public CQTS_infoHolder
 {
 public:
     CQTs_Class();
-    CQTs_Class(QString code);
+    CQTs_Class(QString code);//search constructor
+    CQTs_Class(QString code, bool data[5], int MaxLV=20);
     int classBAB();
     bool STFort();
     bool STRef();
     bool STWill();
 private:
+    enum{fort=2,ref=3,will=4};
     int lmax;//20,10,5,3 so he can understand if is baseclass or not//may be made compatible with d20System in general
-    int BAB;//tell me core stats: binary: xxxxx FRWBA FRW 1/0 each (good or bad) BA(b):00 01 10
-    bool fort, ref, will;
+    bool info[5];//01:BAB 2:F 3:R 4:W
     //next: adding class skills and privileges
 };
 
@@ -64,12 +65,16 @@ public:
     CQTs_engine();
     int skillNum();
     CQTs_skill skillData(int i);
+    int classNum();
+    CQTs_Class classData(int i);
 private:
-    //QStringList confFiles;// 0 skills 1 skillnames
-    //void loadClasses();
+    //QStringList confFiles;// 0 skills 1 skillnames 2 classes 3 classnames
     void loadSkills(QString filename);
     void loadSkillNames(QString filename);
+    void loadClasses(QString filename);
+    void loadClassNames(QString filename);
     QList<CQTs_skill> Skills;
+    QList<CQTs_Class> Classes;
 };
 
 #endif // CQTS_ENGINE_H
