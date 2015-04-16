@@ -61,10 +61,10 @@ void CQTs_ClassViewer::initialize(){
 void CQTs_ClassViewer::setLabs(CQTs_Class *selected){
     QString bonus[4]={tr("error"),tr("Poor"),tr("Good"),tr("Average")};
 
-    //LabName ->setText(selected->className());
-    LabBAB ->setText(bonus[selected->classBAB()]);
+    LabName ->setText(selected->myName());
+    LabBAB  ->setText(bonus[selected->BAB()]);
     LabFort ->setText(bonus[1+selected->STFort()]);
-    LabRef ->setText(bonus[1+selected->STRef()]);
+    LabRef  ->setText(bonus[1+selected->STRef()]);
     LabWill ->setText(bonus[1+selected->STWill()]);
 }
 /*BioViewer*/

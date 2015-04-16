@@ -84,7 +84,7 @@ CQTs_Class::CQTs_Class(QString code, bool data[5],int MaxLV):
     lmax = MaxLV;
 }
 
-int CQTs_Class::classBAB()
+int CQTs_Class::BAB()
 {return info[0]+2*info[1];}
 
 bool CQTs_Class::STFort()
@@ -103,6 +103,7 @@ CQTs_engine::CQTs_engine(){
     loadClasses("BaseClasses.xml");//I'm using english names as codes for the skills
     //loadSkillNames("Skills_Ita.xml");//I will add a menu!
     std::sort(Skills.begin(),Skills.end());
+    std::sort(Classes.begin(),Classes.end());
 }
 
 void CQTs_engine::loadSkills(QString filename){
