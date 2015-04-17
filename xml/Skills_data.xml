@@ -2,7 +2,7 @@
 <skills>
   <skill code="Appraise" ability="3"/>
   <skill code="Balance" ability="1" armor="1">
-    <synergy>Tumble</synergy>
+    <synergy syncode="Tumble"/>
   </skill>
   <skill code="Bluff" ability="5"/>
   <skill code="Climb" ability="0" armor="1"/>
@@ -10,8 +10,8 @@
   <skill code="Craft" ability="3"/>
   <skill code="Decipher Script" ability="3" onlytrained="1"/>
   <skill code="Diplomacy" ability="5">
-    <synergy>Bluff</synergy>
-    <synergy>Sense Motive</synergy>
+    <synergy syncode="Bluff"/>
+    <synergy syncode="Sense Motive"/>
   </skill>
   <skill code="Disable Device" ability="3" onlytrained="1"/>
   <skill code="Disguise" ability="5"/>
@@ -22,10 +22,10 @@
   <skill code="Heal" ability="4"/>
   <skill code="Hide" ability="1" armor="1"/>
   <skill code="Intimidate" ability="5">
-    <synergy>Bluff</synergy>
+    <synergy syncode="Bluff"/>
   </skill>
   <skill code="Jump" ability="0" armor="1">
-    <synergy>Tumble</synergy>
+    <synergy syncode="Tumble"/>
   </skill>
   <skill code="Knowledge" ability="3" onlytrained="1"/>
   <skill code="Listen" ability="4"/>
@@ -34,12 +34,12 @@
   <skill code="Perform" ability="5"/>
   <skill code="Profession" ability="4" onlytrained="1"/>
   <skill code="Ride" ability="1">
-    <synergy>Handle Animal</synergy>
+    <synergy syncode="Handle Animal"/>
   </skill>
   <skill code="Search" ability="3"/>
   <skill code="Sense Motive" ability="4"/>
   <skill code="Sleight Of Hand" ability="1" armor="1" onlytrained="1">
-    <synergy>Bluff</synergy>
+    <synergy syncode="Bluff"/>
   </skill>
   <skill code="Speak Language" ability="3" onlytrained="1"/>
   <skill code="Spellcraft" ability="3" onlytrained="1"/>
@@ -47,10 +47,10 @@
   <skill code="Survival" ability="4"/>
   <skill code="Swim" ability="0" armor="2"/>
   <skill code="Tumble" ability="0" armor="1" onlytrained="1">
-    <synergy>Jump</synergy>
+    <synergy syncode="Jump"/>
   </skill>
   <skill code="Use Magic Device" ability="5" onlytrained="1"/>
   <skill code="Use Rope" ability="1">
-    <synergy circumstantial="description">Escape Artist</synergy>
+    <synergy syncode="Escape Artist" circumstantial="description"/>
   </skill>
 </skills>

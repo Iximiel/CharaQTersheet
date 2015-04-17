@@ -155,9 +155,9 @@ void CQTs_engine::loadSkills(QString filename){
                         QString SynCode = xml.attributes().value("syncode").toString();
                         QString desc = xml.attributes().value("circumstantial").toString();
                         tSkill.add_Synergy(SynCode,desc);
+                    }
                 }
                 Skills.append(tSkill);
-                }
             }
             if (xml.hasError()) {
                 QString ERROR=QObject::tr("Error in file:%4\n%1\nLine %2, column %3")
