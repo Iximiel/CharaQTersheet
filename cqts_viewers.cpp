@@ -25,6 +25,8 @@ CQTs_ClassViewer::CQTs_ClassViewer(CQTs_Class *selected, QWidget *parent) :
 void CQTs_ClassViewer::initialize(){
 
     LabName = new QLabel();
+    LabHD = new QLabel();
+    LabRanks = new QLabel();
     LabBAB  = new QLabel*[20];
     LabFort = new QLabel*[20];
     LabRef  = new QLabel*[20];
@@ -35,9 +37,14 @@ void CQTs_ClassViewer::initialize(){
     QLabel *Tlab = new QLabel(tr("Name:"));
     grid->addWidget(Tlab,0,0);
     grid->addWidget(LabName,0,1);
-
+    Tlab = new QLabel(tr("Hit Dice:"));
+    grid->addWidget(Tlab,1,0);
+    grid->addWidget(LabHD,1,1);
+    Tlab = new QLabel(tr("Skill points per level:"));
+    grid->addWidget(Tlab,2,0);
+    grid->addWidget(LabRanks,2,1);
     QGroupBox *ProgBox= new QGroupBox(tr("Progression:"));
-    grid->addWidget(ProgBox,2,0,1,2);
+    grid->addWidget(ProgBox,3,0,1,2);
     QGridLayout *grid2 = new QGridLayout();
     Tlab = new QLabel(tr("Level:"));
     grid2->addWidget(Tlab,0,0);
