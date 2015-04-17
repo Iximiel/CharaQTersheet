@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classes>
+    <class code="Barbarian" bab="2" fort="1" ref="0" will="0" lmax="20"/>
+    <class code="Bard" bab="1" fort="0" ref="1" will="1" lmax="20"/>
+    <class code="Cleric" bab="1" fort="1" ref="0" will="1" lmax="20"/>
+    <class code="Druid" bab="1" fort="1" ref="0" will="1" lmax="20"/>
+    <class code="Fighter" bab="2" fort="1" ref="0" will="0" lmax="20">
+        <classskills>
+            <skill code="Climb "/>
+            <skill code="Craft "/>
+            <skill code="Handle Animal "/>
+            <skill code="Intimidate "/>
+            <skill code="Jump "/>
+            <skill code="Ride"/>
+            <skill code="Swim "/>
+        </classskills>
+        <progression skillpoints ="2" dv="10">
+            <level n="1" />
+        </progression>
+    </class>
+    <class code="Monk" bab="1" fort="1" ref="1" will="1" lmax="20"/>
+    <class code="Paladin" bab="2" fort="1" ref="0" will="0" lmax="20"/>
+    <class code="Ranger" bab="2" fort="1" ref="1" will="0" lmax="20"/>
+    <class code="Rogue" bab="1" fort="0" ref="1" will="0" lmax="20"/>
+    <class code="Sorcerer" bab="0" fort="0" ref="0" will="1" lmax="20"/>
+    <class code="Wizard" bab="0" fort="0" ref="0" will="1" lmax="20"/>
+</classes>

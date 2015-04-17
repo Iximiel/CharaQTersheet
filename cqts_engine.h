@@ -1,32 +1,66 @@
-//the engine is the "globalresorcepack" of my prog
+//the engine is the "globalresourcepack" of my prog
 #ifndef CQTS_ENGINE_H
 #define CQTS_ENGINE_H
 #include <QString>
 #include <QStringList>
 #include <QMap>
-/*as now this is a placeholder,
- *maybe it will evolve in a sort of global
- *constant that will make communication between segments of the program
- */
-class CQTs_skill : public QString//in a qlist this could be find using the code, and next ordered by using myname
+
+//container for everithing that will need a tranlsation
+//code is the english name, Name is the translated info
+class CQTS_infoHolder : public QString//in a qlist this could be find using the code, and next ordered by using myname
+{
+public:
+    CQTS_infoHolder();
+    CQTS_infoHolder(QString code);
+    void setmyName(QString);
+    QString myName();
+protected:
+    QString Name;
+};
+
+bool operator <(CQTS_infoHolder a ,CQTS_infoHolder b);//needed to order alphabetically things
+
+class CQTs_skill : public CQTS_infoHolder
 {
 public:
     CQTs_skill();
+    CQTs_skill(QString code);//search constructor
     CQTs_skill(QString code, bool train);
-    static CQTs_skill finder (QString code);
-    void setmyName(QString);
     void setAbility(int);
-    QString myName();
     int myAbility();
     bool needsTrain();
     //void set_Synergies(QString code, QString description="");//it undertand if is cyrcumstantial or notby himself
 private:
-    QString Name;
 //    QStringList synergies;
     int ability;//armor;
     bool trainedOnly;
 };
-bool operator <(CQTs_skill a ,CQTs_skill b);
+
+
+class CQTs_Class : public CQTS_infoHolder
+{
+public:
+    CQTs_Class();
+    CQTs_Class(QString code);//search constructor
+    CQTs_Class(QString code, bool data[5], int MaxLV=20);
+    int MaxLv();
+    int BAB();
+    //int AP();    int HP();
+    bool STFort();
+    bool STRef();
+    bool STWill();
+private:
+    enum{fort=2,ref=3,will=4};
+    //int AP, DV;
+    int lmax;//20,10,5,3 so he can understand if is baseclass or not//may be made compatible with d20System in general
+    bool info[5];//01:BAB 2:F 3:R 4:W
+    //next: adding class skills and privileges
+};
+
+/*as now this is a placeholder,
+ *maybe it will evolve in a sort of global
+ *constant that will make communication between segments of the program
+ */
 
 class CQTs_engine//it holds all data related to the game, like skills, max level and conf files
 {
@@ -34,11 +68,16 @@ public:
     CQTs_engine();
     int skillNum();
     CQTs_skill skillData(int i);
+    int classNum();
+    CQTs_Class classData(int i);
 private:
-    //QStringList confFiles;// 0 skills 1 skillnames
+    //QStringList confFiles;// 0 skills 1 skillnames 2 classes 3 classnames
     void loadSkills(QString filename);
     void loadSkillNames(QString filename);
+    void loadClasses(QString filename);
+    void loadClassNames(QString filename);
     QList<CQTs_skill> Skills;
+    QList<CQTs_Class> Classes;
 };
 
 #endif // CQTS_ENGINE_H
@@ -105,29 +144,6 @@ private:
 };
 
 #endif //CQTS_CHAR
-
-#ifndef CQTS_CLASS
-#define CQTS_CLASS
-#include <QString>
-
-class CQTs_Class
-{
-public:
-    CQTs_Class(QString classLink);
-    QString className();
-    int classBAB();
-    bool STFort();
-    bool STRef();
-    bool STWill();
-private:
-    QString Name;
-    int lmax;//20,10,5,3 so he can understand if is baseclass or not//may be made compatible with d20System in general
-    int BAB;//tell me core stats: binary: xxxxx FRWBA FRW 1/0 each (good or bad) BA(b):00 01 10
-    bool fort, ref, will;
-    //next: adding class skills and privileges
-};
-
-#endif //CQTS_CLASS
 
 #ifndef UTILITIES
 #define UTILITIES
