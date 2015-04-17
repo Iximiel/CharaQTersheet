@@ -87,6 +87,9 @@ CQTs_Class::CQTs_Class(QString code, bool data[5],int MaxLV):
 int CQTs_Class::BAB()
 {return info[0]+2*info[1];}
 
+int CQTs_Class::MaxLv()
+{return lmax;}
+
 bool CQTs_Class::STFort()
 {return info[fort];}
 

@@ -43,6 +43,7 @@ public:
     CQTs_Class();
     CQTs_Class(QString code);//search constructor
     CQTs_Class(QString code, bool data[5], int MaxLV=20);
+    int MaxLv();
     int BAB();
     //int AP();    int HP();
     bool STFort();

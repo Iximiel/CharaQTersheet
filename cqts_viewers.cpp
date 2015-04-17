@@ -69,13 +69,36 @@ void CQTs_ClassViewer::initialize(){
 
 
 void CQTs_ClassViewer::setLabs(CQTs_Class *selected){
-    QString bonus[4]={tr("error"),tr("Poor"),tr("Good"),tr("Average")};
-/*
+    int LMax = selected->MaxLv();
     LabName ->setText(selected->myName());
-    LabBAB  ->setText(bonus[selected->BAB()]);
-    LabFort ->setText(bonus[1+selected->STFort()]);
-    LabRef  ->setText(bonus[1+selected->STRef()]);
-    LabWill ->setText(bonus[1+selected->STWill()]);*/
+    int f =0,r=0,w=0,bab = selected->BAB();
+    if(selected->STFort())  f = 2;
+    if(selected->STRef())   r = 2;
+    if(selected->STWill())  w = 2;
+    for (int i = 0; i < LMax; ++i) {
+        int dbab,df,dr,dw;
+        switch (bab) {
+        case 1:
+            dbab = (1+i)/2.;
+            break;
+        case 2:
+            dbab = (1+i)*3/4.;
+            break;
+        case 3:
+            dbab = (1+i);
+            break;
+        }
+        if(f==2) df = 2.+(i+1)/2.;
+        else df = (i+1)/3.;
+        if(r==2) dr = 2.+(i+1)/2.;
+        else dr = (i+1)/3.;
+        if(w==2) dw = 2.+(i+1)/2.;
+        else dw = (i+1)/3.;
+        LabBAB[i]  ->setNum(dbab);
+        LabFort[i] ->setNum(df);
+        LabRef[i]  ->setNum(dr);
+        LabWill[i] ->setNum(dw);
+    }
 }
 /*BioViewer*/
 
