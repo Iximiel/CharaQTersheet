@@ -29,9 +29,10 @@ public:
     void setAbility(int);
     int myAbility();
     bool needsTrain();
-    //void set_Synergies(QString code, QString description="");//it undertand if is cyrcumstantial or notby himself
+    void add_Synergy(QString code, QString description="");//it undertand if is cyrcumstantial or notby himself
 private:
-//    QStringList synergies;
+    QStringList* synergies;
+    QStringList* descSyn;
     int ability;//armor;
     bool trainedOnly;
 };

@@ -34,18 +34,26 @@ void CQTS_infoHolder::setmyName(QString name){
 bool operator <(CQTS_infoHolder a , CQTS_infoHolder b){return a.myName()<b.myName();}
 
 //Skillhandler
-CQTs_skill::CQTs_skill():CQTS_infoHolder(){}
+CQTs_skill::CQTs_skill():CQTS_infoHolder(){
+    trainedOnly = false;
+    synergies=NULL;
+    descSyn=NULL;
+}
 
 CQTs_skill::CQTs_skill(QString code):
     CQTS_infoHolder(code)
 {
     trainedOnly = false;
+    synergies=NULL;
+    descSyn=NULL;
 }
 
 CQTs_skill::CQTs_skill(QString code, bool train):
     CQTS_infoHolder(code)
 {
     trainedOnly = train;
+    synergies=NULL;
+    descSyn=NULL;
 }
 
 void CQTs_skill::setAbility(int abl){
@@ -56,6 +64,15 @@ bool CQTs_skill::needsTrain()
 
 int CQTs_skill::myAbility()
 {return ability;}
+
+void CQTs_skill::add_Synergy(QString code, QString description){
+    if(synergies==NULL)
+        synergies = new QStringList();
+    if(descSyn==NULL)
+        descSyn = new QStringList();
+    synergies->push_back(code);
+    descSyn->push_back(description);
+}
 
 /*****class handler*****/
 CQTs_Class::CQTs_Class():
@@ -128,22 +145,19 @@ void CQTs_engine::loadSkills(QString filename){
                 abl = xml.attributes().value("ability").toInt();
                 //arm = xml.attributes().value("armor").toInt();
                 train = xml.attributes().value("onlytrained").toInt();
-                /*
-                while(!(xml.name()=="skill"&&xml.isEndElement())){
-                    xml.readNext();
-                    if(xml.name()=="synergy"&&xml.isStartElement()){//get synergies
-                        QString desc = xml.attributes().value("circumstantial").toString();
-                        while(!xml.readNext()==6);
-
-                        skillAddress[id]->set_Synergies(codes.indexOf(xml.text().toString()),desc);
-                    }
-                }
-                */
                 CQTs_skill tSkill(code,train);
                 tSkill.setAbility(abl);
                 tSkill.setmyName(code);//in case skillnames are not loaded
-                //tSkill.setArmor(arm);
+
+                while(!(xml.name()=="skill"&&xml.isEndElement())){
+                    xml.readNext();
+                    if(xml.name()=="synergy"&&xml.isStartElement()){//get synergies
+                        QString SynCode = xml.attributes().value("syncode").toString();
+                        QString desc = xml.attributes().value("circumstantial").toString();
+                        tSkill.add_Synergy(SynCode,desc);
+                }
                 Skills.append(tSkill);
+                }
             }
             if (xml.hasError()) {
                 QString ERROR=QObject::tr("Error in file:%4\n%1\nLine %2, column %3")
