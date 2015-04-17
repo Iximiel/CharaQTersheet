@@ -25,10 +25,10 @@ CQTs_ClassViewer::CQTs_ClassViewer(CQTs_Class *selected, QWidget *parent) :
 void CQTs_ClassViewer::initialize(){
 
     LabName = new QLabel();
-    LabBAB = new QLabel();
-    LabFort = new QLabel();
-    LabRef = new QLabel();
-    LabWill = new QLabel();
+    LabBAB  = new QLabel*[20];
+    LabFort = new QLabel*[20];
+    LabRef  = new QLabel*[20];
+    LabWill = new QLabel*[20];
 
     QGridLayout *grid = new QGridLayout();
 
@@ -36,23 +36,33 @@ void CQTs_ClassViewer::initialize(){
     grid->addWidget(Tlab,0,0);
     grid->addWidget(LabName,0,1);
 
-    Tlab = new QLabel(tr("Base Attack Bonus:"));
-    grid->addWidget(Tlab,1,0);
-    grid->addWidget(LabBAB,1,1);
-
-    QGroupBox *SavesBox= new QGroupBox(tr("Saves:"));
-    grid->addWidget(SavesBox,2,0,1,2);
+    QGroupBox *ProgBox= new QGroupBox(tr("Progression:"));
+    grid->addWidget(ProgBox,2,0,1,2);
     QGridLayout *grid2 = new QGridLayout();
-    Tlab = new QLabel(tr("Fortitude:"));
+    Tlab = new QLabel(tr("Level:"));
     grid2->addWidget(Tlab,0,0);
-    grid2->addWidget(LabFort,0,1);
+    Tlab = new QLabel(tr("BAB:"));
+    grid2->addWidget(Tlab,0,1);
+    Tlab = new QLabel(tr("Fortitude:"));
+    grid2->addWidget(Tlab,0,2);
     Tlab = new QLabel(tr("Reflexes"));
-    grid2->addWidget(Tlab,1,0);
-    grid2->addWidget(LabRef,1,1);
+    grid2->addWidget(Tlab,0,3);
     Tlab = new QLabel(tr("Will:"));
-    grid2->addWidget(Tlab,2,0);
-    grid2->addWidget(LabWill,2,1);
-    SavesBox->setLayout(grid2);
+    grid2->addWidget(Tlab,0,4);
+    for (int i = 0; i < 20; ++i) {
+        LabBAB[i]   = new QLabel();
+        LabFort[i]  = new QLabel();
+        LabRef[i]   = new QLabel();
+        LabWill[i]  = new QLabel();
+        Tlab = new QLabel();
+        Tlab->setNum(i+1);
+        grid2->addWidget(Tlab,i+1,0);
+        grid2->addWidget(LabBAB[i],i+1,1);
+        grid2->addWidget(LabFort[i],i+1,2);
+        grid2->addWidget(LabRef[i],i+1,3);
+        grid2->addWidget(LabWill[i],i+1,4);
+    }
+    ProgBox->setLayout(grid2);
 
     setLayout(grid);
 }
@@ -60,12 +70,12 @@ void CQTs_ClassViewer::initialize(){
 
 void CQTs_ClassViewer::setLabs(CQTs_Class *selected){
     QString bonus[4]={tr("error"),tr("Poor"),tr("Good"),tr("Average")};
-
+/*
     LabName ->setText(selected->myName());
     LabBAB  ->setText(bonus[selected->BAB()]);
     LabFort ->setText(bonus[1+selected->STFort()]);
     LabRef  ->setText(bonus[1+selected->STRef()]);
-    LabWill ->setText(bonus[1+selected->STWill()]);
+    LabWill ->setText(bonus[1+selected->STWill()]);*/
 }
 /*BioViewer*/
 
@@ -268,7 +278,7 @@ void CQTs_ChSkillsViewer::setLabs(CQTs_Character *selected){
     for (int i = 0; i < eng->skillNum(); ++i) {
         Labels[i*8+5]->setNum(selected->getRanks(eng->skillData(i)));
         if( selected->getRanks(eng->skillData(i)) !=0 )
-            {qDebug() << eng->skillData(i) <<": "<< selected->getRanks(eng->skillData(i));}
+        {qDebug() << eng->skillData(i) <<": "<< selected->getRanks(eng->skillData(i));}
         Labels[i*8+3]->setNum(selected->getAbilityMod(eng->skillData(i).myAbility()));
     }
 }
