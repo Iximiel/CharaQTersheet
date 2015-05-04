@@ -6,37 +6,37 @@
     <message>
         <location filename="cqts_viewers.cpp" line="178"/>
         <source>Strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Forza</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="178"/>
         <source>Dexterity</source>
-        <translation type="unfinished"></translation>
+        <translation>Destrezza</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="178"/>
         <source>Constitution</source>
-        <translation type="unfinished"></translation>
+        <translation>Costituzione</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="178"/>
         <source>Intelligence</source>
-        <translation type="unfinished"></translation>
+        <translation>Intelligenza</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="178"/>
         <source>Wisdom</source>
-        <translation type="unfinished"></translation>
+        <translation>Saggezza</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="178"/>
         <source>Charisma</source>
-        <translation type="unfinished"></translation>
+        <translation>Carisma</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="181"/>
         <source>Temporary</source>
-        <translation type="unfinished"></translation>
+        <translation>Temporaneo</translation>
     </message>
 </context>
 <context>
@@ -44,17 +44,17 @@
     <message>
         <location filename="cqts_viewers.cpp" line="402"/>
         <source>Melee</source>
-        <translation type="unfinished"></translation>
+        <translation>Mischia</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="402"/>
         <source>Ranged</source>
-        <translation type="unfinished"></translation>
+        <translation>Distanza</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="402"/>
         <source>Grapple</source>
-        <translation type="unfinished"></translation>
+        <translation>Lotta</translation>
     </message>
 </context>
 <context>
@@ -62,17 +62,17 @@
     <message>
         <location filename="cqts_viewers.cpp" line="134"/>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome:</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="138"/>
         <source>Surname:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cognome:</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="142"/>
         <source>Age:</source>
-        <translation type="unfinished"></translation>
+        <translation>Età:</translation>
     </message>
 </context>
 <context>
@@ -80,17 +80,17 @@
     <message>
         <location filename="cqts_viewers.cpp" line="343"/>
         <source>Fortitude</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempra</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="343"/>
         <source>Reflex</source>
-        <translation type="unfinished"></translation>
+        <translation>Riflessi</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="343"/>
         <source>Will</source>
-        <translation type="unfinished"></translation>
+        <translation>Volontà</translation>
     </message>
 </context>
 <context>
@@ -99,12 +99,12 @@
         <location filename="cqts_viewers.cpp" line="238"/>
         <location filename="cqts_viewers.cpp" line="302"/>
         <source>Show only trained</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra solo addestrate</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="295"/>
         <source>Show all</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostra tutte</translation>
     </message>
 </context>
 <context>
@@ -112,47 +112,48 @@
     <message>
         <location filename="cqts_viewers.cpp" line="37"/>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome:</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="40"/>
         <source>Hit Dice:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dado vita:</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="43"/>
         <source>Skill points per level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Punti abilità per livello:</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="46"/>
         <source>Progression:</source>
-        <translation type="unfinished"></translation>
+        <translation>Progressione:</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="49"/>
         <source>Level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Livello:</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="51"/>
         <source>BAB:</source>
-        <translation type="unfinished"></translation>
+        <translation>BAB:</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="53"/>
         <source>Fortitude:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempra:</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="55"/>
-        <source>Reflexes</source>
-        <translation type="unfinished"></translation>
+        <source>Reflexes:</source>
+        <oldsource>Reflexes</oldsource>
+        <translation>Riflessi:</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="57"/>
         <source>Will:</source>
-        <translation type="unfinished"></translation>
+        <translation>Volontà:</translation>
     </message>
 </context>
 <context>
@@ -160,12 +161,12 @@
     <message>
         <location filename="items.cpp" line="208"/>
         <source>Failed to load items from </source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile caricare gli oggetti da </translation>
     </message>
     <message>
         <location filename="items.cpp" line="237"/>
         <source>Failed to load item names from </source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile caricare i nomi degli oggetti da </translation>
     </message>
 </context>
 <context>
@@ -173,107 +174,108 @@
     <message>
         <location filename="charaqtersheet.cpp" line="22"/>
         <source>&amp;File</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;File</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="23"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Salva</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="25"/>
         <source>&amp;Open</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Apri</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="30"/>
         <source>&amp;Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Esci</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="32"/>
         <source>&amp;Tools</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;Strumenti</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="35"/>
         <location filename="charaqtersheet.cpp" line="57"/>
         <source>&amp;Abilities</source>
-        <translation type="unfinished"></translation>
+        <translation>C&amp;aratteristiche</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="37"/>
         <location filename="charaqtersheet.cpp" line="55"/>
         <source>&amp;Saves</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiri &amp;Salvezza</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="39"/>
         <location filename="charaqtersheet.cpp" line="61"/>
         <source>&amp;Skills</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Abilità</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="44"/>
         <location filename="charaqtersheet.cpp" line="59"/>
         <source>&amp;Bio</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Bio</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="49"/>
         <source>&amp;Classviewer</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Classviewer</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="52"/>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Edit</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="53"/>
         <source>&amp;BAB</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;BAB</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="99"/>
         <source>Abilities</source>
-        <translation type="unfinished"></translation>
+        <translation>C&amp;aratteristiche</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="120"/>
         <source>Saves</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiri Salvezza</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="130"/>
         <source>Skills</source>
-        <translation type="unfinished"></translation>
+        <translation>Abilità</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="142"/>
-        <source>A character is in active.</source>
-        <translation type="unfinished"></translation>
+        <source>A character is active.</source>
+        <oldsource>A character is in active.</oldsource>
+        <translation>Un personaggio è attivo.</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="143"/>
         <source>Do you want to load another one(existig modifies will be discarded)?</source>
-        <translation type="unfinished"></translation>
+        <translation>Vuoi caricarne un&apos;altro(verranno scartate le attuali modifiche)?</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="150"/>
         <source>Open Character File</source>
-        <translation type="unfinished"></translation>
+        <translation>Apri File Personaggio</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="151"/>
         <location filename="charaqtersheet.cpp" line="164"/>
         <source>Character Files (*.chc *.CHC *.xml);;All Files (*.*)</source>
-        <translation type="unfinished"></translation>
+        <translation>File Personaggio (*.chc *.CHC *.xml);;All Files (*.*)</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="163"/>
         <source>Save Character File</source>
-        <translation type="unfinished"></translation>
+        <translation>Salva File Personaggio</translation>
     </message>
 </context>
 <context>
@@ -281,7 +283,7 @@
     <message>
         <location filename="charaqtersheet.cpp" line="250"/>
         <source>Search:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cerca:</translation>
     </message>
 </context>
 <context>
@@ -296,12 +298,12 @@
         <location filename="cqts_engine.cpp" line="299"/>
         <location filename="cqts_engine.cpp" line="397"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore</translation>
     </message>
     <message>
         <location filename="cqts_engine.cpp" line="132"/>
         <source>Failed to load skills data</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile caricare i dati delle abilità</translation>
     </message>
     <message>
         <location filename="cqts_engine.cpp" line="163"/>
@@ -309,210 +311,214 @@
         <source>Error in file:%4
 %1
 Line %2, column %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore nel file:%4
+%1
+Linea %2, colonna %3</translation>
     </message>
     <message>
         <location filename="cqts_engine.cpp" line="180"/>
         <source>Failed to load skill names</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile caricare i nomi delle abilità</translation>
     </message>
     <message>
         <location filename="cqts_engine.cpp" line="197"/>
         <source>Error in file: %4
 %1
 Line %2, column %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Errore nel file:%4
+%1
+Linea %2, colonna %3</translation>
     </message>
     <message>
         <location filename="cqts_engine.cpp" line="220"/>
         <source>Failed to load classes data</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile caricare i dati delle classi</translation>
     </message>
     <message>
         <location filename="cqts_engine.cpp" line="299"/>
         <source>Failed to load character information</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile caricare i dati del personaggio</translation>
     </message>
     <message>
         <location filename="cqts_engine.cpp" line="397"/>
         <source>Failed to save your character</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile salvare il tuo personaggio</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="12"/>
         <source>Basic information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informazioni di base</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="13"/>
         <source>Code:</source>
-        <translation type="unfinished"></translation>
+        <translation>Codice:</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="14"/>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome:</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="15"/>
         <source>Weight:</source>
-        <translation type="unfinished"></translation>
+        <translation>Peso:</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="16"/>
         <source>Price (copper):</source>
-        <translation type="unfinished"></translation>
+        <translation>Prezzo(rame):</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="20"/>
         <source>Good</source>
-        <translation type="unfinished"></translation>
+        <translation>Bene</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="22"/>
         <source>Weapon</source>
-        <translation type="unfinished"></translation>
+        <translation>Arma</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="23"/>
         <source>Armor</source>
-        <translation type="unfinished"></translation>
+        <translation>Armatura</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="24"/>
         <source>Shield</source>
-        <translation type="unfinished"></translation>
+        <translation>Scudo</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="26"/>
         <location filename="item_editor.cpp" line="105"/>
         <source>Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo:</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="49"/>
         <source>Weapon information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informazioni sull&apos;arma</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="52"/>
         <source>Damage:</source>
-        <translation type="unfinished"></translation>
+        <translation>Danni:</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="53"/>
         <source>Critical:</source>
-        <translation type="unfinished"></translation>
+        <translation>Critico:</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="55"/>
         <source>Bludgeoning</source>
-        <translation type="unfinished"></translation>
+        <translation>Contundente</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="56"/>
         <source>Piercing</source>
-        <translation type="unfinished"></translation>
+        <translation>Perforante</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="57"/>
         <source>Slashing</source>
-        <translation type="unfinished"></translation>
+        <translation>Tagliente</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="58"/>
         <source>Damage Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo di danno:</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="59"/>
         <source>Range:(squares)</source>
-        <translation type="unfinished"></translation>
+        <translation>Raggio:(quadretti)</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="61"/>
         <source>Thrown</source>
-        <translation type="unfinished"></translation>
+        <translation>Lanciato</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="63"/>
         <source>Projectile</source>
-        <translation type="unfinished"></translation>
+        <translation>Proiettile</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="65"/>
         <source>Rangetype:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo di Raggio:</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="96"/>
         <location filename="item_editor.cpp" line="124"/>
         <source>Armor information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informazioni sull&apos;armatura</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="98"/>
         <location filename="item_editor.cpp" line="126"/>
         <source>AC:</source>
-        <translation type="unfinished"></translation>
+        <translation>CA:</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="99"/>
         <location filename="item_editor.cpp" line="127"/>
         <source>Dex Max:</source>
-        <translation type="unfinished"></translation>
+        <translation>Des Max:</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="100"/>
         <location filename="item_editor.cpp" line="128"/>
         <source>Arcane failure:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fallimento incantesimi arcani:</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="103"/>
         <location filename="item_editor.cpp" line="131"/>
         <source>Check penality:</source>
-        <translation type="unfinished"></translation>
+        <translation>Penalità alla prova:</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="106"/>
         <source>Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Leggera</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="107"/>
         <source>Medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Media</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="108"/>
         <source>Heavy</source>
-        <translation type="unfinished"></translation>
+        <translation>Pesante</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="148"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Descrizione</translation>
     </message>
     <message>
         <location filename="item_editor.cpp" line="149"/>
         <source>Leave blank if you don&apos;t want it</source>
-        <translation type="unfinished"></translation>
+        <translation>Lascia vuoto se non la vuoi</translation>
     </message>
     <message>
         <location filename="items.cpp" line="49"/>
         <source>gp</source>
-        <translation type="unfinished"></translation>
+        <translation>mo</translation>
     </message>
     <message>
         <location filename="items.cpp" line="49"/>
         <source>sp</source>
-        <translation type="unfinished"></translation>
+        <translation>ma</translation>
     </message>
     <message>
         <location filename="items.cpp" line="49"/>
         <source>cc</source>
-        <translation type="unfinished"></translation>
+        <translation>mr</translation>
     </message>
 </context>
 <context>
@@ -520,32 +526,32 @@ Line %2, column %3</source>
     <message>
         <location filename="cqts_editor.cpp" line="120"/>
         <source>Strength</source>
-        <translation type="unfinished"></translation>
+        <translation>Forza</translation>
     </message>
     <message>
         <location filename="cqts_editor.cpp" line="120"/>
         <source>Dexterity</source>
-        <translation type="unfinished"></translation>
+        <translation>Destrezza</translation>
     </message>
     <message>
         <location filename="cqts_editor.cpp" line="120"/>
         <source>Constitution</source>
-        <translation type="unfinished"></translation>
+        <translation>Costituzione</translation>
     </message>
     <message>
         <location filename="cqts_editor.cpp" line="120"/>
         <source>Intelligence</source>
-        <translation type="unfinished"></translation>
+        <translation>Intelligenza</translation>
     </message>
     <message>
         <location filename="cqts_editor.cpp" line="120"/>
         <source>Wisdom</source>
-        <translation type="unfinished"></translation>
+        <translation>Saggezza</translation>
     </message>
     <message>
         <location filename="cqts_editor.cpp" line="120"/>
         <source>Charisma</source>
-        <translation type="unfinished"></translation>
+        <translation>Carisma</translation>
     </message>
 </context>
 <context>
@@ -553,7 +559,7 @@ Line %2, column %3</source>
     <message>
         <location filename="cqts_editor.cpp" line="15"/>
         <source>BaB:</source>
-        <translation type="unfinished"></translation>
+        <translation>BAB:</translation>
     </message>
 </context>
 <context>
@@ -561,17 +567,17 @@ Line %2, column %3</source>
     <message>
         <location filename="cqts_editor.cpp" line="79"/>
         <source>Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome:</translation>
     </message>
     <message>
         <location filename="cqts_editor.cpp" line="82"/>
         <source>Surname:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cognome:</translation>
     </message>
     <message>
         <location filename="cqts_editor.cpp" line="85"/>
         <source>Age:</source>
-        <translation type="unfinished"></translation>
+        <translation>Età:</translation>
     </message>
 </context>
 <context>
@@ -579,17 +585,17 @@ Line %2, column %3</source>
     <message>
         <location filename="cqts_editor.cpp" line="42"/>
         <source>Fortitude</source>
-        <translation type="unfinished"></translation>
+        <translation>Tempra</translation>
     </message>
     <message>
         <location filename="cqts_editor.cpp" line="42"/>
         <source>Reflex</source>
-        <translation type="unfinished"></translation>
+        <translation>Riflessi</translation>
     </message>
     <message>
         <location filename="cqts_editor.cpp" line="42"/>
         <source>Will</source>
-        <translation type="unfinished"></translation>
+        <translation>Volontà</translation>
     </message>
 </context>
 </TS>

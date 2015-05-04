@@ -260,6 +260,14 @@ void CQTs_engine::loadClasses(QString filename){
     file.close();
 }
 
+QStringList CQTs_engine::classNames(){
+    QStringList toreturn;
+    int nclasses=Classes.size();
+    for (int i = 0; i < nclasses; ++i) {
+        toreturn.push_back(Classes[i].myName());
+    }return toreturn;
+}
+
 void CQTs_engine::loadClassNames(QString filename){}
 
 

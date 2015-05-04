@@ -79,6 +79,7 @@ void CQTs_ClassViewer::setLabs(CQTs_Class *selected){
     int LMax = selected->MaxLv();
     LabName ->setText(selected->myName());
     int f =0,r=0,w=0,bab = selected->BAB();
+    qDebug()<<bab;
     if(selected->STFort())  f = 2;
     if(selected->STRef())   r = 2;
     if(selected->STWill())  w = 2;

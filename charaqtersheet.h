@@ -53,13 +53,14 @@ class ClassViewer : public QWidget
 {
    Q_OBJECT
 public:
-    explicit ClassViewer(QWidget *parent = 0);
+    explicit ClassViewer(CQTs_engine *engine, QWidget *parent = 0);
     ~ClassViewer();
 private:
+    CQTs_engine *engine;
     CQTs_ClassViewer *viewer;
     QComboBox *comboClass;
 public slots:
-    void selClass(QString selected);
+    void selClass(int selected);
 };
 
 #endif // CHARAQTERSHEET_H
