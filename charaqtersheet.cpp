@@ -139,7 +139,7 @@ void CharaQTersheet::loadChar(){
     int ret = QMessageBox::Yes;
     if(character!=NULL){
         QMessageBox msgBox;
-        msgBox.setText(tr("A character is in active."));
+        msgBox.setText(tr("A character is active."));
         msgBox.setInformativeText(tr("Do you want to load another one(existig modifies will be discarded)?"));
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::No);

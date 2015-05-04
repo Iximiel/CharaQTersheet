@@ -52,7 +52,7 @@ void CQTs_ClassViewer::initialize(){
     grid2->addWidget(Tlab,0,1);
     Tlab = new QLabel(tr("Fortitude:"));
     grid2->addWidget(Tlab,0,2);
-    Tlab = new QLabel(tr("Reflexes"));
+    Tlab = new QLabel(tr("Reflexes:"));
     grid2->addWidget(Tlab,0,3);
     Tlab = new QLabel(tr("Will:"));
     grid2->addWidget(Tlab,0,4);
