@@ -254,7 +254,9 @@ ClassViewer::ClassViewer(CQTs_engine *eng, QWidget *parent)
     viewer = new CQTs_ClassViewer();
     grid->addWidget(viewer,1,0,2,2);
     setLayout(grid);
-
+    if (listclass.size()>0){
+        selClass(0);
+    }
     //connections
     connect(comboClass,SIGNAL(currentIndexChanged(int)),this,SLOT(selClass(int)));
 }

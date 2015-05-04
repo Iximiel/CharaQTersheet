@@ -193,7 +193,7 @@
     <message>
         <location filename="charaqtersheet.cpp" line="32"/>
         <source>&amp;Tools</source>
-        <translation type="unfinished">&amp;Strumenti</translation>
+        <translation>&amp;Strumenti</translation>
     </message>
     <message>
         <location filename="charaqtersheet.cpp" line="35"/>
