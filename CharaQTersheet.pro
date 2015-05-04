@@ -16,12 +16,16 @@ SOURCES += main.cpp\
         charaqtersheet.cpp \
     cqts_engine.cpp \
     cqts_viewers.cpp \
-    cqts_editor.cpp
+    cqts_editor.cpp \
+    items.cpp \
+    item_editor.cpp
 
 HEADERS  += charaqtersheet.h \
     cqts_engine.h \
     cqts_viewers.h \
-    cqts_editor.h
+    cqts_editor.h \
+    items.h \
+    item_editor.h
 
 OTHER_FILES += \
     Otherfiles/Skills.txt \
@@ -30,3 +34,4 @@ OTHER_FILES += \
     xml/Skills_data.xml \
     xml/testcharacter.xml \
     xml/Skills_Ita.xml
+    xml/goods.xml
