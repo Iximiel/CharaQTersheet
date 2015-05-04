@@ -77,7 +77,7 @@ CharaQTersheet::~CharaQTersheet()
 void CharaQTersheet::addDockClass(){
     if (dockClass==NULL){
         dockClass = new QDockWidget("Classviewer");
-        dockClass->setWidget(new ClassViewer(dockClass));
+        dockClass->setWidget(new ClassViewer(engine,dockClass));
         addDockWidget(Qt::RightDockWidgetArea,dockClass);
         dockClass->setFloating(true);
     }else
@@ -240,10 +240,11 @@ void CharaQTersheet::updateAbilities(int* abls){
 
 
 /*Classviewer*/
-ClassViewer::ClassViewer(QWidget *parent)
+ClassViewer::ClassViewer(CQTs_engine *eng, QWidget *parent)
     : QWidget(parent)
 {
-    QStringList listclass = extensionFind("*.ClC");
+    engine = eng;
+    QStringList listclass = engine->classNames();
     QGridLayout *grid = new QGridLayout();
     comboClass = new QComboBox();
     comboClass->addItems(listclass);
@@ -255,7 +256,7 @@ ClassViewer::ClassViewer(QWidget *parent)
     setLayout(grid);
 
     //connections
-    connect(comboClass,SIGNAL(currentTextChanged(QString)),this,SLOT(selClass(QString)));
+    connect(comboClass,SIGNAL(currentIndexChanged(int)),this,SLOT(selClass(int)));
 }
 
 ClassViewer::~ClassViewer()
@@ -263,7 +264,7 @@ ClassViewer::~ClassViewer()
 
 }
 
-void ClassViewer::selClass(QString selected){
-    CQTs_Class *classSel = new CQTs_Class(selected);
-    viewer->setLabs(classSel);
+void ClassViewer::selClass(int selected){
+    CQTs_Class classSel = engine->classData(selected);
+    viewer->setLabs(&classSel);
 }

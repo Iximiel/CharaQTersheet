@@ -4,37 +4,37 @@
 <context>
     <name>CQTs_ChAbilitiesViewer</name>
     <message>
-        <location filename="cqts_viewers.cpp" line="178"/>
+        <location filename="cqts_viewers.cpp" line="180"/>
         <source>Strength</source>
         <translation>Forza</translation>
     </message>
     <message>
-        <location filename="cqts_viewers.cpp" line="178"/>
+        <location filename="cqts_viewers.cpp" line="180"/>
         <source>Dexterity</source>
         <translation>Destrezza</translation>
     </message>
     <message>
-        <location filename="cqts_viewers.cpp" line="178"/>
+        <location filename="cqts_viewers.cpp" line="180"/>
         <source>Constitution</source>
         <translation>Costituzione</translation>
     </message>
     <message>
-        <location filename="cqts_viewers.cpp" line="178"/>
+        <location filename="cqts_viewers.cpp" line="180"/>
         <source>Intelligence</source>
         <translation>Intelligenza</translation>
     </message>
     <message>
-        <location filename="cqts_viewers.cpp" line="178"/>
+        <location filename="cqts_viewers.cpp" line="180"/>
         <source>Wisdom</source>
         <translation>Saggezza</translation>
     </message>
     <message>
-        <location filename="cqts_viewers.cpp" line="178"/>
+        <location filename="cqts_viewers.cpp" line="180"/>
         <source>Charisma</source>
         <translation>Carisma</translation>
     </message>
     <message>
-        <location filename="cqts_viewers.cpp" line="181"/>
+        <location filename="cqts_viewers.cpp" line="183"/>
         <source>Temporary</source>
         <translation>Temporaneo</translation>
     </message>
@@ -42,17 +42,17 @@
 <context>
     <name>CQTs_ChBABViever</name>
     <message>
-        <location filename="cqts_viewers.cpp" line="402"/>
+        <location filename="cqts_viewers.cpp" line="404"/>
         <source>Melee</source>
         <translation>Mischia</translation>
     </message>
     <message>
-        <location filename="cqts_viewers.cpp" line="402"/>
+        <location filename="cqts_viewers.cpp" line="404"/>
         <source>Ranged</source>
         <translation>Distanza</translation>
     </message>
     <message>
-        <location filename="cqts_viewers.cpp" line="402"/>
+        <location filename="cqts_viewers.cpp" line="404"/>
         <source>Grapple</source>
         <translation>Lotta</translation>
     </message>
@@ -60,17 +60,17 @@
 <context>
     <name>CQTs_ChBioViewer</name>
     <message>
-        <location filename="cqts_viewers.cpp" line="134"/>
+        <location filename="cqts_viewers.cpp" line="136"/>
         <source>Name:</source>
         <translation>Nome:</translation>
     </message>
     <message>
-        <location filename="cqts_viewers.cpp" line="138"/>
+        <location filename="cqts_viewers.cpp" line="140"/>
         <source>Surname:</source>
         <translation>Cognome:</translation>
     </message>
     <message>
-        <location filename="cqts_viewers.cpp" line="142"/>
+        <location filename="cqts_viewers.cpp" line="144"/>
         <source>Age:</source>
         <translation>Età:</translation>
     </message>
@@ -78,17 +78,17 @@
 <context>
     <name>CQTs_ChSTViewer</name>
     <message>
-        <location filename="cqts_viewers.cpp" line="343"/>
+        <location filename="cqts_viewers.cpp" line="345"/>
         <source>Fortitude</source>
         <translation>Tempra</translation>
     </message>
     <message>
-        <location filename="cqts_viewers.cpp" line="343"/>
+        <location filename="cqts_viewers.cpp" line="345"/>
         <source>Reflex</source>
         <translation>Riflessi</translation>
     </message>
     <message>
-        <location filename="cqts_viewers.cpp" line="343"/>
+        <location filename="cqts_viewers.cpp" line="345"/>
         <source>Will</source>
         <translation>Volontà</translation>
     </message>
@@ -96,13 +96,13 @@
 <context>
     <name>CQTs_ChSkillsViewer</name>
     <message>
-        <location filename="cqts_viewers.cpp" line="238"/>
-        <location filename="cqts_viewers.cpp" line="302"/>
+        <location filename="cqts_viewers.cpp" line="240"/>
+        <location filename="cqts_viewers.cpp" line="304"/>
         <source>Show only trained</source>
         <translation>Mostra solo addestrate</translation>
     </message>
     <message>
-        <location filename="cqts_viewers.cpp" line="295"/>
+        <location filename="cqts_viewers.cpp" line="297"/>
         <source>Show all</source>
         <translation>Mostra tutte</translation>
     </message>
@@ -110,9 +110,8 @@
 <context>
     <name>CQTs_ClassViewer</name>
     <message>
-        <location filename="cqts_viewers.cpp" line="37"/>
         <source>Name:</source>
-        <translation>Nome:</translation>
+        <translation type="vanished">Nome:</translation>
     </message>
     <message>
         <location filename="cqts_viewers.cpp" line="40"/>
@@ -281,7 +280,7 @@
 <context>
     <name>ClassViewer</name>
     <message>
-        <location filename="charaqtersheet.cpp" line="250"/>
+        <location filename="charaqtersheet.cpp" line="251"/>
         <source>Search:</source>
         <translation>Cerca:</translation>
     </message>
@@ -289,25 +288,25 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="cqts_engine.cpp" line="132"/>
-        <location filename="cqts_engine.cpp" line="168"/>
-        <location filename="cqts_engine.cpp" line="180"/>
-        <location filename="cqts_engine.cpp" line="202"/>
-        <location filename="cqts_engine.cpp" line="220"/>
-        <location filename="cqts_engine.cpp" line="254"/>
-        <location filename="cqts_engine.cpp" line="299"/>
-        <location filename="cqts_engine.cpp" line="397"/>
+        <location filename="cqts_engine.cpp" line="142"/>
+        <location filename="cqts_engine.cpp" line="178"/>
+        <location filename="cqts_engine.cpp" line="190"/>
+        <location filename="cqts_engine.cpp" line="212"/>
+        <location filename="cqts_engine.cpp" line="230"/>
+        <location filename="cqts_engine.cpp" line="280"/>
+        <location filename="cqts_engine.cpp" line="333"/>
+        <location filename="cqts_engine.cpp" line="431"/>
         <source>Error</source>
         <translation>Errore</translation>
     </message>
     <message>
-        <location filename="cqts_engine.cpp" line="132"/>
+        <location filename="cqts_engine.cpp" line="142"/>
         <source>Failed to load skills data</source>
         <translation>Impossibile caricare i dati delle abilità</translation>
     </message>
     <message>
-        <location filename="cqts_engine.cpp" line="163"/>
-        <location filename="cqts_engine.cpp" line="249"/>
+        <location filename="cqts_engine.cpp" line="173"/>
+        <location filename="cqts_engine.cpp" line="275"/>
         <source>Error in file:%4
 %1
 Line %2, column %3</source>
@@ -316,12 +315,12 @@ Line %2, column %3</source>
 Linea %2, colonna %3</translation>
     </message>
     <message>
-        <location filename="cqts_engine.cpp" line="180"/>
+        <location filename="cqts_engine.cpp" line="190"/>
         <source>Failed to load skill names</source>
         <translation>Impossibile caricare i nomi delle abilità</translation>
     </message>
     <message>
-        <location filename="cqts_engine.cpp" line="197"/>
+        <location filename="cqts_engine.cpp" line="207"/>
         <source>Error in file: %4
 %1
 Line %2, column %3</source>
@@ -330,17 +329,17 @@ Line %2, column %3</source>
 Linea %2, colonna %3</translation>
     </message>
     <message>
-        <location filename="cqts_engine.cpp" line="220"/>
+        <location filename="cqts_engine.cpp" line="230"/>
         <source>Failed to load classes data</source>
         <translation>Impossibile caricare i dati delle classi</translation>
     </message>
     <message>
-        <location filename="cqts_engine.cpp" line="299"/>
+        <location filename="cqts_engine.cpp" line="333"/>
         <source>Failed to load character information</source>
         <translation>Impossibile caricare i dati del personaggio</translation>
     </message>
     <message>
-        <location filename="cqts_engine.cpp" line="397"/>
+        <location filename="cqts_engine.cpp" line="431"/>
         <source>Failed to save your character</source>
         <translation>Impossibile salvare il tuo personaggio</translation>
     </message>

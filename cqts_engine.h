@@ -43,18 +43,20 @@ class CQTs_Class : public CQTS_infoHolder
 public:
     CQTs_Class();
     CQTs_Class(QString code);//search constructor
-    CQTs_Class(QString code, bool data[5], int MaxLV=20);
+    CQTs_Class(QString code, bool data[5], int setDV=0, int setRanks=0, int MaxLV=20);
     int MaxLv();
     int BAB();
-    //int AP();    int HP();
+    int AP();
+    int HP();
     bool STFort();
     bool STRef();
     bool STWill();
 private:
     enum{fort=2,ref=3,will=4};
-    //int AP, DV;
+    int Ranks, DV;
     int lmax;//20,10,5,3 so he can understand if is baseclass or not//may be made compatible with d20System in general
     bool info[5];//01:BAB 2:F 3:R 4:W
+    //BAB: 01 good, 10 medium 00 low
     //next: adding class skills and privileges
 };
 

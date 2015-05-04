@@ -24,7 +24,7 @@ CQTs_ClassViewer::CQTs_ClassViewer(CQTs_Class *selected, QWidget *parent) :
 
 void CQTs_ClassViewer::initialize(){
 
-    LabName = new QLabel();
+    //LabName = new QLabel();
     LabHD = new QLabel();
     LabRanks = new QLabel();
     LabBAB  = new QLabel*[20];
@@ -33,18 +33,18 @@ void CQTs_ClassViewer::initialize(){
     LabWill = new QLabel*[20];
 
     QGridLayout *grid = new QGridLayout();
-
-    QLabel *Tlab = new QLabel(tr("Name:"));
-    grid->addWidget(Tlab,0,0);
-    grid->addWidget(LabName,0,1);
+    int r = 0;
+    QLabel *Tlab;// = new QLabel(tr("Name:"));
+    /*grid->addWidget(Tlab,r,0);
+    grid->addWidget(LabName,r++,1);*/
     Tlab = new QLabel(tr("Hit Dice:"));
-    grid->addWidget(Tlab,1,0);
-    grid->addWidget(LabHD,1,1);
+    grid->addWidget(Tlab,r,0);
+    grid->addWidget(LabHD,r++,1);
     Tlab = new QLabel(tr("Skill points per level:"));
-    grid->addWidget(Tlab,2,0);
-    grid->addWidget(LabRanks,2,1);
+    grid->addWidget(Tlab,r,0);
+    grid->addWidget(LabRanks,r++,1);
     QGroupBox *ProgBox= new QGroupBox(tr("Progression:"));
-    grid->addWidget(ProgBox,3,0,1,2);
+    grid->addWidget(ProgBox,r++,0,1,2);
     QGridLayout *grid2 = new QGridLayout();
     Tlab = new QLabel(tr("Level:"));
     grid2->addWidget(Tlab,0,0);
@@ -77,22 +77,23 @@ void CQTs_ClassViewer::initialize(){
 
 void CQTs_ClassViewer::setLabs(CQTs_Class *selected){
     int LMax = selected->MaxLv();
-    LabName ->setText(selected->myName());
+    //LabName ->setText(selected->myName());
+    LabHD ->setNum(selected->HP());
+    LabRanks ->setNum(selected->AP());
     int f =0,r=0,w=0,bab = selected->BAB();
-    qDebug()<<bab;
     if(selected->STFort())  f = 2;
     if(selected->STRef())   r = 2;
     if(selected->STWill())  w = 2;
     for (int i = 0; i < LMax; ++i) {
         int dbab,df,dr,dw;
         switch (bab) {
-        case 1:
+        case 0:
             dbab = (1+i)/2.;
             break;
-        case 2:
+        case 1:
             dbab = (1+i)*3/4.;
             break;
-        case 3:
+        case 2:
             dbab = (1+i);
             break;
         }

@@ -16,7 +16,7 @@ public:
     explicit CQTs_ClassViewer(QWidget *parent = 0);
     explicit CQTs_ClassViewer(CQTs_Class *selected, QWidget *parent = 0);
 private:
-    QLabel *LabName,*LabHD,*LabRanks,**LabBAB,**LabFort,**LabRef,**LabWill;
+    QLabel /**LabName,*/*LabHD,*LabRanks,**LabBAB,**LabFort,**LabRef,**LabWill;
     void initialize();
 signals:
 

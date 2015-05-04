@@ -92,9 +92,11 @@ CQTs_Class::CQTs_Class(QString code):
     lmax = 0;
 }
 
-CQTs_Class::CQTs_Class(QString code, bool data[5],int MaxLV):
+CQTs_Class::CQTs_Class(QString code, bool data[5], int setDV, int setRanks, int MaxLV):
     CQTS_infoHolder(code)
 {
+    Ranks =setRanks;
+    DV = setDV;
     for (int i = 0; i < 5; ++i) {
         info[i] = data[i];
     }
@@ -102,7 +104,15 @@ CQTs_Class::CQTs_Class(QString code, bool data[5],int MaxLV):
 }
 
 int CQTs_Class::BAB()
-{return info[0]+2*info[1];}
+{return info[1]*2+info[0];}
+
+int CQTs_Class::AP(){
+    return Ranks;
+}
+
+int CQTs_Class::HP(){
+    return DV;
+}
 
 int CQTs_Class::MaxLv()
 {return lmax;}
@@ -231,17 +241,33 @@ void CQTs_engine::loadClasses(QString filename){
 
                 code = xml.attributes().value("code").toString();
                 bab = xml.attributes().value("bab").toInt();
-                if(bab>0){
+                if(bab==1)
                     bab1=true;
-                    if(bab>1)
-                        bab2=true;
-                }
+                else if(bab==2)
+                    bab2=true;
+
                 f = xml.attributes().value("fort").toInt();
                 r = xml.attributes().value("ref").toInt();
                 w = xml.attributes().value("will").toInt();
                 lmax = xml.attributes().value("lmax").toInt();
                 bool data[5] = {bab1,bab2,f,r,w};
-                CQTs_Class tClass(code,data,lmax);
+                int dv = 0, ranks = 0;
+                if(!xml.isEndElement()){
+                    do{
+                        xml.readNext();
+                        if(xml.name()=="progression"&&xml.isStartElement()){
+                            dv = xml.attributes().value("dv").toInt();
+                            ranks = xml.attributes().value("skillpoints").toInt();
+                            do{
+                                xml.readNext();
+                                if(xml.name()=="level"&&xml.isStartElement()){
+                                    //level progression
+                                }
+                            }while(!(xml.name()=="progression"&&xml.isEndElement()));
+                        }
+                    }while(!(xml.isEndElement()&&xml.name()=="class"));
+                }
+                CQTs_Class tClass(code,data,dv,ranks,lmax);
                 tClass.setmyName(code);//in case classnames are not loaded
                 Classes.append(tClass);
             }
