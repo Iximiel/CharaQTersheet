@@ -73,9 +73,9 @@ public:
     CQTs_Class classData(int i);
 private:
     //QStringList confFiles;// 0 skills 1 skillnames 2 classes 3 classnames
-    void loadSkills(QString filename);
+    void loadSkills(QString filename);//need to power up
     void loadSkillNames(QString filename);
-    void loadClasses(QString filename);
+    void loadClasses(QString filename);//need to power up
     void loadClassNames(QString filename);
     QList<CQTs_skill> Skills;
     QList<CQTs_Class> Classes;
