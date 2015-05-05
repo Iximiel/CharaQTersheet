@@ -308,10 +308,21 @@ void CQTs_ChSkillsViewer::showOnlyTrained(){
 
 void CQTs_ChSkillsViewer::setLabs(CQTs_Character *selected){
     for (int i = 0; i < eng->skillNum(); ++i) {
-        Labels[i*8+5]->setNum(selected->getRanks(eng->skillData(i)));
-        if( selected->getRanks(eng->skillData(i)) !=0 )
-        {qDebug() << eng->skillData(i) <<": "<< selected->getRanks(eng->skillData(i));}
-        Labels[i*8+3]->setNum(selected->getAbilityMod(eng->skillData(i).myAbility()));
+        int tot=0, dummy;
+        //[i*8+1] d20
+        //[i*8+3] abl mod
+        //[i*8+5] ranks
+        //[i*8+7] var mods
+        dummy=selected->getRanks(eng->skillData(i));
+        Labels[i*8+5]->setNum(dummy);
+        tot+=dummy;
+        if( dummy !=0 )
+        {qDebug() << eng->skillData(i) <<": "<< dummy;}
+        dummy=selected->getAbilityMod(eng->skillData(i).myAbility());
+        Labels[i*8+3]->setNum(dummy);
+        tot+=dummy;
+        Labels[i*8+1]->setNum(tot);
+        //Labels[i*8+1]->setToolTip(circumstanzial description);
     }
 }
 
