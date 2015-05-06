@@ -3,11 +3,11 @@
 
 #include <QWidget>
 
-class CQTs_ClassCreator : public QWidget
+class CQTs_ClassEditor : public QWidget
 {
     Q_OBJECT
 public:
-    explicit CQTs_ClassCreator(QWidget *parent = 0);
+    explicit CQTs_ClassEditor(QWidget *parent = 0);
 
 signals:
 
