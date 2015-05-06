@@ -19,14 +19,16 @@ SOURCES += main.cpp\
     cqts_viewers.cpp \
     cqts_editor.cpp \
     items.cpp \
-    item_editor.cpp
+    item_editor.cpp \
+    classcreator.cpp
 
 HEADERS  += charaqtersheet.h \
     cqts_engine.h \
     cqts_viewers.h \
     cqts_editor.h \
     items.h \
-    item_editor.h
+    item_editor.h \
+    classcreator.h
 
 OTHER_FILES += \
     Otherfiles/Skills.txt \
