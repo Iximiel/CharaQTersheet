@@ -280,6 +280,10 @@ void CQTs_engine::loadClasses(QString filename){
                 }
                 CQTs_Class tClass(code,data,dv,ranks,lmax);
                 tClass.setmyName(code);//in case classnames are not loaded
+                //protection from copies:
+                while(Classes.contains(tClass)){
+                    tClass.append("*");
+                }
                 Classes.append(tClass);
             }
             if (xml.hasError()) {

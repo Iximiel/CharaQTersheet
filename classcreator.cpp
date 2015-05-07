@@ -93,13 +93,21 @@ void CQTs_ClassEditor::launchSkillSelector(){}
 void CQTs_ClassEditor::saveAndExit(){
     QString code = Line_Name->text();
     bool data[5]={0,0,0,0,0};
+    if(Combo_BaB->currentIndex()==1)
+        data[0]=true;
+    else if(Combo_BaB->currentIndex()==2)
+        data[1]=true;
+    data[2] = Combo_TSFort->currentIndex();
+    data[3] = Combo_TSRef->currentIndex();
+    data[4] = Combo_TSWill->currentIndex();
     int dv,ranks, lmax;
     /**temporaneo**/
     lmax = 20;
     /****/
     ranks = Combo_Ranks->currentText().toInt();
-    dv = Combo_HD->currentText().toInt();
+    dv = Combo_HD->currentText().remove("d").toInt();
     CQTs_Class newclass(code,data,dv,ranks,lmax);
+    newclass.setmyName(code);
     emit getClass(newclass);
     close();
 }
