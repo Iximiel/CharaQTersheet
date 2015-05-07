@@ -17,8 +17,8 @@ CQTs_ClassEditor::CQTs_ClassEditor(CQTs_Class oldclass, CQTs_engine *eng, QWidge
     : QWidget(parent)
 {
     engine = eng;
-    myclass = oldclass;
     initialize();
+    setLabels(oldclass);
 }
 
 void CQTs_ClassEditor::initialize(){
@@ -77,8 +77,34 @@ void CQTs_ClassEditor::initialize(){
     QFormLayout *Levelgrid = new QFormLayout();
     Levelgrid->addRow(new QLabel("1:"),new QPushButton(tr("Add Level")));
     Scroll_Levels->setLayout(Levelgrid);
+    QPushButton *tbutt1 = new QPushButton(tr("Save and Exit"));
+    QPushButton *tbutt2 = new QPushButton(tr("Exit"));
+    connect(tbutt1,SIGNAL(pressed()),this,SLOT(saveAndExit()));
+    connect(tbutt2,SIGNAL(pressed()),this,SLOT(close()));
+    grid->addRow(tbutt2,tbutt1);
     setLayout(grid);
 }
+
+void CQTs_ClassEditor::setLabels(CQTs_Class oldclass){
+
+}
+
+void CQTs_ClassEditor::launchSkillSelector(){}
+void CQTs_ClassEditor::saveAndExit(){
+    QString code = Line_Name->text();
+    bool data[5]={0,0,0,0,0};
+    int dv,ranks, lmax;
+    /**temporaneo**/
+    lmax = 20;
+    /****/
+    ranks = Combo_Ranks->currentText().toInt();
+    dv = Combo_HD->currentText().toInt();
+    CQTs_Class newclass(code,data,dv,ranks,lmax);
+    emit getClass(newclass);
+    close();
+}
+/*void CQTs_ClassEditor::launchArmorSelector(){}
+void CQTs_ClassEditor::launchWeaponSelector(){}*/
 
 /*SPECIAL EDITOR*/
 CQTs_ClassSpecialEdit::CQTs_ClassSpecialEdit(QWidget *parent)

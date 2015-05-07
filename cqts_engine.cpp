@@ -110,8 +110,6 @@ CQTs_Class& CQTs_Class::operator=(CQTs_Class x){
     Ranks = x.Ranks;
     DV = x.DV;
     lmax = x.lmax;
-    delete info[];
-    info = new bool[5];
     std::copy(x.info,x.info+5,info);
     return *this;
 }
