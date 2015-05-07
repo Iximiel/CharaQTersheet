@@ -51,6 +51,7 @@ public:
     bool STFort();
     bool STRef();
     bool STWill();
+    CQTs_Class& operator=(CQTs_Class);
 private:
     enum{fort=2,ref=3,will=4};
     int Ranks, DV;

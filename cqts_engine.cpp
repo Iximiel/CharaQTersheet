@@ -103,6 +103,19 @@ CQTs_Class::CQTs_Class(QString code, bool data[5], int setDV, int setRanks, int 
     lmax = MaxLV;
 }
 
+CQTs_Class& CQTs_Class::operator=(CQTs_Class x){
+    clear();
+    append(x);
+    Name = x.Name;
+    Ranks = x.Ranks;
+    DV = x.DV;
+    lmax = x.lmax;
+    delete info[];
+    info = new bool[5];
+    std::copy(x.info,x.info+5,info);
+    return *this;
+}
+
 int CQTs_Class::BAB()
 {return info[1]*2+info[0];}
 

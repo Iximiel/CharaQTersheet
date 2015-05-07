@@ -7,11 +7,14 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    QTranslator translator;
+    /*QTranslator translator;
     translator.load("charaqtersheet_it");
-    //a.installTranslator(&translator);
+    a.installTranslator(&translator);*/
     //CharaQTersheet w;
-    CQTs_ClassEditor w;
+    CQTs_engine *engine = new CQTs_engine();
+    CQTs_Class prova;
+    prova = engine->classData(1);
+    CQTs_ClassEditor w(prova,engine);
     //CQTs_Class *c = new CQTs_Class();
     /*CQTs_ClassViewer *w = new CQTs_ClassViewer();
     CQTs_engine engi;// = new CQTs_engine();
