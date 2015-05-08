@@ -6,6 +6,7 @@
 #include <QScrollArea>
 #include <QComboBox>
 #include <QLineEdit>
+#include <QCheckBox>
 #include "cqts_engine.h"
 
 class CQTs_SkillSelector : public QWidget
@@ -15,6 +16,7 @@ public:
     explicit CQTs_SkillSelector(CQTs_engine *eng,QWidget *parent = 0);
 private:
     CQTs_engine *engine;
+    QCheckBox **Checks_skills;
 signals:
 
 public slots:

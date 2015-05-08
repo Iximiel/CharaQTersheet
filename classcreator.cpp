@@ -3,7 +3,6 @@
 #include <QLabel>
 //#include <QGridLayout>
 #include <QFormLayout>
-#include<QCheckBox>
 
 
 /*CLASSCREATOR*/
@@ -77,6 +76,7 @@ void CQTs_ClassEditor::initialize(CQTs_engine *eng){
     grid->addRow(BT_Skills);
     connect(BT_Skills,SIGNAL(pressed()),this,SLOT(launchSkillSelector()));
     QScrollArea *Scroll_Levels = new QScrollArea();
+    Scroll_Levels->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     grid->addRow(Scroll_Levels);
     QFormLayout *Levelgrid = new QFormLayout();
     Levelgrid->addRow(new QLabel("1:"),new QPushButton(tr("Add Level"),this));
@@ -130,12 +130,28 @@ CQTs_SkillSelector::CQTs_SkillSelector(CQTs_engine *eng,QWidget *parent)
     : QWidget(parent)
 {
     engine = eng;
+    QGridLayout *mygrid = new QGridLayout();
+    mygrid->addWidget(new QLabel(tr("Select your class skills:")),0,0,1,2,Qt::AlignHCenter);
+    QScrollArea *scrollskill = new QScrollArea();
+    mygrid -> addWidget(scrollskill,1,0,2,2);
+    scrollskill->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     QFormLayout *grid = new QFormLayout();
+    QWidget *areatoscroll = new QWidget();
     int skillsize = engine->skillNum();
+    Checks_skills = new QCheckBox*[skillsize];
     for (int i = 0; i < skillsize; ++i) {
-        grid->addRow(new QCheckBox(engine->skillData(i),this));
+        Checks_skills[i] = new QCheckBox(engine->skillData(i));
+        grid->addRow(Checks_skills[i]);
     }
-    setLayout(grid);
+    areatoscroll->setLayout(grid);
+    scrollskill->setWidget(areatoscroll);
+    QPushButton *tbutt1 = new QPushButton(tr("Save and Exit"));
+    QPushButton *tbutt2 = new QPushButton(tr("Exit"));
+    connect(tbutt1,SIGNAL(pressed()),this,SLOT(saveAndExit()));
+    connect(tbutt2,SIGNAL(pressed()),this,SLOT(close()));
+    mygrid -> addWidget(tbutt2,3,0);
+    mygrid -> addWidget(tbutt1,3,1);
+    setLayout(mygrid);
 }
 
 /*SPECIAL EDITOR*/
