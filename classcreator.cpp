@@ -25,8 +25,9 @@ void CQTs_ClassEditor::initialize(CQTs_engine *eng){
     engine = eng;
     SkillSelector=NULL;
     QFormLayout *grid = new QFormLayout();
-    QLabel *tLabel = new QLabel(tr("Name (in english):"));
+    QLabel *tLabel;
     //Name
+    tLabel = new QLabel(tr("Name (in english):"));
     Line_Name = new  QLineEdit();
     grid->addRow(tLabel,Line_Name);
     //Hit Die

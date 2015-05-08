@@ -97,6 +97,7 @@ CQTs_Class::CQTs_Class(QString code, bool data[5], int setDV, int setRanks, int 
 {
     setParam(data, setDV, setRanks, MaxLV);
 }
+
 void CQTs_Class::setParam(bool data[5], int setDV, int setRanks, int MaxLV){
     Ranks =setRanks;
     DV = setDV;
