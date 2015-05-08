@@ -17,9 +17,11 @@ public:
 private:
     CQTs_engine *engine;
     QCheckBox **Checks_skills;
-signals:
+    void setSkillFromClass(CQTs_Class myclass);
+    signals:
 
 public slots:
+    void saveAndExit();
 };
 
 class CQTs_ClassEditor : public QWidget

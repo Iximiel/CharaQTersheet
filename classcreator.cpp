@@ -154,6 +154,10 @@ CQTs_SkillSelector::CQTs_SkillSelector(CQTs_engine *eng,QWidget *parent)
     setLayout(mygrid);
 }
 
+void CQTs_SkillSelector::saveAndExit(){
+    close();
+}
+
 /*SPECIAL EDITOR*/
 CQTs_ClassSpecialEdit::CQTs_ClassSpecialEdit(QWidget *parent)
     : QWidget(parent)
