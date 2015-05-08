@@ -44,6 +44,7 @@ public:
     CQTs_Class();
     CQTs_Class(QString code);//search constructor
     CQTs_Class(QString code, bool data[5], int setDV=0, int setRanks=0, int MaxLV=20);
+    void setParam(bool data[5], int setDV=0, int setRanks=0, int MaxLV=20);
     int MaxLv();
     int BAB();
     int AP();

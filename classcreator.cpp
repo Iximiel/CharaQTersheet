@@ -3,27 +3,29 @@
 #include <QLabel>
 //#include <QGridLayout>
 #include <QFormLayout>
+#include<QCheckBox>
 
 
 /*CLASSCREATOR*/
 CQTs_ClassEditor::CQTs_ClassEditor(CQTs_engine *eng, QWidget *parent)
     : QWidget(parent)
 {
-    engine = eng;
-    initialize();
+    initialize(eng);
 }
 
 CQTs_ClassEditor::CQTs_ClassEditor(CQTs_Class oldclass, CQTs_engine *eng, QWidget *parent)
-    : QWidget(parent)
+    : QWidget(parent),myClass(oldclass)
 {
-    engine = eng;
-    initialize();
-    setLabels(oldclass);
+    //myClass = oldclass;
+    initialize(eng);
+    setLabels(myClass);
 }
 
-void CQTs_ClassEditor::initialize(){
-    QLabel *tLabel = new QLabel(tr("Name (in english):"));
+void CQTs_ClassEditor::initialize(CQTs_engine *eng){
+    engine = eng;
+    SkillSelector=NULL;
     QFormLayout *grid = new QFormLayout();
+    QLabel *tLabel = new QLabel(tr("Name (in english):"));
     //Name
     Line_Name = new  QLineEdit();
     grid->addRow(tLabel,Line_Name);
@@ -72,10 +74,11 @@ void CQTs_ClassEditor::initialize(){
     BT_Armor->setEnabled(false);
     grid->addRow(BT_Armor);
     grid->addRow(BT_Skills);
+    connect(BT_Skills,SIGNAL(pressed()),this,SLOT(launchSkillSelector()));
     QScrollArea *Scroll_Levels = new QScrollArea();
     grid->addRow(Scroll_Levels);
     QFormLayout *Levelgrid = new QFormLayout();
-    Levelgrid->addRow(new QLabel("1:"),new QPushButton(tr("Add Level")));
+    Levelgrid->addRow(new QLabel("1:"),new QPushButton(tr("Add Level"),this));
     Scroll_Levels->setLayout(Levelgrid);
     QPushButton *tbutt1 = new QPushButton(tr("Save and Exit"));
     QPushButton *tbutt2 = new QPushButton(tr("Exit"));
@@ -89,7 +92,13 @@ void CQTs_ClassEditor::setLabels(CQTs_Class oldclass){
 
 }
 
-void CQTs_ClassEditor::launchSkillSelector(){}
+void CQTs_ClassEditor::launchSkillSelector(){
+    if(SkillSelector==NULL)
+        SkillSelector = new CQTs_SkillSelector(engine);
+    SkillSelector->show();
+
+}
+
 void CQTs_ClassEditor::saveAndExit(){
     QString code = Line_Name->text();
     bool data[5]={0,0,0,0,0};
@@ -113,6 +122,20 @@ void CQTs_ClassEditor::saveAndExit(){
 }
 /*void CQTs_ClassEditor::launchArmorSelector(){}
 void CQTs_ClassEditor::launchWeaponSelector(){}*/
+
+/*Skillselector*/
+
+CQTs_SkillSelector::CQTs_SkillSelector(CQTs_engine *eng,QWidget *parent)
+    : QWidget(parent)
+{
+    engine = eng;
+    QFormLayout *grid = new QFormLayout();
+    int skillsize = engine->skillNum();
+    for (int i = 0; i < skillsize; ++i) {
+        grid->addRow(new QCheckBox(engine->skillData(i),this));
+    }
+    setLayout(grid);
+}
 
 /*SPECIAL EDITOR*/
 CQTs_ClassSpecialEdit::CQTs_ClassSpecialEdit(QWidget *parent)

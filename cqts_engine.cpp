@@ -95,13 +95,15 @@ CQTs_Class::CQTs_Class(QString code):
 CQTs_Class::CQTs_Class(QString code, bool data[5], int setDV, int setRanks, int MaxLV):
     CQTS_infoHolder(code)
 {
+    setParam(data, setDV, setRanks, MaxLV);
+}
+void CQTs_Class::setParam(bool data[5], int setDV, int setRanks, int MaxLV){
     Ranks =setRanks;
     DV = setDV;
-    for (int i = 0; i < 5; ++i) {
-        info[i] = data[i];
-    }
+    std::copy(data,data+5,info);
     lmax = MaxLV;
 }
+
 
 CQTs_Class& CQTs_Class::operator=(CQTs_Class x){
     clear();
