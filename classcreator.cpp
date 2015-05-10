@@ -105,7 +105,8 @@ void CQTs_ClassEditor::launchSkillSelector(){
 
 void CQTs_ClassEditor::takeSkillList(QStringList myList){
     classSkills.clear();
-    classSkills.append(myList);
+    if(myList.size()>0)
+        classSkills.append(myList);
 }
 
 void CQTs_ClassEditor::saveAndExit(){
@@ -167,7 +168,7 @@ void CQTs_SkillSelector::saveAndExit(){
     QStringList thisClassList;
     for (int i = 0; i < engine->skillNum(); ++i) {
         if(Checks_skills[i]->isChecked()){
-            QString dummy = engine->classData(i);
+            QString dummy = engine->skillData(i);
             thisClassList.push_back(dummy);
         }
     }
