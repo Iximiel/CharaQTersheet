@@ -18,8 +18,8 @@ private:
     CQTs_engine *engine;
     QCheckBox **Checks_skills;
     void setSkillFromClass(CQTs_Class myclass);
-    signals:
-
+signals:
+    void getSkillList(QStringList skillList);
 public slots:
     void saveAndExit();
 };
@@ -33,6 +33,7 @@ public:
     void setLabels(CQTs_Class oldclass);
 private:
     void initialize(CQTs_engine *eng);
+    QStringList classSkills;
     CQTs_Class myClass;
     CQTs_engine *engine;
     QLineEdit *Line_Name;
@@ -43,6 +44,7 @@ signals:
     void getClass(CQTs_Class editedclass);
 public slots:
     void launchSkillSelector();
+    void takeSkillList(QStringList myList);
     /*void launchArmorSelector();
     void launchWeaponSelector();*/
     void saveAndExit();

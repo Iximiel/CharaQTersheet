@@ -22,6 +22,7 @@ CQTs_ClassEditor::CQTs_ClassEditor(CQTs_Class oldclass, CQTs_engine *eng, QWidge
 
 void CQTs_ClassEditor::initialize(CQTs_engine *eng){
     engine = eng;
+    classSkills.clear();
     SkillSelector=NULL;
     QFormLayout *grid = new QFormLayout();
     QLabel *tLabel;
@@ -94,10 +95,17 @@ void CQTs_ClassEditor::setLabels(CQTs_Class oldclass){
 }
 
 void CQTs_ClassEditor::launchSkillSelector(){
-    if(SkillSelector==NULL)
+    if(SkillSelector==NULL){
         SkillSelector = new CQTs_SkillSelector(engine);
+        connect(SkillSelector,SIGNAL(getSkillList(QStringList)),this,SLOT(takeSkillList(QStringList)));
+    }
     SkillSelector->show();
 
+}
+
+void CQTs_ClassEditor::takeSkillList(QStringList myList){
+    classSkills.clear();
+    classSkills.append(myList);
 }
 
 void CQTs_ClassEditor::saveAndExit(){
@@ -118,6 +126,7 @@ void CQTs_ClassEditor::saveAndExit(){
     dv = Combo_HD->currentText().remove("d").toInt();
     CQTs_Class newclass(code,data,dv,ranks,lmax);
     newclass.setmyName(code);
+    newclass.setSkills(classSkills);
     emit getClass(newclass);
     close();
 }
@@ -155,6 +164,14 @@ CQTs_SkillSelector::CQTs_SkillSelector(CQTs_engine *eng,QWidget *parent)
 }
 
 void CQTs_SkillSelector::saveAndExit(){
+    QStringList thisClassList;
+    for (int i = 0; i < engine->skillNum(); ++i) {
+        if(Checks_skills[i]->isChecked()){
+            QString dummy = engine->classData(i);
+            thisClassList.push_back(dummy);
+        }
+    }
+    emit getSkillList(thisClassList);
     close();
 }
 
