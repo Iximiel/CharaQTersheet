@@ -52,6 +52,7 @@ public:
     bool STFort();
     bool STRef();
     bool STWill();
+    void writeData();
     void setSkills(QStringList newSkills);
     CQTs_Class& operator=(CQTs_Class);
 private:

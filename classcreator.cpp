@@ -129,6 +129,7 @@ void CQTs_ClassEditor::saveAndExit(){
     newclass.setmyName(code);
     newclass.setSkills(classSkills);
     emit getClass(newclass);
+    newclass.writeData();
     close();
 }
 /*void CQTs_ClassEditor::launchArmorSelector(){}
