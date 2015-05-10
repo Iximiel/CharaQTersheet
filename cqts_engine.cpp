@@ -105,6 +105,10 @@ void CQTs_Class::setParam(bool data[5], int setDV, int setRanks, int MaxLV){
     lmax = MaxLV;
 }
 
+void CQTs_Class::setSkills(QStringList newSkills){
+    skillList.clear();
+    skillList.append(newSkills);
+}
 
 CQTs_Class& CQTs_Class::operator=(CQTs_Class x){
     clear();
@@ -266,10 +270,20 @@ void CQTs_engine::loadClasses(QString filename){
                 lmax = xml.attributes().value("lmax").toInt();
                 bool data[5] = {bab1,bab2,f,r,w};
                 int dv = 0, ranks = 0;
+                QStringList skillList;
                 if(!xml.isEndElement()){
                     do{
                         xml.readNext();
-                        if(xml.name()=="progression"&&xml.isStartElement()){
+                        if(xml.name()=="classskills"&&xml.isStartElement()){
+                            do{
+                                xml.readNext();
+                                if(xml.name()=="skill"&&xml.isStartElement()){
+                                    QString skillcode = xml.attributes().value("code").toString();
+                                    skillList.push_back(skillcode);
+                                }
+                            }while(!(xml.name()=="classskills"&&xml.isEndElement()));
+                        }
+                        if(xml.name()=="progression"&&xml.isStartElement()){//load progression
                             dv = xml.attributes().value("dv").toInt();
                             ranks = xml.attributes().value("skillpoints").toInt();
                             do{
@@ -283,6 +297,7 @@ void CQTs_engine::loadClasses(QString filename){
                 }
                 CQTs_Class tClass(code,data,dv,ranks,lmax);
                 tClass.setmyName(code);//in case classnames are not loaded
+                tClass.setSkills(skillList);
                 //protection from copies:
                 while(Classes.contains(tClass)){
                     tClass.append("*");
