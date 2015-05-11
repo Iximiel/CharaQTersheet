@@ -34,6 +34,11 @@ void CQTS_infoHolder::setmyName(QString name){
 
 bool operator <(CQTS_infoHolder a , CQTS_infoHolder b){return a.myName()<b.myName();}
 
+void CQTS_infoHolder::setCode(QString code){
+    clear();
+    append(code);
+}
+
 //Skillhandler
 CQTs_skill::CQTs_skill():CQTS_infoHolder(){
     trainedOnly = false;
@@ -115,7 +120,7 @@ void CQTs_Class::writeData(){
         xml.setAutoFormatting(true);
         xml.writeStartDocument();
         xml.writeStartElement("class");
-        QString dummy = "";
+        QString dummy(*this);
         xml.writeAttribute("code",dummy);
         int bab = info[0]*2+info[1];
         dummy.setNum(bab);
@@ -160,6 +165,8 @@ QStringList CQTs_Class::getSkills(){
 CQTs_Class& CQTs_Class::operator=(CQTs_Class x){
     clear();
     append(x);
+    skillList.clear();
+    skillList.append(x.skillList);
     Name = x.Name;
     Ranks = x.Ranks;
     DV = x.DV;

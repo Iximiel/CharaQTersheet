@@ -22,7 +22,6 @@ CQTs_ClassEditor::CQTs_ClassEditor(CQTs_Class oldclass, CQTs_engine *eng, QWidge
 
 void CQTs_ClassEditor::initialize(CQTs_engine *eng){
     engine = eng;
-    classSkills.clear();
     SkillSelector=NULL;
     QFormLayout *grid = new QFormLayout();
     QLabel *tLabel;
@@ -93,8 +92,6 @@ void CQTs_ClassEditor::initialize(CQTs_engine *eng){
 void CQTs_ClassEditor::setLabels(CQTs_Class oldclass){
     myClass = oldclass;
     Line_Name->setText(myClass);
-    classSkills.clear();
-    classSkills.append(myClass.getSkills());
     Combo_HD->setCurrentIndex((myClass.HP()/2)-2);
     Combo_BaB->setCurrentIndex(myClass.BAB());
     Combo_Ranks->setCurrentIndex((myClass.AP()/2)-1);
@@ -113,13 +110,11 @@ void CQTs_ClassEditor::launchSkillSelector(){
 }
 
 void CQTs_ClassEditor::takeSkillList(QStringList myList){
-    classSkills.clear();
-    if(myList.size()>0)
-        classSkills.append(myList);
+    myClass.setSkills(myList);
 }
 
 void CQTs_ClassEditor::saveAndExit(){
-    QString code = Line_Name->text();
+    myClass.setCode(Line_Name->text());
     bool data[5]={0,0,0,0,0};
     if(Combo_BaB->currentIndex()==1)
         data[0]=true;
@@ -134,11 +129,9 @@ void CQTs_ClassEditor::saveAndExit(){
     /****/
     ranks = Combo_Ranks->currentText().toInt();
     dv = Combo_HD->currentText().remove("d").toInt();
-    CQTs_Class newclass(code,data,dv,ranks,lmax);
-    newclass.setmyName(code);
-    newclass.setSkills(classSkills);
-    emit getClass(newclass);
-    newclass.writeData();
+    myClass.setParam(data,dv,ranks,lmax);
+    emit getClass(myClass);
+    myClass.writeData();
     close();
 }
 /*void CQTs_ClassEditor::launchArmorSelector(){}
@@ -172,6 +165,10 @@ CQTs_SkillSelector::CQTs_SkillSelector(CQTs_engine *eng,QWidget *parent)
     mygrid -> addWidget(tbutt2,3,0);
     mygrid -> addWidget(tbutt1,3,1);
     setLayout(mygrid);
+}
+
+void CQTs_SkillSelector::setSkillFromClass(QStringList myclassList){
+
 }
 
 void CQTs_SkillSelector::saveAndExit(){

@@ -17,7 +17,7 @@ public:
 private:
     CQTs_engine *engine;
     QCheckBox **Checks_skills;
-    void setSkillFromClass(CQTs_Class myclass);
+    void setSkillFromClass(QStringList myclassList);
 signals:
     void getSkillList(QStringList skillList);
 public slots:
@@ -33,7 +33,6 @@ public:
     void setLabels(CQTs_Class oldclass);
 private:
     void initialize(CQTs_engine *eng);
-    QStringList classSkills;
     CQTs_Class myClass;
     CQTs_engine *engine;
     QLineEdit *Line_Name;

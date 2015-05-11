@@ -14,6 +14,7 @@ public:
     CQTS_infoHolder(QString code);
     void setmyName(QString);
     QString myName();
+    void setCode(QString);
 protected:
     QString Name;
 };
