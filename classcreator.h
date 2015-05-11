@@ -14,10 +14,10 @@ class CQTs_SkillSelector : public QWidget
     Q_OBJECT
 public:
     explicit CQTs_SkillSelector(CQTs_engine *eng,QWidget *parent = 0);
+    void setSkillFromClass(QStringList myclassList);
 private:
     CQTs_engine *engine;
     QCheckBox **Checks_skills;
-    void setSkillFromClass(QStringList myclassList);
 signals:
     void getSkillList(QStringList skillList);
 public slots:

@@ -77,6 +77,7 @@ class CQTs_engine//it holds all data related to the game, like skills, max level
 public:
     CQTs_engine();
     int skillNum();
+    int getSkillNum(QString code);
     CQTs_skill skillData(int i);
     int classNum();
     CQTs_Class classData(int i);

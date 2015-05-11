@@ -105,6 +105,7 @@ void CQTs_ClassEditor::launchSkillSelector(){
         SkillSelector = new CQTs_SkillSelector(engine);
         connect(SkillSelector,SIGNAL(getSkillList(QStringList)),this,SLOT(takeSkillList(QStringList)));
     }
+    SkillSelector->setSkillFromClass(myClass.getSkills());
     SkillSelector->show();
 
 }
@@ -168,6 +169,14 @@ CQTs_SkillSelector::CQTs_SkillSelector(CQTs_engine *eng,QWidget *parent)
 }
 
 void CQTs_SkillSelector::setSkillFromClass(QStringList myclassList){
+    int dim = myclassList.size();
+    for(int i = 0;i<engine->skillNum();++i)
+        Checks_skills[i]->setChecked(false);
+    for (int i = 0; i < dim; ++i) {
+        int skillID = engine->getSkillNum(myclassList[i]);
+        if(skillID>0)
+            Checks_skills[skillID]->setChecked(true);
+    }
 
 }
 

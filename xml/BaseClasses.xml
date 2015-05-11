@@ -14,13 +14,13 @@
     </class>
     <class code="Fighter" bab="2" fort="1" ref="0" will="0" lmax="20">
         <classskills>
-            <skill code="Climb "/>
-            <skill code="Craft "/>
-            <skill code="Handle Animal "/>
-            <skill code="Intimidate "/>
-            <skill code="Jump "/>
+            <skill code="Climb"/>
+            <skill code="Craft"/>
+            <skill code="Handle Animal"/>
+            <skill code="Intimidate"/>
+            <skill code="Jump"/>
             <skill code="Ride"/>
-            <skill code="Swim "/>
+            <skill code="Swim"/>
         </classskills>
         <progression skillpoints ="2" dv="10">
             <level n="1" />

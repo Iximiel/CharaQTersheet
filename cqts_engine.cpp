@@ -291,6 +291,17 @@ void CQTs_engine::loadSkillNames(QString filename){
 }
 
 int CQTs_engine::skillNum(){return Skills.size();}
+int CQTs_engine::getSkillNum(QString code){
+    int toreturn = -1;
+    if(Skills.contains(code)){
+        for(int i =0;toreturn<0;i++){
+            if(Skills[i] == temp)
+                toreturn = i;
+        }
+    }
+    return toreturn;
+}
+
 CQTs_skill CQTs_engine::skillData(int i){return Skills[i];}
 
 int CQTs_engine::classNum(){return Classes.size();}
