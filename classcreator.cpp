@@ -4,7 +4,7 @@
 //#include <QGridLayout>
 #include <QFormLayout>
 
-
+#ifdef CLASSCREATOR_H
 /*CLASSCREATOR*/
 CQTs_ClassEditor::CQTs_ClassEditor(CQTs_engine *eng, QWidget *parent)
     : QWidget(parent)
@@ -91,7 +91,16 @@ void CQTs_ClassEditor::initialize(CQTs_engine *eng){
 }
 
 void CQTs_ClassEditor::setLabels(CQTs_Class oldclass){
-
+    myClass = oldclass;
+    Line_Name->setText(myClass);
+    classSkills.clear();
+    classSkills.append(myClass.getSkills());
+    Combo_HD->setCurrentIndex((myClass.HP()/2)-2);
+    Combo_BaB->setCurrentIndex(myClass.BAB());
+    Combo_Ranks->setCurrentIndex((myClass.AP()/2)-1);
+    Combo_TSFort->setCurrentIndex(myClass.STFort());
+    Combo_TSRef->setCurrentIndex(myClass.STRef());
+    Combo_TSWill->setCurrentIndex(myClass.STWill());
 }
 
 void CQTs_ClassEditor::launchSkillSelector(){
@@ -176,10 +185,12 @@ void CQTs_SkillSelector::saveAndExit(){
     emit getSkillList(thisClassList);
     close();
 }
-
+#endif
 /*SPECIAL EDITOR*/
+#ifdef CLASSSPECIALCREATOR_H
 CQTs_ClassSpecialEdit::CQTs_ClassSpecialEdit(QWidget *parent)
     : QWidget(parent)
 {
 
 }
+#endif

@@ -52,7 +52,8 @@ public slots:
 
 #endif // CLASSCREATOR_H
 
-#ifndef CLASSSPECIALCREATOR_H
+//#ifndef CLASSSPECIALCREATOR_H
+#ifdef CLASSSPECIALCREATOR_H//not active
 #define CLASSSPECIALCREATOR_H
 
 #include <QWidget>

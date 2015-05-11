@@ -153,6 +153,9 @@ void CQTs_Class::setSkills(QStringList newSkills){
     skillList.clear();
     skillList.append(newSkills);
 }
+QStringList CQTs_Class::getSkills(){
+    return skillList;
+}
 
 CQTs_Class& CQTs_Class::operator=(CQTs_Class x){
     clear();

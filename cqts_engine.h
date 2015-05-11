@@ -54,6 +54,7 @@ public:
     bool STWill();
     void writeData();
     void setSkills(QStringList newSkills);
+    QStringList getSkills();
     CQTs_Class& operator=(CQTs_Class);
 private:
     enum{fort=2,ref=3,will=4};
