@@ -19,7 +19,7 @@ CQTs_dataExport::CQTs_dataExport(QString file, CQTs_engine *eng, CQTsdata setup,
     QPushButton *tOk = new QPushButton(tr("Ok"));
     grid->addWidget(tUndo,1,0);
     grid->addWidget(tOk,1,1);
-    connect(tUndo,SIGNAL(pressed()),this,SLOT(close()));
+    connect(tUndo,SIGNAL(pressed()),this,SLOT(doClose()));
     connect(tOk,SIGNAL(pressed()),this,SLOT(doExport()));
     setLayout(grid);
 }
@@ -48,16 +48,23 @@ void CQTs_dataExport::doExport(){
         QXmlStreamWriter xml(&file);
         xml.setAutoFormatting(true);
         xml.writeStartDocument();
-        xml.writeStartElement("classes");//opening classes
-        int num = engine->classNum();
-        for(int i=0;i<num;i++){
-            if(datacontainer[i]->isChecked()){
-                engine->classData(i).writeDatatoXml(xml);
+        if(todo == CQTs_CLASSES){
+            xml.writeStartElement("classes");//opening classes
+            int num = engine->classNum();
+            for(int i=0;i<num;i++){
+                if(datacontainer[i]->isChecked()){
+                    engine->classData(i).writeDatatoXml(xml);
+                }
             }
+            xml.writeEndElement();//classes
         }
-        xml.writeEndElement();//classes
         xml.writeEndDocument();
     }
+    close();
+    delete this;
+}
+
+void CQTs_dataExport::doClose(){
     close();
     delete this;
 }

@@ -13,6 +13,7 @@ public:
     explicit CQTs_dataExport(QString file, CQTs_engine *eng, CQTsdata setup, QWidget *parent = 0);
 public slots:
     void doExport();
+    void doClose();
 private:
     QString filename;
     CQTs_engine *engine;
