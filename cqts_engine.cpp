@@ -6,7 +6,6 @@
 #include <QStringList>
 #include <algorithm>
 #include <QTextStream>
-#include <QXmlStreamReader>
 #include <QXmlStreamAttribute>
 #include <QDebug>
 
@@ -102,6 +101,54 @@ CQTs_Class::CQTs_Class(QString code, bool data[5], int setDV, int setRanks, int 
     CQTS_infoHolder(code)
 {
     setParam(data, setDV, setRanks, MaxLV);
+}
+
+CQTs_Class::CQTs_Class(QXmlStreamReader &xml){
+    if(xml.name()=="class"&&xml.isStartElement()){
+        QString code;
+        int bab, lmax;
+        bool bab1=false,bab2=false,f,r,w;
+        code = xml.attributes().value("code").toString();
+        append(code);
+        bab = xml.attributes().value("bab").toInt();
+        if(bab==1)
+            bab1=true;
+        else if(bab==2)
+            bab2=true;
+        f = xml.attributes().value("fort").toInt();
+        r = xml.attributes().value("ref").toInt();
+        w = xml.attributes().value("will").toInt();
+        lmax = xml.attributes().value("lmax").toInt();
+        bool data[5] = {bab1,bab2,f,r,w};
+        int dv = 0, ranks = 0;
+        QStringList skillList;
+        do{
+            xml.readNext();
+            if(xml.name()=="classskills"&&xml.isStartElement()){
+                do{
+                    xml.readNext();
+                    if(xml.name()=="skill"&&xml.isStartElement()){
+                        QString skillcode = xml.attributes().value("code").toString();
+                        skillList.push_back(skillcode);
+                    }
+                }while(!(xml.name()=="classskills"&&xml.isEndElement()));
+            }
+            if(xml.name()=="progression"&&xml.isStartElement()){//load progression
+                dv = xml.attributes().value("dv").toInt();
+                ranks = xml.attributes().value("skillpoints").toInt();
+                do{
+                    xml.readNext();
+                    if(xml.name()=="level"&&xml.isStartElement()){
+                        //level progression
+                    }
+                }while(!(xml.name()=="progression"&&xml.isEndElement()));
+            }
+        }while(!(xml.isEndElement()&&xml.name()=="class"));
+        setParam(data,dv,ranks,lmax);
+        setmyName(code);//in case classnames are not loaded
+        if(skillList.size()>0)
+            setSkills(skillList);
+    }
 }
 
 void CQTs_Class::setParam(bool data[5], int setDV, int setRanks, int MaxLV){
@@ -324,7 +371,8 @@ void CQTs_engine::loadClasses(QString filename){
 
             if(xml.name()=="class"&&xml.isStartElement())
             {
-                QString code;
+                CQTs_Class tClass(xml);
+                /*QString code;
                 int bab, lmax;
                 bool bab1=false,bab2=false,f,r,w;
 
@@ -368,7 +416,7 @@ void CQTs_engine::loadClasses(QString filename){
                 }
                 CQTs_Class tClass(code,data,dv,ranks,lmax);
                 tClass.setmyName(code);//in case classnames are not loaded
-                tClass.setSkills(skillList);
+                tClass.setSkills(skillList);*/
                 //protection from copies:
                 while(Classes.contains(tClass)){
                     tClass.append("*");
@@ -400,7 +448,7 @@ QStringList CQTs_engine::classNames(){
 
 void CQTs_engine::appendClass(CQTs_Class newclass){
     while(Classes.contains(newclass)){
-        newclass.setCode(newclass+"*");
+        newclass.append("*");
     }
     Classes.append(newclass);
     std::sort(Classes.begin(),Classes.end());

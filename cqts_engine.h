@@ -5,6 +5,7 @@
 #include <QStringList>
 #include <QMap>
 #include <QXmlStreamWriter>
+#include <QXmlStreamReader>
 
 //container for everithing that will need a tranlsation
 //code is the english name, Name is the translated info
@@ -46,6 +47,7 @@ public:
     CQTs_Class();
     CQTs_Class(QString code);//search constructor
     CQTs_Class(QString code, bool data[5], int setDV=0, int setRanks=0, int MaxLV=20);
+    CQTs_Class(QXmlStreamReader &xml);
     void setParam(bool data[5], int setDV=0, int setRanks=0, int MaxLV=20);
     int MaxLv();
     int BAB();
