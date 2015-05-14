@@ -1,5 +1,6 @@
 #include "charaqtersheet.h"
 #include "cqts_editor.h"
+#include "cqts_dataexport.h"
 #include <QGridLayout>
 #include <QDockWidget>
 #include <QFileDialog>
@@ -67,6 +68,8 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     addDockSaves();
     addDockBAB();
     addDockSkills();
+    /*CQTs_dataExport *data = new CQTs_dataExport("filename",engine,CQTs_dataExport::CQTs_CLASSES);
+    data->show();*/
 }
 
 CharaQTersheet::~CharaQTersheet()
@@ -163,6 +166,13 @@ void CharaQTersheet::saveChar(){
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save Character File"), QString(),
                                                     tr("Character Files (*.chc *.CHC *.xml);;All Files (*.*)"));
     character->saveToFile(fileName);
+}
+
+void CharaQTersheet::exportClasses(){
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Export Classes"), QString(),
+                                                    tr("xml Files (*.xml);;All Files (*.*)"));
+    CQTs_dataExport *data = new CQTs_dataExport(fileName,engine,CQTs_dataExport::CQTs_CLASSES);
+    data->show();
 }
 
 void CharaQTersheet::newCharacter(){

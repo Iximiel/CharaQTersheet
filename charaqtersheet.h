@@ -39,6 +39,8 @@ public slots:
     void updateSkills(QMap<QString, int> newskills);
     void updateSaves(int* STs);
     void updateAbilities(int *abls);
+    //various exports:
+    void exportClasses();
 private:
     CQTs_engine *engine;
     CQTs_Character *character;

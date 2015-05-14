@@ -291,11 +291,12 @@ void CQTs_engine::loadSkillNames(QString filename){
 }
 
 int CQTs_engine::skillNum(){return Skills.size();}
+
 int CQTs_engine::getSkillNum(QString code){
     int toreturn = -1;
     if(Skills.contains(code)){
         for(int i =0;toreturn<0;i++){
-            if(Skills[i] == temp)
+            if(Skills[i] == code)
                 toreturn = i;
         }
     }
@@ -524,52 +525,54 @@ void CQTs_Character::loadFromFile(QString filename){
 }
 
 void CQTs_Character::saveToFile(QString filename){
-    QFile file(filename);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)){
-        QMessageBox::information(0, QString(QObject::tr("Error")), QString(QObject::tr("Failed to save your character")), QMessageBox::Ok);
-    }else{
-        QXmlStreamWriter xml(&file);
-        xml.setAutoFormatting(true);
-        xml.setAutoFormattingIndent(2);
-        xml.writeStartDocument();
-        xml.writeStartElement("character");
-        xml.writeAttribute("version","0.03");
-        xml.writeStartElement("bio");
-        xml.writeTextElement("name",bio.Name);
-        xml.writeTextElement("surname",bio.Surname);
-        xml.writeTextElement("age",QString::number(bio.age));
-        xml.writeEndElement();//bio
-        xml.writeStartElement("data");
-        xml.writeTextElement("hp",QString::number(HP));
-        xml.writeTextElement("bab",QString::number(BAB));
-        xml.writeStartElement("saves");
-        xml.writeTextElement("fort",QString::number(STf));
-        xml.writeTextElement("ref",QString::number(STr));
-        xml.writeTextElement("will",QString::number(STw));
-        xml.writeEndElement();//saves
-        xml.writeStartElement("abilities");
-        QString names[6]={"strength","dexterity","constitution","intelligence","wisdom","charisma"};
-        for (int i = 0; i < 6; ++i) {
-            xml.writeStartElement("ability");
-            xml.writeAttribute("which",names[i]);
-            xml.writeCharacters(QString::number(Abilities[i]));
-            xml.writeEndElement();//ability
-        }
-        xml.writeEndElement();//abilities
-        if(!skillRanks.empty()){
-            xml.writeStartElement("skills");
-            for (int i = 0; i < skillRanks.size(); ++i) {
-                xml.writeStartElement("skill");
-                QString code = skillRanks.keys().at(i);
-                xml.writeAttribute("code",code);
-                xml.writeCharacters(QString::number(skillRanks[code]));
-                xml.writeEndElement();//skill
+    if(filename != ""){
+        QFile file(filename);
+        if (!file.open(QIODevice::WriteOnly | QIODevice::Text)){
+            QMessageBox::information(0, QString(QObject::tr("Error")), QString(QObject::tr("Failed to save your character")), QMessageBox::Ok);
+        }else{
+            QXmlStreamWriter xml(&file);
+            xml.setAutoFormatting(true);
+            xml.setAutoFormattingIndent(2);
+            xml.writeStartDocument();
+            xml.writeStartElement("character");
+            xml.writeAttribute("version","0.03");
+            xml.writeStartElement("bio");
+            xml.writeTextElement("name",bio.Name);
+            xml.writeTextElement("surname",bio.Surname);
+            xml.writeTextElement("age",QString::number(bio.age));
+            xml.writeEndElement();//bio
+            xml.writeStartElement("data");
+            xml.writeTextElement("hp",QString::number(HP));
+            xml.writeTextElement("bab",QString::number(BAB));
+            xml.writeStartElement("saves");
+            xml.writeTextElement("fort",QString::number(STf));
+            xml.writeTextElement("ref",QString::number(STr));
+            xml.writeTextElement("will",QString::number(STw));
+            xml.writeEndElement();//saves
+            xml.writeStartElement("abilities");
+            QString names[6]={"strength","dexterity","constitution","intelligence","wisdom","charisma"};
+            for (int i = 0; i < 6; ++i) {
+                xml.writeStartElement("ability");
+                xml.writeAttribute("which",names[i]);
+                xml.writeCharacters(QString::number(Abilities[i]));
+                xml.writeEndElement();//ability
             }
-            xml.writeEndElement();//skills
+            xml.writeEndElement();//abilities
+            if(!skillRanks.empty()){
+                xml.writeStartElement("skills");
+                for (int i = 0; i < skillRanks.size(); ++i) {
+                    xml.writeStartElement("skill");
+                    QString code = skillRanks.keys().at(i);
+                    xml.writeAttribute("code",code);
+                    xml.writeCharacters(QString::number(skillRanks[code]));
+                    xml.writeEndElement();//skill
+                }
+                xml.writeEndElement();//skills
+            }
+            xml.writeEndElement();//data
+            xml.writeEndElement();//character
+            xml.writeEndDocument();
         }
-        xml.writeEndElement();//data
-        xml.writeEndElement();//character
-        xml.writeEndDocument();
     }
 }
 
