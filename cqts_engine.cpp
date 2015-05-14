@@ -61,6 +61,23 @@ CQTs_skill::CQTs_skill(QString code, bool train):
     descSyn=NULL;
 }
 
+CQTs_skill::CQTs_skill(QXmlStreamReader &xml){
+    QString code = xml.attributes().value("code").toString();
+    append(code);
+    ability = xml.attributes().value("ability").toInt();
+    //armor = xml.attributes().value("armor").toInt();
+    trainedOnly = xml.attributes().value("onlytrained").toInt();
+    Name=code;//in case skillnames are not loaded
+    do{
+        xml.readNext();
+        if(xml.name()=="synergy"&&xml.isStartElement()){//get synergies
+            QString SynCode = xml.attributes().value("syncode").toString();
+            QString desc = xml.attributes().value("circumstantial").toString();
+            add_Synergy(SynCode,desc);
+        }
+    }while(!(xml.name()=="skill"&&xml.isEndElement()));
+}
+
 void CQTs_skill::setAbility(int abl){
     ability = abl;
 }
@@ -107,6 +124,7 @@ CQTs_Class::CQTs_Class(QXmlStreamReader &xml){
     //trusting this:if(xml.name()=="class"&&xml.isStartElement())
     QString code = xml.attributes().value("code").toString();
     append(code);
+    Name = code;//in case classnames are not loaded
     bool bab1=false,bab2=false;
     int bab = xml.attributes().value("bab").toInt();
     if(bab==1)
@@ -116,8 +134,9 @@ CQTs_Class::CQTs_Class(QXmlStreamReader &xml){
     bool f = xml.attributes().value("fort").toInt();
     bool r = xml.attributes().value("ref").toInt();
     bool w = xml.attributes().value("will").toInt();
-    int lmax = xml.attributes().value("lmax").toInt();
     bool data[5] = {bab1,bab2,f,r,w};
+    std::copy(data,data+5,info);
+    Lmax = xml.attributes().value("lmax").toInt();
     int dv = 0, ranks = 0;
     QStringList skillList;
     do{
@@ -132,8 +151,8 @@ CQTs_Class::CQTs_Class(QXmlStreamReader &xml){
             }while(!(xml.name()=="classskills"&&xml.isEndElement()));
         }
         if(xml.name()=="progression"&&xml.isStartElement()){//load progression
-            dv = xml.attributes().value("dv").toInt();
-            ranks = xml.attributes().value("skillpoints").toInt();
+            DV = xml.attributes().value("dv").toInt();
+            Ranks = xml.attributes().value("skillpoints").toInt();
             do{
                 xml.readNext();
                 if(xml.name()=="level"&&xml.isStartElement()){
@@ -142,8 +161,6 @@ CQTs_Class::CQTs_Class(QXmlStreamReader &xml){
             }while(!(xml.name()=="progression"&&xml.isEndElement()));
         }
     }while(!(xml.isEndElement()&&xml.name()=="class"));
-    setParam(data,dv,ranks,lmax);
-    setmyName(code);//in case classnames are not loaded
     if(skillList.size()>0)
         setSkills(skillList);
 }
@@ -268,7 +285,7 @@ void CQTs_engine::loadSkills(QString filename){
 
             if(xml.name()=="skill"&&xml.isStartElement())
             {
-                QString code;
+                /*QString code;
                 int abl;//, arm;
                 bool train;
 
@@ -287,7 +304,7 @@ void CQTs_engine::loadSkills(QString filename){
                         QString desc = xml.attributes().value("circumstantial").toString();
                         tSkill.add_Synergy(SynCode,desc);
                     }
-                }
+                }*/
                 Skills.append(tSkill);
             }
             if (xml.hasError()) {
