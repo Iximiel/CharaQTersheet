@@ -84,7 +84,7 @@ void CQTs_ClassEditor::initialize(CQTs_engine *eng){
     QPushButton *tbutt1 = new QPushButton(tr("Save and Exit"));
     QPushButton *tbutt2 = new QPushButton(tr("Exit"));
     connect(tbutt1,SIGNAL(pressed()),this,SLOT(saveAndExit()));
-    connect(tbutt2,SIGNAL(pressed()),this,SLOT(close()));
+    connect(tbutt2,SIGNAL(pressed()),this,SLOT(doClose()));
     grid->addRow(tbutt2,tbutt1);
     setLayout(grid);
 }
@@ -169,7 +169,7 @@ CQTs_SkillSelector::CQTs_SkillSelector(CQTs_engine *eng,QWidget *parent)
     QPushButton *tbutt1 = new QPushButton(tr("Save and Exit"));
     QPushButton *tbutt2 = new QPushButton(tr("Exit"));
     connect(tbutt1,SIGNAL(pressed()),this,SLOT(saveAndExit()));
-    connect(tbutt2,SIGNAL(pressed()),this,SLOT(doClose()));
+    connect(tbutt2,SIGNAL(pressed()),this,SLOT(close()));
     mygrid -> addWidget(tbutt2,3,0);
     mygrid -> addWidget(tbutt1,3,1);
     setLayout(mygrid);

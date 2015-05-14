@@ -170,14 +170,18 @@ void CharaQTersheet::loadChar(){
 void CharaQTersheet::saveChar(){
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save Character File"), QString(),
                                                     tr("Character Files (*.chc *.CHC *.xml);;All Files (*.*)"));
-    character->saveToFile(fileName);
+    if(fileName!=""){
+        character->saveToFile(fileName);
+    }
 }
 
 void CharaQTersheet::exportClasses(){
     QString fileName = QFileDialog::getSaveFileName(this, tr("Export Classes"), QString(),
                                                     tr("xml Files (*.xml);;All Files (*.*)"));
-    CQTs_dataExport *data = new CQTs_dataExport(fileName,engine,CQTs_dataExport::CQTs_CLASSES);
-    data->show();
+    if(fileName!=""){
+        CQTs_dataExport *data = new CQTs_dataExport(fileName,engine,CQTs_dataExport::CQTs_CLASSES);
+        data->show();
+    }
 }
 void CharaQTersheet::launchClassCreator(){
     CQTs_ClassEditor *editor = new CQTs_ClassEditor(engine);
