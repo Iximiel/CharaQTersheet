@@ -15,7 +15,7 @@ private:
     CQTs_engine *engine;
     CQTsdata todo;
 
-    void loadClasses();
-}
+    QWidget* loadClasses();
+};
 
 #endif // CQTS_DATAEXPORT_H

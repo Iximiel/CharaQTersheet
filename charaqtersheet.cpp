@@ -1,11 +1,11 @@
 #include "charaqtersheet.h"
-#include "cqts_editor.h"
-#include "cqts_dataexport.h"
 #include <QGridLayout>
 #include <QDockWidget>
 #include <QFileDialog>
 #include <QMessageBox>
 
+#include "cqts_editor.h"
+#include "cqts_dataexport.h"
 
 #include <QDebug>
 
@@ -68,8 +68,8 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     addDockSaves();
     addDockBAB();
     addDockSkills();
-    /*CQTs_dataExport *data = new CQTs_dataExport("filename",engine,CQTs_dataExport::CQTs_CLASSES);
-    data->show();*/
+    CQTs_dataExport *data = new CQTs_dataExport("filename",engine,CQTs_dataExport::CQTs_CLASSES);
+    data->show();
 }
 
 CharaQTersheet::~CharaQTersheet()
