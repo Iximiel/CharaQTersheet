@@ -68,8 +68,6 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     addDockSaves();
     addDockBAB();
     addDockSkills();
-    CQTs_dataExport *data = new CQTs_dataExport("filename",engine,CQTs_dataExport::CQTs_CLASSES);
-    data->show();
 }
 
 CharaQTersheet::~CharaQTersheet()

@@ -118,12 +118,12 @@ void CQTs_Class::writeData(QString filename){
         QXmlStreamWriter xml(&file);
         xml.setAutoFormatting(true);
         xml.writeStartDocument();
-        writeXml(xml);
+        writeDatatoXml(xml);
         xml.writeEndDocument();
     }
 }
 
-void CQTs_Class::writeXml(QXmlStreamWriter &xml){
+void CQTs_Class::writeDatatoXml(QXmlStreamWriter &xml){
     xml.writeStartElement("class");//opening class
     QString dummy(*this);//getting the code
     xml.writeAttribute("code",dummy);

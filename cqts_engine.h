@@ -55,7 +55,7 @@ public:
     bool STRef();
     bool STWill();
     void writeData(QString filename);
-    void writeXml(QXmlStreamWriter &xml);
+    void writeDatatoXml(QXmlStreamWriter &xml);
     void setSkills(QStringList newSkills);
     QStringList getSkills();
     CQTs_Class& operator=(CQTs_Class);

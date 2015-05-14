@@ -2,6 +2,9 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QPushButton>
+#include <QXmlStreamWriter>
+#include <QFile>
+#include <QMessageBox>
 
 CQTs_dataExport::CQTs_dataExport(QString file, CQTs_engine *eng, CQTsdata setup, QWidget *parent)
     : QWidget(parent),filename(file)
@@ -38,6 +41,23 @@ QWidget* CQTs_dataExport::loadClasses(){
 }
 
 void CQTs_dataExport::doExport(){
-
+    QFile file(filename);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)){
+        QMessageBox::information(0, QString(QObject::tr("Error")), QString(QObject::tr("Failed to save your classes")), QMessageBox::Ok);
+    }else{
+        QXmlStreamWriter xml(&file);
+        xml.setAutoFormatting(true);
+        xml.writeStartDocument();
+        xml.writeStartElement("classes");//opening classes
+        int num = engine->classNum();
+        for(int i=0;i<num;i++){
+            if(datacontainer[i]->isChecked()){
+                engine->classData(i).writeDatatoXml(xml);
+            }
+        }
+        xml.writeEndElement();//classes
+        xml.writeEndDocument();
+    }
     close();
+    delete this;
 }
