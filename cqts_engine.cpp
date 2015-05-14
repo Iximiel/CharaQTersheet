@@ -62,6 +62,8 @@ CQTs_skill::CQTs_skill(QString code, bool train):
 }
 
 CQTs_skill::CQTs_skill(QXmlStreamReader &xml){
+    synergies=NULL;
+    descSyn=NULL;
     QString code = xml.attributes().value("code").toString();
     append(code);
     ability = xml.attributes().value("ability").toInt();
@@ -281,9 +283,7 @@ void CQTs_engine::loadSkills(QString filename){
     else{
         QXmlStreamReader xml(&file);
         while(!xml.atEnd()){
-
-            if(xml.name()=="skill"&&xml.isStartElement())
-            {
+            if(xml.name()=="skill"&&xml.isStartElement()){
                 CQTs_skill tSkill(xml);
                 /*QString code;
                 int abl;//, arm;
@@ -310,7 +310,7 @@ void CQTs_engine::loadSkills(QString filename){
                 }
                 Skills.append(tSkill);
             }
-            if (xml.hasError()) {
+            if (xml.hasError()){
                 QString ERROR=QObject::tr("Error in file:%4\n%1\nLine %2, column %3")
                         .arg(xml.errorString())
                         .arg(xml.lineNumber())
