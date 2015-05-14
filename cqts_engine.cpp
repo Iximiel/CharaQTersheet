@@ -34,7 +34,8 @@ void CQTS_infoHolder::setmyName(QString name){
 bool operator <(CQTS_infoHolder a , CQTS_infoHolder b){return a.myName()<b.myName();}
 
 void CQTS_infoHolder::setCode(QString code){
-    clear();
+    int n = size();
+    remove(0,n);
     append(code);
 }
 
@@ -395,6 +396,14 @@ QStringList CQTs_engine::classNames(){
     for (int i = 0; i < nclasses; ++i) {
         toreturn.push_back(Classes[i].myName());
     }return toreturn;
+}
+
+void CQTs_engine::appendClass(CQTs_Class newclass){
+    while(Classes.contains(newclass)){
+        newclass.setCode(newclass+"*");
+    }
+    Classes.append(newclass);
+    std::sort(Classes.begin(),Classes.end());
 }
 
 void CQTs_engine::loadClassNames(QString filename){}

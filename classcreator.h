@@ -39,14 +39,15 @@ private:
     QComboBox *Combo_HD, *Combo_BaB, *Combo_Ranks, *Combo_TSFort, *Combo_TSRef, *Combo_TSWill;
     QPushButton *BT_Weapon, *BT_Armor, *BT_Skills;
     CQTs_SkillSelector *SkillSelector;
-signals:
-    void getClass(CQTs_Class editedclass);
+/*signals:
+    void getClass(CQTs_Class editedclass);*/
 public slots:
     void launchSkillSelector();
     void takeSkillList(QStringList myList);
     /*void launchArmorSelector();
     void launchWeaponSelector();*/
     void saveAndExit();
+    void doClose();
 };
 
 #endif // CLASSCREATOR_H

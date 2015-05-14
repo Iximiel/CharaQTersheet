@@ -116,6 +116,7 @@ void CQTs_ClassEditor::takeSkillList(QStringList myList){
 
 void CQTs_ClassEditor::saveAndExit(){
     myClass.setCode(Line_Name->text());
+    myClass.setmyName(Line_Name->text());//temporary name
     bool data[5]={0,0,0,0,0};
     if(Combo_BaB->currentIndex()==1)
         data[0]=true;
@@ -125,15 +126,21 @@ void CQTs_ClassEditor::saveAndExit(){
     data[3] = Combo_TSRef->currentIndex();
     data[4] = Combo_TSWill->currentIndex();
     int dv,ranks, lmax;
-    /**temporaneo**/
+    /**temp**/
     lmax = 20;
     /****/
     ranks = Combo_Ranks->currentText().toInt();
     dv = Combo_HD->currentText().remove("d").toInt();
     myClass.setParam(data,dv,ranks,lmax);
-    emit getClass(myClass);
-    myClass.writeData("filename.xml");//temp name!
+    //emit getClass(myClass);
+    engine->appendClass(myClass);
     close();
+    delete this;
+}
+
+void CQTs_ClassEditor::doClose(){
+    close();
+    delete this;
 }
 /*void CQTs_ClassEditor::launchArmorSelector(){}
 void CQTs_ClassEditor::launchWeaponSelector(){}*/
@@ -162,7 +169,7 @@ CQTs_SkillSelector::CQTs_SkillSelector(CQTs_engine *eng,QWidget *parent)
     QPushButton *tbutt1 = new QPushButton(tr("Save and Exit"));
     QPushButton *tbutt2 = new QPushButton(tr("Exit"));
     connect(tbutt1,SIGNAL(pressed()),this,SLOT(saveAndExit()));
-    connect(tbutt2,SIGNAL(pressed()),this,SLOT(close()));
+    connect(tbutt2,SIGNAL(pressed()),this,SLOT(doClose()));
     mygrid -> addWidget(tbutt2,3,0);
     mygrid -> addWidget(tbutt1,3,1);
     setLayout(mygrid);
@@ -191,6 +198,7 @@ void CQTs_SkillSelector::saveAndExit(){
     emit getSkillList(thisClassList);
     close();
 }
+
 #endif
 /*SPECIAL EDITOR*/
 #ifdef CLASSSPECIALCREATOR_H

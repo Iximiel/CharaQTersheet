@@ -41,6 +41,7 @@ public slots:
     void updateAbilities(int *abls);
     //various exports:
     void exportClasses();
+    void launchClassCreator();
 private:
     CQTs_engine *engine;
     CQTs_Character *character;

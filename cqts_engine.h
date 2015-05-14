@@ -78,12 +78,15 @@ class CQTs_engine//it holds all data related to the game, like skills, max level
 {
 public:
     CQTs_engine();
+    //skills manipulation
     int skillNum();
     int getSkillNum(QString code);
     CQTs_skill skillData(int i);
+    //classes manipulation
     int classNum();
     CQTs_Class classData(int i);
     QStringList classNames();
+    void appendClass(CQTs_Class newclass);
 private:
     //QStringList confFiles;// 0 skills 1 skillnames 2 classes 3 classnames
     void loadSkills(QString filename);//need to power up

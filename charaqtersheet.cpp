@@ -6,6 +6,7 @@
 
 #include "cqts_editor.h"
 #include "cqts_dataexport.h"
+#include "classcreator.h"
 
 #include <QDebug>
 
@@ -61,6 +62,12 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     connect(tAct,SIGNAL(triggered()),this,SLOT(editBio()));
     tAct = menuEdits ->addAction(tr("&Skills"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(editSkills()));
+
+    QMenu *menuDM = mainMenu->addMenu(tr("&DM"));
+    tAct = menuDM ->addAction(tr("&Launch classCreator"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(launchClassCreator()));
+    tAct = menuDM ->addAction(tr("&Export classes"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(exportClasses()));
 
     //addDockClass(Qt::LeftDockWidgetArea);
     addDockBio();
@@ -169,9 +176,14 @@ void CharaQTersheet::saveChar(){
 void CharaQTersheet::exportClasses(){
     QString fileName = QFileDialog::getSaveFileName(this, tr("Export Classes"), QString(),
                                                     tr("xml Files (*.xml);;All Files (*.*)"));
-    CQTs_dataExport data(fileName,engine,CQTs_dataExport::CQTs_CLASSES);
-    data.show();
+    CQTs_dataExport *data = new CQTs_dataExport(fileName,engine,CQTs_dataExport::CQTs_CLASSES);
+    data->show();
 }
+void CharaQTersheet::launchClassCreator(){
+    CQTs_ClassEditor *editor = new CQTs_ClassEditor(engine);
+    editor->show();
+}
+
 
 void CharaQTersheet::newCharacter(){
     character = new CQTs_Character();
