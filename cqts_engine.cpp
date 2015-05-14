@@ -215,7 +215,10 @@ void CQTs_Class::writeDatatoXml(QXmlStreamWriter &xml){
     xml.writeAttribute("skillpoints",dummy);
     dummy.setNum(DV);
     xml.writeAttribute("dv",dummy);
-    /*levelprogression here*/
+    //levelprogression reserved for spellcaster
+    /*for(int i=0;i<lmax;i++){
+        if()
+    }*/
     xml.writeEndElement();//progression
     xml.writeEndElement();//class
     xml.writeEndDocument();
@@ -268,11 +271,111 @@ bool CQTs_Class::STWill()
 /*****engine******/
 
 CQTs_engine::CQTs_engine(){
-    loadSkills("Skills_data.xml");//I'm using english names as codes for the skills
-    loadClasses("BaseClasses.xml");//I'm using english names as codes for the skills
+    /*todo
+     * add setting.xml which contains the files where skills and classes are contained
+     * and translations
+     */
+    loadFiles("Settings.xml");
+    for (int i = 0; i < files.size(); ++i) {
+        loadFromFile(files[i]);
+    }
+    //loadSkills("Skills_data.xml");//I'm using english names as codes for the skills
+    //loadClasses("BaseClasses.xml");//I'm using english names as codes for the skills
     //loadSkillNames("Skills_Ita.xml");//I will add a menu!
     std::sort(Skills.begin(),Skills.end());
     std::sort(Classes.begin(),Classes.end());
+}
+
+void CQTs_engine::loadFiles(QString filename){
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        QMessageBox::information(0, QString(QObject::tr("Error")), QString(QObject::tr("Failed to load files data")), QMessageBox::Ok);
+    }
+    else{
+        QXmlStreamReader xml(&file);
+        while(!xml.atEnd()){
+            //temp
+            if(xml.isStartElement()){
+                if(xml.attributes().hasAttribute("filename"))
+                    files.push_back(xml.attributes().value("filename").toString());
+            }
+            if (xml.hasError()){
+                QString ERROR=QObject::tr("Error in file:%4\n%1\nLine %2, column %3")
+                        .arg(xml.errorString())
+                        .arg(xml.lineNumber())
+                        .arg(xml.columnNumber())
+                        .arg(filename);
+                QMessageBox::information(0, QString(QObject::tr("Error")), ERROR, QMessageBox::Ok);
+                break;
+            }
+            xml.readNext();
+        }
+    }
+}
+
+
+void CQTs_engine::loadFromFile(QString filename){
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        QMessageBox::information(0, QString(QObject::tr("Error")), QString(QObject::tr("Failed to load skills data")), QMessageBox::Ok);
+    }
+    else{
+        QXmlStreamReader xml(&file);
+        while(!xml.atEnd()){
+            if(xml.name()=="skills"&&xml.isStartElement()){
+                do{
+                    xml.readNext();
+                    if(xml.name()=="skill"&&xml.isStartElement()){
+                        CQTs_skill tSkill(xml);
+                        while(Skills.contains(tSkill)){
+                            tSkill.append("*");
+                        }
+                        Skills.append(tSkill);
+                    }
+                    if (xml.hasError()){
+                        QString ERROR=QObject::tr("Error in file:%4\n%1\nLine %2, column %3")
+                                .arg(xml.errorString())
+                                .arg(xml.lineNumber())
+                                .arg(xml.columnNumber())
+                                .arg(filename);
+                        QMessageBox::information(0, QString(QObject::tr("Error")), ERROR, QMessageBox::Ok);
+                        break;
+                    }
+                }while(!(xml.name()=="skills"&&xml.isEndElement()));
+            }else if(xml.name()=="classes"&&xml.isStartElement()){
+                do{
+                    xml.readNext();
+                    if(xml.name()=="class"&&xml.isStartElement())
+                    {
+                        CQTs_Class tClass(xml);
+                        while(Classes.contains(tClass)){
+                            tClass.append("*");
+                        }
+                        Classes.append(tClass);
+                    }
+                    if (xml.hasError()) {
+                        QString ERROR=QObject::tr("Error in file:%4\n%1\nLine %2, column %3")
+                                .arg(xml.errorString())
+                                .arg(xml.lineNumber())
+                                .arg(xml.columnNumber())
+                                .arg(filename);
+                        QMessageBox::information(0, QString(QObject::tr("Error")), ERROR, QMessageBox::Ok);
+                        break;
+                    }
+                }while(!(xml.name()=="classes"&&xml.isEndElement()));
+            }
+            if (xml.hasError()){
+                QString ERROR=QObject::tr("Error in file:%4\n%1\nLine %2, column %3")
+                        .arg(xml.errorString())
+                        .arg(xml.lineNumber())
+                        .arg(xml.columnNumber())
+                        .arg(filename);
+                QMessageBox::information(0, QString(QObject::tr("Error")), ERROR, QMessageBox::Ok);
+                break;
+            }
+            xml.readNext();
+        }
+    }
 }
 
 void CQTs_engine::loadSkills(QString filename){
@@ -285,26 +388,6 @@ void CQTs_engine::loadSkills(QString filename){
         while(!xml.atEnd()){
             if(xml.name()=="skill"&&xml.isStartElement()){
                 CQTs_skill tSkill(xml);
-                /*QString code;
-                int abl;//, arm;
-                bool train;
-
-                code = xml.attributes().value("code").toString();
-                abl = xml.attributes().value("ability").toInt();
-                //arm = xml.attributes().value("armor").toInt();
-                train = xml.attributes().value("onlytrained").toInt();
-
-                tSkill.setAbility(abl);
-                tSkill.setmyName(code);//in case skillnames are not loaded
-
-                while(!(xml.name()=="skill"&&xml.isEndElement())){
-                    xml.readNext();
-                    if(xml.name()=="synergy"&&xml.isStartElement()){//get synergies
-                        QString SynCode = xml.attributes().value("syncode").toString();
-                        QString desc = xml.attributes().value("circumstantial").toString();
-                        tSkill.add_Synergy(SynCode,desc);
-                    }
-                }*/
                 while(Skills.contains(tSkill)){
                     tSkill.append("*");
                 }
