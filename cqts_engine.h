@@ -92,10 +92,13 @@ public:
     void appendClass(CQTs_Class newclass);
 private:
     //QStringList confFiles;// 0 skills 1 skillnames 2 classes 3 classnames
-    void loadSkills(QString filename);//need to power up
+    void loadFiles(QString filename);
+    void loadFromFile(QString filename);
+    void loadSkills(QString filename);
     void loadSkillNames(QString filename);
-    void loadClasses(QString filename);//need to power up
+    void loadClasses(QString filename);
     void loadClassNames(QString filename);
+    QStringList files;
     QList<CQTs_skill> Skills;
     QList<CQTs_Class> Classes;
 };

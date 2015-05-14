@@ -40,3 +40,6 @@ OTHER_FILES += \
     xml/testcharacter.xml \
     xml/Skills_Ita.xml
     xml/goods.xml
+
+DISTFILES += \
+    xml/Settings.xml
