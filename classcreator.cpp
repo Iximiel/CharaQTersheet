@@ -132,7 +132,7 @@ void CQTs_ClassEditor::saveAndExit(){
     dv = Combo_HD->currentText().remove("d").toInt();
     myClass.setParam(data,dv,ranks,lmax);
     emit getClass(myClass);
-    myClass.writeData();
+    myClass.writeData("filename.xml");//temp name!
     close();
 }
 /*void CQTs_ClassEditor::launchArmorSelector(){}

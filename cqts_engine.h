@@ -4,6 +4,7 @@
 #include <QString>
 #include <QStringList>
 #include <QMap>
+#include <QXmlStreamWriter>
 
 //container for everithing that will need a tranlsation
 //code is the english name, Name is the translated info
@@ -53,7 +54,8 @@ public:
     bool STFort();
     bool STRef();
     bool STWill();
-    void writeData();
+    void writeData(QString filename);
+    void writeXml(QXmlStreamWriter &xml);
     void setSkills(QStringList newSkills);
     QStringList getSkills();
     CQTs_Class& operator=(CQTs_Class);

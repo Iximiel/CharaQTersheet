@@ -171,8 +171,8 @@ void CharaQTersheet::saveChar(){
 void CharaQTersheet::exportClasses(){
     QString fileName = QFileDialog::getSaveFileName(this, tr("Export Classes"), QString(),
                                                     tr("xml Files (*.xml);;All Files (*.*)"));
-    CQTs_dataExport *data = new CQTs_dataExport(fileName,engine,CQTs_dataExport::CQTs_CLASSES);
-    data->show();
+    CQTs_dataExport data(fileName,engine,CQTs_dataExport::CQTs_CLASSES);
+    data.show();
 }
 
 void CharaQTersheet::newCharacter(){

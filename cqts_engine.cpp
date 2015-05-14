@@ -7,7 +7,6 @@
 #include <algorithm>
 #include <QTextStream>
 #include <QXmlStreamReader>
-#include <QXmlStreamWriter>
 #include <QXmlStreamAttribute>
 #include <QDebug>
 
@@ -111,47 +110,52 @@ void CQTs_Class::setParam(bool data[5], int setDV, int setRanks, int MaxLV){
     lmax = MaxLV;
 }
 
-void CQTs_Class::writeData(){
-    QFile file("filename.xml");
+void CQTs_Class::writeData(QString filename){
+    QFile file(filename);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)){
         QMessageBox::information(0, QString(QObject::tr("Error")), QString(QObject::tr("Failed to save your class")), QMessageBox::Ok);
     }else{
         QXmlStreamWriter xml(&file);
         xml.setAutoFormatting(true);
         xml.writeStartDocument();
-        xml.writeStartElement("class");
-        QString dummy(*this);
-        xml.writeAttribute("code",dummy);
-        int bab = info[0]*2+info[1];
-        dummy.setNum(bab);
-        xml.writeAttribute("bab",dummy);
-        dummy.setNum(info[fort]);
-        xml.writeAttribute("fort",dummy);
-        dummy.setNum(info[ref]);
-        xml.writeAttribute("ref",dummy);
-        dummy.setNum(info[will]);
-        xml.writeAttribute("will",dummy);
-        dummy.setNum(lmax);
-        xml.writeAttribute("lmax",dummy);
-        if(skillList.size()>0){
-            xml.writeStartElement("classskills");
-            for (int i = 0; i < skillList.size(); ++i) {
-                xml.writeStartElement("skill");
-                xml.writeAttribute("code",skillList[i]);
-                xml.writeEndElement();//skill
-            }
-            xml.writeEndElement();//classskills
-        }
-        xml.writeStartElement("progression");
-        dummy.setNum(Ranks);
-        xml.writeAttribute("skillpoints",dummy);
-        dummy.setNum(DV);
-        xml.writeAttribute("dv",dummy);
-        /*levelprogression here*/
-        xml.writeEndElement();//progression
-        xml.writeEndElement();//class
+        writeXml(xml);
         xml.writeEndDocument();
     }
+}
+
+void CQTs_Class::writeXml(QXmlStreamWriter &xml){
+    xml.writeStartElement("class");//opening class
+    QString dummy(*this);//getting the code
+    xml.writeAttribute("code",dummy);
+    int bab = info[0]*2+info[1];
+    dummy.setNum(bab);
+    xml.writeAttribute("bab",dummy);
+    dummy.setNum(info[fort]);
+    xml.writeAttribute("fort",dummy);
+    dummy.setNum(info[ref]);
+    xml.writeAttribute("ref",dummy);
+    dummy.setNum(info[will]);
+    xml.writeAttribute("will",dummy);
+    dummy.setNum(lmax);
+    xml.writeAttribute("lmax",dummy);
+    if(skillList.size()>0){
+        xml.writeStartElement("classskills");//opening classskills
+        for (int i = 0; i < skillList.size(); ++i) {
+            xml.writeStartElement("skill");//opening skill
+            xml.writeAttribute("code",skillList[i]);
+            xml.writeEndElement();//skill
+        }
+        xml.writeEndElement();//classskills
+    }
+    xml.writeStartElement("progression");//opening progression
+    dummy.setNum(Ranks);
+    xml.writeAttribute("skillpoints",dummy);
+    dummy.setNum(DV);
+    xml.writeAttribute("dv",dummy);
+    /*levelprogression here*/
+    xml.writeEndElement();//progression
+    xml.writeEndElement();//class
+    xml.writeEndDocument();
 }
 
 void CQTs_Class::setSkills(QStringList newSkills){
