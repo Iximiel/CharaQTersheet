@@ -136,8 +136,7 @@ CQTs_Class::CQTs_Class(QXmlStreamReader &xml){
     bool w = xml.attributes().value("will").toInt();
     bool data[5] = {bab1,bab2,f,r,w};
     std::copy(data,data+5,info);
-    Lmax = xml.attributes().value("lmax").toInt();
-    int dv = 0, ranks = 0;
+    lmax = xml.attributes().value("lmax").toInt();
     QStringList skillList;
     do{
         xml.readNext();
@@ -285,6 +284,7 @@ void CQTs_engine::loadSkills(QString filename){
 
             if(xml.name()=="skill"&&xml.isStartElement())
             {
+                CQTs_skill tSkill(xml);
                 /*QString code;
                 int abl;//, arm;
                 bool train;
@@ -293,7 +293,7 @@ void CQTs_engine::loadSkills(QString filename){
                 abl = xml.attributes().value("ability").toInt();
                 //arm = xml.attributes().value("armor").toInt();
                 train = xml.attributes().value("onlytrained").toInt();
-                CQTs_skill tSkill(code,train);
+
                 tSkill.setAbility(abl);
                 tSkill.setmyName(code);//in case skillnames are not loaded
 
@@ -305,6 +305,9 @@ void CQTs_engine::loadSkills(QString filename){
                         tSkill.add_Synergy(SynCode,desc);
                     }
                 }*/
+                while(Skills.contains(tSkill)){
+                    tSkill.append("*");
+                }
                 Skills.append(tSkill);
             }
             if (xml.hasError()) {

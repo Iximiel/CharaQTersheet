@@ -29,6 +29,7 @@ public:
     CQTs_skill();
     CQTs_skill(QString code);//search constructor
     CQTs_skill(QString code, bool train);
+    CQTs_skill(QXmlStreamReader &xml);
     void setAbility(int);
     int myAbility();
     bool needsTrain();
