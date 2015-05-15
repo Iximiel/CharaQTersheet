@@ -1,81 +1,10 @@
 //the engine is the "globalresourcepack" of my prog
 #ifndef CQTS_ENGINE_H
 #define CQTS_ENGINE_H
-#include <QString>
-#include <QStringList>
+#include "cqts_dataholder.h"
 #include <QMap>
-#include <QXmlStreamWriter>
-#include <QXmlStreamReader>
 
 //container for everithing that will need a tranlsation
-//code is the english name, Name is the translated info
-class CQTS_infoHolder : public QString//in a qlist this could be find using the code, and next ordered by using myname
-{
-public:
-    CQTS_infoHolder();
-    CQTS_infoHolder(QString code);
-    void setmyName(QString);
-    QString myName();
-    void setCode(QString);
-protected:
-    QString Name;
-};
-
-bool operator <(CQTS_infoHolder a ,CQTS_infoHolder b);//needed to order alphabetically things
-
-class CQTs_skill : public CQTS_infoHolder
-{
-public:
-    CQTs_skill();
-    CQTs_skill(QString code);//search constructor
-    CQTs_skill(QString code, bool train);
-    CQTs_skill(QXmlStreamReader &xml);
-    void setAbility(int);
-    int myAbility();
-    bool needsTrain();
-    void add_Synergy(QString code, QString description="");//it undertand if is cyrcumstantial or notby himself
-private:
-    QStringList* synergies;
-    QStringList* descSyn;
-    int ability;//armor;
-    bool trainedOnly;
-};
-
-
-class CQTs_Class : public CQTS_infoHolder
-{
-public:
-    CQTs_Class();
-    CQTs_Class(QString code);//search constructor
-    CQTs_Class(QString code, bool data[5], int setDV=0, int setRanks=0, int MaxLV=20);
-    CQTs_Class(QXmlStreamReader &xml);
-    void setParam(bool data[5], int setDV=0, int setRanks=0, int MaxLV=20);
-    int MaxLv();
-    int BAB();
-    int AP();
-    int HP();
-    bool STFort();
-    bool STRef();
-    bool STWill();
-    void writeData(QString filename);
-    void writeDatatoXml(QXmlStreamWriter &xml);
-    void setSkills(QStringList newSkills);
-    QStringList getSkills();
-    CQTs_Class& operator=(CQTs_Class);
-private:
-    enum{fort=2,ref=3,will=4};
-    int Ranks, DV;
-    int lmax;//20,10,5,3 so he can understand if is baseclass or not//may be made compatible with d20System in general
-    bool info[5];//01:BAB 2:F 3:R 4:W
-    QStringList skillList;
-    //BAB: 01 good, 10 medium 00 low
-    //next: adding class skills and privileges
-};
-
-/*as now this is a placeholder,
- *maybe it will evolve in a sort of global
- *constant that will make communication between segments of the program
- */
 
 class CQTs_engine//it holds all data related to the game, like skills, max level and conf files
 {

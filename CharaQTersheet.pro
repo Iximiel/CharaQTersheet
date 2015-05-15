@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     items.cpp \
     item_editor.cpp \
     classcreator.cpp \
-    cqts_dataexport.cpp
+    cqts_dataexport.cpp \
+    cqts_dataholder.cpp
 
 HEADERS  += charaqtersheet.h \
     cqts_engine.h \
@@ -30,7 +31,8 @@ HEADERS  += charaqtersheet.h \
     items.h \
     item_editor.h \
     classcreator.h \
-    cqts_dataexport.h
+    cqts_dataexport.h \
+    cqts_dataholder.h
 
 OTHER_FILES += \
     Otherfiles/Skills.txt \
