@@ -66,7 +66,9 @@ private:
     int Ranks, DV;
     int lmax;//20,10,5,3 so he can understand if is baseclass or not//may be made compatible with d20System in general
     bool info[5];//01:BAB 2:F 3:R 4:W
+    bool spellcaster;
     QStringList skillList;
+    QStringList spellNumberList;//spell per level: 0123456789 (baseclasses have max 6 spell on a sigle level!)
     //BAB: 01 good, 10 medium 00 low
     //next: adding class skills and privileges
 };

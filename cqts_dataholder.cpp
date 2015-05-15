@@ -158,7 +158,7 @@ CQTs_Class::CQTs_Class(QXmlStreamReader &xml){
             do{
                 xml.readNext();
                 if(xml.name()=="level"&&xml.isStartElement()){
-                    //level progression
+                    //spell progression
                 }
             }while(!(xml.name()=="progression"&&xml.isEndElement()));
         }
@@ -216,10 +216,15 @@ void CQTs_Class::writeDatatoXml(QXmlStreamWriter &xml){
     xml.writeAttribute("skillpoints",dummy);
     dummy.setNum(DV);
     xml.writeAttribute("dv",dummy);
-    //levelprogression reserved for spellcaster
-    /*for(int i=0;i<lmax;i++){
-        if()
-    }*/
+    //levelprogression reserved for spellcaster as now
+    for(int i=0;i<lmax;i++){
+        if(spellcaster&&(spellNumberList[i][spellNumberList[i].size()-1])!="-"){//"-" is no spell for that level
+            xml.writeStartElement("level");//opening a level
+            dummy.setNum(i);
+            xml.writeAttribute("n",dummy);
+            xml.writeAttribute("spells",spellNumberList[i]);
+        }
+    }
     xml.writeEndElement();//progression
     xml.writeEndElement();//class
     xml.writeEndDocument();
@@ -268,3 +273,10 @@ bool CQTs_Class::STRef()
 
 bool CQTs_Class::STWill()
 {return info[will];}
+
+QString CQTs_Class::SpellList(int i){
+    QString toreturn = "-";
+    if(i<lmax && spellcaster)
+        toreturn = spellNumberList[i];
+    return toreturn;
+}
