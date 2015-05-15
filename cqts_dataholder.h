@@ -53,13 +53,18 @@ public:
     int BAB();
     int AP();
     int HP();
+    //saves
     bool STFort();
     bool STRef();
     bool STWill();
-    void writeData(QString filename);
-    void writeDatatoXml(QXmlStreamWriter &xml);
+    //skills
     void setSkills(QStringList newSkills);
     QStringList getSkills();
+    //spells
+    QString SpellList(int lv);
+    //data
+    void writeData(QString filename);
+    void writeDatatoXml(QXmlStreamWriter &xml);
     CQTs_Class& operator=(CQTs_Class);
 private:
     enum{fort=2,ref=3,will=4};

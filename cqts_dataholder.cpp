@@ -105,6 +105,7 @@ CQTs_Class::CQTs_Class():
     for (int i = 0; i < 5; ++i) {
         info[i] = false;
     }
+    spellcaster = false;
     lmax = 0;
 }
 
@@ -114,16 +115,19 @@ CQTs_Class::CQTs_Class(QString code):
     for (int i = 0; i < 5; ++i) {
         info[i] = false;
     }
+    spellcaster = false;
     lmax = 0;
 }
 
 CQTs_Class::CQTs_Class(QString code, bool data[5], int setDV, int setRanks, int MaxLV):
     CQTS_infoHolder(code)
 {
+    spellcaster = false;
     setParam(data, setDV, setRanks, MaxLV);
 }
 
 CQTs_Class::CQTs_Class(QXmlStreamReader &xml){
+    spellcaster = false;
     //trusting this:if(xml.name()=="class"&&xml.isStartElement())
     QString code = xml.attributes().value("code").toString();
     append(code);
@@ -159,9 +163,17 @@ CQTs_Class::CQTs_Class(QXmlStreamReader &xml){
                 xml.readNext();
                 if(xml.name()=="level"&&xml.isStartElement()){
                     //spell progression
+                    int lv = xml.attributes().value("n").toInt();
+                    if(xml.attributes().hasAttribute("spells")){
+                        spellcaster = true;
+                        for (int i = spellNumberList.size(); i < lv-1; ++i)
+                            spellNumberList.append("-");
+                        spellNumberList.append(xml.attributes().value("spells").toString());
+                    }
                 }
             }while(!(xml.name()=="progression"&&xml.isEndElement()));
         }
+
     }while(!(xml.isEndElement()&&xml.name()=="class"));
     if(skillList.size()>0)
         setSkills(skillList);
@@ -274,7 +286,8 @@ bool CQTs_Class::STRef()
 bool CQTs_Class::STWill()
 {return info[will];}
 
-QString CQTs_Class::SpellList(int i){
+QString CQTs_Class::SpellList(int lv){
+    int i = lv-1;//list starts from 0, levels from 1 hoping i'll remember it in future!
     QString toreturn = "-";
     if(i<lmax && spellcaster)
         toreturn = spellNumberList[i];
