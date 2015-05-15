@@ -7,7 +7,24 @@
 #include <QComboBox>
 #include <QLineEdit>
 #include <QCheckBox>
+#include <QSpinBox>
 #include "cqts_engine.h"
+
+class CQTs_SpellSelector : public QWidget
+{
+    Q_OBJECT
+public:
+    explicit CQTs_SpellSelector(CQTs_engine *eng,QWidget *parent = 0);
+    void setSpellFromClass(QStringList myclassList);
+private:
+    CQTs_engine *engine;
+    int lmax;
+    QSpinBox **Spin_spell;
+signals:
+    void getSpellList(QStringList spellList);
+public slots:
+    void saveAndExit();
+};
 
 class CQTs_SkillSelector : public QWidget
 {
@@ -37,12 +54,14 @@ private:
     CQTs_engine *engine;
     QLineEdit *Line_Name;
     QComboBox *Combo_HD, *Combo_BaB, *Combo_Ranks, *Combo_TSFort, *Combo_TSRef, *Combo_TSWill;
-    QPushButton *BT_Weapon, *BT_Armor, *BT_Skills;
+    QPushButton *BT_Weapon, *BT_Armor, *BT_Skills, *BT_Spells;
     CQTs_SkillSelector *SkillSelector;
+    CQTs_SpellSelector *SpellSelector;
 /*signals:
     void getClass(CQTs_Class editedclass);*/
 public slots:
     void launchSkillSelector();
+    void launchSpellSelector();
     void takeSkillList(QStringList myList);
     /*void launchArmorSelector();
     void launchWeaponSelector();*/

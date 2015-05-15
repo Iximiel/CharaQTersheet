@@ -23,6 +23,7 @@ CQTs_ClassEditor::CQTs_ClassEditor(CQTs_Class oldclass, CQTs_engine *eng, QWidge
 void CQTs_ClassEditor::initialize(CQTs_engine *eng){
     engine = eng;
     SkillSelector=NULL;
+    SpellSelector=NULL;
     QFormLayout *grid = new QFormLayout();
     QLabel *tLabel;
     //Name
@@ -69,12 +70,15 @@ void CQTs_ClassEditor::initialize(CQTs_engine *eng){
     BT_Weapon = new QPushButton(tr("Set Weapons Proficiency"));
     BT_Armor = new QPushButton(tr("Set Armor Proficiency"));
     BT_Skills = new QPushButton(tr("Set Class Skills"));
+    BT_Spells = new QPushButton(tr("Set Class Spells"));
     BT_Weapon->setEnabled(false);
     grid->addRow(BT_Weapon);
     BT_Armor->setEnabled(false);
     grid->addRow(BT_Armor);
     grid->addRow(BT_Skills);
+    grid->addRow(BT_Spells);
     connect(BT_Skills,SIGNAL(pressed()),this,SLOT(launchSkillSelector()));
+    connect(BT_Spells,SIGNAL(pressed()),this,SLOT(launchSpellSelector()));
     QScrollArea *Scroll_Levels = new QScrollArea();
     Scroll_Levels->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     grid->addRow(Scroll_Levels);
@@ -107,6 +111,16 @@ void CQTs_ClassEditor::launchSkillSelector(){
     }
     SkillSelector->setSkillFromClass(myClass.getSkills());
     SkillSelector->show();
+
+}
+
+void CQTs_ClassEditor::launchSpellSelector(){
+    if(SpellSelector==NULL){
+        SpellSelector = new CQTs_SpellSelector(engine);
+        //connect(SpellSelector,SIGNAL(getSpellList(QStringList)),this,SLOT(takeSkillList(QStringList)));
+    }
+    //SpellSelector->setSkillFromClass(myClass.getSkills());
+    SpellSelector->show();
 
 }
 
@@ -198,6 +212,71 @@ void CQTs_SkillSelector::saveAndExit(){
     emit getSkillList(thisClassList);
     close();
 }
+
+//spelleditor
+CQTs_SpellSelector::CQTs_SpellSelector(CQTs_engine *eng,QWidget *parent)
+    : QWidget(parent)
+{
+    engine = eng;
+    lmax=20;
+    QGridLayout *mygrid = new QGridLayout();
+    mygrid->addWidget(new QLabel(tr("Select your class spells:")),0,0,1,2,Qt::AlignHCenter);
+    QScrollArea *scrollskill = new QScrollArea();
+    mygrid -> addWidget(scrollskill,1,0,2,2);
+    QGridLayout *grid = new QGridLayout();
+    QWidget *areatoscroll = new QWidget();
+    Spin_spell = new QSpinBox*[10*lmax];
+    for (int i = 0; i < 10; ++i) {
+        QLabel* tLab = new QLabel();
+        tLab->setNum(i);//center
+        grid->addWidget(tLab,0,i+1);
+    }
+    for (int lv = 0; lv < lmax; ++lv) {
+        QLabel* tLab = new QLabel();
+        tLab->setNum(lv+1);
+        grid->addWidget(tLab,lv+2,0);
+        for (int i = 0; i < 10; ++i) {
+            Spin_spell[10*lv+i] = new QSpinBox();
+            Spin_spell[10*lv+i]->setMinimum(0);
+            Spin_spell[10*lv+i]->setMaximum(9);
+            grid->addWidget(Spin_spell[10*lv+i],lv+2,i+1);
+        }
+    }
+    areatoscroll->setLayout(grid);
+    scrollskill->setWidget(areatoscroll);
+    QPushButton *tbutt1 = new QPushButton(tr("Save and Exit"));
+    QPushButton *tbutt2 = new QPushButton(tr("Exit"));
+    connect(tbutt1,SIGNAL(pressed()),this,SLOT(saveAndExit()));
+    connect(tbutt2,SIGNAL(pressed()),this,SLOT(close()));
+    mygrid -> addWidget(tbutt2,3,0);
+    mygrid -> addWidget(tbutt1,3,1);
+    setLayout(mygrid);
+}
+
+void CQTs_SpellSelector::setSpellFromClass(QStringList myclassList){
+    /* int dim = myclassList.size();
+    for(int i = 0;i<engine->skillNum();++i)
+        Checks_skills[i]->setChecked(false);
+    for (int i = 0; i < dim; ++i) {
+        int skillID = engine->getSkillNum(myclassList[i]);
+        if(skillID>0)
+            Checks_skills[skillID]->setChecked(true);
+    }
+*/
+}
+
+void CQTs_SpellSelector::saveAndExit(){
+    /*  QStringList thisClassList;
+    for (int i = 0; i < engine->skillNum(); ++i) {
+        if(Checks_skills[i]->isChecked()){
+            QString dummy = engine->skillData(i);
+            thisClassList.push_back(dummy);
+        }
+    }
+    emit getSkillList(thisClassList);*/
+    close();
+}
+
 
 #endif
 /*SPECIAL EDITOR*/

@@ -230,7 +230,7 @@ void CQTs_Class::writeDatatoXml(QXmlStreamWriter &xml){
     xml.writeAttribute("dv",dummy);
     //levelprogression reserved for spellcaster as now
     for(int i=0;i<lmax;i++){
-        if(spellcaster&&(spellNumberList[i][spellNumberList[i].size()-1])!="-"){//"-" is no spell for that level
+        if(spellcaster&&(spellNumberList[i][spellNumberList[i].size()-1])!='-'){//'-' is no spell for that level
             xml.writeStartElement("level");//opening a level
             dummy.setNum(i);
             xml.writeAttribute("n",dummy);

@@ -14,25 +14,25 @@ TRANSLATIONS = charaqtersheet_it.ts
 
 
 SOURCES += main.cpp\
-        charaqtersheet.cpp \
+    cqts_dataholder.cpp \
     cqts_engine.cpp \
+    charaqtersheet.cpp \
     cqts_viewers.cpp \
     cqts_editor.cpp \
     items.cpp \
     item_editor.cpp \
     classcreator.cpp \
-    cqts_dataexport.cpp \
-    cqts_dataholder.cpp
+    cqts_dataexport.cpp
 
 HEADERS  += charaqtersheet.h \
+    cqts_dataholder.h \
     cqts_engine.h \
     cqts_viewers.h \
     cqts_editor.h \
     items.h \
     item_editor.h \
     classcreator.h \
-    cqts_dataexport.h \
-    cqts_dataholder.h
+    cqts_dataexport.h
 
 OTHER_FILES += \
     Otherfiles/Skills.txt \
@@ -40,8 +40,6 @@ OTHER_FILES += \
     xml/BaseClasses.xml \
     xml/Skills_data.xml \
     xml/testcharacter.xml \
-    xml/Skills_Ita.xml
-    xml/goods.xml
-
-DISTFILES += \
+    xml/Skills_Ita.xml \
+    xml/goods.xml \
     xml/Settings.xml
