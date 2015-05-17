@@ -66,11 +66,11 @@ CQTs_skill::CQTs_skill(QXmlStreamReader &xml){
     synergies=NULL;
     descSyn=NULL;
     QString code = xml.attributes().value("code").toString();
+    Name=code;//in case skillnames are not loaded
     append(code);
     ability = xml.attributes().value("ability").toInt();
     //armor = xml.attributes().value("armor").toInt();
     trainedOnly = xml.attributes().value("onlytrained").toInt();
-    Name=code;//in case skillnames are not loaded
     do{
         xml.readNext();
         if(xml.name()=="synergy"&&xml.isStartElement()){//get synergies
@@ -232,14 +232,14 @@ void CQTs_Class::writeDatatoXml(QXmlStreamWriter &xml){
     for(int i=0;i<lmax;i++){
         if(spellcaster&&(spellNumberList[i][spellNumberList[i].size()-1])!='-'){//'-' is no spell for that level
             xml.writeStartElement("level");//opening a level
-            dummy.setNum(i);
+            dummy.setNum(i+1);
             xml.writeAttribute("n",dummy);
             xml.writeAttribute("spells",spellNumberList[i]);
+            xml.writeEndElement();//level
         }
     }
     xml.writeEndElement();//progression
     xml.writeEndElement();//class
-    xml.writeEndDocument();
 }
 
 void CQTs_Class::setSkills(QStringList newSkills){
@@ -252,8 +252,20 @@ QStringList CQTs_Class::getSkills(){
 
 void CQTs_Class::setSpellPerDay(QStringList newSpells){
     spellNumberList.clear();
+    spellcaster = false;
     spellNumberList.append(newSpells);
+    for (int i = 0; (i < lmax) && (!spellcaster); ++i){
+        if(spellNumberList[i]!="-"){
+            for(int j=0;j<10&&!spellcaster;++j){
+                QString t;
+                t.setNum(j);
+                if(spellNumberList[i].contains(t))
+                    spellcaster = true;
+            }
+        }
+    }
 }
+
 CQTs_Class& CQTs_Class::operator=(CQTs_Class x){
     clear();
     append(x);

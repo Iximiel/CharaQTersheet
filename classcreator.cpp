@@ -10,6 +10,8 @@ CQTs_ClassEditor::CQTs_ClassEditor(CQTs_engine *eng, QWidget *parent)
     : QWidget(parent)
 {
     initialize(eng);
+    bool data[5] = {0,0,0,0,0};
+    myClass.setParam(data,4,2,20);
 }
 
 CQTs_ClassEditor::CQTs_ClassEditor(CQTs_Class oldclass, CQTs_engine *eng, QWidget *parent)
