@@ -10,10 +10,10 @@ int main(int argc, char *argv[])
     /*QTranslator translator;
     translator.load("charaqtersheet_it");
     a.installTranslator(&translator);*/
-    //CharaQTersheet w;
-    CQTs_engine *engine = new CQTs_engine();
+    CharaQTersheet w;
+    /*CQTs_engine *engine = new CQTs_engine();
     CQTs_Class prova;
-    prova = engine->classData(4);
+    prova = engine->classData(10);
     CQTs_ClassEditor w(prova,engine);
     //CQTs_Class *c = new CQTs_Class();
     /*CQTs_ClassViewer *w = new CQTs_ClassViewer();

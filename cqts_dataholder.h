@@ -62,7 +62,8 @@ public:
     void setSkills(QStringList newSkills);
     QStringList getSkills();
     //spells
-    QString SpellList(int lv);
+    void setSpellPerDay(QStringList newSpells);
+    QString SpellPerDay(int lv);
     //data
     void writeData(QString filename);
     void writeDatatoXml(QXmlStreamWriter &xml);

@@ -63,6 +63,7 @@ public slots:
     void launchSkillSelector();
     void launchSpellSelector();
     void takeSkillList(QStringList myList);
+    void takeSpellList(QStringList myList);
     /*void launchArmorSelector();
     void launchWeaponSelector();*/
     void saveAndExit();

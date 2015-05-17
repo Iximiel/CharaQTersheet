@@ -250,6 +250,10 @@ QStringList CQTs_Class::getSkills(){
     return skillList;
 }
 
+void CQTs_Class::setSpellPerDay(QStringList newSpells){
+    spellNumberList.clear();
+    spellNumberList.append(newSpells);
+}
 CQTs_Class& CQTs_Class::operator=(CQTs_Class x){
     clear();
     append(x);
@@ -286,7 +290,7 @@ bool CQTs_Class::STRef()
 bool CQTs_Class::STWill()
 {return info[will];}
 
-QString CQTs_Class::SpellList(int lv){
+QString CQTs_Class::SpellPerDay(int lv){
     int i = lv-1;//list starts from 0, levels from 1 hoping i'll remember it in future!
     QString toreturn = "-";
     if(i<lmax && spellcaster)

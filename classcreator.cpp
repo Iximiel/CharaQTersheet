@@ -117,15 +117,22 @@ void CQTs_ClassEditor::launchSkillSelector(){
 void CQTs_ClassEditor::launchSpellSelector(){
     if(SpellSelector==NULL){
         SpellSelector = new CQTs_SpellSelector(engine);
-        //connect(SpellSelector,SIGNAL(getSpellList(QStringList)),this,SLOT(takeSkillList(QStringList)));
+        connect(SpellSelector,SIGNAL(getSpellList(QStringList)),this,SLOT(takeSpellList(QStringList)));
     }
     //SpellSelector->setSkillFromClass(myClass.getSkills());
     SpellSelector->show();
 
 }
 
+/*void CQTs_ClassEditor::launchArmorSelector(){}
+void CQTs_ClassEditor::launchWeaponSelector(){}*/
+
 void CQTs_ClassEditor::takeSkillList(QStringList myList){
     myClass.setSkills(myList);
+}
+
+void CQTs_ClassEditor::takeSpellList(QStringList myList){
+    myClass.setSpellPerDay(myList);
 }
 
 void CQTs_ClassEditor::saveAndExit(){
@@ -156,8 +163,6 @@ void CQTs_ClassEditor::doClose(){
     close();
     delete this;
 }
-/*void CQTs_ClassEditor::launchArmorSelector(){}
-void CQTs_ClassEditor::launchWeaponSelector(){}*/
 
 /*Skillselector*/
 
@@ -273,6 +278,7 @@ void CQTs_SpellSelector::setSpellFromClass(QStringList myclassList){
 }
 
 void CQTs_SpellSelector::saveAndExit(){
+    QStringList thisClassList;
     for (int lv = 0; lv < lmax; ++lv) {
         QString mylev;
         for (int i = 0; i <10 ; ++i){
@@ -285,16 +291,10 @@ void CQTs_SpellSelector::saveAndExit(){
                 mylev.append("-");
             }
         }
-        qDebug() << mylev;
+        //qDebug() << mylev;
+        thisClassList.push_back(mylev);
     }
-    /*  QStringList thisClassList;
-    for (int i = 0; i < engine->skillNum(); ++i) {
-        if(Checks_skills[i]->isChecked()){
-            QString dummy = engine->skillData(i);
-            thisClassList.push_back(dummy);
-        }
-    }
-    emit getSkillList(thisClassList);*/
+    emit getSpellList(thisClassList);
     close();
 }
 
