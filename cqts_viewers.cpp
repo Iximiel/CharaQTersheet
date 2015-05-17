@@ -61,8 +61,13 @@ void CQTs_ClassViewer::initialize(){
         LabFort[i]  = new QLabel();
         LabRef[i]   = new QLabel();
         LabWill[i]  = new QLabel();
+        LabBAB[i]   ->setAlignment(Qt::AlignHCenter);
+        LabFort[i]  ->setAlignment(Qt::AlignHCenter);
+        LabRef[i]   ->setAlignment(Qt::AlignHCenter);
+        LabWill[i]  ->setAlignment(Qt::AlignHCenter);
         Tlab = new QLabel();
         Tlab->setNum(i+1);
+        Tlab->setAlignment(Qt::AlignHCenter);
         grid2->addWidget(Tlab,i+1,0);
         grid2->addWidget(LabBAB[i],i+1,1);
         grid2->addWidget(LabFort[i],i+1,2);
