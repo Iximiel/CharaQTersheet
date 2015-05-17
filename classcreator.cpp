@@ -273,6 +273,20 @@ void CQTs_SpellSelector::setSpellFromClass(QStringList myclassList){
 }
 
 void CQTs_SpellSelector::saveAndExit(){
+    for (int lv = 0; lv < lmax; ++lv) {
+        QString mylev;
+        for (int i = 0; i <10 ; ++i){
+            int res = Spin_spell[10*lv+i]->value();
+            if(res>-1){
+                QString t;
+                t.setNum(res);
+                mylev.append(t);
+            }else if(i==0){
+                mylev.append("-");
+            }
+        }
+        qDebug() << mylev;
+    }
     /*  QStringList thisClassList;
     for (int i = 0; i < engine->skillNum(); ++i) {
         if(Checks_skills[i]->isChecked()){
