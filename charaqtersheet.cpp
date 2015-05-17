@@ -8,8 +8,6 @@
 #include "cqts_dataexport.h"
 #include "classcreator.h"
 
-#include <QDebug>
-
 CharaQTersheet::CharaQTersheet(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -64,7 +62,7 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     connect(tAct,SIGNAL(triggered()),this,SLOT(editSkills()));
 
     QMenu *menuDM = mainMenu->addMenu(tr("&DM"));
-    tAct = menuDM ->addAction(tr("&Launch classCreator"));
+    tAct = menuDM ->addAction(tr("&Launch Class Creator"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(launchClassCreator()));
     tAct = menuDM ->addAction(tr("&Export classes"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(exportClasses()));

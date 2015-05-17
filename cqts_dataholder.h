@@ -4,6 +4,7 @@
 #include <QStringList>
 #include <QXmlStreamWriter>
 #include <QXmlStreamReader>
+#include <QDebug>
 
 void xmlHasError(QXmlStreamReader &xml, QString filename);
 

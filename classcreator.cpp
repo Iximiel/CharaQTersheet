@@ -219,31 +219,38 @@ CQTs_SpellSelector::CQTs_SpellSelector(CQTs_engine *eng,QWidget *parent)
 {
     engine = eng;
     lmax=20;
+    QLabel* tLab = new QLabel(tr("Select your class spells:"));
+    tLab->setFixedHeight(30);
     QGridLayout *mygrid = new QGridLayout();
-    mygrid->addWidget(new QLabel(tr("Select your class spells:")),0,0,1,2,Qt::AlignHCenter);
-    QScrollArea *scrollskill = new QScrollArea();
-    mygrid -> addWidget(scrollskill,1,0,2,2);
+    mygrid->addWidget(tLab,0,0,1,2,Qt::AlignHCenter);
+    QScrollArea *scrollspell = new QScrollArea();
+    mygrid -> addWidget(scrollspell,1,0,2,2);
     QGridLayout *grid = new QGridLayout();
     QWidget *areatoscroll = new QWidget();
     Spin_spell = new QSpinBox*[10*lmax];
     for (int i = 0; i < 10; ++i) {
-        QLabel* tLab = new QLabel();
-        tLab->setNum(i);//center
+        tLab = new QLabel();
+        tLab->setNum(i);
+        tLab->setAlignment(Qt::AlignHCenter);
         grid->addWidget(tLab,0,i+1);
     }
     for (int lv = 0; lv < lmax; ++lv) {
-        QLabel* tLab = new QLabel();
+        tLab = new QLabel();
         tLab->setNum(lv+1);
+        tLab->setAlignment(Qt::AlignHCenter);
         grid->addWidget(tLab,lv+2,0);
         for (int i = 0; i < 10; ++i) {
             Spin_spell[10*lv+i] = new QSpinBox();
-            Spin_spell[10*lv+i]->setMinimum(0);
+            Spin_spell[10*lv+i]->setMinimum(-1);
+            Spin_spell[10*lv+i]->setValue(-1);
             Spin_spell[10*lv+i]->setMaximum(9);
+            Spin_spell[10*lv+i]->setSpecialValueText("-");
             grid->addWidget(Spin_spell[10*lv+i],lv+2,i+1);
         }
     }
     areatoscroll->setLayout(grid);
-    scrollskill->setWidget(areatoscroll);
+    scrollspell->setWidget(areatoscroll);
+    scrollspell->setMinimumWidth(110+10*Spin_spell[0]->width());
     QPushButton *tbutt1 = new QPushButton(tr("Save and Exit"));
     QPushButton *tbutt2 = new QPushButton(tr("Exit"));
     connect(tbutt1,SIGNAL(pressed()),this,SLOT(saveAndExit()));
