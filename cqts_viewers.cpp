@@ -31,6 +31,7 @@ void CQTs_ClassViewer::initialize(){
     LabFort = new QLabel*[20];
     LabRef  = new QLabel*[20];
     LabWill = new QLabel*[20];
+    LabSpells = new QLabel*[20*10];
 
     QGridLayout *grid = new QGridLayout();
     int r = 0;
@@ -38,29 +39,42 @@ void CQTs_ClassViewer::initialize(){
     /*grid->addWidget(Tlab,r,0);
     grid->addWidget(LabName,r++,1);*/
     Tlab = new QLabel(tr("Hit Dice:"));
+    Tlab->setAlignment(Qt::AlignHCenter);
     grid->addWidget(Tlab,r,0);
     grid->addWidget(LabHD,r++,1);
     Tlab = new QLabel(tr("Skill points per level:"));
+    Tlab->setAlignment(Qt::AlignHCenter);
     grid->addWidget(Tlab,r,0);
     grid->addWidget(LabRanks,r++,1);
     QGroupBox *ProgBox= new QGroupBox(tr("Progression:"));
     grid->addWidget(ProgBox,r++,0,1,2);
     QGridLayout *grid2 = new QGridLayout();
     Tlab = new QLabel(tr("Level:"));
+    Tlab->setAlignment(Qt::AlignHCenter);
     grid2->addWidget(Tlab,0,0);
     Tlab = new QLabel(tr("BAB:"));
+    Tlab->setAlignment(Qt::AlignHCenter);
     grid2->addWidget(Tlab,0,1);
     Tlab = new QLabel(tr("Fortitude:"));
+    Tlab->setAlignment(Qt::AlignHCenter);
     grid2->addWidget(Tlab,0,2);
     Tlab = new QLabel(tr("Reflexes:"));
+    Tlab->setAlignment(Qt::AlignHCenter);
     grid2->addWidget(Tlab,0,3);
     Tlab = new QLabel(tr("Will:"));
+    Tlab->setAlignment(Qt::AlignHCenter);
     grid2->addWidget(Tlab,0,4);
     for (int i = 0; i < 20; ++i) {
         LabBAB[i]   = new QLabel();
         LabFort[i]  = new QLabel();
         LabRef[i]   = new QLabel();
         LabWill[i]  = new QLabel();
+        for (int j = 0; j < 10; ++j) {
+            LabSpells[10*i+j] = new QLabel("-");
+            LabSpells[10*i+j]->setAlignment(Qt::AlignHCenter);
+            LabSpells[10*i+j]->hide();
+            grid2->addWidget(LabSpells[10*i+j],i+1,5+j);
+        }
         LabBAB[i]   ->setAlignment(Qt::AlignHCenter);
         LabFort[i]  ->setAlignment(Qt::AlignHCenter);
         LabRef[i]   ->setAlignment(Qt::AlignHCenter);
@@ -112,6 +126,17 @@ void CQTs_ClassViewer::setLabs(CQTs_Class *selected){
         LabFort[i] ->setNum(df);
         LabRef[i]  ->setNum(dr);
         LabWill[i] ->setNum(dw);
+        //setting spells:
+        bool ispellcaster = selected->isSpellcaster();
+        for (int j = 0; j < 10; ++j) {
+            LabSpells[10*i+j]->setVisible(ispellcaster);
+            if(ispellcaster){
+                QString num = "-";
+                if(j<selected->SpellPerDay(1+i).size())
+                    num=selected->SpellPerDay(1+i)[j];
+                LabSpells[10*i+j]->setText(num);
+            }
+        }
     }
 }
 /*BioViewer*/

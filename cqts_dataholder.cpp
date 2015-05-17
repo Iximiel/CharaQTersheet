@@ -309,3 +309,7 @@ QString CQTs_Class::SpellPerDay(int lv){
         toreturn = spellNumberList[i];
     return toreturn;
 }
+
+bool CQTs_Class::isSpellcaster(){
+    return spellcaster;
+}

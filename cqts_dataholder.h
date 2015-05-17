@@ -64,6 +64,7 @@ public:
     //spells
     void setSpellPerDay(QStringList newSpells);
     QString SpellPerDay(int lv);
+    bool isSpellcaster();
     //data
     void writeData(QString filename);
     void writeDatatoXml(QXmlStreamWriter &xml);
