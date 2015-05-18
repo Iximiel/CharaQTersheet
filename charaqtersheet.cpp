@@ -19,6 +19,7 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
 
     QAction *tAct;
     QMenuBar *mainMenu = menuBar(); //an addres for symplify my life
+    //files menu
     QMenu *menuFiles = mainMenu->addMenu(tr("&File"));
     tAct = menuFiles ->addAction(tr("&Save"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(saveChar()));
@@ -29,9 +30,9 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
 
     tAct = menuFiles ->addAction(tr("&Exit"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(close()));
+
+    //tools menu
     QMenu *menuTools = mainMenu->addMenu(tr("&Tools"));
-
-
     tAct = menuTools ->addAction(tr("&Abilities"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(addDockAbilities()));
     tAct = menuTools ->addAction(tr("&Saves"));
@@ -49,6 +50,7 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     tAct = menuTools ->addAction(tr("&Classviewer"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(addDockClass()));
 
+    //menu editor
     QMenu *menuEdits = mainMenu->addMenu(tr("&Edit"));
     tAct = menuEdits ->addAction(tr("&BAB"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(editBAB()));
@@ -61,11 +63,21 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     tAct = menuEdits ->addAction(tr("&Skills"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(editSkills()));
 
+    //menu DM
     QMenu *menuDM = mainMenu->addMenu(tr("&DM"));
     tAct = menuDM ->addAction(tr("&Launch Class Creator"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(launchClassCreator()));
     tAct = menuDM ->addAction(tr("&Export classes"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(exportClasses()));
+
+    menuDM->addSeparator();
+
+    tAct = menuDM ->addAction(tr("&Launch Skill Creator"));
+    tAct->setEnabled(false);
+    //connect(tAct,SIGNAL(triggered()),this,SLOT(launchClassCreator()));
+    tAct = menuDM ->addAction(tr("&Export skills"));
+    tAct->setEnabled(false);
+    //connect(tAct,SIGNAL(triggered()),this,SLOT(exportClasses()));
 
     //addDockClass(Qt::LeftDockWidgetArea);
     addDockBio();

@@ -23,16 +23,16 @@ CQTs_ClassViewer::CQTs_ClassViewer(CQTs_Class *selected, QWidget *parent) :
 }
 
 void CQTs_ClassViewer::initialize(){
-
+    LMax = 20;//used to hide levele in prestige classes
     //LabName = new QLabel();
     LabHD = new QLabel();
     LabRanks = new QLabel();
+    LabLev  = new QLabel*[20];
     LabBAB  = new QLabel*[20];
     LabFort = new QLabel*[20];
     LabRef  = new QLabel*[20];
     LabWill = new QLabel*[20];
-    LabSpells = new QLabel*[20*10];
-
+    LabSpells = new QLabel*[20*10+11];//first 20*10 are spells other are labels
     QGridLayout *grid = new QGridLayout();
     int r = 0;
     QLabel *Tlab;// = new QLabel(tr("Name:"));
@@ -48,46 +48,89 @@ void CQTs_ClassViewer::initialize(){
     grid->addWidget(LabRanks,r++,1);
     QGroupBox *ProgBox= new QGroupBox(tr("Progression:"));
     grid->addWidget(ProgBox,r++,0,1,2);
+    //table
     QGridLayout *grid2 = new QGridLayout();
+    int row =0;
+    LabSpells[20*10] = new QLabel(tr("Spells:"));
+    LabSpells[20*10]->setAlignment(Qt::AlignHCenter);
+    grid2->addWidget(LabSpells[20*10],row,5,1,10);
+    LabSpells[20*10]->hide();
+    //next row
+    row++;
     Tlab = new QLabel(tr("Level:"));
     Tlab->setAlignment(Qt::AlignHCenter);
-    grid2->addWidget(Tlab,0,0);
+    grid2->addWidget(Tlab,row,0);
     Tlab = new QLabel(tr("BAB:"));
     Tlab->setAlignment(Qt::AlignHCenter);
-    grid2->addWidget(Tlab,0,1);
+    grid2->addWidget(Tlab,row,1);
     Tlab = new QLabel(tr("Fortitude:"));
     Tlab->setAlignment(Qt::AlignHCenter);
-    grid2->addWidget(Tlab,0,2);
+    grid2->addWidget(Tlab,row,2);
     Tlab = new QLabel(tr("Reflexes:"));
     Tlab->setAlignment(Qt::AlignHCenter);
-    grid2->addWidget(Tlab,0,3);
+    grid2->addWidget(Tlab,row,3);
     Tlab = new QLabel(tr("Will:"));
     Tlab->setAlignment(Qt::AlignHCenter);
-    grid2->addWidget(Tlab,0,4);
+    grid2->addWidget(Tlab,row,4);
+    for (int j = 0; j < 10; ++j) {
+        LabSpells[20*10+j+1] = new QLabel();
+        LabSpells[20*10+j+1]->setNum(j);
+        LabSpells[20*10+j+1]->setAlignment(Qt::AlignHCenter);
+        LabSpells[20*10+j+1]->hide();
+        grid2->addWidget(LabSpells[20*10+j+1],row,5+j);
+    }
+    //facilitating view
+    QPalette pal = palette();
+    bool darker = false;
+    pal.setColor(QPalette::Background, pal.color(QPalette::Background).darker(120));
+    row++;
     for (int i = 0; i < 20; ++i) {
+        LabLev[i]   = new QLabel();
         LabBAB[i]   = new QLabel();
         LabFort[i]  = new QLabel();
         LabRef[i]   = new QLabel();
         LabWill[i]  = new QLabel();
+        LabLev[i]->setNum(i+1);
         for (int j = 0; j < 10; ++j) {
             LabSpells[10*i+j] = new QLabel("-");
             LabSpells[10*i+j]->setAlignment(Qt::AlignHCenter);
             LabSpells[10*i+j]->hide();
-            grid2->addWidget(LabSpells[10*i+j],i+1,5+j);
+            LabSpells[10*i+j]->setMinimumWidth(20);
+            grid2->addWidget(LabSpells[10*i+j],row,5+j);
+            if(darker){
+                LabSpells[10*i+j]->setAutoFillBackground(true);
+                LabSpells[10*i+j]->setPalette(pal);
+            }
         }
+        LabLev[i]   ->setAlignment(Qt::AlignHCenter);
         LabBAB[i]   ->setAlignment(Qt::AlignHCenter);
         LabFort[i]  ->setAlignment(Qt::AlignHCenter);
         LabRef[i]   ->setAlignment(Qt::AlignHCenter);
         LabWill[i]  ->setAlignment(Qt::AlignHCenter);
-        Tlab = new QLabel();
-        Tlab->setNum(i+1);
-        Tlab->setAlignment(Qt::AlignHCenter);
-        grid2->addWidget(Tlab,i+1,0);
-        grid2->addWidget(LabBAB[i],i+1,1);
-        grid2->addWidget(LabFort[i],i+1,2);
-        grid2->addWidget(LabRef[i],i+1,3);
-        grid2->addWidget(LabWill[i],i+1,4);
+        if(darker){
+            LabLev[i]   ->setAutoFillBackground(true);
+            LabBAB[i]   ->setAutoFillBackground(true);
+            LabFort[i]  ->setAutoFillBackground(true);
+            LabRef[i]   ->setAutoFillBackground(true);
+            LabWill[i]  ->setAutoFillBackground(true);
+            LabLev[i]   ->setPalette(pal);
+            LabBAB[i]   ->setPalette(pal);
+            LabFort[i]  ->setPalette(pal);
+            LabRef[i]   ->setPalette(pal);
+            LabWill[i]  ->setPalette(pal);
+
+        }
+        darker = !darker;
+
+        grid2->addWidget(LabLev[i],row,0);
+        grid2->addWidget(LabBAB[i],row,1);
+        grid2->addWidget(LabFort[i],row,2);
+        grid2->addWidget(LabRef[i],row,3);
+        grid2->addWidget(LabWill[i],row,4);
+        row++;
     }
+    grid2->setHorizontalSpacing(0);
+    grid2->setVerticalSpacing(0);
     ProgBox->setLayout(grid2);
 
     setLayout(grid);
@@ -95,7 +138,29 @@ void CQTs_ClassViewer::initialize(){
 
 
 void CQTs_ClassViewer::setLabs(CQTs_Class *selected){
-    int LMax = selected->MaxLv();
+    bool ispellcaster = selected->isSpellcaster();
+    if(LMax!=selected->MaxLv()){
+        LMax = selected->MaxLv();
+        int i;
+        for(i=0;i<LMax;++i){
+            LabLev[i]   ->setVisible(true);
+            LabBAB[i]   ->setVisible(true);
+            LabFort[i]  ->setVisible(true);
+            LabRef[i]   ->setVisible(true);
+            LabWill[i]  ->setVisible(true);
+            for (int j = 0; j < 10; ++j)
+                LabSpells[10*i+j]->setVisible(ispellcaster);
+        }
+        for(;i<20;++i){
+            LabLev[i]   ->setVisible(false);
+            LabBAB[i]   ->setVisible(false);
+            LabFort[i]  ->setVisible(false);
+            LabRef[i]   ->setVisible(false);
+            LabWill[i]  ->setVisible(false);
+            for (int j = 0; j < 10; ++j)
+                LabSpells[10*i+j]->setVisible(false);
+        }
+    }
     //LabName ->setText(selected->myName());
     LabHD ->setNum(selected->HP());
     LabRanks ->setNum(selected->AP());
@@ -127,9 +192,10 @@ void CQTs_ClassViewer::setLabs(CQTs_Class *selected){
         LabRef[i]  ->setNum(dr);
         LabWill[i] ->setNum(dw);
         //setting spells:
-        bool ispellcaster = selected->isSpellcaster();
+        LabSpells[20*10]->setVisible(ispellcaster);
         for (int j = 0; j < 10; ++j) {
             LabSpells[10*i+j]->setVisible(ispellcaster);
+            LabSpells[20*10+1+j]->setVisible(ispellcaster);
             if(ispellcaster){
                 QString num = "-";
                 if(j<selected->SpellPerDay(1+i).size())
