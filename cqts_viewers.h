@@ -16,8 +16,9 @@ public:
     explicit CQTs_ClassViewer(QWidget *parent = 0);
     explicit CQTs_ClassViewer(CQTs_Class *selected, QWidget *parent = 0);
 private:
-    QLabel /**LabName,*/*LabHD,*LabRanks,**LabBAB,**LabFort,**LabRef,**LabWill, **LabSpells;
+    QLabel /**LabName,*/*LabHD,*LabRanks,**LabLev,**LabBAB,**LabFort,**LabRef,**LabWill, **LabSpells;
     void initialize();
+    int LMax;
 signals:
 
 public slots:
