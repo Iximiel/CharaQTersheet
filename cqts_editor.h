@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QLineEdit>
 #include "cqts_engine.h"
+#include "cqts_character.h"
 
 class cqts_BABeditor : public QWidget
 {

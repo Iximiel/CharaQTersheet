@@ -2,10 +2,18 @@
 #define CQTS_CHARACTER_H
 #include <QString>
 #include <QMap>
+#include <QVector>
 
 struct charBio{
     QString Name, Surname;
     int age;
+};
+
+struct level{
+    level(){for (int i = 0; i < 6; AbilitiyCNGs[i]=0);}
+    QMap<QString,int> skillRanks;
+    int HP, AbilitiyCNGs[6];
+    QString thisLVclass;
 };
 
 class CQTs_Character{
@@ -55,8 +63,7 @@ private:
     charBio bio;
     int LV,HP,BAB,STf,STr,STw;//Armor class will come with inventory
     int Abilities[6];
-    QMap<QString,int> skillRanks;
-    QStringList classLevels;//history of classes
+    QVector<level> levelHistory;
 
 };
 #endif // CQTS_CHARACTER_H

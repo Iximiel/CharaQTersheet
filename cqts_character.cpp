@@ -1,5 +1,10 @@
 #include "cqts_character.h"
 
+#include <QMessageBox>
+#include <QFile>
+#include <QTextStream>
+#include <QXmlStreamAttribute>
+
 CQTs_Character::CQTs_Character()
 {
     bio.age=LV=HP=BAB=STf=STr=STw=0;

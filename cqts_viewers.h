@@ -8,6 +8,7 @@
 #include <QSpinBox>
 #include <QPushButton>
 #include "cqts_engine.h"
+#include "cqts_character.h"
 
 class CQTs_ClassViewer : public QWidget
 {

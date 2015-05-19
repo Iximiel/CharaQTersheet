@@ -5,6 +5,7 @@
 #include <QMessageBox>
 
 #include "cqts_editor.h"
+#include "cqts_character.h"
 #include "cqts_dataexport.h"
 #include "classcreator.h"
 

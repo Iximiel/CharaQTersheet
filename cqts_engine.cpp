@@ -6,7 +6,6 @@
 #include <QMessageBox>
 #include <QTextStream>
 #include <QXmlStreamAttribute>
-#include <QDebug>
 
 /*****engine******/
 
