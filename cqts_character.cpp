@@ -1,18 +1,11 @@
 #include "cqts_character.h"
+#include "cqts_dataholder.h"
 
 #include <QMessageBox>
 #include <QFile>
 #include <QTextStream>
 #include <QXmlStreamAttribute>
 
-void xmlHasError(QXmlStreamReader &xml,QString filename){
-    QString ERROR=QObject::tr("Error in file:%4\n%1\nLine %2, column %3")
-            .arg(xml.errorString())
-            .arg(xml.lineNumber())
-            .arg(xml.columnNumber())
-            .arg(filename);
-    QMessageBox::information(0, QString(QObject::tr("Error")), ERROR, QMessageBox::Ok);
-}
 
 CQTs_Character::CQTs_Character()
 {
@@ -226,9 +219,12 @@ int CQTs_Character::getAbilityMod(CQT_Abilities sel){return (Abilities[sel]-10)/
 int CQTs_Character::getAbilityMod(int sel){return (Abilities[sel]-10)/2.;}
 int* CQTs_Character::getAbilities(){return Abilities;}
 int CQTs_Character::getRanks(QString code){
-    if(skillRanks.contains(code)){
-        return skillRanks[code];
-    }else return 0;
+    int toreturn = 0;
+    for (int i = 0; i < levelHistory.size(); ++i) {
+        if(levelHistory[i].skillRanks.contains(code))
+            toreturn += levelHistory[i].skillRanks[code];
+    }
+    return toreturn;
 }
 
 void CQTs_Character::setName(QString newName){bio.Name = newName;}
@@ -252,8 +248,20 @@ void CQTs_Character::setAbilities(int newAbilities[6]){
     for (int i = 0; i < 6;i++)
         Abilities[i] = newAbilities[i];
 }
-void CQTs_Character::setRanks(QString code, int newRanks){skillRanks[code] = newRanks;}
-void CQTs_Character::setRanks(QMap<QString,int> newSkillRanks){
-    skillRanks.clear();
-    skillRanks = newSkillRanks;
+void CQTs_Character::setAbilityMod(int lv, CQT_Abilities sel, int newAbilityM){//taking real level!
+    levelHistory[lv-1].AbilitiyCNGs[sel] = newAbilityM;
+}
+void CQTs_Character::setAbilityMod(int lv, int sel, int newAbilityM){
+    levelHistory[lv-1].AbilitiyCNGs[sel] = newAbilityM;
+}
+void CQTs_Character::setAbilitiesMod(int lv, int newAbilitiesM[6]){
+    for (int i = 0; i < 6;i++)
+        levelHistory[lv-1].AbilitiyCNGs[i] = newAbilitiesM[i];
+}
+void CQTs_Character::setRanks(int lv, QString code, int newRanks){
+    levelHistory[lv-1].skillRanks[code] = newRanks;
+}
+void CQTs_Character::setRanks(int lv, QMap<QString,int> newSkillRanks){
+    levelHistory[lv-1].skillRanks.clear();
+    levelHistory[lv-1].skillRanks = newSkillRanks;
 }

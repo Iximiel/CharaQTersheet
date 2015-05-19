@@ -50,15 +50,21 @@ public:
     void setLV(int newLV);
     void setHP(int newHP);
     void setBAB(int newBAB);
+    //save trhows
     void setFortitude(int newSTf);
     void setReflex(int newSTr);
     void setWill(int newSTw);
     void setST(int newSTf,int newSTr,int newSTw);
+    //abilities
     void setAbility(CQT_Abilities sel, int newAbility);
     void setAbility(int sel, int newAbility);
     void setAbilities(int newAbilities[6]);
-    void setRanks(QString code, int newRanks);
-    void setRanks(QMap<QString,int> newSkillRanks);
+    void setAbilityMod(int lv, CQT_Abilities sel, int newAbilityM);
+    void setAbilityMod(int lv, int sel, int newAbilityM);
+    void setAbilitiesMod(int lv, int newAbilitiesM[6]);
+    //skills
+    void setRanks(int lv, QString code, int newRanks);
+    void setRanks(int lv, QMap<QString,int> newSkillRanks);
 
 private:
     void load003(QXmlStreamReader &xml);//load version 003
