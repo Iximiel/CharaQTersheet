@@ -5,6 +5,15 @@
 #include <QTextStream>
 #include <QXmlStreamAttribute>
 
+void xmlHasError(QXmlStreamReader &xml,QString filename){
+    QString ERROR=QObject::tr("Error in file:%4\n%1\nLine %2, column %3")
+            .arg(xml.errorString())
+            .arg(xml.lineNumber())
+            .arg(xml.columnNumber())
+            .arg(filename);
+    QMessageBox::information(0, QString(QObject::tr("Error")), ERROR, QMessageBox::Ok);
+}
+
 CQTs_Character::CQTs_Character()
 {
     bio.age=LV=HP=BAB=STf=STr=STw=0;
@@ -31,93 +40,106 @@ void CQTs_Character::loadFromFile(QString filename){
         while(!(xml.name()=="character"&&xml.isStartElement())){
             xml.readNext();
         }
-
-        while(!(xml.name()=="character"&&xml.isEndElement())){//i want this to work like a paper sheet, i will adda chronology after that
-            if(xml.name()=="bio"&&xml.isStartElement()){
-                while(!(xml.name()=="bio"&&xml.isEndElement())){//get the bio info
-                    xml.readNext();
-                    if(xml.name()=="name"&&xml.isStartElement()){//get the name
-                        while(!xml.readNext()==6);
-                        bio.Name = (xml.text().toString());
-                    }
-                    if(xml.name()=="surname"&&xml.isStartElement()){//get the surname
-                        while(!xml.readNext()==6);
-                        bio.Surname = (xml.text().toString());
-                    }
-                    if(xml.name()=="age"&&xml.isStartElement()){//get the age
-                        while(!xml.readNext()==6);
-                        bio.age = (xml.text().toInt());
-                    }
-                }
-            }
-            if(xml.name()=="data"&&xml.isStartElement()){//get varios data, like pnp for now
-                while(!(xml.name()=="data"&&xml.isEndElement())){
-                    xml.readNext();
-                    if(xml.name()=="hp"&&xml.isStartElement()){
-                        while(!xml.readNext()==6);
-                        HP= (xml.text().toInt());
-                    }
-                    if(xml.name()=="bab"&&xml.isStartElement()){
-                        while(!xml.readNext()==6);
-                        BAB= (xml.text().toInt());
-                    }
-                    if(xml.name()=="fort"&&xml.isStartElement()){
-                        while(!xml.readNext()==6);
-                        STf= (xml.text().toInt());
-                    }
-                    if(xml.name()=="ref"&&xml.isStartElement()){
-                        while(!xml.readNext()==6);
-                        STr = (xml.text().toInt());
-                    }
-                    if(xml.name()=="will"&&xml.isStartElement()){
-                        while(!xml.readNext()==6);
-                        STw= (xml.text().toInt());
-                    }
-                    if(xml.name()=="abilities"&&xml.isStartElement()){
-                        while(!(xml.name()=="abilities"&&xml.isEndElement())){
-                            if(xml.name()=="ability"&&xml.isStartElement()){
-                                QString code = xml.attributes().value("which").toString();
-                                while(!xml.readNext()==6);
-                                //qDebug() << code;
-                                if(code == "strength"){
-                                    Abilities[STR]= (xml.text().toInt());
-                                }else if(code == "dexterity"){
-                                    Abilities[DEX]= (xml.text().toInt());
-                                }else if(code == "constitution"){
-                                    Abilities[CON]= (xml.text().toInt());
-                                }else if(code == "intelligence"){
-                                    Abilities[INT]= (xml.text().toInt());
-                                }else if(code == "wisdom"){
-                                    Abilities[WIS]= (xml.text().toInt());
-                                }else if(code == "charisma"){
-                                    Abilities[CHA]= (xml.text().toInt());
-                                }
-                            }
-                            xml.readNext();
-                        }
-                    }
-                }
-            }
-            if(xml.name()=="skills"&&xml.isStartElement()){//get the ranks in skills
-                while(!(xml.name()=="skills"&&xml.isEndElement())){//get the bio info
-                    if(xml.name()=="skill"&&xml.isStartElement()){//get the name
-                        QString code = xml.attributes().value("code").toString();
-                        while(!xml.readNext()==6);
-                        //qDebug() << ;
-                        int ranks = (xml.text().toInt());
-                        skillRanks.insert(code,ranks);
-                    }
-                    xml.readNext();
-                }
-            }
-            //if(xml.name()=="feats"&&xml.isStartElement()){}
-            if (xml.hasError()) {
-                // do error handling
-            }
-            xml.readNext();
-        }
+        version = xml.attributes().value("version").toString();
+        if(version == "0.03")
+            load003(xml);
+        else
+            load005(xml);
         file.close();
     }
+}
+
+void CQTs_Character::load003(QXmlStreamReader &xml){
+    level myOnlyThing;
+    while(!(xml.name()=="character"&&xml.isEndElement())){//i want this to work like a paper sheet, i will adda chronology after that
+        if(xml.name()=="bio"&&xml.isStartElement()){
+            while(!(xml.name()=="bio"&&xml.isEndElement())){//get the bio info
+                xml.readNext();
+                if(xml.name()=="name"&&xml.isStartElement()){//get the name
+                    while(!xml.readNext()==6);
+                    bio.Name = (xml.text().toString());
+                }
+                if(xml.name()=="surname"&&xml.isStartElement()){//get the surname
+                    while(!xml.readNext()==6);
+                    bio.Surname = (xml.text().toString());
+                }
+                if(xml.name()=="age"&&xml.isStartElement()){//get the age
+                    while(!xml.readNext()==6);
+                    bio.age = (xml.text().toInt());
+                }
+            }
+        }
+        if(xml.name()=="data"&&xml.isStartElement()){//get varios data, like pnp for now
+            while(!(xml.name()=="data"&&xml.isEndElement())){
+                xml.readNext();
+                if(xml.name()=="hp"&&xml.isStartElement()){
+                    while(!xml.readNext()==6);
+                    HP= (xml.text().toInt());
+                }
+                if(xml.name()=="bab"&&xml.isStartElement()){
+                    while(!xml.readNext()==6);
+                    BAB= (xml.text().toInt());
+                }
+                if(xml.name()=="fort"&&xml.isStartElement()){
+                    while(!xml.readNext()==6);
+                    STf= (xml.text().toInt());
+                }
+                if(xml.name()=="ref"&&xml.isStartElement()){
+                    while(!xml.readNext()==6);
+                    STr = (xml.text().toInt());
+                }
+                if(xml.name()=="will"&&xml.isStartElement()){
+                    while(!xml.readNext()==6);
+                    STw= (xml.text().toInt());
+                }
+                if(xml.name()=="abilities"&&xml.isStartElement()){
+                    while(!(xml.name()=="abilities"&&xml.isEndElement())){
+                        if(xml.name()=="ability"&&xml.isStartElement()){
+                            QString code = xml.attributes().value("which").toString();
+                            while(!xml.readNext()==6);
+                            //qDebug() << code;
+                            if(code == "strength"){
+                                Abilities[STR]= (xml.text().toInt());
+                            }else if(code == "dexterity"){
+                                Abilities[DEX]= (xml.text().toInt());
+                            }else if(code == "constitution"){
+                                Abilities[CON]= (xml.text().toInt());
+                            }else if(code == "intelligence"){
+                                Abilities[INT]= (xml.text().toInt());
+                            }else if(code == "wisdom"){
+                                Abilities[WIS]= (xml.text().toInt());
+                            }else if(code == "charisma"){
+                                Abilities[CHA]= (xml.text().toInt());
+                            }
+                        }
+                        xml.readNext();
+                    }
+                }
+            }
+        }
+        if(xml.name()=="skills"&&xml.isStartElement()){//get the ranks in skills
+            while(!(xml.name()=="skills"&&xml.isEndElement())){//get the bio info
+                if(xml.name()=="skill"&&xml.isStartElement()){//get the name
+                    QString code = xml.attributes().value("code").toString();
+                    while(!xml.readNext()==6);
+                    //qDebug() << ;
+                    int ranks = (xml.text().toInt());
+                    myOnlyThing.skillRanks.insert(code,ranks);
+                }
+                xml.readNext();
+            }
+        }
+        //if(xml.name()=="feats"&&xml.isStartElement()){}
+        if (xml.hasError()) {
+            xmlHasError(xml,"characterfile");
+        }
+        xml.readNext();
+    }
+    levelHistory.push_back(myOnlyThing);
+}
+
+void CQTs_Character::load005(QXmlStreamReader &xml){
+    //need to be done
 }
 
 void CQTs_Character::saveToFile(QString filename){
@@ -131,41 +153,40 @@ void CQTs_Character::saveToFile(QString filename){
             xml.setAutoFormattingIndent(2);
             xml.writeStartDocument();
             xml.writeStartElement("character");
-            xml.writeAttribute("version","0.03");
-            xml.writeStartElement("bio");
+            xml.writeAttribute("version","0.05");
+            xml.writeStartElement("bio");//open bio
             xml.writeTextElement("name",bio.Name);
             xml.writeTextElement("surname",bio.Surname);
             xml.writeTextElement("age",QString::number(bio.age));
             xml.writeEndElement();//bio
-            xml.writeStartElement("data");
-            xml.writeTextElement("hp",QString::number(HP));
-            xml.writeTextElement("bab",QString::number(BAB));
-            xml.writeStartElement("saves");
-            xml.writeTextElement("fort",QString::number(STf));
-            xml.writeTextElement("ref",QString::number(STr));
-            xml.writeTextElement("will",QString::number(STw));
-            xml.writeEndElement();//saves
-            xml.writeStartElement("abilities");
+            xml.writeStartElement("abilities");//writing abilities at lv 1
             QString names[6]={"strength","dexterity","constitution","intelligence","wisdom","charisma"};
             for (int i = 0; i < 6; ++i) {
-                xml.writeStartElement("ability");
+                xml.writeStartElement("ability");//opening ability
                 xml.writeAttribute("which",names[i]);
                 xml.writeCharacters(QString::number(Abilities[i]));
                 xml.writeEndElement();//ability
             }
             xml.writeEndElement();//abilities
-            if(!skillRanks.empty()){
-                xml.writeStartElement("skills");
-                for (int i = 0; i < skillRanks.size(); ++i) {
-                    xml.writeStartElement("skill");
-                    QString code = skillRanks.keys().at(i);
-                    xml.writeAttribute("code",code);
-                    xml.writeCharacters(QString::number(skillRanks[code]));
-                    xml.writeEndElement();//skill
+            xml.writeStartElement("progression");//openig progression
+            if(!levelHistory.empty()){
+                for(int i=0;i<levelHistory.size();i++){
+                    xml.writeStartElement("lv");
+                    QString tLV = QString::number(i+1);
+                    xml.writeAttribute("n",tLV);
+                    xml.writeAttribute("class",levelHistory[i].thisLVclass);
+                    xml.writeStartElement("skills");
+                    for (int i = 0; i < levelHistory[i].skillRanks.size(); ++i) {
+                        xml.writeStartElement("skill");
+                        QString code = levelHistory[i].skillRanks.keys().at(i);
+                        xml.writeAttribute("code",code);
+                        xml.writeCharacters(QString::number(levelHistory[i].skillRanks[code]));
+                        xml.writeEndElement();//skill
+                    }
+                    xml.writeEndElement();//skills
                 }
-                xml.writeEndElement();//skills
             }
-            xml.writeEndElement();//data
+            xml.writeEndElement();//progressione
             xml.writeEndElement();//character
             xml.writeEndDocument();
         }

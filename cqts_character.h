@@ -3,6 +3,7 @@
 #include <QString>
 #include <QMap>
 #include <QVector>
+#include <QXmlStreamReader>
 
 struct charBio{
     QString Name, Surname;
@@ -60,7 +61,10 @@ public:
     void setRanks(QMap<QString,int> newSkillRanks);
 
 private:
+    void load003(QXmlStreamReader &xml);//load version 003
+    void load005(QXmlStreamReader &xml);//load version 005
     charBio bio;
+    QString version;//retrocompatibility
     int LV,HP,BAB,STf,STr,STw;//Armor class will come with inventory
     int Abilities[6];
     QVector<level> levelHistory;
