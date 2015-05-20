@@ -14,6 +14,7 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
 {
     //loading the engine:
     engine = new CQTs_engine();
+    CQTs_Character::engine = engine;
     //initializing pointer as NULL
     dockSkills=dockSaves=dockAbilities=dockBio=dockBAB=dockClass=NULL;
     character = NULL;
@@ -237,8 +238,8 @@ void CharaQTersheet::editSkills(){
     connect(Skills,SIGNAL(newSkills(QMap<QString,int>)),this,SLOT(updateSkills(QMap<QString,int>)));
     Skills->show();
 }
-void CharaQTersheet::updateSkills(QMap<QString,int> newskills){
-    character->setRanks(newskills);
+void CharaQTersheet::updateSkills(QMap<QString,int> newskills){//need to be changed!
+    //character->setRanks(newskills);
     viewerSkills->setLabs(character);
 }
 

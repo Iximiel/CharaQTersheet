@@ -1,5 +1,6 @@
 #ifndef CQTS_CHARACTER_H
 #define CQTS_CHARACTER_H
+#include "cqts_engine.h"
 #include <QString>
 #include <QMap>
 #include <QVector>
@@ -13,7 +14,7 @@ struct charBio{
 struct level{
     level(){for (int i = 0; i < 6; AbilitiyCNGs[i]=0);}
     QMap<QString,int> skillRanks;
-    int HP, AbilitiyCNGs[6];
+    int AbilitiyCNGs[6];
     QString thisLVclass;
 };
 
@@ -32,30 +33,34 @@ public:
     int getLV();
     int getHP();
     int getBAB();
-    int getFortitude();
-    int getReflex();
-    int getWill();
-    int getST(int i);
-    int getAbility(CQT_Abilities sel);
-    int getAbility(int sel);
-    int getAbilityMod(CQT_Abilities sel);
-    int getAbilityMod(int sel);
-    int* getAbilities();
-    int getRanks(QString code);
-
     void setName(QString newName);
     void setSurname(QString newSurname);
     void setAge(int newAge);
     void setBio(charBio newBio);
+
+    //stats management
+    void update();
+    void addLevel(QString classCode, QMap<QString,int> ranks, int AbilitiyCNGs[6]);
+    void addLevel(QString classCode, QMap<QString,int> ranks);
+
     void setLV(int newLV);
     void setHP(int newHP);
     void setBAB(int newBAB);
-    //save trhows
+    //save throws
+    int getFortitude();
+    int getReflex();
+    int getWill();
+    int getST(int i);
     void setFortitude(int newSTf);
     void setReflex(int newSTr);
     void setWill(int newSTw);
     void setST(int newSTf,int newSTr,int newSTw);
     //abilities
+    int getAbility(CQT_Abilities sel);
+    int getAbility(int sel);
+    int getAbilityMod(CQT_Abilities sel);
+    int getAbilityMod(int sel);
+    int* getAbilities();
     void setAbility(CQT_Abilities sel, int newAbility);
     void setAbility(int sel, int newAbility);
     void setAbilities(int newAbilities[6]);
@@ -63,9 +68,10 @@ public:
     void setAbilityMod(int lv, int sel, int newAbilityM);
     void setAbilitiesMod(int lv, int newAbilitiesM[6]);
     //skills
+    int getRanks(QString code);
     void setRanks(int lv, QString code, int newRanks);
     void setRanks(int lv, QMap<QString,int> newSkillRanks);
-
+    static CQTs_engine *engine;
 private:
     void load003(QXmlStreamReader &xml);//load version 003
     void load005(QXmlStreamReader &xml);//load version 005
