@@ -71,8 +71,11 @@ public:
     int getRanks(QString code);
     void setRanks(int lv, QString code, int newRanks);
     void setRanks(int lv, QMap<QString,int> newSkillRanks);
-    static CQTs_engine *engine;
+    void setEngine(CQTs_engine* eng);
+
 private:
+    CQTs_engine *engine;
+
     void load003(QXmlStreamReader &xml);//load version 003
     void load005(QXmlStreamReader &xml);//load version 005
     charBio bio;

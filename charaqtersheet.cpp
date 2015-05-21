@@ -14,7 +14,6 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
 {
     //loading the engine:
     engine = new CQTs_engine();
-    CQTs_Character::engine = engine;
     //initializing pointer as NULL
     dockSkills=dockSaves=dockAbilities=dockBio=dockBAB=dockClass=NULL;
     character = NULL;
