@@ -7,6 +7,7 @@
 #include "cqts_editor.h"
 #include "cqts_character.h"
 #include "cqts_dataexport.h"
+#include "cqts_charactercreator.h"
 #include "classcreator.h"
 
 CharaQTersheet::CharaQTersheet(QWidget *parent)
@@ -201,8 +202,8 @@ void CharaQTersheet::launchClassCreator(){
 
 
 void CharaQTersheet::newCharacter(){
+    CQTs_CharacterCreator *CharCreator = new CQTs_CharacterCreator(engine);
     character = new CQTs_Character();
-    //will add a big window with a character creator
 }
 
 void CharaQTersheet::editBAB(){
@@ -214,6 +215,8 @@ void CharaQTersheet::editBAB(){
     BaB->show();
 }
 void CharaQTersheet::updateBAB(int newBAB){
+    if(character==NULL)
+        newCharacter();
     character->setBAB(newBAB);
     viewerBAB->setLabs(character);
 }
@@ -226,6 +229,8 @@ void CharaQTersheet::editBio(){
     Bio->show();
 }
 void CharaQTersheet::updateBio(charBio newBio){
+    if(character==NULL)
+        newCharacter();
     character->setBio(newBio);
     viewerBio->setLabs(character);
 }
@@ -238,6 +243,8 @@ void CharaQTersheet::editSkills(){
     Skills->show();
 }
 void CharaQTersheet::updateSkills(QMap<QString,int> newskills){//need to be changed!
+    if(character==NULL)
+        newCharacter();
     //character->setRanks(newskills);
     viewerSkills->setLabs(character);
 }
@@ -266,6 +273,8 @@ void CharaQTersheet::editAbilities(){
     Abl->show();
 }
 void CharaQTersheet::updateAbilities(int* abls){
+    if(character==NULL)
+        newCharacter();
     character->setAbilities(abls);
     viewerAbilities->setLabs(character);
     viewerST->setLabs(character);
