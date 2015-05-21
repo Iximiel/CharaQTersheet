@@ -133,7 +133,74 @@ void CQTs_Character::load003(QXmlStreamReader &xml){
 }
 
 void CQTs_Character::load005(QXmlStreamReader &xml){
-    //need to be done
+    myOnlyThing.thisLVclass = "003";
+    while(!(xml.name()=="character"&&xml.isEndElement())){//i want this to work like a paper sheet, i will adda chronology after that
+        if(xml.name()=="bio"&&xml.isStartElement()){
+            while(!(xml.name()=="bio"&&xml.isEndElement())){//get the bio info
+                xml.readNext();
+                if(xml.name()=="name"&&xml.isStartElement()){//get the name
+                    while(!xml.readNext()==6);
+                    bio.Name = (xml.text().toString());
+                }
+                if(xml.name()=="surname"&&xml.isStartElement()){//get the surname
+                    while(!xml.readNext()==6);
+                    bio.Surname = (xml.text().toString());
+                }
+                if(xml.name()=="age"&&xml.isStartElement()){//get the age
+                    while(!xml.readNext()==6);
+                    bio.age = (xml.text().toInt());
+                }
+            }
+        }
+        if(xml.name()=="data"&&xml.isStartElement()){//togli data aggiungi possibilit' di salvare/caricare gli aumenti di caratteristica
+
+            while(!(xml.name()=="data"&&xml.isEndElement())){
+
+                if(xml.name()=="abilities"&&xml.isStartElement()){
+                    int abl[6];
+                    while(!(xml.name()=="abilities"&&xml.isEndElement())){
+                        if(xml.name()=="ability"&&xml.isStartElement()){
+                            QString code = xml.attributes().value("which").toString();
+                            while(!xml.readNext()==6);
+                            //qDebug() << code;
+                            if(code == "strength"){
+                                abl[STR]= (xml.text().toInt());
+                            }else if(code == "dexterity"){
+                                abl[DEX]= (xml.text().toInt());
+                            }else if(code == "constitution"){
+                                abl[CON]= (xml.text().toInt());
+                            }else if(code == "intelligence"){
+                                abl[INT]= (xml.text().toInt());
+                            }else if(code == "wisdom"){
+                                abl[WIS]= (xml.text().toInt());
+                            }else if(code == "charisma"){
+                                abl[CHA]= (xml.text().toInt());
+                            }
+                        }
+                        xml.readNext();
+                    }
+                }
+            }
+        }
+        if(xml.name()=="skills"&&xml.isStartElement()){//get the ranks in skills
+            while(!(xml.name()=="skills"&&xml.isEndElement())){//get the bio info
+                if(xml.name()=="skill"&&xml.isStartElement()){//get the name
+                    QString code = xml.attributes().value("code").toString();
+                    while(!xml.readNext()==6);
+                    //qDebug() << ;
+                    int ranks = (xml.text().toInt());
+                    myOnlyThing.skillRanks.insert(code,ranks);
+                }
+                xml.readNext();
+            }
+        }
+        //if(xml.name()=="feats"&&xml.isStartElement()){}
+        if (xml.hasError()) {
+            xmlHasError(xml,"characterfile");
+        }
+        xml.readNext();
+    }
+    levelHistory.push_back(myOnlyThing);
 }
 
 void CQTs_Character::saveToFile(QString filename){
@@ -203,43 +270,54 @@ void CQTs_Character::update(){
             Abilities[j] += levelHistory[i].AbilitiyCNGs[j];
         //HP+=levelHistory[i].HP;
     }
-    //following the book (not using fractional bonuses)
-    QMap<QString,int>::iterator classes = TakenClasses.begin();
-    for(int i=0;i<TakenClasses.size();i++){//counting BAB and STs
-        QString code = (classes+i).key();
-        int howManyLV = (classes+i).value();
-        LV+=howManyLV;
-        CQTs_Class myclass = engine->classData(code);
-        if(myclass.STFort())
-            STf+=2+howManyLV/2.;
-        else
-            STf+=howManyLV/3.;
-        if(myclass.STRef())
-            STr+=2+howManyLV/2.;
-        else
-            STr+=howManyLV/3.;
-        if(myclass.STWill())
-            STw+=2+howManyLV/2.;
-        else
-            STw+=howManyLV/3.;
-        int bab = myclass.BAB();
-        switch (bab) {
-        case 0:
-            dbab = (howManyLV)/2.;
-            break;
-        case 1:
-            dbab = (howManyLV)*3/4.;
-            break;
-        case 2:
-            dbab = howManyLV;
-            break;
+    if(levelHistory[i].thisLVclass!="003"){
+        //following the book (not using fractional bonuses)
+        QMap<QString,int>::iterator classes = TakenClasses.begin();
+        for(int i=0;i<TakenClasses.size();i++){//counting BAB and STs
+            QString code = (classes+i).key();
+            int howManyLV = (classes+i).value();
+            LV+=howManyLV;
+            CQTs_Class myclass = engine->classData(code);
+            if(myclass.STFort())
+                STf+=2+howManyLV/2.;
+            else
+                STf+=howManyLV/3.;
+            if(myclass.STRef())
+                STr+=2+howManyLV/2.;
+            else
+                STr+=howManyLV/3.;
+            if(myclass.STWill())
+                STw+=2+howManyLV/2.;
+            else
+                STw+=howManyLV/3.;
+            int bab = myclass.BAB();
+            switch (bab) {
+            case 0:
+                dbab = (howManyLV)/2.;
+                break;
+            case 1:
+                dbab = (howManyLV)*3/4.;
+                break;
+            case 2:
+                dbab = howManyLV;
+                break;
+            }
+            HP+=howManyLV*myclass.HP();//maximized HPs
         }
-        HP+=howManyLV*myclass.HP();//maximized HPs
+        HP+=LV*getAbilityMod(CON);
     }
-    HP+=LV*getAbilityMod(CON);
 }
 
-void CQTs_Character::addLevel(QString classCode, QMap<QString,int> ranks, int AbilitiyCNGs[6]){}
+void CQTs_Character::addLevel(QString classCode, QMap<QString,int> ranks, int AbilitiyCNGs[6]){
+    newlevel.thisLVclass = classCode;
+    level newlevel;
+    for (int i = 0; i < 6; ++i)
+        newlevel.AbilitiyCNGs[i] =  AbilitiyCNGs[i];
+    newlevel.skillRanks = ranks;
+    levelHistory.push_back(newlevel);
+    update();
+}
+
 void CQTs_Character::addLevel(QString classCode, QMap<QString,int> ranks){
     int zero[6]={0,0,0,0,0,0};
     addLevel(classCode,ranks,zero);

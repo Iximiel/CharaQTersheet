@@ -17,6 +17,7 @@ public:
     //classes manipulation
     int classNum();
     CQTs_Class classData(int i);
+    CQTs_Class classData(QString code);
     QStringList classNames();
     void appendClass(CQTs_Class newclass);
 private:

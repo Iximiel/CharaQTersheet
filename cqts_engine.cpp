@@ -157,7 +157,7 @@ int CQTs_engine::getSkillNum(QString code){
     int toreturn = -1;
     if(Skills.contains(code)){
         for(int i =0;toreturn<0;i++){
-            if(Skills[i] == code)
+            if(Skills.at(i) == code)//at() is faster than []
                 toreturn = i;
         }
     }
@@ -168,6 +168,14 @@ CQTs_skill CQTs_engine::skillData(int i){return Skills[i];}
 
 int CQTs_engine::classNum(){return Classes.size();}
 CQTs_Class CQTs_engine::classData(int i){return Classes[i];}
+CQTs_Class CQTs_engine::classData(QString code){
+    CQTs_Class myclass;
+    for (int i = 0; i < classNum(); ++i) {
+        if(Classes.at(i) == code)//at() is faster than []
+            myclass = Classes[i];
+    }
+    return myclass;
+}
 
 void CQTs_engine::loadClasses(QString filename){
     QFile file(filename);
