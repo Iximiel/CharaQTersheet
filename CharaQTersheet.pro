@@ -21,7 +21,7 @@ SOURCES += main.cpp\
     cqts_editor.cpp \
     items.cpp \
     item_editor.cpp \
-    classcreator.cpp \
+    cqts_classcreator.cpp \
     cqts_dataexport.cpp \
     cqts_character.cpp \
     cqts_charactercreator.cpp
@@ -33,7 +33,7 @@ HEADERS  += charaqtersheet.h \
     cqts_editor.h \
     items.h \
     item_editor.h \
-    classcreator.h \
+    cqts_classcreator.h \
     cqts_dataexport.h \
     cqts_character.h \
     cqts_charactercreator.h

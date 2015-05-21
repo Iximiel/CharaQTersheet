@@ -23,7 +23,7 @@ private:
 signals:
 
 public slots:
-    void setLabs(CQTs_Class *selected);
+    void setLabs(CQTs_Class *selected, int altMax=0);
 };
 
 class CQTs_ChBioViewer : public QWidget

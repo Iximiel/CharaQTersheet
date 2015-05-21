@@ -1,4 +1,4 @@
-#include "classcreator.h"
+#include "cqts_classcreator.h"
 
 #include <QLabel>
 //#include <QGridLayout>

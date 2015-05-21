@@ -8,7 +8,7 @@
 #include "cqts_character.h"
 #include "cqts_dataexport.h"
 #include "cqts_charactercreator.h"
-#include "classcreator.h"
+#include "cqts_classcreator.h"
 
 CharaQTersheet::CharaQTersheet(QWidget *parent)
     : QMainWindow(parent)

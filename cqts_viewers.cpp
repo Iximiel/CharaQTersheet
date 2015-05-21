@@ -137,10 +137,13 @@ void CQTs_ClassViewer::initialize(){
 }
 
 
-void CQTs_ClassViewer::setLabs(CQTs_Class *selected){
+void CQTs_ClassViewer::setLabs(CQTs_Class *selected, int altMax){
     bool ispellcaster = selected->isSpellcaster();
-    if(LMax!=selected->MaxLv()){
-        LMax = selected->MaxLv();
+    int lmax =selected->MaxLv();
+    if((altMax<lmax) && (altMax>0))
+        lmax = altMax;
+    if(LMax!=lmax){
+        LMax = lmax;
         int i;
         for(i=0;i<LMax;++i){
             LabLev[i]   ->setVisible(true);
