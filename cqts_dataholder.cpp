@@ -250,6 +250,10 @@ QStringList CQTs_Class::getSkills(){
     return skillList;
 }
 
+bool CQTs_Class::isClassSkill(QString code){
+    return skillList.contains(code);
+}
+
 void CQTs_Class::setSpellPerDay(QStringList newSpells){
     spellNumberList.clear();
     spellcaster = false;
