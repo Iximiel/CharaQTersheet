@@ -41,6 +41,7 @@ public:
     explicit choseSkills(CQTs_engine* eng, QWidget *parent = 0);
 private:
     CQTs_engine *engine;
+    QSpinBox **spinSkills;
 };
 
 class CQTs_CharacterCreator : public QWizard

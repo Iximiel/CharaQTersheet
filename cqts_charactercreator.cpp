@@ -3,6 +3,7 @@
 #include <QStringList>
 #include <QGridLayout>
 #include <QFormLayout>
+#include <QScrollArea>
 
 //need to do ALL the registerField("className*", classNameLineEdit);
 
@@ -30,7 +31,7 @@ void CQTs_CharacterCreator::accept(){
 
 /*bio*/
 choseBio::choseBio(CQTs_engine* eng, QWidget *parent)
-    :QWizardPage(parent)
+    : QWizardPage(parent)
 {
     engine = eng;
     setTitle(tr("Set your basic infos"));
@@ -44,10 +45,9 @@ choseBio::choseBio(CQTs_engine* eng, QWidget *parent)
     registerField("myAge",SpinAge);
     setLayout(form);
 }
-
 /*class*/
 choseClass::choseClass(CQTs_engine *eng, QWidget *parent)
-    :QWizardPage(parent)
+    : QWizardPage(parent)
 {
     engine = eng;
     setTitle(tr("Set first class"));
@@ -82,4 +82,22 @@ void choseClass::selClass(int selected){
 choseSkills::choseSkills(CQTs_engine* eng, QWidget *parent){
     engine = eng;
     setTitle(tr("Set your skillponts"));
+
+    QWidget *container = new QWidget();
+    QScrollArea *scroll = new QScrollArea();
+    //setting up layouts
+    QVBoxLayout *maingrid = new QVBoxLayout();
+    QFormLayout *secgrid = new QFormLayout();
+    maingrid->addWidget(scroll);
+    spinSkills = new QSpinBox*[engine->skillNum()];
+    for(int i=0 ; i < engine->skillNum() ; i++){
+        spinSkills[i] = new QSpinBox();
+        spinSkills[i]->setMaximum(4);
+        secgrid->addRow(engine->skillData(i).myName(),spinSkills[i]);
+        QString field = "mySkillN" + QString::number(i);
+        registerField(field,spinSkills[i]);
+    }
+    setLayout(maingrid);
+    container->setLayout(secgrid);
+    scroll->setWidget(container);
 }
