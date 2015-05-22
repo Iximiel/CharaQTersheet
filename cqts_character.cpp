@@ -369,12 +369,17 @@ int CQTs_Character::getAbilityMod(CQT_Abilities sel){return (Abilities[sel]-10)/
 int CQTs_Character::getAbilityMod(int sel){return (Abilities[sel]-10)/2.;}
 int* CQTs_Character::getAbilities(){return Abilities;}
 int CQTs_Character::getRanks(QString code){
-    int toreturn = 0;
+    double toreturn = 0;//double for cross class skills
     for (int i = 0; i < levelHistory.size(); ++i) {
-        if(levelHistory[i].skillRanks.contains(code))
-            toreturn += levelHistory[i].skillRanks[code];
+        if(levelHistory[i].skillRanks.contains(code)){
+            CQTs_Class thisclass = engine->classData(levelHistory[i].thisLVclass);
+            if(thisclass.isClassSkill(code))
+                toreturn += levelHistory[i].skillRanks[code];
+            else
+                toreturn += levelHistory[i].skillRanks[code]/2.;
+        }
     }
-    return toreturn;
+    return (int)toreturn;
 }
 
 void CQTs_Character::setName(QString newName){bio.Name = newName;}

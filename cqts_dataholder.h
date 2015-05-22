@@ -61,6 +61,7 @@ public:
     //skills
     void setSkills(QStringList newSkills);
     QStringList getSkills();
+    bool isClassSkill(QString code);
     //spells
     void setSpellPerDay(QStringList newSpells);
     QString SpellPerDay(int lv);

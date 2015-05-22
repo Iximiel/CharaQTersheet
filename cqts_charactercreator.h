@@ -32,6 +32,8 @@ private:
     CQTs_ClassViewer *viewer;
 public slots:
     void selClass(int selected);
+signals:
+    void getClass(QString selected);
 };
 
 class choseSkills : public QWizardPage
@@ -42,6 +44,11 @@ public:
 private:
     CQTs_engine *engine;
     QSpinBox **spinSkills;
+    QLabel **labelResult;
+    QString myclass;
+public slots:
+    void selClass(QString selected);
+    void calcRanks();
 };
 
 class CQTs_CharacterCreator : public QWizard
@@ -52,9 +59,6 @@ public:
     void accept();
 private:
     CQTs_engine *engine;
-signals:
-
-public slots:
 };
 
 #endif // CQTS_CHARACTERCREATOR_H
