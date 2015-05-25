@@ -31,6 +31,7 @@ private:
     QLabel *LabelPoints;
     QSpinBox **SpinAbilities;
 private slots:
+    void UpdatePoints();
 };
 
 class choseClass : public QWizardPage

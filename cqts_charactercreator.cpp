@@ -73,11 +73,26 @@ choseAbilities::choseAbilities(CQTs_engine *eng, QWidget *parent)
         SpinAbilities[i]->setMaximum(20);//need to add races
         SpinAbilities[i]->setMinimum(1);//need to add races
         SpinAbilities[i]->setValue(8);
+        connect(SpinAbilities[i],SIGNAL(valueChanged(int)),this,SLOT(UpdatePoints()));
     }
     LabelPoints = new QLabel("0");
     form->addRow(new QLabel(tr("Points spent:")),LabelPoints);
     LabelPoints->setAlignment(Qt::AlignCenter);
     setLayout(form);
+}
+
+void choseAbilities::UpdatePoints(){
+    int pointspent = 0;
+    for (int i = 0; i < 6; ++i) {
+        int ability = SpinAbilities[i]->value();
+        while(ability>14){
+            ability--;
+            pointspent+=(ability-10)/2.;
+        }
+
+        pointspent += ability - 8;
+    }
+    LabelPoints->setNum(pointspent);
 }
 
 /*class*/
