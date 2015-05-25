@@ -14,11 +14,13 @@ CQTs_CharacterCreator::CQTs_CharacterCreator(CQTs_engine *eng, QWidget *parent)
     engine = eng;
     setWindowTitle(tr("Create Character"));
     choseClass *pageclass = new choseClass(engine);
+    choseAbilities *pageabilities = new choseAbilities(engine);
     choseBio *pagebio = new choseBio(engine);
     choseSkills *pageskills = new choseSkills(engine);
     connect(pageclass,SIGNAL(getClass(QString)),pageskills,SLOT(selClass(QString)));
 
     addPage(pagebio);
+    addPage(pageabilities);
     addPage(pageclass);
     addPage(pageskills);
 }
@@ -57,6 +59,27 @@ choseBio::choseBio(CQTs_engine* eng, QWidget *parent)
     registerField("myAge",SpinAge);
     setLayout(form);
 }
+
+/*Abilities*/
+choseAbilities::choseAbilities(CQTs_engine *eng, QWidget *parent)
+    : QWizardPage(parent)
+{
+    engine = eng;
+    SpinAbilities = new QSpinBox*[6];
+    QFormLayout *form = new QFormLayout();
+    QString names[6]={tr("Strength"),tr("Dexterity"),tr("Constitution"),tr("Intelligence"),tr("Wisdom"),tr("Charisma")};
+    for (int i = 0; i < 6; ++i) {
+        form->addRow(new QLabel(names[i]),SpinAbilities[i] = new QSpinBox());
+        SpinAbilities[i]->setMaximum(20);//need to add races
+        SpinAbilities[i]->setMinimum(1);//need to add races
+        SpinAbilities[i]->setValue(8);
+    }
+    LabelPoints = new QLabel("0");
+    form->addRow(new QLabel(tr("Points spent:")),LabelPoints);
+    LabelPoints->setAlignment(Qt::AlignCenter);
+    setLayout(form);
+}
+
 /*class*/
 choseClass::choseClass(CQTs_engine *eng, QWidget *parent)
     : QWizardPage(parent)

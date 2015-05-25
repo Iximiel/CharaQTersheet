@@ -21,6 +21,18 @@ private:
     QSpinBox *SpinAge;
 };
 
+class choseAbilities : public QWizardPage
+{
+    Q_OBJECT
+public:
+    explicit choseAbilities(CQTs_engine* eng, QWidget *parent = 0);
+private:
+    CQTs_engine *engine;
+    QLabel *LabelPoints;
+    QSpinBox **SpinAbilities;
+private slots:
+};
+
 class choseClass : public QWizardPage
 {
     Q_OBJECT
