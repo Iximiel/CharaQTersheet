@@ -87,6 +87,8 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     addDockSaves();
     addDockBAB();
     addDockSkills();
+    CQTs_CharacterCreator *charcreator = new CQTs_CharacterCreator(engine);
+    charcreator->show();
 }
 
 CharaQTersheet::~CharaQTersheet()
