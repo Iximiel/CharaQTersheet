@@ -32,15 +32,22 @@ void CQTs_CharacterCreator::accept(){
     newBio.age = field("myAge").toInt();
     QString ClassCode = field("myClass").toString();
     QMap<QString,int> skillRanks;
+int Abilities[6];
+    for (int i = 0; i < 6; ++i) {
+        QString fieldName = "myAbility" + QString::number(i);
+        Abilities[i] = field(fieldName).toInt();
+    }
+
     for(int i=0;i< engine->skillNum();i++){
         QString fieldName = "mySkillN" + QString::number(i);
-        if(field(fieldName).toInt()>0)
-            skillRanks.insert(engine->skillData(i),field(fieldName).toInt());
+        int ranks = field(fieldName).toInt();
+        if(ranks>0)
+            skillRanks.insert(engine->skillData(i),ranks);
     }
     CQTs_Character newChar;
     newChar.setBio(newBio);
-    newChar.addLevel(ClassCode,skillRanks/*,Abilities*/);
-    QDialog::accept();
+    newChar.addLevel(ClassCode,skillRanks,Abilities);
+    //QDialog::accept();
 }
 
 /*bio*/
@@ -69,11 +76,13 @@ choseAbilities::choseAbilities(CQTs_engine *eng, QWidget *parent)
     QFormLayout *form = new QFormLayout();
     QString names[6]={tr("Strength"),tr("Dexterity"),tr("Constitution"),tr("Intelligence"),tr("Wisdom"),tr("Charisma")};
     for (int i = 0; i < 6; ++i) {
+        QString fieldName = "myAbility" + QString::number(i);
         form->addRow(new QLabel(names[i]),SpinAbilities[i] = new QSpinBox());
         SpinAbilities[i]->setMaximum(20);//need to add races
         SpinAbilities[i]->setMinimum(1);//need to add races
         SpinAbilities[i]->setValue(8);
         connect(SpinAbilities[i],SIGNAL(valueChanged(int)),this,SLOT(UpdatePoints()));
+        registerField(fieldName,SpinAbilities[i]);
     }
     LabelPoints = new QLabel("0");
     form->addRow(new QLabel(tr("Points spent:")),LabelPoints);
