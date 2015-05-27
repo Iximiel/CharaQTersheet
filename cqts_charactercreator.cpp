@@ -22,7 +22,7 @@ CQTs_CharacterCreator::CQTs_CharacterCreator(CQTs_engine *eng, QWidget *parent)
 #else
     choseSkills *pageskills = new choseSkills(engine);
 #endif
-    connect(pageclass,SIGNAL(getClass(QString)),pageskills,SLOT(selClass(QString)));
+
     addPage(pagebio);
     addPage(pageabilities);
     addPage(pageclass);
@@ -34,7 +34,8 @@ void CQTs_CharacterCreator::accept(){
     newBio.Name = field("myName").toString();
     newBio.Surname = field("mySurname").toString();
     newBio.age = field("myAge").toInt();
-    QString ClassCode = field("myClass").toString();
+    int theclass = field("myClass").toInt();
+    QString ClassCode = engine->classData(theclass);
     QMap<QString,int> skillRanks;
     int Abilities[6];
     for (int i = 0; i < 6; ++i) {
@@ -54,8 +55,10 @@ void CQTs_CharacterCreator::accept(){
             skillRanks.insert(engine->skillData(i),ranks);
     }
     CQTs_Character newChar;
+    newChar.setEngine(engine);
     newChar.setBio(newBio);
     newChar.addLevel(ClassCode,skillRanks,Abilities);
+    qDebug() << theclass;//dummy
     emit newCharacter(newChar);
     QDialog::accept();
 }
@@ -145,7 +148,6 @@ choseClass::choseClass(CQTs_engine *eng, QWidget *parent)
 void choseClass::selClass(int selected){
     CQTs_Class classSel = engine->classData(selected);
     viewer->setLabs(&classSel,5);
-    emit getClass(classSel);
 }
 
 /*skills*/
@@ -194,19 +196,20 @@ choseSkills::choseSkills(CQTs_engine* eng, QWidget *parent)
     scroll->setWidget(container);
 }
 
-void choseSkills::selClass(QString selected){
-    CQTs_Class tempclass = engine->classData(selected);
+void choseSkills::initializePage(){
+    int theclass = field("myClass").toInt();
+    CQTs_Class tempclass = engine->classData(theclass);
     for(int i=0 ; i < engine->skillNum() ; i++){
         QPalette myPalette =palette();
         if(tempclass.isClassSkill(engine->skillData(i)))
             myPalette.setColor(QPalette::Base, myPalette.color(QPalette::Background).darker(120));
         spinSkills[i]->setPalette(myPalette);
     }
-    myclass = selected;
 }
 
 void choseSkills::calcRanks(){
-    CQTs_Class tempclass = engine->classData(myclass);
+    int theclass = field("myClass").toInt();
+    CQTs_Class tempclass = engine->classData(theclass);
     for(int i=0 ; i < engine->skillNum() ; i++){
 #ifdef NOFIELDFORSKILL
         skills[i] = spinSkills[i]->value();

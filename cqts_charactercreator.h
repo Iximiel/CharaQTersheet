@@ -10,7 +10,7 @@
 #include <QSpinBox>
 #include <QComboBox>
 
-#define NOFIELDFORSKILL
+//#define NOFIELDFORSKILL
 
 class choseBio : public QWizardPage
 {
@@ -47,19 +47,18 @@ private:
     CQTs_ClassViewer *viewer;
 public slots:
     void selClass(int selected);
-signals:
-    void getClass(QString selected);
 };
 
 class choseSkills : public QWizardPage
 {
     Q_OBJECT
 public:
-    #ifdef NOFIELDFORSKILL
-       explicit choseSkills(CQTs_engine* eng,int *skillvec, QWidget *parent = 0);
+#ifdef NOFIELDFORSKILL
+    explicit choseSkills(CQTs_engine* eng,int *skillvec, QWidget *parent = 0);
 #else
     explicit choseSkills(CQTs_engine* eng, QWidget *parent = 0);
 #endif
+    void initializePage();
 private:
 #ifdef NOFIELDFORSKILL
     int *skills;
@@ -67,9 +66,7 @@ private:
     CQTs_engine *engine;
     QSpinBox **spinSkills;
     QLabel **labelResult;
-    QString myclass;
 public slots:
-    void selClass(QString selected);
     void calcRanks();
 };
 
