@@ -12,7 +12,7 @@ struct charBio{
 };
 
 struct level{
-    level(){for (int i = 0; i < 6; AbilitiyCNGs[i]=0);}
+    level(){for (int i = 0; i < 6; AbilitiyCNGs[i++]=0);}
     QMap<QString,int> skillRanks;
     int AbilitiyCNGs[6];
     QString thisLVclass;
