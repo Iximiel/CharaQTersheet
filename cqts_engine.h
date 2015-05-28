@@ -31,6 +31,7 @@ private:
     QStringList files;
     QList<CQTs_skill> Skills;
     QList<CQTs_Class> Classes;
+    QList<CQTs_Race> Races;
 };
 
 #endif // CQTS_ENGINE_H

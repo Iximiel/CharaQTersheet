@@ -2,4 +2,5 @@
 <files>
 <classfile filename="BaseClasses.xml"/>
 <skillfile filename="Skills_data.xml"/>
+<racefile filename="BaseRaces.xml"/>
 </files>

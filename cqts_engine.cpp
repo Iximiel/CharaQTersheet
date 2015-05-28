@@ -91,6 +91,21 @@ void CQTs_engine::loadFromFile(QString filename){
             if (xml.hasError()){
                 xmlHasError(xml,filename);
                 break;
+            }else if(xml.name()=="races"&&xml.isStartElement()){
+                do{
+                    xml.readNext();
+                    if(xml.name()=="race"&&xml.isStartElement()){
+                        CQTs_Race tRace(xml);
+                        while(Skills.contains(tRace)){
+                            tRace.append("*");
+                        }
+                        Races.append(tRace);
+                    }
+                    if (xml.hasError()){
+                        xmlHasError(xml,filename);
+                        break;
+                    }
+                }while(!(xml.name()=="races"&&xml.isEndElement()));
             }
             xml.readNext();
         }
