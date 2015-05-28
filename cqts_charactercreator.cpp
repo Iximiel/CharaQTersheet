@@ -152,6 +152,9 @@ choseSkills::choseSkills(CQTs_engine* eng, QWidget *parent)
     //setting up layouts
     QVBoxLayout *maingrid = new QVBoxLayout();
     QGridLayout *secgrid = new QGridLayout();
+    labelSpent = new QLabel();
+    labelSpent->setAlignment(Qt::AlignRight);
+    maingrid->addWidget(labelSpent);
     maingrid->addWidget(scroll);
     spinSkills = new QSpinBox*[engine->skillNum()];
     labelResult = new QLabel*[engine->skillNum()];
@@ -175,26 +178,48 @@ choseSkills::choseSkills(CQTs_engine* eng, QWidget *parent)
     setLayout(maingrid);
     container->setLayout(secgrid);
     scroll->setWidget(container);
+    maxranks = -1;
 }
 
 void choseSkills::initializePage(){
     int theclass = field("myClass").toInt();
     CQTs_Class tempclass = engine->classData(theclass);
+    int INTmod = field("myAbility3").toInt();//get int mod;
+    INTmod = (INTmod-10)/2.;
+    maxranks = (tempclass.AP()+INTmod)*4;
+    int spent = 0;
     for(int i=0 ; i < engine->skillNum() ; i++){
         QPalette myPalette =palette();
         if(tempclass.isClassSkill(engine->skillData(i)))
             myPalette.setColor(QPalette::Base, myPalette.color(QPalette::Background).darker(120));
         spinSkills[i]->setPalette(myPalette);
+        spent+=spinSkills[i]->value();
     }
+    labelSpent->setText(tr("Point spent:")
+                + QString::number(spent) + "/" + QString::number(maxranks));
+
+}
+
+bool choseSkills::isComplete() const{
+    int spent = 0;
+    for(int i=0 ; i < engine->skillNum() ; i++)
+        spent+=spinSkills[i]->value();
+    return spent == maxranks;
 }
 
 void choseSkills::calcRanks(){
     int theclass = field("myClass").toInt();
     CQTs_Class tempclass = engine->classData(theclass);
+    int spent = 0;
     for(int i=0 ; i < engine->skillNum() ; i++){
+        int val = spinSkills[i]->value();
         if(tempclass.isClassSkill(engine->skillData(i)))
-            labelResult[i]->setNum(spinSkills[i]->value());
+            labelResult[i]->setNum(val);
         else
-            labelResult[i]->setNum(spinSkills[i]->value()/2.);
+            labelResult[i]->setNum(val/2.);
+        spent+=val;
     }
+    labelSpent->setText(tr("Point spent:")
+                + QString::number(spent) + "/" + QString::number(maxranks));
+    emit completeChanged();
 }

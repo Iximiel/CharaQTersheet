@@ -56,10 +56,12 @@ public:
     explicit choseSkills(CQTs_engine* eng, QWidget *parent = 0);
 
     void initializePage();
+    bool isComplete() const;
 private:
+    int maxranks;
     CQTs_engine *engine;
     QSpinBox **spinSkills;
-    QLabel **labelResult;
+    QLabel **labelResult,*labelSpent;
 public slots:
     void calcRanks();
 };
