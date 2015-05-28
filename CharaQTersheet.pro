@@ -42,6 +42,7 @@ OTHER_FILES += \
     Otherfiles/Skills.txt \
     xml/config.xml \
     xml/BaseClasses.xml \
+    xml/BaseRaces.xml \
     xml/Skills_data.xml \
     xml/testcharacter.xml \
     xml/Skills_Ita.xml \

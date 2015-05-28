@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<races>
+<race code = "Human" />
+<race code = "Dwarf" />
+<race code = "Elf" />
+<race code = "Gnome" />
+<race code = "Half-Elf" />
+<race code = "Half-Orc" />
+<race code = "Halfling" />
+</races>
