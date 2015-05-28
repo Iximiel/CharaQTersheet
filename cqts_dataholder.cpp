@@ -98,6 +98,17 @@ void CQTs_skill::add_Synergy(QString code, QString description){
     synergies->push_back(code);
     descSyn->push_back(description);
 }
+/***  race handler  ***/
+CQTs_Race::CQTs_Race(){}
+CQTs_Race::CQTs_Race(QString code)
+    : CQTS_infoHolder(code)
+{}
+CQTs_Race::CQTs_Race(QXmlStreamReader &xml){
+    //trusting this:if(xml.name()=="race"&&xml.isStartElement())
+    QString code = xml.attributes().value("code").toString();
+    append(code);
+    Name = code;//in case racenames are not loaded
+}
 
 /*****class handler*****/
 CQTs_Class::CQTs_Class():

@@ -41,6 +41,18 @@ private:
     bool trainedOnly;
 };
 
+class CQTs_Race : public CQTS_infoHolder
+{
+ public:
+    CQTs_Race();
+    CQTs_Race(QString code);//search constructor
+    CQTs_Race(QXmlStreamReader &xml);
+private:
+    /*
+    int abilities[6];
+*/
+};
+
 
 class CQTs_Class : public CQTS_infoHolder
 {
