@@ -321,6 +321,14 @@ void CQTs_Character::update(){
     }
 }
 
+void CQTs_Character::Race(QString code){
+    race = code;
+}
+
+QString CQTs_Character::Race(){
+    return race;
+}
+
 void CQTs_Character::addLevel(QString classCode, QMap<QString,int> ranks, int AbilitiyCNGs[6]){
     level newlevel;
     newlevel.thisLVclass = classCode;

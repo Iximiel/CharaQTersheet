@@ -33,28 +33,21 @@ public:
     int getLV();
     int getHP();
     int getBAB();
+    //bio
     void setName(QString newName);
     void setSurname(QString newSurname);
     void setAge(int newAge);
     void setBio(charBio newBio);
-
+    void Race(QString code);
+    QString Race();
     //stats management
     void update();
     void addLevel(QString classCode, QMap<QString,int> ranks, int AbilitiyCNGs[6]);
     void addLevel(QString classCode, QMap<QString,int> ranks);
-
+    //retrocompatibility
     void setLV(int newLV);
     void setHP(int newHP);
     void setBAB(int newBAB);
-    //save throws
-    int getFortitude();
-    int getReflex();
-    int getWill();
-    int getST(int i);
-    void setFortitude(int newSTf);
-    void setReflex(int newSTr);
-    void setWill(int newSTw);
-    void setST(int newSTf,int newSTr,int newSTw);
     //abilities
     int getAbility(CQT_Abilities sel);
     int getAbility(int sel);
@@ -72,10 +65,19 @@ public:
     void setRanks(int lv, QString code, int newRanks);
     void setRanks(int lv, QMap<QString,int> newSkillRanks);
     void setEngine(CQTs_engine* eng);
+    //save throws
+    int getFortitude();
+    int getReflex();
+    int getWill();
+    int getST(int i);
+    void setFortitude(int newSTf);
+    void setReflex(int newSTr);
+    void setWill(int newSTw);
+    void setST(int newSTf,int newSTr,int newSTw);
 
 private:
     CQTs_engine *engine;
-
+    QString race;//this is a placeholder!
     void load003(QXmlStreamReader &xml);//load version 003
     void load005(QXmlStreamReader &xml);//load version 005
     charBio bio;
