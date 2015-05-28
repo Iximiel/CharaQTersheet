@@ -16,12 +16,7 @@ CQTs_CharacterCreator::CQTs_CharacterCreator(CQTs_engine *eng, QWidget *parent)
     choseClass *pageclass = new choseClass(engine);
     choseAbilities *pageabilities = new choseAbilities(engine);
     choseBio *pagebio = new choseBio(engine);
-#ifdef NOFIELDFORSKILL
-    skills = new int[engine->skillNum()];
-    choseSkills *pageskills = new choseSkills(engine,skills);
-#else
     choseSkills *pageskills = new choseSkills(engine);
-#endif
 
     addPage(pagebio);
     addPage(pageabilities);
@@ -44,13 +39,8 @@ void CQTs_CharacterCreator::accept(){
     }
 
     for(int i=0;i< engine->skillNum();i++){
-#ifndef NOFIELDFORSKILL
         QString fieldName = "mySkillN" + QString::number(i);
         int ranks = field(fieldName).toInt();
-#else
-        int ranks = skills[i];
-#endif
-
         if(ranks>0)
             skillRanks.insert(engine->skillData(i),ranks);
     }
@@ -151,16 +141,9 @@ void choseClass::selClass(int selected){
 }
 
 /*skills*/
-#ifdef NOFIELDFORSKILL
-choseSkills::choseSkills(CQTs_engine* eng, int *skillvec, QWidget *parent)
-    : QWizardPage(parent)
-{
-    skills = skillvec;
-#else
 choseSkills::choseSkills(CQTs_engine* eng, QWidget *parent)
     : QWizardPage(parent)
 {
-#endif
     engine = eng;
     setTitle(tr("Set your skillponts"));
 
@@ -185,10 +168,8 @@ choseSkills::choseSkills(CQTs_engine* eng, QWidget *parent)
         secgrid->addWidget(labelResult[i] = new QLabel(),r,c++);
         labelResult[i]->setNum(0);
         labelResult[i]->setAlignment(Qt::AlignHCenter);
-#ifndef NOFIELDFORSKILL
         QString fieldName = "mySkillN" + QString::number(i);
         registerField(fieldName,spinSkills[i]);
-#endif
         connect(spinSkills[i],SIGNAL(valueChanged(int)),this,SLOT(calcRanks()));
     }
     setLayout(maingrid);
@@ -211,9 +192,6 @@ void choseSkills::calcRanks(){
     int theclass = field("myClass").toInt();
     CQTs_Class tempclass = engine->classData(theclass);
     for(int i=0 ; i < engine->skillNum() ; i++){
-#ifdef NOFIELDFORSKILL
-        skills[i] = spinSkills[i]->value();
-#endif
         if(tempclass.isClassSkill(engine->skillData(i)))
             labelResult[i]->setNum(spinSkills[i]->value());
         else

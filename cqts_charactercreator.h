@@ -53,16 +53,10 @@ class choseSkills : public QWizardPage
 {
     Q_OBJECT
 public:
-#ifdef NOFIELDFORSKILL
-    explicit choseSkills(CQTs_engine* eng,int *skillvec, QWidget *parent = 0);
-#else
     explicit choseSkills(CQTs_engine* eng, QWidget *parent = 0);
-#endif
+
     void initializePage();
 private:
-#ifdef NOFIELDFORSKILL
-    int *skills;
-#endif
     CQTs_engine *engine;
     QSpinBox **spinSkills;
     QLabel **labelResult;
@@ -79,10 +73,6 @@ public:
 signals:
     void newCharacter(CQTs_Character newChar);
 private:
-
-#ifdef NOFIELDFORSKILL
-    int *skills;
-#endif
     CQTs_engine *engine;
 };
 
