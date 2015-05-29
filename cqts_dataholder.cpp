@@ -99,15 +99,34 @@ void CQTs_skill::add_Synergy(QString code, QString description){
     descSyn->push_back(description);
 }
 /***  race handler  ***/
-CQTs_Race::CQTs_Race(){}
+CQTs_Race::CQTs_Race(){
+    SPbonus=0;
+}
 CQTs_Race::CQTs_Race(QString code)
     : CQTS_infoHolder(code)
-{}
+{
+    SPbonus=0;
+}
+
 CQTs_Race::CQTs_Race(QXmlStreamReader &xml){
+    SPbonus=0;
     //trusting this:if(xml.name()=="race"&&xml.isStartElement())
     QString code = xml.attributes().value("code").toString();
     append(code);
     Name = code;//in case racenames are not loaded
+    do{
+        xml.readNext();
+        if(xml.name()=="trait"&&xml.isStartElement()){
+            QString whattodo = xml.attributes().value("code").toString();
+            if(whattodo == "BonusSP"){
+                SPbonus = xml.readElementText().toInt();
+            }
+        }
+    }while(!(xml.isEndElement()&&xml.name()=="race"));
+}
+
+int CQTs_Race::SkillPointBonus(){
+    return SPbonus;
 }
 
 /*****class handler*****/

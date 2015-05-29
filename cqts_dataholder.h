@@ -47,7 +47,9 @@ class CQTs_Race : public CQTS_infoHolder
     CQTs_Race();
     CQTs_Race(QString code);//search constructor
     CQTs_Race(QXmlStreamReader &xml);
+    int SkillPointBonus();
 private:
+    int SPbonus;//bonuskillpointsper level
     /*
     int abilities[6];
 */

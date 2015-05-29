@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <races>
-<race code = "Human" />
-<race code = "Dwarf" />
-<race code = "Elf" />
-<race code = "Gnome" />
-<race code = "Half-Elf" />
-<race code = "Half-Orc" />
-<race code = "Halfling" />
+    <race code = "Human">
+        <trait code ="BonusSP">1</trait>
+        <trait code ="BonusFeat">1</trait>
+    </race>
+    <race code = "Dwarf">
+        <trait code ="COS">2</trait>
+        <trait code ="CHA">-2</trait>
+    </race>
+    <race code = "Elf" />
+    <race code = "Gnome" />
+    <race code = "Half-Elf" />
+    <race code = "Half-Orc" />
+    <race code = "Halfling" />
 </races>
