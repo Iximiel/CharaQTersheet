@@ -8,6 +8,7 @@
 
 struct charBio{
     QString Name, Surname;
+    QString Race;
     int age;
 };
 
@@ -77,7 +78,6 @@ public:
 
 private:
     CQTs_engine *engine;
-    QString race;//this is a placeholder!
     void load003(QXmlStreamReader &xml);//load version 003
     void load005(QXmlStreamReader &xml);//load version 005
     charBio bio;

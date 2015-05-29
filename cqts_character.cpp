@@ -322,11 +322,11 @@ void CQTs_Character::update(){
 }
 
 void CQTs_Character::Race(QString code){
-    race = code;
+    bio.Race = code;
 }
 
 QString CQTs_Character::Race(){
-    return race;
+    return bio.Race;
 }
 
 void CQTs_Character::addLevel(QString classCode, QMap<QString,int> ranks, int AbilitiyCNGs[6]){

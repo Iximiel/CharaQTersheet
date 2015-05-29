@@ -205,6 +205,7 @@ void CharaQTersheet::launchClassCreator(){
 
 void CharaQTersheet::newCharacter(){
     CQTs_CharacterCreator *CharCreator = new CQTs_CharacterCreator(engine);
+    CharCreator->show();
     character = new CQTs_Character();
 }
 
