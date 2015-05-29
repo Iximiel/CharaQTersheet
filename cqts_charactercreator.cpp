@@ -29,6 +29,7 @@ void CQTs_CharacterCreator::accept(){
     newBio.Name = field("myName").toString();
     newBio.Surname = field("mySurname").toString();
     newBio.age = field("myAge").toInt();
+    newBio.Race = engine->raceData(field("myRace").toInt());
     int theclass = field("myClass").toInt();
     QString ClassCode = engine->classData(theclass);
     QMap<QString,int> skillRanks;
@@ -84,9 +85,6 @@ choseAbilities::choseAbilities(CQTs_engine *eng, QWidget *parent)
     for (int i = 0; i < 6; ++i) {
         QString fieldName = "myAbility" + QString::number(i);
         form->addRow(new QLabel(names[i]),SpinAbilities[i] = new QSpinBox());
-        SpinAbilities[i]->setMaximum(20);//need to add races
-        SpinAbilities[i]->setMinimum(1);//need to add races
-        SpinAbilities[i]->setValue(8);
         connect(SpinAbilities[i],SIGNAL(valueChanged(int)),this,SLOT(UpdatePoints()));
         registerField(fieldName,SpinAbilities[i]);
     }
@@ -95,11 +93,20 @@ choseAbilities::choseAbilities(CQTs_engine *eng, QWidget *parent)
     LabelPoints->setAlignment(Qt::AlignCenter);
     setLayout(form);
 }
-
+void choseAbilities::initializePage(){
+    CQTs_Race thisRace = engine->raceData(field("myRace").toInt());
+    for (int i = 0; i < 6; ++i) {
+        nudeAbilities[i] = thisRace.abilityMod(i);//need a better name...
+        SpinAbilities[i]->setMaximum(nudeAbilities[i]+18);
+        SpinAbilities[i]->setMinimum(1);
+        SpinAbilities[i]->setValue(8+nudeAbilities[i]);
+    }
+    SpinAbilities[3]->setMinimum(3);//int minimum is 3!!!
+}
 void choseAbilities::UpdatePoints(){
     int pointspent = 0;
     for (int i = 0; i < 6; ++i) {
-        int ability = SpinAbilities[i]->value();
+        int ability = SpinAbilities[i]->value()-nudeAbilities[i];
         while(ability>14){
             ability--;
             pointspent+=(ability-10)/2.;

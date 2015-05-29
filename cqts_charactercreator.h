@@ -29,10 +29,12 @@ class choseAbilities : public QWizardPage
     Q_OBJECT
 public:
     explicit choseAbilities(CQTs_engine* eng, QWidget *parent = 0);
+    void initializePage();
 private:
     CQTs_engine *engine;
     QLabel *LabelPoints;
     QSpinBox **SpinAbilities;
+    int nudeAbilities[6];
 private slots:
     void UpdatePoints();
 };
