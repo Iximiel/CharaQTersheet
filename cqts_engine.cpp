@@ -23,6 +23,7 @@ CQTs_engine::CQTs_engine(){
     //loadSkillNames("Skills_Ita.xml");//I will add a menu!
     std::sort(Skills.begin(),Skills.end());
     std::sort(Classes.begin(),Classes.end());
+    std::sort(Races.begin(),Races.end());
 }
 
 void CQTs_engine::loadFiles(QString filename){
@@ -180,7 +181,35 @@ int CQTs_engine::getSkillNum(QString code){
 }
 
 CQTs_skill CQTs_engine::skillData(int i){return Skills[i];}
+//race manipulation
+int CQTs_engine::raceNum(){return Races.size();}
+CQTs_Race CQTs_engine::raceData(int i){return Races[i];}
+CQTs_Race CQTs_engine::raceData(QString code){
+    CQTs_Race myrace;
+    for (int i = 0; i < classNum(); ++i) {
+        if(Races.at(i) == code)//at() is faster than []
+            myrace = Races[i];
+    }
+    return myrace;
+}
 
+QStringList CQTs_engine::raceNames(){
+    QStringList toreturn;
+    int nraces=Races.size();
+    for (int i = 0; i < nraces; ++i) {
+        toreturn.push_back(Races[i].myName());
+    }return toreturn;
+}
+
+void CQTs_engine::appendRace(CQTs_Race newrace){
+    while(Races.contains(newrace)){
+        newrace.append("*");
+    }
+    Races.append(newrace);
+    std::sort(Races.begin(),Races.end());
+}
+
+//class manipulation
 int CQTs_engine::classNum(){return Classes.size();}
 CQTs_Class CQTs_engine::classData(int i){return Classes[i];}
 CQTs_Class CQTs_engine::classData(QString code){
@@ -192,7 +221,23 @@ CQTs_Class CQTs_engine::classData(QString code){
     return myclass;
 }
 
-void CQTs_engine::loadClasses(QString filename){
+QStringList CQTs_engine::classNames(){
+    QStringList toreturn;
+    int nclasses=Classes.size();
+    for (int i = 0; i < nclasses; ++i) {
+        toreturn.push_back(Classes[i].myName());
+    }return toreturn;
+}
+
+void CQTs_engine::appendClass(CQTs_Class newclass){
+    while(Classes.contains(newclass)){
+        newclass.append("*");
+    }
+    Classes.append(newclass);
+    std::sort(Classes.begin(),Classes.end());
+}
+
+void CQTs_engine::loadClasses(QString filename){//going to delete this
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
         QMessageBox::information(0, QString(QObject::tr("Error")), QString(QObject::tr("Failed to load classes data")), QMessageBox::Ok);
@@ -217,22 +262,6 @@ void CQTs_engine::loadClasses(QString filename){
         }
     }
     file.close();
-}
-
-QStringList CQTs_engine::classNames(){
-    QStringList toreturn;
-    int nclasses=Classes.size();
-    for (int i = 0; i < nclasses; ++i) {
-        toreturn.push_back(Classes[i].myName());
-    }return toreturn;
-}
-
-void CQTs_engine::appendClass(CQTs_Class newclass){
-    while(Classes.contains(newclass)){
-        newclass.append("*");
-    }
-    Classes.append(newclass);
-    std::sort(Classes.begin(),Classes.end());
 }
 
 void CQTs_engine::loadClassNames(QString filename){}

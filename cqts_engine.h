@@ -14,6 +14,12 @@ public:
     int skillNum();
     int getSkillNum(QString code);
     CQTs_skill skillData(int i);
+    //races manipulation
+    int raceNum();
+    CQTs_Race raceData(int i);
+    CQTs_Race raceData(QString code);
+    QStringList raceNames();
+    void appendRace(CQTs_Race newrace);
     //classes manipulation
     int classNum();
     CQTs_Class classData(int i);
@@ -24,10 +30,12 @@ private:
     //QStringList confFiles;// 0 skills 1 skillnames 2 classes 3 classnames
     void loadFiles(QString filename);
     void loadFromFile(QString filename);
+    //maybe i will delete some of those
     void loadSkills(QString filename);
     void loadSkillNames(QString filename);
     void loadClasses(QString filename);
     void loadClassNames(QString filename);
+
     QStringList files;
     QList<CQTs_skill> Skills;
     QList<CQTs_Class> Classes;
