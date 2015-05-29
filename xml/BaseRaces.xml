@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--stats:"STR" "DEX" "CON" "INT" "WIS" "CHA"-->
 <races>
     <race code = "Human">
         <trait code ="BonusSP">1</trait>
         <trait code ="BonusFeat">1</trait>
     </race>
     <race code = "Dwarf">
-        <trait code ="COS">2</trait>
-        <trait code ="CHA">-2</trait>
+        <trait code = "BonusStat" which ="CON">2</trait>
+        <trait code = "BonusStat" which ="CHA">-2</trait>
     </race>
-    <race code = "Elf" />
-    <race code = "Gnome" />
+    <race code = "Elf" >
+        <trait code = "BonusStat" which ="DEX">2</trait>
+        <trait code = "BonusStat" which ="CON">-2</trait>
+    </race>
+    <race code = "Gnome" >
+        <trait code = "BonusStat" which ="CON">2</trait>
+        <trait code = "BonusStat" which ="STR">-2</trait>
+    </race>
     <race code = "Half-Elf" />
-    <race code = "Half-Orc" />
-    <race code = "Halfling" />
+    <race code = "Half-Orc" >
+        <trait code = "BonusStat" which ="STR">2</trait>
+        <trait code = "BonusStat" which ="INT">-2</trait>
+        <trait code = "BonusStat" which ="CHA">-2</trait>
+    </race>
+    <race code = "Halfling" >
+        <trait code = "BonusStat" which ="DEX">2</trait>
+        <trait code = "BonusStat" which ="STR">-2</trait>
+    </race>
 </races>

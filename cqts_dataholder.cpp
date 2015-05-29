@@ -101,15 +101,18 @@ void CQTs_skill::add_Synergy(QString code, QString description){
 /***  race handler  ***/
 CQTs_Race::CQTs_Race(){
     SPbonus=0;
+    for (int i = 0; i < 6; abilities[i++]=0);
 }
 CQTs_Race::CQTs_Race(QString code)
     : CQTS_infoHolder(code)
 {
     SPbonus=0;
+    for (int i = 0; i < 6; abilities[i++]=0);
 }
 
 CQTs_Race::CQTs_Race(QXmlStreamReader &xml){
     SPbonus=0;
+    for (int i = 0; i < 6; abilities[i++]=0);
     //trusting this:if(xml.name()=="race"&&xml.isStartElement())
     QString code = xml.attributes().value("code").toString();
     append(code);
@@ -120,6 +123,20 @@ CQTs_Race::CQTs_Race(QXmlStreamReader &xml){
             QString whattodo = xml.attributes().value("code").toString();
             if(whattodo == "BonusSP"){
                 SPbonus = xml.readElementText().toInt();
+            }else if(whattodo == "BonusStat"){
+                QString which = xml.attributes().value("which").toString();
+                if(which=="STR")
+                    abilities[0] = xml.readElementText().toInt();
+                else if(which=="DEX")
+                    abilities[1] = xml.readElementText().toInt();
+                else if(which=="CON")
+                    abilities[2] = xml.readElementText().toInt();
+                else if(which=="INT")
+                    abilities[3] = xml.readElementText().toInt();
+                else if(which=="WIS")
+                    abilities[4] = xml.readElementText().toInt();
+                else if(which=="CHA")
+                    abilities[5] = xml.readElementText().toInt();
             }
         }
     }while(!(xml.isEndElement()&&xml.name()=="race"));
@@ -127,6 +144,9 @@ CQTs_Race::CQTs_Race(QXmlStreamReader &xml){
 
 int CQTs_Race::SkillPointBonus(){
     return SPbonus;
+}
+int CQTs_Race::abilityMod(int i){
+    return abilities[i];
 }
 
 /*****class handler*****/
