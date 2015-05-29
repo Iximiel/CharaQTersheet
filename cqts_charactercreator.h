@@ -21,6 +21,7 @@ private:
     CQTs_engine *engine;
     QLineEdit *LineName, *LineSurname;
     QSpinBox *SpinAge;
+    QComboBox *comboRace;
 };
 
 class choseAbilities : public QWizardPage

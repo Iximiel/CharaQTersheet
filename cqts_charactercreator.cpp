@@ -63,10 +63,13 @@ choseBio::choseBio(CQTs_engine* eng, QWidget *parent)
     form->addRow(tr("Your name:"),LineName = new QLineEdit());
     form->addRow(tr("Your surname:"),LineSurname = new QLineEdit());
     form->addRow(tr("Your age:"),SpinAge = new QSpinBox());
+    form->addRow(tr("Your age:"),comboRace = new QComboBox());
+    comboRace->addItems(engine->raceNames());
     SpinAge->setMaximum(9999);
     registerField("myName",LineName);
     registerField("mySurname",LineSurname);
     registerField("myAge",SpinAge);
+    registerField("myRace",comboRace);
     setLayout(form);
 }
 
@@ -184,9 +187,12 @@ choseSkills::choseSkills(CQTs_engine* eng, QWidget *parent)
 void choseSkills::initializePage(){
     int theclass = field("myClass").toInt();
     CQTs_Class tempclass = engine->classData(theclass);
-    int INTmod = field("myAbility3").toInt();//get int mod;
-    INTmod = (INTmod-10)/2.;
-    maxranks = (tempclass.AP()+INTmod)*4;
+    int therace = field("myRace").toInt();
+    CQTs_Race temprace = engine->raceData(therace);
+    int mod = 0;
+    mod += (field("myAbility3").toInt()-10)/2.;//get int mod
+    mod += temprace.SkillPointBonus();//adding skillbonus
+    maxranks = (tempclass.AP()+mod)*4;
     int spent = 0;
     for(int i=0 ; i < engine->skillNum() ; i++){
         QPalette myPalette =palette();
@@ -196,7 +202,7 @@ void choseSkills::initializePage(){
         spent+=spinSkills[i]->value();
     }
     labelSpent->setText(tr("Point spent:")
-                + QString::number(spent) + "/" + QString::number(maxranks));
+                        + QString::number(spent) + "/" + QString::number(maxranks));
 
 }
 
@@ -220,6 +226,6 @@ void choseSkills::calcRanks(){
         spent+=val;
     }
     labelSpent->setText(tr("Point spent:")
-                + QString::number(spent) + "/" + QString::number(maxranks));
+                        + QString::number(spent) + "/" + QString::number(maxranks));
     emit completeChanged();
 }
