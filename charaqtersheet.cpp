@@ -54,16 +54,19 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
 
     //menu editor
     QMenu *menuEdits = mainMenu->addMenu(tr("&Edit"));
+    tAct = menuEdits->addAction(tr("&Create new Character"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(newCharacter());
+    /*
     tAct = menuEdits ->addAction(tr("&BAB"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(editBAB()));
     tAct = menuEdits ->addAction(tr("&Saves"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(editSaves()));
     tAct = menuEdits ->addAction(tr("&Abilities"));
-    connect(tAct,SIGNAL(triggered()),this,SLOT(editAbilities()));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(editAbilities()));*/
     tAct = menuEdits ->addAction(tr("&Bio"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(editBio()));
-    tAct = menuEdits ->addAction(tr("&Skills"));
-    connect(tAct,SIGNAL(triggered()),this,SLOT(editSkills()));
+    /*tAct = menuEdits ->addAction(tr("&Skills"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(editSkills()));*/
 
     //menu DM
     QMenu *menuDM = mainMenu->addMenu(tr("&DM"));
@@ -87,8 +90,6 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     addDockSaves();
     addDockBAB();
     addDockSkills();
-    CQTs_CharacterCreator *charcreator = new CQTs_CharacterCreator(engine);
-    charcreator->show();
 }
 
 CharaQTersheet::~CharaQTersheet()
@@ -204,9 +205,36 @@ void CharaQTersheet::launchClassCreator(){
 
 
 void CharaQTersheet::newCharacter(){
+    int ret = QMessageBox::Yes;
+    if(character!=NULL){
+        QMessageBox msgBox;
+        msgBox.setText(tr("A character is active."));
+        msgBox.setInformativeText(tr("Do you want to create another one(existig modifies will be discarded)?"));
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::No);
+        ret = msgBox.exec();
+    }
+    switch (ret) {
+    case QMessageBox::Yes:
+        QString fileName = QFileDialog::getOpenFileName(this, tr("Open Character File"), QString(),
+                                                        tr("Character Files (*.chc *.CHC *.xml);;All Files (*.*)"));
+        character = new CQTs_Character(fileName);
+        viewerBio->setLabs(character);
+        viewerAbilities->setLabs(character);
+        viewerST->setLabs(character);
+        viewerSkills->setLabs(character);
+        viewerBAB->setLabs(character);
+        break;
+    }
     CQTs_CharacterCreator *CharCreator = new CQTs_CharacterCreator(engine);
     CharCreator->show();
-    character = new CQTs_Character();
+    connect(CharCreator,SIGNAL(newCharacter(CQTs_Character)),this,
+     new CQTs_Character();
+}
+
+void CharaQTersheet::getnewCharacter(CQTs_Character newchar){
+    delete character;
+    character = &newchar;
 }
 
 void CharaQTersheet::editBAB(){

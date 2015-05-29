@@ -17,6 +17,7 @@ public:
     ~CharaQTersheet();
 public slots:
     void newCharacter();
+    void getnewCharacter(CQTs_Character newchar);
     //docks
     void addDockClass();
     void addDockBio();

@@ -11,9 +11,9 @@ int main(int argc, char *argv[])
     /*QTranslator translator;
     translator.load("charaqtersheet_it");
     a.installTranslator(&translator);*/
-    //CharaQTersheet w;
+    CharaQTersheet w;
 
-    CQTs_engine *engine = new CQTs_engine();
+ /*   CQTs_engine *engine = new CQTs_engine();
     CQTs_CharacterCreator w(engine);
 /*
     CQTs_Class prova;
