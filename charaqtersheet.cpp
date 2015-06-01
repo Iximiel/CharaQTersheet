@@ -185,6 +185,7 @@ void CharaQTersheet::loadChar(){
 void CharaQTersheet::saveChar(){
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save Character File"), QString(),
                                                     tr("Character Files (*.chc *.CHC *.xml);;All Files (*.*)"));
+
     if(fileName!=""){
         character->saveToFile(fileName);
     }
@@ -218,14 +219,13 @@ void CharaQTersheet::newCharacter(){
     case QMessageBox::Yes:
         CQTs_CharacterCreator *CharCreator = new CQTs_CharacterCreator(engine);
         CharCreator->show();
-        connect(CharCreator,SIGNAL(newCharacter(CQTs_Character)),this,SLOT(getnewCharacter(CQTs_Character)));
+        connect(CharCreator,SIGNAL(newCharacter(CQTs_Character*)),this,SLOT(getnewCharacter(CQTs_Character*)));
         break;
     }
 }
 
-void CharaQTersheet::getnewCharacter(CQTs_Character newchar){
-    delete character;
-    character = &newchar;
+void CharaQTersheet::getnewCharacter(CQTs_Character *newchar){
+    character = newchar;
     viewerBio->setLabs(character);
     viewerAbilities->setLabs(character);
     viewerST->setLabs(character);

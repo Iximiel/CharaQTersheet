@@ -153,6 +153,10 @@ void CQTs_Character::load005(QXmlStreamReader &xml){
                     while(!xml.readNext()==6);
                     bio.age = (xml.text().toInt());
                 }
+                if(xml.name()=="race"&&xml.isStartElement()){//get the Race
+                    while(!xml.readNext()==6);
+                    bio.Race = (xml.text().toString());
+                }
             }
         }
         if(xml.name()=="progression"&&xml.isStartElement()){
@@ -226,6 +230,7 @@ void CQTs_Character::saveToFile(QString filename){
             xml.writeTextElement("name",bio.Name);
             xml.writeTextElement("surname",bio.Surname);
             xml.writeTextElement("age",QString::number(bio.age));
+            xml.writeTextElement("race",bio.Race);
             xml.writeEndElement();//bio
             if(!levelHistory.empty()){
                 xml.writeStartElement("progression");//opening progression

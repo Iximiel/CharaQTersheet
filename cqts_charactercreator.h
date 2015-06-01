@@ -76,7 +76,7 @@ public:
     explicit CQTs_CharacterCreator(CQTs_engine* eng, QWidget *parent = 0);
     void accept();
 signals:
-    void newCharacter(CQTs_Character newChar);
+    void newCharacter(CQTs_Character *newChar);
 private:
     CQTs_engine *engine;
 };

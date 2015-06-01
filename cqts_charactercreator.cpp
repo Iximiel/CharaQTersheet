@@ -45,11 +45,11 @@ void CQTs_CharacterCreator::accept(){
         if(ranks>0)
             skillRanks.insert(engine->skillData(i),ranks);
     }
-    CQTs_Character newChar;
-    newChar.setEngine(engine);
-    newChar.setBio(newBio);
-    newChar.addLevel(ClassCode,skillRanks,Abilities);
-    qDebug() << theclass;//dummy
+    CQTs_Character *newChar = new CQTs_Character();
+    newChar->setEngine(engine);
+    newChar->setBio(newBio);
+    newChar->addLevel(ClassCode,skillRanks,Abilities);
+    //qDebug() << theclass;//dummy
     emit newCharacter(newChar);
     QDialog::accept();
 }
