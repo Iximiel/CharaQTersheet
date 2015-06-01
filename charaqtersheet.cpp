@@ -173,6 +173,7 @@ void CharaQTersheet::loadChar(){
         QString fileName = QFileDialog::getOpenFileName(this, tr("Open Character File"), QString(),
                                                         tr("Character Files (*.chc *.CHC *.xml);;All Files (*.*)"));
         character = new CQTs_Character(fileName);
+        //character->update();
         viewerBio->setLabs(character);
         viewerAbilities->setLabs(character);
         viewerST->setLabs(character);

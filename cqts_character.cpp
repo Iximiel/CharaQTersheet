@@ -43,6 +43,7 @@ void CQTs_Character::loadFromFile(QString filename){
         else
             load005(xml);
         file.close();
+        update();
     }
 }
 
@@ -162,7 +163,7 @@ void CQTs_Character::load005(QXmlStreamReader &xml){
         if(xml.name()=="progression"&&xml.isStartElement()){
             do{
                 xml.readNext();
-                if((xml.name()=="level"&&xml.isStartElement())){
+                if((xml.name()=="lv"&&xml.isStartElement())){
                     level myNewLevel;
                     myNewLevel.thisLVclass = xml.attributes().value("class").toString();
                     do{
@@ -199,12 +200,12 @@ void CQTs_Character::load005(QXmlStreamReader &xml){
                                     int ranks = xml.text().toInt();
                                     myNewLevel.skillRanks.insert(skillcode,ranks);
                                 }
-                            }while((xml.name()=="skills"&&xml.isEndElement()));
+                            }while(!(xml.name()=="skills"&&xml.isEndElement()));
                         }
-                    }while(xml.name()=="level"&&xml.isEndElement());
+                    }while(!(xml.name()=="lv"&&xml.isEndElement()));
                     levelHistory.push_back(myNewLevel);
                 }
-            }while(xml.name()=="progression"&&xml.isEndElement());
+            }while(!(xml.name()=="progression"&&xml.isEndElement()));
         }
         //if(xml.name()=="feats"&&xml.isStartElement()){}
         if (xml.hasError()) {
