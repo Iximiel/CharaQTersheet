@@ -157,6 +157,15 @@ void CharaQTersheet::addDockSkills(){
     }else
         dockSkills->show();
 }
+void CharaQTersheet::updateLabs(){
+    if(character!=NULL){
+        viewerBio->setLabs(character);
+        viewerAbilities->setLabs(character);
+        viewerST->setLabs(character);
+        viewerSkills->setLabs(character);
+        viewerBAB->setLabs(character);
+    }
+}
 
 void CharaQTersheet::loadChar(){
     int ret = QMessageBox::Yes;
@@ -174,11 +183,7 @@ void CharaQTersheet::loadChar(){
                                                         tr("Character Files (*.chc *.CHC *.xml);;All Files (*.*)"));
         character = new CQTs_Character(fileName);
         //character->update();
-        viewerBio->setLabs(character);
-        viewerAbilities->setLabs(character);
-        viewerST->setLabs(character);
-        viewerSkills->setLabs(character);
-        viewerBAB->setLabs(character);
+        updateLabs();
         break;
     }
 }
@@ -186,7 +191,6 @@ void CharaQTersheet::loadChar(){
 void CharaQTersheet::saveChar(){
     QString fileName = QFileDialog::getSaveFileName(this, tr("Save Character File"), QString(),
                                                     tr("Character Files (*.chc *.CHC *.xml);;All Files (*.*)"));
-
     if(fileName!=""){
         character->saveToFile(fileName);
     }
@@ -227,26 +231,42 @@ void CharaQTersheet::newCharacter(){
 
 void CharaQTersheet::getnewCharacter(CQTs_Character *newchar){
     character = newchar;
-    viewerBio->setLabs(character);
-    viewerAbilities->setLabs(character);
-    viewerST->setLabs(character);
-    viewerSkills->setLabs(character);
-    viewerBAB->setLabs(character);
-}
 
-void CharaQTersheet::editBAB(){
-    if(character==NULL)
-        newCharacter();
-
-    cqts_BABeditor *BaB = new cqts_BABeditor(character->getBAB());
-    connect(BaB,SIGNAL(newBAB(int)),this,SLOT(updateBAB(int)));
-    BaB->show();
 }
+/*
 void CharaQTersheet::updateBAB(int newBAB){
     if(character==NULL)
         newCharacter();
     character->setBAB(newBAB);
     viewerBAB->setLabs(character);
+}
+
+void CharaQTersheet::updateSkills(){
+    if(character==NULL)
+        newCharacter();
+    viewerSkills->setLabs(character);
+}
+
+void CharaQTersheet::updateSaves(int* STs){
+    character->setST(STs[0],STs[1],STs[2]);
+    viewerST->setLabs(character);
+}
+
+void CharaQTersheet::updateAbilities(int* abls){
+    if(character==NULL)
+        newCharacter();
+    character->setAbilities(abls);
+    viewerAbilities->setLabs(character);
+    viewerST->setLabs(character);
+    viewerSkills->setLabs(character);
+    viewerBAB->setLabs(character);
+}*/
+
+void CharaQTersheet::updateBio(charBio newBio){
+    if(character==NULL)
+        newCharacter();
+    character->setBio(newBio);
+    viewerBio->setLabs(character);
 }
 
 void CharaQTersheet::editBio(){
@@ -256,11 +276,14 @@ void CharaQTersheet::editBio(){
     connect(Bio,SIGNAL(newBio(charBio)),this,SLOT(updateBio(charBio)));
     Bio->show();
 }
-void CharaQTersheet::updateBio(charBio newBio){
+/*
+void CharaQTersheet::editBAB(){
     if(character==NULL)
         newCharacter();
-    character->setBio(newBio);
-    viewerBio->setLabs(character);
+
+    cqts_BABeditor *BaB = new cqts_BABeditor(character->getBAB());
+    connect(BaB,SIGNAL(newBAB(int)),this,SLOT(updateBAB(int)));
+    BaB->show();
 }
 
 void CharaQTersheet::editSkills(){
@@ -269,12 +292,6 @@ void CharaQTersheet::editSkills(){
     cqts_SkillsEditor *Skills = new cqts_SkillsEditor(character,engine);
     connect(Skills,SIGNAL(newSkills(QMap<QString,int>)),this,SLOT(updateSkills(QMap<QString,int>)));
     Skills->show();
-}
-void CharaQTersheet::updateSkills(QMap<QString,int> newskills){//need to be changed!
-    if(character==NULL)
-        newCharacter();
-    //character->setRanks(newskills);
-    viewerSkills->setLabs(character);
 }
 
 void CharaQTersheet::editSaves(){
@@ -288,10 +305,6 @@ void CharaQTersheet::editSaves(){
     connect(STs,SIGNAL(newSTs(int*)),this,SLOT(updateSaves(int*)));
     STs->show();
 }
-void CharaQTersheet::updateSaves(int* STs){
-    character->setST(STs[0],STs[1],STs[2]);
-    viewerST->setLabs(character);
-}
 
 void CharaQTersheet::editAbilities(){
     if(character==NULL)
@@ -299,19 +312,9 @@ void CharaQTersheet::editAbilities(){
     cqts_AbilitiesEditor *Abl = new cqts_AbilitiesEditor(character->getAbilities());
     connect(Abl,SIGNAL(newAbl(int*)),this,SLOT(updateAbilities(int*)));
     Abl->show();
-}
-void CharaQTersheet::updateAbilities(int* abls){
-    if(character==NULL)
-        newCharacter();
-    character->setAbilities(abls);
-    viewerAbilities->setLabs(character);
-    viewerST->setLabs(character);
-    viewerSkills->setLabs(character);
-    viewerBAB->setLabs(character);
-}
+}*/
 
-
-/*Classviewer*/
+/*********************** Classviewer ***********************/
 ClassViewer::ClassViewer(CQTs_engine *eng, QWidget *parent)
     : QWidget(parent)
 {

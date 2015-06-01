@@ -25,21 +25,22 @@ public slots:
     void addDockAbilities();
     void addDockSaves();
     void addDockSkills();
+    void updateLabs();
     //character
     void loadChar();
     void saveChar();
     //editor
-    void editBAB();
     void editBio();
+    /*void editBAB();
     void editSkills();
     void editSaves();
-    void editAbilities();
+    void editAbilities();*/
 
-    void updateBAB(int newBAB);
     void updateBio(charBio newBio);
-    void updateSkills(QMap<QString, int> newskills);
+    /*void updateBAB(int newBAB);
+    void updateSkills();
     void updateSaves(int* STs);
-    void updateAbilities(int *abls);
+    void updateAbilities(int *abls);*/
     //various exports:
     void exportClasses();
     void launchClassCreator();
