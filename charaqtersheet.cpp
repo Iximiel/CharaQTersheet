@@ -55,7 +55,7 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     //menu editor
     QMenu *menuEdits = mainMenu->addMenu(tr("&Edit"));
     tAct = menuEdits->addAction(tr("&Create new Character"));
-    connect(tAct,SIGNAL(triggered()),this,SLOT(newCharacter());
+    connect(tAct,SIGNAL(triggered()),this,SLOT(newCharacter()));
     /*
     tAct = menuEdits ->addAction(tr("&BAB"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(editBAB()));
@@ -216,25 +216,21 @@ void CharaQTersheet::newCharacter(){
     }
     switch (ret) {
     case QMessageBox::Yes:
-        QString fileName = QFileDialog::getOpenFileName(this, tr("Open Character File"), QString(),
-                                                        tr("Character Files (*.chc *.CHC *.xml);;All Files (*.*)"));
-        character = new CQTs_Character(fileName);
-        viewerBio->setLabs(character);
-        viewerAbilities->setLabs(character);
-        viewerST->setLabs(character);
-        viewerSkills->setLabs(character);
-        viewerBAB->setLabs(character);
+        CQTs_CharacterCreator *CharCreator = new CQTs_CharacterCreator(engine);
+        CharCreator->show();
+        connect(CharCreator,SIGNAL(newCharacter(CQTs_Character)),this,SLOT(getnewCharacter(CQTs_Character)));
         break;
     }
-    CQTs_CharacterCreator *CharCreator = new CQTs_CharacterCreator(engine);
-    CharCreator->show();
-    connect(CharCreator,SIGNAL(newCharacter(CQTs_Character)),this,
-     new CQTs_Character();
 }
 
 void CharaQTersheet::getnewCharacter(CQTs_Character newchar){
     delete character;
     character = &newchar;
+    viewerBio->setLabs(character);
+    viewerAbilities->setLabs(character);
+    viewerST->setLabs(character);
+    viewerSkills->setLabs(character);
+    viewerBAB->setLabs(character);
 }
 
 void CharaQTersheet::editBAB(){

@@ -415,8 +415,7 @@ void CQTs_ChSkillsViewer::setLabs(CQTs_Character *selected){
         dummy=selected->getRanks(eng->skillData(i));
         Labels[i*8+5]->setNum(dummy);
         tot+=dummy;
-        if( dummy !=0 )
-        {qDebug() << eng->skillData(i) <<": "<< dummy;}
+        //if( dummy !=0 ) qDebug() << eng->skillData(i) <<": "<< dummy;
         dummy=selected->getAbilityMod(eng->skillData(i).myAbility());
         Labels[i*8+3]->setNum(dummy);
         tot+=dummy;
