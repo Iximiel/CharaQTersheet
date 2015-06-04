@@ -277,7 +277,9 @@ void CQTs_ChAbilitiesViewer::initialize(){
     LabMod =    new QLabel* [12];
 
     QString names[6]={tr("Strength"),tr("Dexterity"),tr("Constitution"),tr("Intelligence"),tr("Wisdom"),tr("Charisma")};
-
+    QPalette pal = palette();
+    bool darker = false;
+    pal.setColor(QPalette::Background, pal.color(QPalette::Background).darker(120));
     QGridLayout *grid = new QGridLayout();
     grid->addWidget(new QLabel(tr("Temporary")),0,3,1,2);
     for (int i = 0; i < 6; ++i) {
@@ -285,15 +287,28 @@ void CQTs_ChAbilitiesViewer::initialize(){
 
         grid->addWidget(LabValue[i] = new QLabel("10"),i+1,1);
         LabValue[i]->setFrameStyle(QFrame::Panel|QFrame::Raised);
+        LabValue[i]->setAlignment(Qt::AlignCenter);
 
         grid->addWidget(LabMod[i] = new QLabel("+0"),i+1,2);
         LabMod[i]->setFrameStyle(QFrame::Panel|QFrame::Sunken);
+        LabMod[i]->setAlignment(Qt::AlignCenter);
 
         grid->addWidget(LabValue[i+6] = new QLabel("10"),i+1,3);
         LabValue[i+6]->setFrameStyle(QFrame::WinPanel|QFrame::Raised);
+        LabValue[i+6]->setAlignment(Qt::AlignCenter);
 
         grid->addWidget(LabMod[i+6] = new QLabel("+0"),i+1,4);
         LabMod[i+6]->setFrameStyle(QFrame::WinPanel|QFrame::Sunken);
+        LabMod[i+6]->setAlignment(Qt::AlignCenter);
+
+        if(darker){
+            LabName[i]->setPalette(pal);
+            LabValue[i]->setPalette(pal);
+            LabMod[i]->setPalette(pal);
+            LabValue[i+6]->setPalette(pal);
+            LabMod[i+6]->setPalette(pal);
+        }
+        darker = !darker;
     }
 
 
@@ -355,24 +370,37 @@ void CQTs_ChSkillsViewer::initialize(){
 
     for (int i = 0; i < eng->skillNum(); ++i) {
         QLabel *tLab = new QLabel(eng->skillData(i).myName());
-
-        //qDebug()<<"nome"<<tLab->text();
+        tLab->setAlignment(Qt::AlignCenter);
         Labels.push_back(tLab);//[i*8+0] name
+
         grid->addWidget(tLab,i+rows,0);
         grid->addWidget(tLab= new QLabel("0"),i+rows,1);
+        tLab->setAlignment(Qt::AlignCenter);
         Labels.push_back(tLab);//[i*8+1] d20
+
         tLab->setFrameStyle(QFrame::Panel|QFrame::Raised);
         grid->addWidget(tLab= new QLabel("="),i+rows,2);
+        tLab->setAlignment(Qt::AlignCenter);
         Labels.push_back(tLab);
+
         grid->addWidget(tLab= new QLabel("0"),i+rows,3);
+        tLab->setAlignment(Qt::AlignCenter);
         Labels.push_back(tLab);//[i*8+3] abl mod
+
         grid->addWidget(tLab= new QLabel("+"),i+rows,4);
+        tLab->setAlignment(Qt::AlignCenter);
         Labels.push_back(tLab);
+
         grid->addWidget(tLab= new QLabel("0"),i+rows,5);
+        tLab->setAlignment(Qt::AlignCenter);
         Labels.push_back(tLab);//[i*8+5] ranks
+
         grid->addWidget(tLab= new QLabel("+"),i+rows,6);
+        tLab->setAlignment(Qt::AlignCenter);
         Labels.push_back(tLab);
+
         grid->addWidget(tLab= new QLabel("0"),i+rows,7);
+        tLab->setAlignment(Qt::AlignCenter);
         Labels.push_back(tLab);//[i*8+7] var mods
     }
     container->setLayout(grid);

@@ -14,8 +14,9 @@ CQTs_Character::CQTs_Character()
     bio.Surname=bio.Name="";
 }
 
-CQTs_Character::CQTs_Character(QString filename)
+CQTs_Character::CQTs_Character(CQTs_engine *eng, QString filename)
 {
+    engine = eng;
     bio.age=LV=HP=BAB=STf=STr=STw=0;
     for (int i = 0; i < 6;Abilities[i++]=10 );
     bio.Surname=bio.Name="";

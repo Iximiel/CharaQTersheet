@@ -181,7 +181,7 @@ void CharaQTersheet::loadChar(){
     case QMessageBox::Yes:
         QString fileName = QFileDialog::getOpenFileName(this, tr("Open Character File"), QString(),
                                                         tr("Character Files (*.chc *.CHC *.xml);;All Files (*.*)"));
-        character = new CQTs_Character(fileName);
+        character = new CQTs_Character(engine,fileName);
         //character->update();
         updateLabs();
         break;
@@ -231,7 +231,8 @@ void CharaQTersheet::newCharacter(){
 
 void CharaQTersheet::getnewCharacter(CQTs_Character *newchar){
     character = newchar;
-
+    updateLabs();
+    update();
 }
 /*
 void CharaQTersheet::updateBAB(int newBAB){

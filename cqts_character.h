@@ -22,7 +22,7 @@ struct level{
 class CQTs_Character{
 public:
     CQTs_Character();
-    CQTs_Character(QString filename);
+    CQTs_Character(CQTs_engine *eng,QString filename);
     void saveToFile (QString filename);
     void loadFromFile (QString filename);
 
