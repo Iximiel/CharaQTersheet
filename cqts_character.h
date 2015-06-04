@@ -39,8 +39,11 @@ public:
     void setSurname(QString newSurname);
     void setAge(int newAge);
     void setBio(charBio newBio);
-    void Race(QString code);
-    QString Race();
+    void Race(QString code);//get race code
+    QString Race();//get race name
+    QString RaceCode();//get race code
+    //labelling
+    QStringList classNames();
     //stats management
     void update();
     void addLevel(QString classCode, QMap<QString,int> ranks, int AbilitiyCNGs[6]);

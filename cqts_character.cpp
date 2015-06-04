@@ -333,7 +333,22 @@ void CQTs_Character::Race(QString code){
 }
 
 QString CQTs_Character::Race(){
+    return engine->raceData(bio.Race).myName();
+}
+
+QString CQTs_Character::RaceCode(){
     return bio.Race;
+}
+
+QStringList CQTs_Character::classNames(){
+    QStringList toreturn;
+    int lvs = levelHistory.size();
+    for (int i = 0; i < lvs; ++i) {
+        QString myLVname = engine->classData(levelHistory[i].thisLVclass).myName();
+        if(!toreturn.contains(myLVname))
+            toreturn.push_back(myLVname);
+    }
+    return toreturn;
 }
 
 void CQTs_Character::addLevel(QString classCode, QMap<QString,int> ranks, int AbilitiyCNGs[6]){

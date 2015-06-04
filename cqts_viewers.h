@@ -33,7 +33,7 @@ public:
     explicit CQTs_ChBioViewer(QWidget *parent = 0);
     explicit CQTs_ChBioViewer(CQTs_Character *selected, QWidget *parent = 0);
 private:
-    QLabel *LabName,*LabSurname,*LabAge;
+    QLabel *LabName,*LabSurname,*LabSmallDesc;
     void initialize();
 signals:
 

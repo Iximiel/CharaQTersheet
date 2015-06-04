@@ -186,9 +186,11 @@ int CQTs_engine::raceNum(){return Races.size();}
 CQTs_Race CQTs_engine::raceData(int i){return Races[i];}
 CQTs_Race CQTs_engine::raceData(QString code){
     CQTs_Race myrace;
-    for (int i = 0; i < classNum(); ++i) {
-        if(Races.at(i) == code)//at() is faster than []
+    for (int i = 0; i < raceNum(); ++i) {
+        if(Races.at(i) == code){//at() is faster than []
             myrace = Races[i];
+            break;
+        }
     }
     return myrace;
 }

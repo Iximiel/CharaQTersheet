@@ -228,7 +228,7 @@ void CQTs_ChBioViewer::initialize(){
 
     LabName = new QLabel();
     LabSurname = new QLabel();
-    LabAge = new QLabel();
+    LabSmallDesc = new QLabel();
 
     QGridLayout *grid = new QGridLayout();
 
@@ -240,9 +240,7 @@ void CQTs_ChBioViewer::initialize(){
     grid->addWidget(Tlab,1,0);
     grid->addWidget(LabSurname,1,1);
 
-    Tlab = new QLabel(tr("Age:"));
-    grid->addWidget(Tlab,2,0);
-    grid->addWidget(LabAge,2,1);
+    grid->addWidget(LabSmallDesc,2,0,1,2);
 
     setLayout(grid);
 }
@@ -251,7 +249,20 @@ void CQTs_ChBioViewer::initialize(){
 void CQTs_ChBioViewer::setLabs(CQTs_Character *selected){
     LabName->setText(selected->getName());
     LabSurname->setText(selected->getSurname());
-    LabAge->setNum(selected->getAge());
+    int Age = selected->getAge();
+    QStringList classes = selected->classNames();
+    QString classList;
+    for(int i=0;i<classes.size();i++){
+        if(i!=0)
+            classList+=", ";
+        classList+=classes[i];
+    }
+
+    QString desc = tr("Is a %1 %3 of %2 years")
+            .arg(selected->Race())
+            .arg(Age)
+            .arg(classList);
+    LabSmallDesc->setText(desc);
 }
 
 /*AbilitiesViewer*/
