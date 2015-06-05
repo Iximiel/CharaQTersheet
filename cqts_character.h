@@ -32,6 +32,7 @@ public:
     int getAge();
     charBio getBio();
     int getLV();
+    int getLV(QString classCode);
     int getHP();
     int getBAB();
     //bio

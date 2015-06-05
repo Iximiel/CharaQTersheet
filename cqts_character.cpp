@@ -371,6 +371,13 @@ QString CQTs_Character::getSurname(){return bio.Surname;}
 int CQTs_Character::getAge(){return bio.age;}
 charBio CQTs_Character::getBio(){return bio;}
 int CQTs_Character::getLV(){return LV;}
+int CQTs_Character::getLV(QString classCode){
+    int cl = 0;
+    for (int i = 0; i < levelHistory; ++i) {
+        if((levelHistory.at(i).thisLVclass)==classCode)
+            cl++;
+    }
+    return LV;}
 int CQTs_Character::getHP(){return HP;}
 int CQTs_Character::getBAB(){return BAB;}
 int CQTs_Character::getFortitude(){return STf;}
