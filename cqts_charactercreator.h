@@ -28,7 +28,7 @@ class choseAbilities : public QWizardPage
 {
     Q_OBJECT
 public:
-    explicit choseAbilities(CQTs_engine* eng, QWidget *parent = 0);
+    explicit choseAbilities(CQTs_engine* eng, CQTs_Character *character=NULL, QWidget *parent = 0);
     void initializePage();
 private:
     CQTs_engine *engine;
@@ -56,7 +56,7 @@ class choseSkills : public QWizardPage
 {
     Q_OBJECT
 public:
-    explicit choseSkills(CQTs_engine* eng, QWidget *parent = 0);
+    explicit choseSkills(CQTs_engine* eng, CQTs_Character *character=NULL, QWidget *parent = 0);
 
     void initializePage();
     bool isComplete() const;
@@ -74,11 +74,13 @@ class CQTs_CharacterCreator : public QWizard
     Q_OBJECT
 public:
     explicit CQTs_CharacterCreator(CQTs_engine* eng, QWidget *parent = 0);
+    explicit CQTs_CharacterCreator(CQTs_engine* eng, CQTs_Character *character, QWidget *parent = 0);
     void accept();
 signals:
     void newCharacter(CQTs_Character *newChar);
 private:
     CQTs_engine *engine;
+    CQTs_Character *mychar;
 };
 
 #endif // CQTS_CHARACTERCREATOR_H

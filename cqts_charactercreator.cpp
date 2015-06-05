@@ -11,14 +11,30 @@
 CQTs_CharacterCreator::CQTs_CharacterCreator(CQTs_engine *eng, QWidget *parent)
     : QWizard(parent)
 {
+    mychar ==NULL;
     engine = eng;
     setWindowTitle(tr("Create Character"));
+    choseBio *pagebio = new choseBio(engine);
     choseClass *pageclass = new choseClass(engine);
     choseAbilities *pageabilities = new choseAbilities(engine);
-    choseBio *pagebio = new choseBio(engine);
     choseSkills *pageskills = new choseSkills(engine);
 
     addPage(pagebio);
+    addPage(pageabilities);
+    addPage(pageclass);
+    addPage(pageskills);
+}
+
+CQTs_CharacterCreator::CQTs_CharacterCreator(CQTs_engine *eng, CQTs_Character *character, QWidget *parent)
+    : QWizard(parent)
+{
+    mychar == character;
+    engine = eng;
+    setWindowTitle(tr("Adding a level"));
+    choseClass *pageclass = new choseClass(engine, mychar);
+    choseAbilities *pageabilities = new choseAbilities(engine, mychar);
+    choseSkills *pageskills = new choseSkills(engine, mychar);
+
     addPage(pageabilities);
     addPage(pageclass);
     addPage(pageskills);
@@ -75,7 +91,7 @@ choseBio::choseBio(CQTs_engine* eng, QWidget *parent)
 }
 
 /*Abilities*/
-choseAbilities::choseAbilities(CQTs_engine *eng, QWidget *parent)
+choseAbilities::choseAbilities(CQTs_engine *eng, CQTs_Character *character, QWidget *parent)
     : QWizardPage(parent)
 {
     engine = eng;
@@ -88,33 +104,48 @@ choseAbilities::choseAbilities(CQTs_engine *eng, QWidget *parent)
         connect(SpinAbilities[i],SIGNAL(valueChanged(int)),this,SLOT(UpdatePoints()));
         registerField(fieldName,SpinAbilities[i]);
     }
-    LabelPoints = new QLabel("0");
-    form->addRow(new QLabel(tr("Points spent:")),LabelPoints);
-    LabelPoints->setAlignment(Qt::AlignCenter);
+    newChar = false;
+    if(character==NULL){
+        newChar = true;
+        LabelPoints = new QLabel("0");
+        form->addRow(new QLabel(tr("Points spent:")),LabelPoints);
+        LabelPoints->setAlignment(Qt::AlignCenter);
+    }else{
+        for (int i = 0; i < 6; ++i) {
+            nudeAbilities[i] = character->getAbility(i);
+            SpinAbilities[i]->setValue(nudeAbilities[i]);
+            SpinAbilities[i]->setMinimum(1);
+            //need to say you are at lv 4 ecc!
+        }
+    }
     setLayout(form);
 }
 void choseAbilities::initializePage(){
-    CQTs_Race thisRace = engine->raceData(field("myRace").toInt());
-    for (int i = 0; i < 6; ++i) {
-        nudeAbilities[i] = thisRace.abilityMod(i);//need a better name...
-        SpinAbilities[i]->setMaximum(nudeAbilities[i]+18);
-        SpinAbilities[i]->setMinimum(1);
-        SpinAbilities[i]->setValue(8+nudeAbilities[i]);
+    if(newChar){
+        CQTs_Race thisRace = engine->raceData(field("myRace").toInt());
+        for (int i = 0; i < 6; ++i) {
+            nudeAbilities[i] = thisRace.abilityMod(i);//need a better name...
+            SpinAbilities[i]->setMaximum(nudeAbilities[i]+18);
+            SpinAbilities[i]->setMinimum(1);
+            SpinAbilities[i]->setValue(8+nudeAbilities[i]);
+        }
+        SpinAbilities[3]->setMinimum(3);//int minimum is 3!!!
     }
-    SpinAbilities[3]->setMinimum(3);//int minimum is 3!!!
 }
 void choseAbilities::UpdatePoints(){
-    int pointspent = 0;
-    for (int i = 0; i < 6; ++i) {
-        int ability = SpinAbilities[i]->value()-nudeAbilities[i];
-        while(ability>14){
-            ability--;
-            pointspent+=(ability-10)/2.;
-        }
+    if(newChar){
+        int pointspent = 0;
+        for (int i = 0; i < 6; ++i) {
+            int ability = SpinAbilities[i]->value()-nudeAbilities[i];
+            while(ability>14){
+                ability--;
+                pointspent+=(ability-10)/2.;
+            }
 
-        pointspent += ability - 8;
+            pointspent += ability - 8;
+        }
+        LabelPoints->setNum(pointspent);
     }
-    LabelPoints->setNum(pointspent);
 }
 
 /*class*/
@@ -151,7 +182,7 @@ void choseClass::selClass(int selected){
 }
 
 /*skills*/
-choseSkills::choseSkills(CQTs_engine* eng, QWidget *parent)
+choseSkills::choseSkills(CQTs_engine* eng, CQTs_Character *character, QWidget *parent)
     : QWizardPage(parent)
 {
     engine = eng;
