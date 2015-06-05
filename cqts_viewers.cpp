@@ -144,24 +144,24 @@ void CQTs_ClassViewer::setLabs(CQTs_Class *selected, int altMax){
         lmax = altMax;
     if(LMax!=lmax){
         LMax = lmax;
-        int i;
-        for(i=0;i<LMax;++i){
-            LabLev[i]   ->setVisible(true);
-            LabBAB[i]   ->setVisible(true);
-            LabFort[i]  ->setVisible(true);
-            LabRef[i]   ->setVisible(true);
-            LabWill[i]  ->setVisible(true);
-            for (int j = 0; j < 10; ++j)
-                LabSpells[10*i+j]->setVisible(ispellcaster);
-        }
-        for(;i<20;++i){
-            LabLev[i]   ->setVisible(false);
-            LabBAB[i]   ->setVisible(false);
-            LabFort[i]  ->setVisible(false);
-            LabRef[i]   ->setVisible(false);
-            LabWill[i]  ->setVisible(false);
-            for (int j = 0; j < 10; ++j)
-                LabSpells[10*i+j]->setVisible(false);
+        for(int i=0;i<lmax;++i){
+            if(i<LMax){
+                LabLev[i]   ->setVisible(true);
+                LabBAB[i]   ->setVisible(true);
+                LabFort[i]  ->setVisible(true);
+                LabRef[i]   ->setVisible(true);
+                LabWill[i]  ->setVisible(true);
+                for (int j = 0; j < 10; ++j)
+                    LabSpells[10*i+j]->setVisible(ispellcaster);
+            }else{
+                LabLev[i]   ->setVisible(false);
+                LabBAB[i]   ->setVisible(false);
+                LabFort[i]  ->setVisible(false);
+                LabRef[i]   ->setVisible(false);
+                LabWill[i]  ->setVisible(false);
+                for (int j = 0; j < 10; ++j)
+                    LabSpells[10*i+j]->setVisible(false);
+            }
         }
     }
     //LabName ->setText(selected->myName());
