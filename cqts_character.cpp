@@ -373,7 +373,7 @@ charBio CQTs_Character::getBio(){return bio;}
 int CQTs_Character::getLV(){return LV;}
 int CQTs_Character::getLV(QString classCode){
     int cl = 0;
-    for (int i = 0; i < levelHistory; ++i) {
+    for (int i = 0; i < levelHistory.size(); ++i) {
         if((levelHistory.at(i).thisLVclass)==classCode)
             cl++;
     }

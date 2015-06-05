@@ -149,16 +149,23 @@ void choseAbilities::UpdatePoints(){
 }
 
 /*class*/
-choseClass::choseClass(CQTs_engine *eng, QWidget *parent)
+choseClass::choseClass(CQTs_engine *eng, CQTs_Character *character, QWidget *parent)
     : QWizardPage(parent)
 {
     engine = eng;
-    setTitle(tr("Set first class"));
+    changingChar = character;
     QStringList listclass = engine->classNames();
     QGridLayout *grid = new QGridLayout();
     comboClass = new QComboBox();
     comboClass->addItems(listclass);
-    QLabel *TLab = new QLabel(tr("Choose your first class:"));
+    QLabel *TLab;
+    if(changingChar==NULL){
+        TLab = new QLabel(tr("Choose your first class:"));
+        setTitle(tr("Set first class"));
+    }else{
+        TLab = new QLabel(tr("Choose your next class level:"));
+        setTitle(tr("Set next class"));
+    }
     TLab->setWordWrap(true);
     grid->addWidget(TLab,0,0);
     grid->addWidget(comboClass,0,1);
@@ -178,7 +185,10 @@ choseClass::choseClass(CQTs_engine *eng, QWidget *parent)
 
 void choseClass::selClass(int selected){
     CQTs_Class classSel = engine->classData(selected);
-    viewer->setLabs(&classSel,5);
+    if(changingChar==NULL)
+        viewer->setLabs(&classSel,5);
+    else
+        viewer->setLabs(&classSel,changingChar->getLV((QString)classSel)+1);
 }
 
 /*skills*/

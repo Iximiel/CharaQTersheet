@@ -34,6 +34,7 @@ private:
     CQTs_engine *engine;
     QLabel *LabelPoints;
     QSpinBox **SpinAbilities;
+    bool newChar;
     int nudeAbilities[6];
 private slots:
     void UpdatePoints();
@@ -43,11 +44,12 @@ class choseClass : public QWizardPage
 {
     Q_OBJECT
 public:
-    explicit choseClass(CQTs_engine* eng, QWidget *parent = 0);
+    explicit choseClass(CQTs_engine* eng, CQTs_Character *character=NULL, QWidget *parent = 0);
 private:
     CQTs_engine *engine;
     QComboBox *comboClass;
     CQTs_ClassViewer *viewer;
+    CQTs_Character *changingChar;
 public slots:
     void selClass(int selected);
 };
