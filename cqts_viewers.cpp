@@ -144,7 +144,7 @@ void CQTs_ClassViewer::setLabs(CQTs_Class *selected, int altMax){
         lmax = altMax;
     if(LMax!=lmax){
         LMax = lmax;
-        for(int i=0;i<lmax;++i){
+        for(int i=0;i<20;++i){
             if(i<LMax){
                 LabLev[i]   ->setVisible(true);
                 LabBAB[i]   ->setVisible(true);
