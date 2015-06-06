@@ -418,6 +418,15 @@ int CQTs_Character::getRanks(QString code){
     }
     return (int)toreturn;
 }
+int CQTs_Character::getRanksNotScaled(QString code){
+    double toreturn = 0;//double for cross class skills
+    for (int i = 0; i < levelHistory.size(); ++i) {
+        if(levelHistory[i].skillRanks.contains(code)){
+            toreturn += levelHistory[i].skillRanks[code];
+        }
+    }
+    return (int)toreturn;
+}
 
 
 int CQTs_Character::getRanks(){

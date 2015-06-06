@@ -28,7 +28,7 @@ CQTs_CharacterCreator::CQTs_CharacterCreator(CQTs_engine *eng, QWidget *parent)
 CQTs_CharacterCreator::CQTs_CharacterCreator(CQTs_engine *eng, CQTs_Character *character, QWidget *parent)
     : QWizard(parent)
 {
-    mychar == character;
+    mychar = character;
     engine = eng;
     setWindowTitle(tr("Adding a level"));
     choseClass *pageclass = new choseClass(engine, mychar);
@@ -41,11 +41,7 @@ CQTs_CharacterCreator::CQTs_CharacterCreator(CQTs_engine *eng, CQTs_Character *c
 }
 
 void CQTs_CharacterCreator::accept(){
-    charBio newBio;
-    newBio.Name = field("myName").toString();
-    newBio.Surname = field("mySurname").toString();
-    newBio.age = field("myAge").toInt();
-    newBio.Race = engine->raceData(field("myRace").toInt());
+
     int theclass = field("myClass").toInt();
     QString ClassCode = engine->classData(theclass);
     QMap<QString,int> skillRanks;
@@ -53,20 +49,35 @@ void CQTs_CharacterCreator::accept(){
     for (int i = 0; i < 6; ++i) {
         QString fieldName = "myAbility" + QString::number(i);
         Abilities[i] = field(fieldName).toInt();
+        if(mychar!=NULL)//if new level take modifications
+            Abilities[i] -= mychar->getAbility(i);
     }
 
     for(int i=0;i< engine->skillNum();i++){
         QString fieldName = "mySkillN" + QString::number(i);
         int ranks = field(fieldName).toInt();
+        if(mychar!=NULL)
+            ranks-= mychar->getRanksNotScaled((QString)engine->skillData(i));
         if(ranks>0)
             skillRanks.insert(engine->skillData(i),ranks);
     }
-    CQTs_Character *newChar = new CQTs_Character();
-    newChar->setEngine(engine);
-    newChar->setBio(newBio);
-    newChar->addLevel(ClassCode,skillRanks,Abilities);
+
     //qDebug() << theclass;//dummy
-    emit newCharacter(newChar);
+    if(mychar==NULL){
+        charBio newBio;
+        newBio.Name = field("myName").toString();
+        newBio.Surname = field("mySurname").toString();
+        newBio.age = field("myAge").toInt();
+        newBio.Race = engine->raceData(field("myRace").toInt());
+        CQTs_Character *newChar = new CQTs_Character();
+        newChar->setEngine(engine);
+        newChar->setBio(newBio);
+        newChar->addLevel(ClassCode,skillRanks,Abilities);
+        emit newCharacter(newChar);
+    }else{
+        mychar->addLevel(ClassCode,skillRanks,Abilities);
+    }
+
     QDialog::accept();
 }
 
@@ -228,7 +239,9 @@ choseSkills::choseSkills(CQTs_engine* eng, CQTs_Character *character, QWidget *p
             spinSkills[i]->setMaximum(4);
             labelResult[i]->setNum(0);
         }else{
-            spinSkills[i]->setMaximum(3+myCharacter->getLV());
+            spinSkills[i]->setMaximum(4+myCharacter->getLV());//3+LV+1!
+            spinSkills[i]->setMinimum(myCharacter->getRanksNotScaled((QString)engine->skillData(i)));
+            spinSkills[i]->setValue(myCharacter->getRanksNotScaled((QString)engine->skillData(i)));
             labelResult[i]->setNum(myCharacter->getRanks((QString)engine->skillData(i)));
         }
         connect(spinSkills[i],SIGNAL(valueChanged(int)),this,SLOT(calcRanks()));

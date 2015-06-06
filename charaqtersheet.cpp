@@ -56,6 +56,8 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     QMenu *menuEdits = mainMenu->addMenu(tr("&Edit"));
     tAct = menuEdits->addAction(tr("&Create new Character"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(newCharacter()));
+    tAct = menuEdits->addAction(tr("&Add a new Level"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(newLevel()));
     /*
     tAct = menuEdits ->addAction(tr("&BAB"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(editBAB()));
@@ -226,6 +228,15 @@ void CharaQTersheet::newCharacter(){
         CharCreator->show();
         connect(CharCreator,SIGNAL(newCharacter(CQTs_Character*)),this,SLOT(getnewCharacter(CQTs_Character*)));
         break;
+    }
+}
+
+void CharaQTersheet::newLevel(){
+    if(character==NULL)
+        QMessageBox::information(0,QString(tr("No Character")),QString(tr("You don't have a active character")));
+    else{
+        CQTs_CharacterCreator *CharCreator = new CQTs_CharacterCreator(engine,character);
+        CharCreator->show();
     }
 }
 
