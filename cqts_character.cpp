@@ -419,6 +419,19 @@ int CQTs_Character::getRanks(QString code){
     return (int)toreturn;
 }
 
+
+int CQTs_Character::getRanks(){
+    int toreturn = 0;
+    for (int i = 0; i < levelHistory.size(); ++i) {
+        QMap<QString, int>::iterator j = levelHistory[i].skillRanks.begin();
+        while(j!=levelHistory[i].skillRanks.end()){
+            toreturn += j.value();
+            j++;
+        }
+    }
+    return toreturn;
+}
+
 void CQTs_Character::setName(QString newName){bio.Name = newName;}
 void CQTs_Character::setSurname(QString newSurname){bio.Name = newSurname;}
 void CQTs_Character::setAge(int newAge){bio.Name = newAge;}

@@ -196,6 +196,7 @@ choseSkills::choseSkills(CQTs_engine* eng, CQTs_Character *character, QWidget *p
     : QWizardPage(parent)
 {
     engine = eng;
+    myCharacter = character;
     setTitle(tr("Set your skillponts"));
 
     QWidget *container = new QWidget();
@@ -215,15 +216,21 @@ choseSkills::choseSkills(CQTs_engine* eng, CQTs_Character *character, QWidget *p
     secgrid->addWidget(new QLabel(tr("Ranks:")),r,2);
     for(int i=0 ; i < engine->skillNum() ; i++){
         int c = 0;
+        //initializing
         spinSkills[i] = new QSpinBox();
-        spinSkills[i]->setMaximum(4);
         secgrid->addWidget(new QLabel(engine->skillData(i).myName()),++r,c++);
         secgrid->addWidget(spinSkills[i],r,c++);
         secgrid->addWidget(labelResult[i] = new QLabel(),r,c++);
-        labelResult[i]->setNum(0);
         labelResult[i]->setAlignment(Qt::AlignHCenter);
         QString fieldName = "mySkillN" + QString::number(i);
         registerField(fieldName,spinSkills[i]);
+        if(myCharacter==NULL){//setting up calcs
+            spinSkills[i]->setMaximum(4);
+            labelResult[i]->setNum(0);
+        }else{
+            spinSkills[i]->setMaximum(3+myCharacter->getLV());
+            labelResult[i]->setNum(myCharacter->getRanks((QString)engine->skillData(i)));
+        }
         connect(spinSkills[i],SIGNAL(valueChanged(int)),this,SLOT(calcRanks()));
     }
     setLayout(maingrid);
@@ -235,23 +242,32 @@ choseSkills::choseSkills(CQTs_engine* eng, CQTs_Character *character, QWidget *p
 void choseSkills::initializePage(){
     int theclass = field("myClass").toInt();
     CQTs_Class tempclass = engine->classData(theclass);
-    int therace = field("myRace").toInt();
-    CQTs_Race temprace = engine->raceData(therace);
+
     int mod = 0;
     mod += (field("myAbility3").toInt()-10)/2.;//get int mod
-    mod += temprace.SkillPointBonus();//adding skillbonus
-    maxranks = (tempclass.AP()+mod)*4;
-    int spent = 0;
+    int spent =0;
+    if(myCharacter==NULL){
+        int therace = field("myRace").toInt();
+        CQTs_Race temprace = engine->raceData(therace);
+        mod += temprace.SkillPointBonus();//adding skillbonus
+        maxranks = (tempclass.AP()+mod)*4;
+    }else{
+        CQTs_Race temprace = engine->raceData(myCharacter->Race());
+        mod += temprace.SkillPointBonus();//adding skillbonus
+        spent = myCharacter->getRanks();//skill ranks already on character
+        maxranks = (tempclass.AP()+mod)+spent;
+    }
+
     for(int i=0 ; i < engine->skillNum() ; i++){
         QPalette myPalette =palette();
         if(tempclass.isClassSkill(engine->skillData(i)))
             myPalette.setColor(QPalette::Base, myPalette.color(QPalette::Background).darker(120));
         spinSkills[i]->setPalette(myPalette);
-        spent+=spinSkills[i]->value();
     }
+    if(myCharacter!=NULL)
+        calcRanks();
     labelSpent->setText(tr("Point spent:")
                         + QString::number(spent) + "/" + QString::number(maxranks));
-
 }
 
 bool choseSkills::isComplete() const{
@@ -267,11 +283,16 @@ void choseSkills::calcRanks(){
     int spent = 0;
     for(int i=0 ; i < engine->skillNum() ; i++){
         int val = spinSkills[i]->value();
-        if(tempclass.isClassSkill(engine->skillData(i)))
-            labelResult[i]->setNum(val);
-        else
-            labelResult[i]->setNum(val/2.);
+        int oldval = 0;
         spent+=val;
+        if(myCharacter!=NULL){
+            val-=myCharacter->getRanksNotScaled((QString)engine->skillData(i));
+            myCharacter->getRanks((QString)engine->skillData(i));
+        }
+        if(tempclass.isClassSkill(engine->skillData(i)))
+            labelResult[i]->setNum(val+oldval);
+        else
+            labelResult[i]->setNum(oldval+val/2.);
     }
     labelSpent->setText(tr("Point spent:")
                         + QString::number(spent) + "/" + QString::number(maxranks));

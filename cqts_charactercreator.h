@@ -67,6 +67,7 @@ private:
     CQTs_engine *engine;
     QSpinBox **spinSkills;
     QLabel **labelResult,*labelSpent;
+    CQTs_Character *myCharacter;
 public slots:
     void calcRanks();
 };

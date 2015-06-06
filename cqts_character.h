@@ -67,6 +67,7 @@ public:
     void setAbilitiesMod(int lv, int newAbilitiesM[6]);
     //skills
     int getRanks(QString code);
+    int getRanks();//plot all ranks spent
     void setRanks(int lv, QString code, int newRanks);
     void setRanks(int lv, QMap<QString,int> newSkillRanks);
     void setEngine(CQTs_engine* eng);
