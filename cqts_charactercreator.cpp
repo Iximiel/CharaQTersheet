@@ -76,6 +76,7 @@ void CQTs_CharacterCreator::accept(){
         emit newCharacter(newChar);
     }else{
         mychar->addLevel(ClassCode,skillRanks,Abilities);
+        emit newLevel();
     }
 
     QDialog::accept();

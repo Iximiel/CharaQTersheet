@@ -81,6 +81,7 @@ public:
     void accept();
 signals:
     void newCharacter(CQTs_Character *newChar);
+    void newLevel();
 private:
     CQTs_engine *engine;
     CQTs_Character *mychar;

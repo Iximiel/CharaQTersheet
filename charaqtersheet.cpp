@@ -236,6 +236,7 @@ void CharaQTersheet::newLevel(){
         QMessageBox::information(0,QString(tr("No Character")),QString(tr("You don't have a active character")));
     else{
         CQTs_CharacterCreator *CharCreator = new CQTs_CharacterCreator(engine,character);
+        connect(CharCreator,SIGNAL(newLevel()),this,SLOT(updateLabs()));
         CharCreator->show();
     }
 }
