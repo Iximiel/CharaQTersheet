@@ -237,7 +237,7 @@ void CQTs_Character::saveToFile(QString filename){
             if(!levelHistory.empty()){
                 xml.writeStartElement("progression");//opening progression
                 for(int i=0;i<levelHistory.size();i++){
-                    xml.writeStartElement("lv");
+                    xml.writeStartElement("lv");//opening level
                     xml.writeAttribute("n",QString::number(i+1));
                     xml.writeAttribute("class",levelHistory[i].thisLVclass);
                     bool writtenAbilities=false;
@@ -246,7 +246,7 @@ void CQTs_Character::saveToFile(QString filename){
                         if(levelHistory[i].AbilitiyCNGs[j]!=0){
                             if(!writtenAbilities){
                                 writtenAbilities = true;
-                                xml.writeStartElement("abilities");//openig abilities if neede
+                                xml.writeStartElement("abilities");//openig abilities if needed
                             }
                             xml.writeStartElement("ability");//opening ability
                             xml.writeAttribute("which",names[j]);
@@ -265,6 +265,7 @@ void CQTs_Character::saveToFile(QString filename){
                         xml.writeEndElement();//skill
                     }
                     xml.writeEndElement();//skills
+                    xml.writeEndElement();//level
                 }
                 xml.writeEndElement();//progression
             }
