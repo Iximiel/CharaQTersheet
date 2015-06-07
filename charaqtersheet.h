@@ -27,6 +27,7 @@ public slots:
     void addDockSaves();
     void addDockSkills();
     void updateLabs();
+    void DM_Mode();
     //character
     void loadChar();
     void saveChar();

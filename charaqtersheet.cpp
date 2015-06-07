@@ -3,6 +3,8 @@
 #include <QDockWidget>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QKeySequence>
+#include <QShortcut>
 
 #include "cqts_editor.h"
 #include "cqts_character.h"
@@ -70,7 +72,10 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     /*tAct = menuEdits ->addAction(tr("&Skills"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(editSkills()));*/
 
-    //menu DM
+    //menu DM(
+    QShortcut *shortDM = new QShortcut(QKeySequence(tr("Ctrl+D, Ctrl+M")),this);//active the dm menu
+    connect(shortDM,SIGNAL(activated()),this,SLOT(DM_Mode()));
+/* adding this ti DMMode
     QMenu *menuDM = mainMenu->addMenu(tr("&DM"));
     tAct = menuDM ->addAction(tr("&Launch Class Creator"));
     connect(tAct,SIGNAL(triggered()),this,SLOT(launchClassCreator()));
@@ -85,7 +90,7 @@ CharaQTersheet::CharaQTersheet(QWidget *parent)
     tAct = menuDM ->addAction(tr("&Export skills"));
     tAct->setEnabled(false);
     //connect(tAct,SIGNAL(triggered()),this,SLOT(exportClasses()));
-
+*/
     //addDockClass(Qt::LeftDockWidgetArea);
     addDockBio();
     addDockAbilities();
@@ -167,6 +172,24 @@ void CharaQTersheet::updateLabs(){
         viewerSkills->setLabs(character);
         viewerBAB->setLabs(character);
     }
+}
+
+void CharaQTersheet::DM_Mode(){
+
+    QMenu *menuDM = menuBar()->addMenu(tr("&DM"));
+    QAction *tAct = menuDM ->addAction(tr("&Launch Class Creator"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(launchClassCreator()));
+    tAct = menuDM ->addAction(tr("&Export classes"));
+    connect(tAct,SIGNAL(triggered()),this,SLOT(exportClasses()));
+
+    menuDM->addSeparator();
+
+    tAct = menuDM ->addAction(tr("&Launch Skill Creator"));
+    tAct->setEnabled(false);
+    //connect(tAct,SIGNAL(triggered()),this,SLOT(launchClassCreator()));
+    tAct = menuDM ->addAction(tr("&Export skills"));
+    tAct->setEnabled(false);
+    //connect(tAct,SIGNAL(triggered()),this,SLOT(exportClasses()));
 }
 
 void CharaQTersheet::loadChar(){
