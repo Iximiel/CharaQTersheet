@@ -284,7 +284,8 @@ CQTs_ChAbilitiesViewer::CQTs_ChAbilitiesViewer(CQTs_Character *selected, QWidget
 void CQTs_ChAbilitiesViewer::initialize(){
 
     LabName =   new QLabel* [6];
-    LabValue =  new QLabel* [12];
+    LabValue =  new QLabel* [6];
+    SpinTValue =new QSpinBox* [6];
     LabMod =    new QLabel* [12];
 
     QString names[6]={tr("Strength"),tr("Dexterity"),tr("Constitution"),tr("Intelligence"),tr("Wisdom"),tr("Charisma")};
@@ -304,9 +305,12 @@ void CQTs_ChAbilitiesViewer::initialize(){
         LabMod[i]->setFrameStyle(QFrame::Panel|QFrame::Sunken);
         LabMod[i]->setAlignment(Qt::AlignCenter);
 
-        grid->addWidget(LabValue[i+6] = new QLabel("10"),i+1,3);
-        LabValue[i+6]->setFrameStyle(QFrame::WinPanel|QFrame::Raised);
-        LabValue[i+6]->setAlignment(Qt::AlignCenter);
+        SpinTValue[i] =  new QSpinBox();
+        SpinTValue[i]->setValue(10);
+        grid->addWidget(SpinTValue[i],i+1,3);
+        connect(SpinTValue[i],SIGNAL(valueChanged(int)),this,SLOT(calcLabs()));
+        /*LabValue[i+6]->setFrameStyle(QFrame::WinPanel|QFrame::Raised);
+        LabValue[i+6]->setAlignment(Qt::AlignCenter);*/
 
         grid->addWidget(LabMod[i+6] = new QLabel("+0"),i+1,4);
         LabMod[i+6]->setFrameStyle(QFrame::WinPanel|QFrame::Sunken);
@@ -316,7 +320,7 @@ void CQTs_ChAbilitiesViewer::initialize(){
             LabName[i]->setPalette(pal);
             LabValue[i]->setPalette(pal);
             LabMod[i]->setPalette(pal);
-            LabValue[i+6]->setPalette(pal);
+            //LabValue[i+6]->setPalette(pal);
             LabMod[i+6]->setPalette(pal);
         }
         darker = !darker;
@@ -326,21 +330,33 @@ void CQTs_ChAbilitiesViewer::initialize(){
     setLayout(grid);
 }
 
-void CQTs_ChAbilitiesViewer::setLab(int sel, int val, bool temporary){
-    LabValue[sel+6*temporary]->setNum(val);
+void CQTs_ChAbilitiesViewer::setLab(int sel, int val){
+    LabValue[sel]->setNum(val);
+    SpinTValue[sel]->setValue(val);
 
     val= (val-10)/2.;
-    if(val>0)
-        LabMod[sel+temporary*6]->setText("+"+QString::number(val));
+    if(val>=0)
+        LabMod[sel]->setText("+"+QString::number(val));
     else
-        LabMod[sel+temporary*6]->setNum(val);
+        LabMod[sel]->setNum(val);
+    calcLabs();
 }
 
 void CQTs_ChAbilitiesViewer::setLabs(CQTs_Character *selected){
     for (int i = 0; i < 6; ++i){
         int val = selected->getAbility( i);
-        setLab(i,val,false);
-        setLab(i,val,true);
+        setLab(i,val);
+    }
+}
+
+void CQTs_ChAbilitiesViewer::calcLabs(){
+    for (int i = 0; i < 6; ++i) {
+        int val = SpinTValue[i]->value();
+        val= (val-10)/2.;
+        if(val>=0)
+            LabMod[i+6]->setText("+"+QString::number(val));
+        else
+            LabMod[i+6]->setNum(val);
     }
 }
 

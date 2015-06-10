@@ -49,12 +49,14 @@ public:
     explicit CQTs_ChAbilitiesViewer(CQTs_Character *selected, QWidget *parent = 0);
 private:
     QLabel **LabName, **LabValue, **LabMod;
+    QSpinBox **SpinTValue;
     void initialize();
 signals:
 
 public slots:
    void setLabs(CQTs_Character *selected);
-   void setLab(int sel, int val, bool temporary = false);
+   void calcLabs();
+   void setLab(int sel, int val);
 };
 
 class CQTs_ChSkillsViewer : public QWidget
