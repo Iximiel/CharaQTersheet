@@ -422,7 +422,7 @@ int CQTs_Character::getRanks(QString code){
 }
 
 int CQTs_Character::getSynergies(QString code){
-
+    return 0;//placeholder
 }
 
 int CQTs_Character::getRanksNotScaled(QString code){

@@ -90,6 +90,15 @@ bool CQTs_skill::needsTrain()
 int CQTs_skill::myAbility()
 {return ability;}
 
+QStringList* CQTs_skill::getSynergies(){
+    QStringList* toreturn;
+    for(int i = 0; i< synergies->size();i++){
+        if(descSyn->at(i) == "")
+            toreturn->push_back(synergies->at(i));
+    }
+    return toreturn;
+}
+
 void CQTs_skill::add_Synergy(QString code, QString description){
     if(synergies==NULL)
         synergies = new QStringList();

@@ -33,6 +33,8 @@ public:
     void setAbility(int);
     int myAbility();
     bool needsTrain();
+    QStringList* getSynergies();//get a list of the synergies that apply always this list should be deleted after been used
+    //QStringList* getSynergies_circumstantial();
     void add_Synergy(QString code, QString description="");//it undertand if is cyrcumstantial or notby himself
 private:
     QStringList* synergies;
