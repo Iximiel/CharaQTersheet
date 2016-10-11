@@ -406,6 +406,7 @@ int CQTs_Character::getAbility(int sel){return Abilities[sel];}
 int CQTs_Character::getAbilityMod(CQT_Abilities sel){return (Abilities[sel]-10)/2.;}
 int CQTs_Character::getAbilityMod(int sel){return (Abilities[sel]-10)/2.;}
 int* CQTs_Character::getAbilities(){return Abilities;}
+
 int CQTs_Character::getRanks(QString code){
     double toreturn = 0;//double for cross class skills
     for (int i = 0; i < levelHistory.size(); ++i) {
@@ -419,6 +420,11 @@ int CQTs_Character::getRanks(QString code){
     }
     return (int)toreturn;
 }
+
+int CQTs_Character::getSynergies(QString code){
+
+}
+
 int CQTs_Character::getRanksNotScaled(QString code){
     double toreturn = 0;//double for cross class skills
     for (int i = 0; i < levelHistory.size(); ++i) {
@@ -428,7 +434,6 @@ int CQTs_Character::getRanksNotScaled(QString code){
     }
     return (int)toreturn;
 }
-
 
 int CQTs_Character::getRanks(){
     int toreturn = 0;

@@ -13,7 +13,10 @@ public:
     //skills manipulation
     int skillNum();
     int getSkillNum(QString code);
+    CQTs_skill skillData(QString code);
     CQTs_skill skillData(int i);
+    //synergies manipulation
+    int rule_for_synergies(int ranks);
     //races manipulation
     int raceNum();
     CQTs_Race raceData(int i);

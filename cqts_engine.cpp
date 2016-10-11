@@ -170,17 +170,30 @@ void CQTs_engine::loadSkillNames(QString filename){
 int CQTs_engine::skillNum(){return Skills.size();}
 
 int CQTs_engine::getSkillNum(QString code){
-    int toreturn = -1;
+    /*int toreturn = -1;
     if(Skills.contains(code)){
         for(int i =0;toreturn<0;i++){
             if(Skills.at(i) == code)//at() is faster than []
                 toreturn = i;
         }
     }
+    return toreturn;*/
+    return Skills.indexOf(code);
+}
+
+int CQTs_engine::rule_for_synergies(int ranks){
+    //need to define a way to set synergies, different from the standard one
+    int toreturn = 0;
+    while(ranks >=5 ){
+        toreturn+=2;
+        ranks-=20;
+    }
     return toreturn;
 }
 
+CQTs_skill CQTs_engine::skillData(QString code){return Skills[getSkillNum(code)];}
 CQTs_skill CQTs_engine::skillData(int i){return Skills[i];}
+
 //race manipulation
 int CQTs_engine::raceNum(){return Races.size();}
 CQTs_Race CQTs_engine::raceData(int i){return Races[i];}
