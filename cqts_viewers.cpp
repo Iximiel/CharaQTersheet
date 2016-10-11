@@ -468,6 +468,7 @@ void CQTs_ChSkillsViewer::setLabs(CQTs_Character *selected){
         //[i*8+5] ranks
         //[i*8+7] var mods
         syn  = selected->getSynergies(eng->skillData(i));
+        Labels[i*8+7]->setNum(syn);
         tot+=syn;
         ranks = selected->getRanks(eng->skillData(i));
         Labels[i*8+5]->setNum(ranks);

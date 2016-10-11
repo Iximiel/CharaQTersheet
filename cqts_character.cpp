@@ -425,7 +425,7 @@ int CQTs_Character::getSynergies(QString code){
     QStringList *synlist = engine->skillData(code).getSynergies();
     int syn = 0;
     for(int i= 0; i <synlist->size();i++){
-        if(getRanks(synlist->at(i))>5)
+        if(getRanks(synlist->at(i))>=5)
             syn+=2;
     }
     delete synlist;
