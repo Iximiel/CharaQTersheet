@@ -429,7 +429,7 @@ int CQTs_Character::getSynergies(QString code){
             syn+=2;
     }
     delete synlist;
-    return syn;//placeholder
+    return syn;
 }
 
 int CQTs_Character::getRanksNotScaled(QString code){

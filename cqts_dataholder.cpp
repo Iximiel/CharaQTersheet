@@ -91,12 +91,14 @@ int CQTs_skill::myAbility()
 {return ability;}
 
 QStringList* CQTs_skill::getSynergies(){
-    QStringList* toreturn;
-    for(int i = 0; i< synergies->size();i++){
-        if(descSyn->at(i) == "")
-            toreturn->push_back(synergies->at(i));
+    QStringList* toreturn = new QStringList();
+    if(synergies!=NULL){
+        for(int i = 0; i< synergies->size();i++){
+            if(descSyn->at(i) == "")
+                toreturn->push_back(synergies->at(i));
+        }
     }
-    return toreturn;
+    return toreturn;//remember to delete after reading!
 }
 
 void CQTs_skill::add_Synergy(QString code, QString description){
