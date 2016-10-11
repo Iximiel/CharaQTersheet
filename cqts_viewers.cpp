@@ -462,12 +462,14 @@ void CQTs_ChSkillsViewer::showOnlyTrained(){
 
 void CQTs_ChSkillsViewer::setLabs(CQTs_Character *selected){
     for (int i = 0; i < eng->skillNum(); ++i) {
-        int tot=0, ranks, abl;
+        int tot=0, ranks, abl, syn;
         //[i*8+1] d20
         //[i*8+3] abl mod
         //[i*8+5] ranks
         //[i*8+7] var mods
-        ranks=selected->getRanks(eng->skillData(i));
+        syn  = selected->getSynergies(eng->skillData(i));
+        tot+=syn;
+        ranks = selected->getRanks(eng->skillData(i));
         Labels[i*8+5]->setNum(ranks);
         tot+=ranks;
         //if( dummy !=0 ) qDebug() << eng->skillData(i) <<": "<< dummy;
