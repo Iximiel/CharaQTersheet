@@ -123,10 +123,13 @@ void CQTs_engine::loadSkills(QString filename){
         while(!xml.atEnd()){
             if(xml.name()=="skill"&&xml.isStartElement()){
                 CQTs_skill tSkill(xml);
+                if(!Skills.contains(tSkill))
+                    Skills.append(tSkill);//if a skill is not already in the list eliminate it
+                /* old version: adding a new skill in case of a double
                 while(Skills.contains(tSkill)){
                     tSkill.append("*");
                 }
-                Skills.append(tSkill);
+                Skills.append(tSkill);*/
             }
             if (xml.hasError()){
                 xmlHasError(xml,filename);
