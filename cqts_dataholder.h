@@ -40,6 +40,8 @@ private:
     QStringList* synergies;
     QStringList* descSyn;
     int ability;//armor;
+    //bool personal;//this indicates that this skill has to be exported with the character
+    //for example a knowledge or a perform skill
     bool trainedOnly;
 };
 
