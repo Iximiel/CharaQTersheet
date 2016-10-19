@@ -88,7 +88,7 @@ public:
     void writeDatatoXml(QXmlStreamWriter &xml);
     CQTs_Class& operator=(CQTs_Class);
 private:
-    enum{fort=2,ref=3,will=4};
+    enum TS{fort=2,ref=3,will=4};
     int Ranks, DV;
     int lmax;//20,10,5,3 so he can understand if is baseclass or not//may be made compatible with d20System in general
     bool info[5];//01:BAB 2:F 3:R 4:W
